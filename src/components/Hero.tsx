@@ -60,7 +60,7 @@ export const Hero: React.FC = () => {
     if (isRevealed || isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
-    // Slower, ultra-smooth 3.8s flight progression
+    // Slower, ultra-smooth, majestic 3.8s flight progression
     animate(progress, 1, {
       duration: reducedMotion ? 0.3 : 3.8,
       ease: [0.22, 1, 0.36, 1],
@@ -151,11 +151,11 @@ export const Hero: React.FC = () => {
     });
   };
 
-  // Ultra-Smooth Dynamic Blur & Clarity Transforms
-  const blurAmount = useTransform(progress, [0.25, 0.95], [20, 0]);
+  // Optimized Dynamic Blur & Clarity Transforms
+  const blurAmount = useTransform(progress, [0.25, 0.95], [16, 0]);
   const heroFilter = useTransform(
     blurAmount,
-    (b) => (reducedMotion ? 'none' : `blur(${b}px)`)
+    (b) => (reducedMotion || b < 0.2 ? 'none' : `blur(${b.toFixed(1)}px)`)
   );
   const heroBrightness = useTransform(progress, [0.25, 0.95], [0.6, 1]);
   const heroScale = useTransform(progress, [0.25, 0.95], [0.98, 1]);
@@ -219,7 +219,7 @@ export const Hero: React.FC = () => {
             }
         }
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-radial from-[#00E6D2]/15 via-[#00FFE5]/5 to-transparent blur-[120px] rounded-full pointer-events-none -z-0 transform-gpu will-change-transform"
+        className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-radial from-[#00E6D2]/15 via-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu will-change-transform"
       />
       <motion.div
         animate={
@@ -231,7 +231,7 @@ export const Hero: React.FC = () => {
             }
         }
         transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute top-10 left-10 w-[350px] h-[350px] bg-radial from-[#00FFE5]/5 to-transparent blur-[100px] rounded-full pointer-events-none -z-0 transform-gpu will-change-transform"
+        className="absolute top-10 left-10 w-[350px] h-[350px] bg-radial from-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu will-change-transform"
       />
 
       {/* Hero Content Container with dynamic blur, brightness, and scale */}
@@ -346,10 +346,12 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* Dimmed backdrop-blur overlay that dissolves on reveal */}
-      <motion.div
-        style={{ opacity: overlayOpacity }}
-        className="absolute inset-0 bg-[#050505]/45 backdrop-blur-sm pointer-events-none z-20"
-      />
+      {!isRevealed && (
+        <motion.div
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-[#050505]/45 backdrop-blur-sm pointer-events-none z-20"
+        />
+      )}
 
       {/* 3D Flapping Wing Logo & Scroll Down prompt overlay */}
       <FlappingScrollLogo

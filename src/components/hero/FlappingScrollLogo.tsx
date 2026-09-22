@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, MotionValue, useTransform } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import logoImg from '../../assets/logo.png';
@@ -16,43 +16,6 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
   isRevealed,
   reducedMotion = false,
 }) => {
-  const [leftWingSrc, setLeftWingSrc] = useState<string | null>(null);
-  const [rightWingSrc, setRightWingSrc] = useState<string | null>(null);
-
-  // High-fidelity lossless canvas split: retains full 1024x1024 source fidelity
-  useEffect(() => {
-    const img = new Image();
-    img.src = logoImg;
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      const halfW = Math.floor(img.naturalWidth / 2);
-      const h = img.naturalHeight;
-
-      // Left wing canvas (lossless PNG)
-      const canvasL = document.createElement('canvas');
-      canvasL.width = halfW;
-      canvasL.height = h;
-      const ctxL = canvasL.getContext('2d');
-      if (ctxL) {
-        ctxL.imageSmoothingEnabled = true;
-        ctxL.imageSmoothingQuality = 'high';
-        ctxL.drawImage(img, 0, 0, halfW, h, 0, 0, halfW, h);
-        setLeftWingSrc(canvasL.toDataURL('image/png'));
-      }
-
-      // Right wing canvas (lossless PNG)
-      const canvasR = document.createElement('canvas');
-      canvasR.width = halfW;
-      canvasR.height = h;
-      const ctxR = canvasR.getContext('2d');
-      if (ctxR) {
-        ctxR.imageSmoothingEnabled = true;
-        ctxR.imageSmoothingQuality = 'high';
-        ctxR.drawImage(img, halfW, 0, halfW, h, 0, 0, halfW, h);
-        setRightWingSrc(canvasR.toDataURL('image/png'));
-      }
-    };
-  }, []);
 
   // Vertical ascension: starts more downward, glides much higher upward into upper screen
   const logoY = useTransform(
@@ -138,20 +101,7 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
     [0, -8, 15, -7, 12, -4, 4, 0]
   );
 
-  // Reduced, elegant cyan drop shadow and natural brightness
-  const wingFilter = useTransform(
-    progress,
-    [0, 0.28, 0.44, 0.60, 0.74, 0.88, 1.0],
-    [
-      'drop-shadow(0 0 6px rgba(0, 230, 210, 0.30)) brightness(1.0)',
-      'drop-shadow(0 0 14px rgba(0, 255, 229, 0.42)) brightness(1.06)',
-      'drop-shadow(0 0 8px rgba(0, 230, 210, 0.30)) brightness(1.02)',
-      'drop-shadow(0 0 16px rgba(0, 255, 229, 0.44)) brightness(1.07)',
-      'drop-shadow(0 0 18px rgba(0, 255, 229, 0.46)) brightness(1.08)',
-      'drop-shadow(0 0 10px rgba(0, 255, 229, 0.30)) brightness(1.03)',
-      'drop-shadow(0 0 0px rgba(0, 255, 229, 0)) brightness(1.0)'
-    ]
-  );
+
 
   if (isRevealed) {
     return null;
@@ -222,60 +172,57 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
             />
 
             {/* 3D Flapping Wings System with 1200px perspective */}
-            <motion.div
+            <div
               style={{
-                filter: wingFilter,
                 perspective: '1200px',
                 transformStyle: 'preserve-3d',
               }}
-              className="relative w-full h-full flex items-center justify-center"
+              className="relative w-full h-full flex items-center justify-center pointer-events-none"
             >
-              {leftWingSrc && rightWingSrc ? (
-                <div className="relative w-full h-full flex items-center justify-center">
-                  {/* Left Wing (Hinged at right center) */}
-                  <motion.img
-                    src={leftWingSrc}
+              <div className="relative w-full h-full flex items-center justify-center">
+                {/* Left Wing (Hinged at right center) */}
+                <motion.div
+                  style={{
+                    transformOrigin: 'right center',
+                    rotateY: reducedMotion ? 0 : leftWingRotateY,
+                    rotateZ: reducedMotion ? 0 : leftWingRotateZ,
+                    rotateX: reducedMotion ? 0 : leftWingRotateX,
+                    transformStyle: 'preserve-3d',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
+                  }}
+                  className="w-1/2 h-full overflow-hidden relative pointer-events-none will-change-transform drop-shadow-[0_0_12px_rgba(0,255,229,0.35)]"
+                >
+                  <img
+                    src={logoImg}
                     alt="Left Wing"
-                    style={{
-                      transformOrigin: 'right center',
-                      rotateY: reducedMotion ? 0 : leftWingRotateY,
-                      rotateZ: reducedMotion ? 0 : leftWingRotateZ,
-                      rotateX: reducedMotion ? 0 : leftWingRotateX,
-                      transformStyle: 'preserve-3d',
-                      WebkitBackfaceVisibility: 'hidden',
-                      backfaceVisibility: 'hidden',
-                    }}
-                    className="w-1/2 h-full object-contain pointer-events-none will-change-transform"
+                    className="absolute left-0 top-0 w-[200%] h-full max-w-none object-contain pointer-events-none"
                     draggable={false}
                   />
+                </motion.div>
 
-                  {/* Right Wing (Hinged at left center) */}
-                  <motion.img
-                    src={rightWingSrc}
+                {/* Right Wing (Hinged at left center) */}
+                <motion.div
+                  style={{
+                    transformOrigin: 'left center',
+                    rotateY: reducedMotion ? 0 : rightWingRotateY,
+                    rotateZ: reducedMotion ? 0 : rightWingRotateZ,
+                    rotateX: reducedMotion ? 0 : rightWingRotateX,
+                    transformStyle: 'preserve-3d',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
+                  }}
+                  className="w-1/2 h-full overflow-hidden relative pointer-events-none will-change-transform drop-shadow-[0_0_12px_rgba(0,255,229,0.35)]"
+                >
+                  <img
+                    src={logoImg}
                     alt="Right Wing"
-                    style={{
-                      transformOrigin: 'left center',
-                      rotateY: reducedMotion ? 0 : rightWingRotateY,
-                      rotateZ: reducedMotion ? 0 : rightWingRotateZ,
-                      rotateX: reducedMotion ? 0 : rightWingRotateX,
-                      transformStyle: 'preserve-3d',
-                      WebkitBackfaceVisibility: 'hidden',
-                      backfaceVisibility: 'hidden',
-                    }}
-                    className="w-1/2 h-full object-contain pointer-events-none will-change-transform"
+                    className="absolute right-0 top-0 w-[200%] h-full max-w-none object-contain pointer-events-none"
                     draggable={false}
                   />
-                </div>
-              ) : (
-                /* Fallback before canvas renders */
-                <img
-                  src={logoImg}
-                  alt="Wing Logo"
-                  className="w-full h-full object-contain pointer-events-none"
-                  draggable={false}
-                />
-              )}
-            </motion.div>
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
 
           {/* Scroll to Move Prompt Text & Downward Arrow - Hovers smoothly with the logo in static state */}
