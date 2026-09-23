@@ -62,7 +62,8 @@
 }
 
 /* Lenis Smooth Scroll Optimizations */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -76,4 +77,11 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-stopped {
   overflow: hidden;
+}
+
+/* Hide floating Google reCAPTCHA badge (attribution is rendered directly inside the form) */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

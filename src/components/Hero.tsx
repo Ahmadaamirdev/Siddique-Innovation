@@ -1,19 +1,38 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import type { MotionValue } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { WorldMapOverlay } from './hero/WorldMapOverlay';
 import { FlappingScrollLogo } from './hero/FlappingScrollLogo';
 import { useSmoothScroll } from './SmoothScrollProvider';
 
-export const Hero: React.FC = () => {
+export interface HeroProps {
+  progressProp?: MotionValue<number>;
+  isRevealedProp?: boolean;
+  onRevealedChange?: (revealed: boolean) => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({
+  progressProp,
+  isRevealedProp,
+  onRevealedChange,
+}) => {
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [isRevealed, setIsRevealed] = useState(false);
+  const [internalRevealed, setInternalRevealed] = useState(false);
+  const isRevealed = isRevealedProp !== undefined ? isRevealedProp : internalRevealed;
+
+  const setIsRevealed = useCallback((val: boolean) => {
+    setInternalRevealed(val);
+    onRevealedChange?.(val);
+  }, [onRevealedChange]);
+
   const isAnimatingRef = useRef(false);
   const animFrameRef = useRef<number | null>(null);
   const { stopScroll, startScroll } = useSmoothScroll();
 
   // Intro reveal progress motion value [0 -> 1]
-  const progress = useMotionValue(0);
+  const internalProgress = useMotionValue(0);
+  const progress = progressProp || internalProgress;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -24,7 +43,8 @@ export const Hero: React.FC = () => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Strict page lock on mount: absolutely zero downward scrolling allowed until Hero is visible
+  // Strict page scroll management without mutating document.body layout dimensions
+  // (Prevents expensive 15,000px DOM layout thrashing and reflow on reveal completion)
   useEffect(() => {
     (window as any).__heroRevealed = isRevealed;
 
@@ -32,54 +52,32 @@ export const Hero: React.FC = () => {
       window.scrollTo(0, 0);
       (window as any).__lenis?.scrollTo(0, { immediate: true });
       stopScroll();
-
-      // Lock document and body dimensions to viewport height
-      document.documentElement.style.overflow = 'hidden';
-      document.documentElement.style.height = '100vh';
-      document.body.style.overflow = 'hidden';
-      document.body.style.height = '100vh';
-
-      return () => {
-        document.documentElement.style.overflow = '';
-        document.documentElement.style.height = '';
-        document.body.style.overflow = '';
-        document.body.style.height = '';
-        startScroll();
-      };
     } else {
-      document.documentElement.style.overflow = '';
-      document.documentElement.style.height = '';
-      document.body.style.overflow = '';
-      document.body.style.height = '';
       startScroll();
+      (window as any).__lenis?.start();
     }
   }, [isRevealed, stopScroll, startScroll]);
 
-  // Trigger the slower, majestic cinematic wing-flap ascension and unblur
+  // Trigger the lightweight, smooth cinematic wing-flap ascension
   const triggerReveal = useCallback(() => {
     if (isRevealed || isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
-    // Slower, ultra-smooth, majestic 3.8s flight progression
+    // Crisp, silky-smooth 2.3s flight progression (reduced from heavy 3.8s)
     animate(progress, 1, {
-      duration: reducedMotion ? 0.3 : 3.8,
-      ease: [0.22, 1, 0.36, 1],
+      duration: reducedMotion ? 0.2 : 2.3,
+      ease: [0.16, 1, 0.3, 1],
       onComplete: () => {
-        // ONLY unlock downward website scrolling AFTER the wings finish and Hero is 100% visible!
         setIsRevealed(true);
         (window as any).__heroRevealed = true;
         isAnimatingRef.current = false;
-        document.documentElement.style.overflow = '';
-        document.documentElement.style.height = '';
-        document.body.style.overflow = '';
-        document.body.style.height = '';
         startScroll();
         (window as any).__lenis?.start();
       },
     });
-  }, [isRevealed, progress, reducedMotion, startScroll]);
+  }, [isRevealed, progress, reducedMotion, setIsRevealed, startScroll]);
 
-  // Intercept all scroll gestures in the capture phase to strictly prevent downward page scrolling
+  // Intercept scroll gestures before reveal without touching document style dimensions
   useEffect(() => {
     if (isRevealed) return;
 
@@ -130,15 +128,12 @@ export const Hero: React.FC = () => {
     };
   }, [isRevealed, triggerReveal]);
 
-  // Multi-Layer 3D Damped Parallax Mouse Tracking
+  // Lightweight Parallax Mouse Tracking (Hardware direct transforms, no heavy physics solvers)
   const rawMouseX = useMotionValue(0);
   const rawMouseY = useMotionValue(0);
 
-  const mouseX = useSpring(rawMouseX, { stiffness: 100, damping: 20 });
-  const mouseY = useSpring(rawMouseY, { stiffness: 100, damping: 20 });
-
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (reducedMotion) return;
+    if (reducedMotion || !isRevealed) return;
     const { clientX, clientY } = e;
     if (animFrameRef.current !== null) return;
     animFrameRef.current = requestAnimationFrame(() => {
@@ -151,21 +146,16 @@ export const Hero: React.FC = () => {
     });
   };
 
-  // Optimized Dynamic Blur & Clarity Transforms
-  const blurAmount = useTransform(progress, [0.25, 0.95], [16, 0]);
-  const heroFilter = useTransform(
-    blurAmount,
-    (b) => (reducedMotion || b < 0.2 ? 'none' : `blur(${b.toFixed(1)}px)`)
-  );
-  const heroBrightness = useTransform(progress, [0.25, 0.95], [0.6, 1]);
-  const heroScale = useTransform(progress, [0.25, 0.95], [0.98, 1]);
-  const overlayOpacity = useTransform(progress, [0.25, 0.92], [0.65, 0]);
+  // Zero-Cost GPU Composited Transforms (Pure opacity & scale, 0 CPU blur filters)
+  const heroOpacity = useTransform(progress, [0.15, 0.88], [0.35, 1]);
+  const heroScale = useTransform(progress, [0.15, 0.88], [0.97, 1]);
+  const overlayOpacity = useTransform(progress, [0.15, 0.85], [0.55, 0]);
 
   // Parallax Depth Transforms
-  const foregroundX = useTransform(mouseX, [-0.5, 0.5], [-10, 10]);
-  const foregroundY = useTransform(mouseY, [-0.5, 0.5], [-10, 10]);
-  const backgroundX = useTransform(mouseX, [-0.5, 0.5], [-3, 3]);
-  const backgroundY = useTransform(mouseY, [-0.5, 0.5], [-3, 3]);
+  const foregroundX = useTransform(rawMouseX, [-0.5, 0.5], [-8, 8]);
+  const foregroundY = useTransform(rawMouseY, [-0.5, 0.5], [-8, 8]);
+  const backgroundX = useTransform(rawMouseX, [-0.5, 0.5], [-3, 3]);
+  const backgroundY = useTransform(rawMouseY, [-0.5, 0.5], [-3, 3]);
 
   // Motion Spec v1.0 Easing
   const entranceEase = [0.22, 0.61, 0.36, 1] as const;
@@ -175,27 +165,25 @@ export const Hero: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.15,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: entranceEase },
+      transition: { duration: 0.7, ease: entranceEase },
     },
   };
-
-
 
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative pt-24 sm:pt-28 pb-14 sm:pb-16 min-h-screen bg-[#050505] bg-hero-radial-premium flex flex-col justify-center select-none overflow-hidden transform-gpu"
+      className="relative pt-24 sm:pt-28 pb-14 sm:pb-16 min-h-screen bg-[#050505] bg-hero-radial-premium flex flex-col justify-center select-none overflow-hidden transform-gpu border-b border-white/10"
     >
       {/* Background Layer: Animated Interactive World Map */}
       <motion.div
@@ -208,41 +196,19 @@ export const Hero: React.FC = () => {
         <WorldMapOverlay />
       </motion.div>
 
-      {/* Soft Ambient Breathing Cyan Glow Orbs */}
-      <motion.div
-        animate={
-          reducedMotion
-            ? { opacity: 0.3 }
-            : {
-              opacity: [0.2, 0.45, 0.2],
-              scale: [0.95, 1.05, 0.95],
-            }
-        }
-        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-radial from-[#00E6D2]/15 via-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu will-change-transform"
-      />
-      <motion.div
-        animate={
-          reducedMotion
-            ? { opacity: 0.2 }
-            : {
-              opacity: [0.15, 0.35, 0.15],
-              scale: [1, 1.08, 1],
-            }
-        }
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute top-10 left-10 w-[350px] h-[350px] bg-radial from-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu will-change-transform"
-      />
+      {/* Soft Ambient Cyan Glow Orbs */}
+      <div className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-radial from-[#00E6D2]/15 via-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu" />
+      <div className="absolute top-10 left-10 w-[350px] h-[350px] bg-radial from-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu" />
 
-      {/* Hero Content Container with dynamic blur, brightness, and scale */}
+      {/* Hero Content Container with pure GPU hardware opacity & scale */}
       <motion.div
         style={{
-          filter: heroFilter,
+          opacity: heroOpacity,
           scale: heroScale,
-          opacity: heroBrightness,
         }}
-        className={`w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10 pt-20 sm:pt-24 lg:pt-14 transform-gpu will-change-transform ${isRevealed ? 'pointer-events-auto' : 'pointer-events-none'
-          }`}
+        className={`w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10 pt-20 sm:pt-24 lg:pt-14 transform-gpu will-change-transform ${
+          isRevealed ? 'pointer-events-auto' : 'pointer-events-none'
+        }`}
       >
         <motion.div
           style={{
@@ -291,7 +257,7 @@ export const Hero: React.FC = () => {
               <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </motion.a>
 
-            {/* Social Links: Insta, fb & Linked in */}
+            {/* Social Links: Insta, fb & LinkedIn */}
             <div className="flex items-center gap-3">
               {/* Instagram */}
               <motion.a
@@ -345,11 +311,11 @@ export const Hero: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Dimmed backdrop-blur overlay that dissolves on reveal */}
+      {/* Dimmed background overlay that dissolves on reveal (zero filter overhead) */}
       {!isRevealed && (
         <motion.div
           style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-[#050505]/45 backdrop-blur-sm pointer-events-none z-20"
+          className="absolute inset-0 bg-[#050505]/50 pointer-events-none z-20"
         />
       )}
 

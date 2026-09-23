@@ -53,28 +53,12 @@ export const WorldMapOverlay: React.FC = () => {
                 strokeWidth="1.2"
                 strokeDasharray="4 4"
               />
-              {/* Luminous Soft Glow Underlay (Hardware rasterized, zero filter overhead) */}
-              <motion.path
-                d={pathD}
-                fill="none"
-                stroke="rgba(0, 255, 229, 0.35)"
-                strokeWidth="4"
-                strokeDasharray="40 160"
-                animate={{
-                  strokeDashoffset: [200, -200],
-                }}
-                transition={{
-                  duration,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-              />
-              {/* Moving Pulse Ray Along Arc */}
+              {/* Moving Luminous Pulse Ray Along Arc */}
               <motion.path
                 d={pathD}
                 fill="none"
                 stroke="url(#arcGradient)"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeDasharray="40 160"
                 animate={{
                   strokeDashoffset: [200, -200],

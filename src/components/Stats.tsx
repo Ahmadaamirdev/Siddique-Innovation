@@ -1,14 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
-import { Users, Smile, Calendar, Star } from 'lucide-react';
+import { CheckCircle2, Calendar, Users, Building2 } from 'lucide-react';
 
 interface CounterProps {
   target: number;
   suffix?: string;
   decimals?: number;
+  duration?: number;
 }
 
-const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', decimals = 0 }) => {
+const AnimatedCounter: React.FC<CounterProps> = ({
+  target,
+  suffix = '',
+  decimals = 0,
+  duration = 2,
+}) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-20px' });
 
@@ -16,7 +22,7 @@ const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', decimals
     if (!isInView || !ref.current) return;
 
     const controls = animate(0, target, {
-      duration: 2,
+      duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate(value) {
         if (ref.current) {
@@ -26,7 +32,7 @@ const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', decimals
     });
 
     return () => controls.stop();
-  }, [isInView, target, decimals, suffix]);
+  }, [isInView, target, decimals, suffix, duration]);
 
   return <span ref={ref}>{0.0.toFixed(decimals) + suffix}</span>;
 };
@@ -34,37 +40,41 @@ const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', decimals
 export const Stats: React.FC = () => {
   const stats = [
     {
-      icon: Users,
-      target: 250,
+      icon: CheckCircle2,
+      target: 50,
       suffix: '+',
       decimals: 0,
       label: 'Projects Completed',
-    },
-    {
-      icon: Smile,
-      target: 180,
-      suffix: '+',
-      decimals: 0,
-      label: 'Happy Clients',
+      duration: 1.8,
     },
     {
       icon: Calendar,
-      target: 4,
+      target: 3,
       suffix: '+',
       decimals: 0,
-      label: 'Years Experience',
+      label: 'Years in Business',
+      duration: 0.8,
     },
     {
-      icon: Star,
-      target: 4.9,
-      suffix: '',
-      decimals: 1,
-      label: 'Client Rating',
+      icon: Users,
+      target: 60,
+      suffix: '+',
+      decimals: 0,
+      label: 'Clients Served',
+      duration: 2.0,
+    },
+    {
+      icon: Building2,
+      target: 10,
+      suffix: '+',
+      decimals: 0,
+      label: 'Industries Served',
+      duration: 1.2,
     },
   ];
 
   return (
-    <section className="py-8 bg-[#050505] relative z-10">
+    <section className="py-8 bg-[#050505] relative z-10 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -79,16 +89,22 @@ export const Stats: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className={`flex items-center justify-center gap-4 sm:gap-5 py-3 md:py-2 px-2 transition-transform duration-300 hover:-translate-y-1 ${
+                  className={`group flex items-center justify-center gap-4 sm:gap-5 py-3 md:py-2 px-2 transition-transform duration-300 hover:-translate-y-1 ${
                     idx !== 0 ? 'pt-6 md:pt-2' : ''
                   }`}
                 >
-                  <div className="p-3 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/20 text-[#00E6D2] shrink-0">
+                  <div className="p-3 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/20 text-[#00E6D2] shrink-0 transition-colors duration-300 group-hover:border-[#00E6D2]/50 group-hover:bg-[#00E6D2]/15">
                     <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-[#00E6D2]" />
                   </div>
+
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight block">
-                      <AnimatedCounter target={stat.target} suffix={stat.suffix} decimals={stat.decimals} />
+                    <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight block transition-colors duration-300 group-hover:text-[#00E6D2]">
+                      <AnimatedCounter
+                        target={stat.target}
+                        suffix={stat.suffix}
+                        decimals={stat.decimals}
+                        duration={stat.duration}
+                      />
                     </span>
                     <span className="text-xs sm:text-sm text-gray-400 font-medium whitespace-nowrap">
                       {stat.label}

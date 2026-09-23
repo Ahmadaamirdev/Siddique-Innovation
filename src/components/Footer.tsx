@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import {
   ArrowUpRight,
   ArrowUp,
-  ShieldCheck,
   Sparkles,
 } from 'lucide-react';
 import { WingLogo } from './WingLogo';
@@ -51,15 +50,7 @@ export const Footer: React.FC = () => {
               Empowering businesses through cutting-edge AI Automation, high-ranking SEO strategies, and modern, high-converting digital web experiences.
             </p>
 
-            {/* Live Operational Status Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0A1218] border border-[#00E6D2]/25 text-xs text-gray-300 font-mono">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FFE5] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-              <span>All Systems Operational</span>
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00E6D2] ml-1" />
-            </div>
+
 
             {/* Social Links (Instagram & WhatsApp only) */}
             <div className="flex items-center gap-3 pt-2">
@@ -104,19 +95,13 @@ export const Footer: React.FC = () => {
               <li>
                 <a href="#services" className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">AI Automation</span>
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Web Development</span>
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">SEO Optimization</span>
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">AI Workflow Automation</span>
                 </a>
               </li>
               <li>
@@ -125,7 +110,18 @@ export const Footer: React.FC = () => {
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Digital Marketing</span>
                 </a>
               </li>
-
+              <li>
+                <a href="#services" className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">SEO</span>
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">YouTube Automation</span>
+                </a>
+              </li>
             </ul>
           </div>
 
