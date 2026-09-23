@@ -63,10 +63,10 @@ export const Hero: React.FC<HeroProps> = ({
     if (isRevealed || isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
-    // Crisp, silky-smooth 2.3s flight progression (reduced from heavy 3.8s)
+    // Slower, majestic, cinematic 3.8s flight progression
     animate(progress, 1, {
-      duration: reducedMotion ? 0.2 : 2.3,
-      ease: [0.16, 1, 0.3, 1],
+      duration: reducedMotion ? 0.3 : 3.8,
+      ease: [0.22, 1, 0.36, 1],
       onComplete: () => {
         setIsRevealed(true);
         (window as any).__heroRevealed = true;
@@ -146,10 +146,15 @@ export const Hero: React.FC<HeroProps> = ({
     });
   };
 
-  // Zero-Cost GPU Composited Transforms (Pure opacity & scale, 0 CPU blur filters)
-  const heroOpacity = useTransform(progress, [0.15, 0.88], [0.35, 1]);
-  const heroScale = useTransform(progress, [0.15, 0.88], [0.97, 1]);
-  const overlayOpacity = useTransform(progress, [0.15, 0.85], [0.55, 0]);
+  // Dynamic Blur & Clarity Transforms (Deeply blurred on load, unblurs smoothly on reveal)
+  const blurAmount = useTransform(progress, [0.10, 0.92], [32, 0]);
+  const heroFilter = useTransform(
+    blurAmount,
+    (b) => (reducedMotion || b < 0.2 ? 'none' : `blur(${b.toFixed(1)}px)`)
+  );
+  const heroBrightness = useTransform(progress, [0.10, 0.92], [0.45, 1]);
+  const heroScale = useTransform(progress, [0.10, 0.92], [0.96, 1]);
+  const overlayOpacity = useTransform(progress, [0.10, 0.88], [0.85, 0]);
 
   // Parallax Depth Transforms
   const foregroundX = useTransform(rawMouseX, [-0.5, 0.5], [-8, 8]);
@@ -200,11 +205,12 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-radial from-[#00E6D2]/15 via-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu" />
       <div className="absolute top-10 left-10 w-[350px] h-[350px] bg-radial from-[#00FFE5]/5 to-transparent blur-3xl rounded-full pointer-events-none -z-0 transform-gpu" />
 
-      {/* Hero Content Container with pure GPU hardware opacity & scale */}
+      {/* Hero Content Container with dynamic blur, brightness, and scale */}
       <motion.div
         style={{
-          opacity: heroOpacity,
+          filter: heroFilter,
           scale: heroScale,
+          opacity: heroBrightness,
         }}
         className={`w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10 pt-20 sm:pt-24 lg:pt-14 transform-gpu will-change-transform ${
           isRevealed ? 'pointer-events-auto' : 'pointer-events-none'
@@ -311,11 +317,11 @@ export const Hero: React.FC<HeroProps> = ({
         </motion.div>
       </motion.div>
 
-      {/* Dimmed background overlay that dissolves on reveal (zero filter overhead) */}
+      {/* Dimmed backdrop-blur overlay that dissolves on reveal */}
       {!isRevealed && (
         <motion.div
           style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-[#050505]/50 pointer-events-none z-20"
+          className="absolute inset-0 bg-[#050505]/60 backdrop-blur-md pointer-events-none z-20"
         />
       )}
 
