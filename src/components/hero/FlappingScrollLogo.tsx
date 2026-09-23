@@ -180,10 +180,10 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
               className="relative w-full h-full flex items-center justify-center pointer-events-none"
             >
               <div className="relative w-full h-full flex items-center justify-center">
-                {/* Left Wing (Hinged at right center) */}
+                {/* Left Wing (Hinged at lower joint so lower part stays anchored and only upper parts flap) */}
                 <motion.div
                   style={{
-                    transformOrigin: 'right center',
+                    transformOrigin: 'right 82%',
                     rotateY: reducedMotion ? 0 : leftWingRotateY,
                     rotateZ: reducedMotion ? 0 : leftWingRotateZ,
                     rotateX: reducedMotion ? 0 : leftWingRotateX,
@@ -191,7 +191,7 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
                     WebkitBackfaceVisibility: 'hidden',
                     backfaceVisibility: 'hidden',
                   }}
-                  className="w-1/2 h-full overflow-hidden relative pointer-events-none will-change-transform drop-shadow-[0_0_12px_rgba(0,255,229,0.35)]"
+                  className="w-1/2 h-full overflow-hidden relative pointer-events-none will-change-transform transform-gpu"
                 >
                   <img
                     src={logoImg}
@@ -201,10 +201,10 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
                   />
                 </motion.div>
 
-                {/* Right Wing (Hinged at left center) */}
+                {/* Right Wing (Hinged at lower joint so lower part stays anchored and only upper parts flap) */}
                 <motion.div
                   style={{
-                    transformOrigin: 'left center',
+                    transformOrigin: 'left 82%',
                     rotateY: reducedMotion ? 0 : rightWingRotateY,
                     rotateZ: reducedMotion ? 0 : rightWingRotateZ,
                     rotateX: reducedMotion ? 0 : rightWingRotateX,
@@ -212,7 +212,7 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
                     WebkitBackfaceVisibility: 'hidden',
                     backfaceVisibility: 'hidden',
                   }}
-                  className="w-1/2 h-full overflow-hidden relative pointer-events-none will-change-transform drop-shadow-[0_0_12px_rgba(0,255,229,0.35)]"
+                  className="w-1/2 h-full overflow-hidden relative pointer-events-none will-change-transform transform-gpu"
                 >
                   <img
                     src={logoImg}
