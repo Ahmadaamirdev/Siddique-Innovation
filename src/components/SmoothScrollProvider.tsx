@@ -15,7 +15,10 @@ const SmoothScrollContext = createContext<SmoothScrollContextType>({
 
 export const useSmoothScroll = () => useContext(SmoothScrollContext);
 
-export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SmoothScrollProvider: React.FC<{ children: React.ReactNode; currentPath?: string }> = ({
+  children,
+  currentPath,
+}) => {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -33,10 +36,29 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
     lenisRef.current = lenis;
     (window as any).__lenis = lenis;
 
-    // If hero has not been revealed yet, pause Lenis immediately
-    if ((window as any).__heroRevealed === false) {
+    // Only pause Lenis if strictly on homepage AND hero is explicitly not revealed yet
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
+    if (isHomePage && (window as any).__heroRevealed === false) {
       lenis.stop();
+    } else {
+      (window as any).__heroRevealed = true;
+      lenis.start();
+      document.documentElement.classList.remove('lenis-stopped');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
+
+    // Safety watchdog: on popstate or URL change, ensure scroll is enabled
+    const handleLocationChange = () => {
+      if (window.location.pathname !== '/' && window.location.pathname !== '') {
+        (window as any).__heroRevealed = true;
+        lenis.start();
+        document.documentElement.classList.remove('lenis-stopped');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+    };
+    window.addEventListener('popstate', handleLocationChange);
 
     let animationFrameId: number;
 
@@ -48,12 +70,29 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
     animationFrameId = requestAnimationFrame(raf);
 
     return () => {
+      window.removeEventListener('popstate', handleLocationChange);
       cancelAnimationFrame(animationFrameId);
+      document.documentElement.classList.remove('lenis-stopped');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       lenis.destroy();
       lenisRef.current = null;
       delete (window as any).__lenis;
     };
   }, []);
+
+  // Watch currentPath prop changes across client-side router navigation
+  useEffect(() => {
+    if (currentPath && currentPath !== '/' && currentPath !== '') {
+      (window as any).__heroRevealed = true;
+      lenisRef.current?.start();
+      (window as any).__lenis?.start();
+      document.documentElement.classList.remove('lenis-stopped');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      lenisRef.current?.scrollTo(0, { immediate: true });
+    }
+  }, [currentPath]);
 
   const stopScroll = () => {
     lenisRef.current?.stop();
@@ -63,6 +102,9 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const startScroll = () => {
     lenisRef.current?.start();
     (window as any).__lenis?.start();
+    document.documentElement.classList.remove('lenis-stopped');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   };
 
   return (

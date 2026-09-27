@@ -50,7 +50,7 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10">
+    <section id="faq" className="py-14 md:py-20 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10">
       {/* Soft Ambient Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-radial from-[#00E6D2]/5 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
 

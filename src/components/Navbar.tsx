@@ -1,21 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useTransform, useMotionValue } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
-import { WingLogo } from './WingLogo';
+import {
+  ArrowUpRight,
+  Menu,
+  X,
+  ChevronDown,
+  Bot,
+  Code2,
+  TrendingUp,
+  Search,
+  Sparkles,
+} from 'lucide-react';
+import brandLogo from '../assets/brand_logo.png';
+import { serviceList } from '../data/servicesData';
+
+const YouTubeIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+  </svg>
+);
 
 export interface NavbarProps {
   heroProgress?: MotionValue<number>;
   isHeroRevealed?: boolean;
+  onNavigate?: (path: string) => void;
+  currentPath?: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   heroProgress,
   isHeroRevealed = false,
+  onNavigate,
+  currentPath = '/',
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +63,83 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = ['Home', 'Services', 'Projects', 'About', 'Contact'];
 
+  const getServiceIcon = (iconName: string, className = 'w-4 h-4') => {
+    switch (iconName) {
+      case 'bot':
+        return <Bot className={className} />;
+      case 'code':
+        return <Code2 className={className} />;
+      case 'marketing':
+        return <TrendingUp className={className} />;
+      case 'seo':
+        return <Search className={className} />;
+      case 'youtube':
+        return <YouTubeIcon className={className} />;
+      default:
+        return <Sparkles className={className} />;
+    }
+  };
+
+  const handleMouseEnterServices = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setServicesDropdownOpen(true);
+    setHoveredTab('Services');
+  };
+
+  const handleMouseLeaveServices = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setServicesDropdownOpen(false);
+      setHoveredTab(null);
+    }, 180);
+  };
+
+  const handleLinkClick = (link: string, e: React.MouseEvent) => {
+    if (link === 'Services') {
+      // Toggle dropdown on click
+      setServicesDropdownOpen(!servicesDropdownOpen);
+      return;
+    }
+
+    if (link === 'Projects') {
+      if (onNavigate) {
+        e.preventDefault();
+        onNavigate('/projects');
+      }
+      return;
+    }
+
+    if (link === 'Home') {
+      if (onNavigate) {
+        e.preventDefault();
+        onNavigate('/');
+      }
+      return;
+    }
+
+    // Anchor hash link for Home page sections
+    if (currentPath !== '/') {
+      if (onNavigate) {
+        e.preventDefault();
+        onNavigate('/');
+        setTimeout(() => {
+          const el = document.getElementById(link.toLowerCase());
+          el?.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      }
+    }
+  };
+
+  const handleServiceSelect = (slug: string, e: React.MouseEvent) => {
+    setServicesDropdownOpen(false);
+    setMobileMenuOpen(false);
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(`/services/${slug}`);
+    }
+  };
+
   return (
     <motion.header
       style={{
@@ -47,134 +148,247 @@ export const Navbar: React.FC<NavbarProps> = ({
       }}
       className="fixed top-4 sm:top-6 lg:top-7 left-0 right-0 z-50 flex flex-col items-center px-4 sm:px-6 pointer-events-none"
     >
-      {/* Floating Animated Wrapper - Continuous gentle zero-gravity levitation */}
-      <motion.div
-        animate={
-          isHeroRevealed
-            ? {
-                y: [0, -4, 0],
-                transition: {
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                },
-              }
-            : { y: 0 }
-        }
-        className="pointer-events-auto relative w-full max-w-5xl"
-      >
-        {/* Anti-gravity ambient cyan light cushion underneath the pill */}
-        <div
-          className={`absolute -bottom-2 inset-x-12 h-5 bg-[#00E6D2]/15 blur-lg rounded-full -z-10 pointer-events-none transition-opacity duration-500 ${
-            scrolled ? 'opacity-90' : 'opacity-60'
-          }`}
-        />
-
+      {/* Top Floating Header Wrapper */}
+      <div className="pointer-events-auto relative w-full max-w-5xl">
         {/* Floating Glass Pill Bar */}
         <div
-          className={`relative w-full rounded-full bg-[#06090D]/65 backdrop-blur-2xl backdrop-saturate-150 border border-[#00E6D2]/30 border-t-white/25 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_10px_25px_rgba(0,0,0,0.5),0_0_30px_rgba(0,230,210,0.12)] px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between transition-all duration-300 hover:border-[#00E6D2]/50 hover:shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(0,230,210,0.22)] ${
-            scrolled
-              ? 'scale-[0.985] py-2 sm:py-2.5 bg-[#05080C]/80 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_35px_rgba(0,230,210,0.2)]'
-              : ''
+          className={`relative w-full rounded-full bg-[#080B0F]/90 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)] px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-300 ${
+            scrolled ? 'bg-[#06080B]/95 py-2' : ''
           }`}
         >
-          {/* Top Specular Glass Highlight Streak */}
-          <div className="absolute top-0 inset-x-12 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-        {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-          <div className="relative flex items-center justify-center">
-            {/* Cyan Wing Logo */}
-            <WingLogo className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_10px_rgba(0,230,210,0.7)]" />
-            <div className="absolute -inset-1 bg-[#00E6D2]/20 blur-sm rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-          <span className="font-extrabold text-xs sm:text-sm tracking-wider text-white uppercase font-heading group-hover:text-[#00E6D2] transition-colors">
-            SIDDIQUI INNOVATIONS
-          </span>
-        </a>
-
-        {/* Desktop Navigation Links */}
-        <nav
-          onMouseLeave={() => setHoveredTab(null)}
-          className="hidden md:flex items-center gap-1 sm:gap-2"
-        >
-          {navLinks.map((link) => {
-            const isHovered = hoveredTab === link;
-            return (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                onMouseEnter={() => setHoveredTab(link)}
-                className={`relative px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors select-none ${
-                  isHovered
-                    ? 'text-[#00FFE5]'
-                    : 'text-gray-300'
-                }`}
-              >
-                {isHovered && (
-                  <motion.div
-                    layoutId="hoverNavPill"
-                    className="absolute inset-0 rounded-full bg-[#00E6D2]/15 border border-[#00E6D2]/40 shadow-[0_0_12px_rgba(0,230,210,0.25)]"
-                    transition={{ type: 'spring', stiffness: 450, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{link}</span>
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Header Right CTA - Matching Pill Button */}
-        <div className="hidden md:flex items-center shrink-0">
+          {/* Brand Logo */}
           <a
-            href="#contact"
-            className="group relative inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white border border-[#00E6D2]/40 bg-[#00E6D2]/10 hover:bg-[#00E6D2] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(0,230,210,0.1)] hover:shadow-[0_0_25px_rgba(0,230,210,0.35)]"
+            href="/"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/');
+              }
+            }}
+            className="flex items-center shrink-0 py-0.5 cursor-pointer"
+            aria-label="Siddiqui Innovations Home"
           >
-            <span>Book Discovery Call</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#00E6D2] group-hover:text-black transition-colors duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <img
+              src={brandLogo}
+              alt="Siddiqui Innovations Logo"
+              className="h-8 sm:h-9 w-auto object-contain transition-opacity duration-200 hover:opacity-90"
+            />
           </a>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+          {/* Desktop Navigation Links */}
+          <nav
+            onMouseLeave={() => setHoveredTab(null)}
+            className="hidden md:flex items-center gap-1 sm:gap-1.5"
+          >
+            {navLinks.map((link) => {
+              const isServices = link === 'Services';
+              const isHovered = hoveredTab === link;
+
+              if (isServices) {
+                return (
+                  <div
+                    key={link}
+                    onMouseEnter={handleMouseEnterServices}
+                    onMouseLeave={handleMouseLeaveServices}
+                    className="relative"
+                  >
+                    <a
+                      href="#services"
+                      onClick={(e) => handleLinkClick(link, e)}
+                      className={`relative px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors select-none inline-flex items-center gap-1.5 cursor-pointer ${
+                        servicesDropdownOpen || isHovered
+                          ? 'text-[#00FFE5]'
+                          : 'text-gray-300 hover:text-[#00FFE5]'
+                      }`}
+                    >
+                      {(servicesDropdownOpen || isHovered) && (
+                        <motion.div
+                          layoutId="hoverNavPill"
+                          className="absolute inset-0 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/30"
+                          transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                        />
+                      )}
+                      <span className="relative z-10">{link}</span>
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 relative z-10 transition-transform duration-200 ${
+                          servicesDropdownOpen || isHovered
+                            ? 'rotate-180 text-[#00FFE5]'
+                            : 'text-gray-400'
+                        }`}
+                      />
+                    </a>
+
+                    {/* Plain, Professional, Modern Circular Services Dropdown */}
+                    <AnimatePresence>
+                      {servicesDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 rounded-2xl bg-[#0A0D12]/95 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/80 p-2 z-50 flex flex-col gap-1"
+                        >
+                          {serviceList.map((service) => (
+                            <a
+                              key={service.slug}
+                              href={`/services/${service.slug}`}
+                              onClick={(e) => handleServiceSelect(service.slug, e)}
+                              className="flex items-center gap-2.5 px-3.5 py-2 rounded-full text-sm text-gray-300 hover:text-[#00FFE5] hover:bg-[#00E6D2]/10 border border-transparent hover:border-[#00E6D2]/25 transition-all duration-150 group cursor-pointer"
+                            >
+                              <span className="text-gray-400 group-hover:text-[#00FFE5] transition-colors shrink-0">
+                                {getServiceIcon(service.iconName, 'w-4 h-4')}
+                              </span>
+                              <span className="font-medium text-xs sm:text-sm tracking-wide group-hover:translate-x-0.5 transition-transform duration-150">
+                                {service.title}
+                              </span>
+                            </a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
+              return (
+                <a
+                  key={link}
+                  href={link === 'Projects' ? '/projects' : `#${link.toLowerCase()}`}
+                  onClick={(e) => handleLinkClick(link, e)}
+                  onMouseEnter={() => setHoveredTab(link)}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors select-none cursor-pointer ${
+                    isHovered ? 'text-[#00FFE5]' : 'text-gray-300 hover:text-[#00FFE5]'
+                  }`}
+                >
+                  {isHovered && (
+                    <motion.div
+                      layoutId="hoverNavPill"
+                      className="absolute inset-0 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/30"
+                      transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                    />
+                  )}
+                  <span className="relative z-10">{link}</span>
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Header Right CTA - Plain, Modern, Refined with Cyan Hover */}
+          <div className="hidden md:flex items-center shrink-0">
+            <a
+              href="/#contact"
+              onClick={(e) => {
+                if (currentPath !== '/') {
+                  if (onNavigate) {
+                    e.preventDefault();
+                    onNavigate('/');
+                    setTimeout(() => {
+                      const el = document.getElementById('contact');
+                      el?.scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
+                  }
+                }
+              }}
+              className="group inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-[#00E6D2]/15 border border-white/15 hover:border-[#00E6D2]/40 hover:text-[#00FFE5] transition-all duration-200 cursor-pointer"
+            >
+              <span>Book Discovery Call</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-[#00FFE5] transition-colors duration-200" />
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none cursor-pointer"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
-      </motion.div>
 
       {/* Mobile Menu Dropdown Card */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden pointer-events-auto w-full max-w-5xl mt-2 rounded-2xl bg-[#080D11]/95 backdrop-blur-2xl border border-[#00E6D2]/30 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(0,230,210,0.12)] p-4 flex flex-col gap-3"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="md:hidden pointer-events-auto w-full max-w-5xl mt-2 rounded-xl bg-[#090D12]/95 backdrop-blur-xl border border-white/10 shadow-2xl p-3 flex flex-col gap-1.5"
           >
-            <div className="flex flex-col gap-1.5">
-              {navLinks.map((link) => (
-                <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-sm font-medium py-2 px-4 rounded-full transition-colors border border-transparent text-gray-300 hover:text-[#00FFE5] hover:bg-[#00E6D2]/15 hover:border-[#00E6D2]/40 active:bg-[#00E6D2]/20"
-                >
-                  {link}
-                </a>
-              ))}
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => {
+                if (link === 'Services') {
+                  return (
+                    <div key={link} className="flex flex-col">
+                      <button
+                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                        className="w-full flex items-center justify-between text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
+                      >
+                        <span>Services</span>
+                        <ChevronDown
+                          className={`w-4 h-4 text-gray-400 transition-transform ${
+                            mobileServicesOpen ? 'rotate-180 text-white' : ''
+                          }`}
+                        />
+                      </button>
+
+                      {mobileServicesOpen && (
+                        <div className="pl-3 pr-1 py-1 flex flex-col gap-1 bg-white/[0.02] rounded-2xl my-1 border border-white/5">
+                          {serviceList.map((service) => (
+                            <a
+                              key={service.slug}
+                              href={`/services/${service.slug}`}
+                              onClick={(e) => handleServiceSelect(service.slug, e)}
+                              className="flex items-center gap-2.5 py-2 px-3 rounded-full text-xs font-medium text-gray-300 hover:text-[#00FFE5] hover:bg-[#00E6D2]/10 transition-colors cursor-pointer"
+                            >
+                              <span className="text-gray-400 group-hover:text-[#00FFE5]">
+                                {getServiceIcon(service.iconName, 'w-3.5 h-3.5')}
+                              </span>
+                              <span>{service.title}</span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <a
+                    key={link}
+                    href={link === 'Projects' ? '/projects' : `#${link.toLowerCase()}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleLinkClick(link, e);
+                    }}
+                    className="text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
+                  >
+                    {link}
+                  </a>
+                );
+              })}
+
               <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-2 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-black bg-[#00E6D2] hover:bg-[#00FFE5] transition-colors shadow-[0_0_20px_rgba(0,230,210,0.3)]"
+                href="/#contact"
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  if (currentPath !== '/') {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('/');
+                      setTimeout(() => {
+                        const el = document.getElementById('contact');
+                        el?.scrollIntoView({ behavior: 'smooth' });
+                      }, 150);
+                    }
+                  }
+                }}
+                className="mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-colors cursor-pointer"
               >
                 <span>Book Discovery Call</span>
-                <ArrowUpRight className="w-4 h-4 text-black" />
+                <ArrowUpRight className="w-4 h-4 text-gray-400" />
               </a>
             </div>
           </motion.div>
