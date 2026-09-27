@@ -13,6 +13,7 @@ export const BackgroundParticles: React.FC = () => {
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
+    let isPageVisible = !document.hidden;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
@@ -23,9 +24,21 @@ export const BackgroundParticles: React.FC = () => {
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    const handleVisibilityChange = () => {
+      isPageVisible = !document.hidden;
+      if (isPageVisible) {
+        lastTime = performance.now();
+        animationFrameId = requestAnimationFrame(render);
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
 
-    const particleCount = 25;
+    window.addEventListener('resize', handleResize, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Optimized particle count: 18 particles deliver subtle sparkle without GPU fill-rate penalty
+    const particleCount = 18;
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -36,39 +49,51 @@ export const BackgroundParticles: React.FC = () => {
       pulseSpeed: Math.random() * 0.01 + 0.005,
     }));
 
-    const render = () => {
+    let lastTime = performance.now();
+
+    const render = (time: number) => {
+      if (!isPageVisible) return;
+
+      const dt = Math.min((time - lastTime) / 1000, 0.1);
+      lastTime = time;
+
       ctx.clearRect(0, 0, width, height);
 
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
+      const particleLen = particles.length;
+      for (let i = 0; i < particleLen; i++) {
+        const p = particles[i];
+        p.x += p.vx * (dt * 60);
+        p.y += p.vy * (dt * 60);
 
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.0015;
-        const currentAlpha = Math.max(0.02, Math.min(0.3, p.alpha));
+        p.alpha += Math.sin(time * p.pulseSpeed) * 0.0015;
+        const currentAlpha = Math.max(0.02, Math.min(0.28, p.alpha));
 
+        // Glow halo
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(0, 230, 210, ${currentAlpha * 0.35})`;
         ctx.fill();
 
+        // Core dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 255, 229, ${currentAlpha * 1.2})`;
+        ctx.fillStyle = `rgba(0, 255, 229, ${currentAlpha * 0.9})`;
         ctx.fill();
-      });
+      }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    animationFrameId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -76,8 +101,7 @@ export const BackgroundParticles: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-60 transform-gpu will-change-transform"
-      style={{ mixBlendMode: 'screen' }}
+      className="fixed inset-0 pointer-events-none z-0 opacity-50 transform-gpu will-change-transform"
     />
   );
 };

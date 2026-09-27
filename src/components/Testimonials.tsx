@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Quote } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { WingLogo } from './WingLogo';
 
 interface TestimonialCard {
@@ -9,7 +9,6 @@ interface TestimonialCard {
   role: string;
   company: string;
   tag: string;
-  quote: string;
   video: string;
 }
 
@@ -20,8 +19,6 @@ const testimonialsData: TestimonialCard[] = [
     role: 'Founder & CEO',
     company: 'ApexScale Logistics',
     tag: 'AI Automation',
-    quote:
-      'Siddiqui Innovations automated our entire lead qualification and CRM pipeline. We saved over 25 hours of manual work every week and doubled our response speed.',
     video: '/videos/testimonial-1.mp4',
   },
   {
@@ -30,8 +27,6 @@ const testimonialsData: TestimonialCard[] = [
     role: 'Head of Growth',
     company: 'Nexora Digital',
     tag: 'Web Development & SEO',
-    quote:
-      'Our website conversion rate jumped by 140% within 60 days of the redesign. The speed, aesthetics, and search rankings exceeded all our expectations.',
     video: '/videos/testimonial-2.mp4',
   },
   {
@@ -40,18 +35,22 @@ const testimonialsData: TestimonialCard[] = [
     role: 'Managing Director',
     company: 'Zenith Global',
     tag: 'Digital Marketing',
-    quote:
-      'Their data-driven campaigns generated predictable high-ticket inbound leads from day one. Truly a high-caliber partner that cares about bottom-line results.',
     video: '/videos/testimonial-3.mp4',
   },
 ];
 
 export const Testimonials: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = [
     useRef<HTMLDivElement>(null),
     useRef<HTMLDivElement>(null),
     useRef<HTMLDivElement>(null),
+  ];
+  const videoRefs = [
+    useRef<HTMLVideoElement>(null),
+    useRef<HTMLVideoElement>(null),
+    useRef<HTMLVideoElement>(null),
   ];
   const dotRefs = [
     useRef<HTMLButtonElement>(null),
@@ -59,11 +58,17 @@ export const Testimonials: React.FC = () => {
     useRef<HTMLButtonElement>(null),
   ];
 
+  const [isMuted, setIsMuted] = useState(true);
+  const isMutedRef = useRef(true);
+  isMutedRef.current = isMuted;
+
   const angleRef = useRef(0);
   const targetAngleRef = useRef<number | null>(null);
+  const activeIndexRef = useRef(0);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
-    let animId: number;
+    let animId: number | null = null;
     let lastActive = 0;
     let lastTime = performance.now();
 
@@ -82,10 +87,15 @@ export const Testimonials: React.FC = () => {
     updateDimensions();
     window.addEventListener('resize', updateDimensions, { passive: true });
 
-    // Smooth delta-time based continuous rotation (~28s per 360 deg cycle)
-    const rotationSpeed = 0.22; // radians per second
+    // Ultra-calm, slow cinematic revolving speed (reduced from 0.09 to 0.04 rad/s)
+    const rotationSpeed = 0.04;
 
     const updateCarousel = (currentTime: number) => {
+      if (!isVisibleRef.current) {
+        animId = null;
+        return;
+      }
+
       // Calculate delta time in seconds, clamped to avoid jumps when switching tabs
       const dt = Math.min((currentTime - lastTime) / 1000, 0.08);
       lastTime = currentTime;
@@ -97,13 +107,13 @@ export const Testimonials: React.FC = () => {
         diff = Math.atan2(Math.sin(diff), Math.cos(diff));
 
         if (Math.abs(diff) > 0.003) {
-          angleRef.current += diff * Math.min(dt * 5, 0.25);
+          angleRef.current += diff * Math.min(dt * 3, 0.15);
         } else {
           angleRef.current = targetAngleRef.current;
           targetAngleRef.current = null;
         }
       } else {
-        // Continuous, silky smooth 3D orbit
+        // Continuous, silky smooth slow 3D orbit
         angleRef.current += rotationSpeed * dt;
       }
 
@@ -147,9 +157,20 @@ export const Testimonials: React.FC = () => {
         el.style.opacity = opacity.toFixed(2);
       }
 
-      // Update active pagination dot via direct DOM without triggering React re-renders
+      // Update active pagination dot and audio routing when front card changes
       if (currentFrontIdx !== lastActive) {
         lastActive = currentFrontIdx;
+        activeIndexRef.current = currentFrontIdx;
+
+        // If user unmuted audio, route sound only to the front card
+        if (!isMutedRef.current) {
+          videoRefs.forEach((vRef, idx) => {
+            if (vRef.current) {
+              vRef.current.muted = idx !== currentFrontIdx;
+            }
+          });
+        }
+
         for (let i = 0; i < 3; i++) {
           const dot = dotRefs[i].current;
           if (dot) {
@@ -167,20 +188,89 @@ export const Testimonials: React.FC = () => {
       animId = requestAnimationFrame(updateCarousel);
     };
 
-    animId = requestAnimationFrame(updateCarousel);
+    // IntersectionObserver to pause RAF and pause videos when offscreen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const isIntersecting = entry.isIntersecting;
+          isVisibleRef.current = isIntersecting;
+
+          if (isIntersecting) {
+            lastTime = performance.now();
+            if (!animId) {
+              animId = requestAnimationFrame(updateCarousel);
+            }
+            // Resume videos playback when in view
+            videoRefs.forEach((vRef) => {
+              vRef.current?.play().catch(() => {});
+            });
+          } else {
+            // Cancel RAF and pause all videos when scrolled out of view
+            if (animId) {
+              cancelAnimationFrame(animId);
+              animId = null;
+            }
+            videoRefs.forEach((vRef) => {
+              vRef.current?.pause();
+            });
+          }
+        });
+      },
+      { rootMargin: '100px 0px', threshold: 0.05 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     return () => {
       window.removeEventListener('resize', updateDimensions);
-      cancelAnimationFrame(animId);
+      observer.disconnect();
+      if (animId) {
+        cancelAnimationFrame(animId);
+      }
     };
   }, []);
 
   const handleCardClick = (idx: number) => {
     targetAngleRef.current = -idx * ((2 * Math.PI) / 3);
+    activeIndexRef.current = idx;
+    if (!isMuted) {
+      videoRefs.forEach((vRef, i) => {
+        if (vRef.current) {
+          vRef.current.muted = i !== idx;
+          if (i === idx) {
+            vRef.current.volume = 1;
+            vRef.current.play().catch(() => {});
+          }
+        }
+      });
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    isMutedRef.current = nextMuted;
+
+    videoRefs.forEach((vRef, idx) => {
+      if (vRef.current) {
+        if (nextMuted) {
+          vRef.current.muted = true;
+        } else {
+          vRef.current.muted = idx !== activeIndexRef.current;
+          if (idx === activeIndexRef.current) {
+            vRef.current.volume = 1;
+            vRef.current.play().catch(() => {});
+          }
+        }
+      }
+    });
   };
 
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10">
+    <section ref={sectionRef} id="testimonials" className="py-14 md:py-20 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10">
       {/* Soft Ambient Background Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[350px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[450px] h-[300px] bg-radial from-[#00FFE5]/5 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
@@ -203,7 +293,7 @@ export const Testimonials: React.FC = () => {
               What Our Clients Say
             </h2>
             <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-sans pt-1">
-              Real results, genuine partnerships, and transformational business growth delivered for modern companies.
+              Real results, genuine partnerships, and transformational business growth delivered for modern brands.
             </p>
           </motion.div>
         </div>
@@ -211,7 +301,7 @@ export const Testimonials: React.FC = () => {
         {/* 3D Circular Orbit Stage */}
         <div
           ref={containerRef}
-          className="relative max-w-5xl mx-auto h-[460px] sm:h-[480px] flex items-center justify-center select-none"
+          className="relative max-w-5xl mx-auto h-[430px] sm:h-[460px] flex items-center justify-center select-none"
           style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
         >
           {testimonialsData.map((item, idx) => (
@@ -219,22 +309,22 @@ export const Testimonials: React.FC = () => {
               key={item.id}
               ref={cardRefs[idx]}
               onClick={() => handleCardClick(idx)}
-              className="absolute top-1/2 left-1/2 w-[260px] sm:w-[300px] md:w-[330px] -ml-[130px] sm:-ml-[150px] md:-ml-[165px] -mt-[180px] sm:-mt-[190px] rounded-2xl bg-[#0c1015] border border-[#00E6D2]/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden cursor-pointer will-change-transform"
+              className="absolute top-1/2 left-1/2 w-[270px] sm:w-[310px] md:w-[340px] -ml-[135px] sm:-ml-[155px] md:-ml-[170px] -mt-[170px] sm:-mt-[185px] rounded-2xl bg-[#0c1015] border border-[#00E6D2]/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden cursor-pointer will-change-transform flex flex-col"
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
                 transform: 'translate3d(0, 0, 0)',
               }}
             >
-              {/* Video Container (Autoplay, Loop, Muted, Hardware Accelerated) */}
-              <div className="relative w-full aspect-video bg-black overflow-hidden">
+              {/* Video Container (Expanded to cover upper & former description area) */}
+              <div className="relative w-full h-[260px] sm:h-[285px] bg-black overflow-hidden">
                 <video
+                  ref={videoRefs[idx]}
                   src={item.video}
-                  autoPlay
                   loop
-                  muted
+                  muted={isMuted}
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover pointer-events-none"
                 />
 
@@ -245,38 +335,40 @@ export const Testimonials: React.FC = () => {
                 <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-[#0c1015]/90 border border-[#00E6D2]/40 text-[#00E6D2] text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase font-mono pointer-events-none">
                   {item.tag}
                 </div>
+
+                {/* Plain Audio Mute / On Button */}
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  className="absolute top-2.5 right-2.5 p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-black/30 transition-colors z-20 cursor-pointer"
+                  title={isMuted ? 'Turn Audio On' : 'Mute Audio'}
+                  aria-label={isMuted ? 'Turn Audio On' : 'Mute Audio'}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-4 h-4 text-white/70 hover:text-white" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 text-[#00E6D2] drop-shadow-[0_0_8px_#00E6D2]" />
+                  )}
+                </button>
               </div>
 
-              {/* Card Content & Testimonial Info */}
-              <div className="p-4 sm:p-5 space-y-3">
-                {/* Quote Icon */}
-                <div className="flex items-center justify-between">
-                  <Quote className="w-5 h-5 text-[#00E6D2]/50 shrink-0" />
+              {/* Author / Client Profile Footer */}
+              <div className="p-3 sm:p-3.5 bg-[#0c1015] border-t border-white/10 flex items-center gap-2.5">
+                {/* Gradient Avatar Initials */}
+                <div className="w-8 h-8 rounded-full bg-[#00E6D2]/20 border border-[#00E6D2]/40 flex items-center justify-center font-bold text-xs text-[#00FFE5] shrink-0 font-heading">
+                  {item.author
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')}
                 </div>
 
-                {/* Testimonial Quote */}
-                <p className="text-gray-300 text-xs sm:text-[13px] leading-relaxed italic line-clamp-3 font-sans">
-                  "{item.quote}"
-                </p>
-
-                {/* Author / Client Profile Footer */}
-                <div className="pt-2.5 border-t border-white/10 flex items-center gap-2.5">
-                  {/* Gradient Avatar Initials */}
-                  <div className="w-8 h-8 rounded-full bg-[#00E6D2]/20 border border-[#00E6D2]/40 flex items-center justify-center font-bold text-xs text-[#00FFE5] shrink-0 font-heading">
-                    {item.author
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight truncate font-heading">
-                      {item.author}
-                    </h4>
-                    <p className="text-[11px] text-gray-400 truncate">
-                      {item.role}, <span className="text-[#00E6D2]">{item.company}</span>
-                    </p>
-                  </div>
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight truncate font-heading">
+                    {item.author}
+                  </h4>
+                  <p className="text-[11px] text-gray-400 truncate">
+                    {item.role}, <span className="text-[#00E6D2]">{item.company}</span>
+                  </p>
                 </div>
               </div>
             </div>
