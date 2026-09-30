@@ -131,7 +131,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects }) => {
             whileTap={{ scale: 0.96 }}
             href="/projects"
             onClick={handleSeeMore}
-            className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 font-heading cursor-pointer"
+            className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_15px_rgba(0,230,210,0.25)] hover:shadow-[0_0_22px_rgba(0,230,210,0.4)] transition-all duration-300 font-heading cursor-pointer"
           >
             <span>See More Projects</span>
             <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

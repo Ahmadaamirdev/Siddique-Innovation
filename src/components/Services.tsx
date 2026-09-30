@@ -76,7 +76,7 @@ export const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="pt-12 pb-8 md:pt-16 md:pb-12 bg-[#050505] relative z-10 border-b border-white/10">
+    <section id="services" className="pt-12 pb-24 md:pt-16 md:pb-36 lg:pb-40 bg-[#050505] relative z-10 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -121,29 +121,29 @@ export const Services: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 0.61, 0.36, 1] as const }}
-                className={`group relative flex flex-col justify-between h-full bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
+                className={`group relative flex flex-col justify-between h-full bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
               >
                 <div className="flex flex-col flex-1">
                   {/* Icon Box */}
-                  <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] mb-5 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
-                    <IconComp className="w-6 h-6 text-[#00E6D2]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] mb-3.5 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
+                    <IconComp className="w-5 h-5 text-[#00E6D2]" />
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg xl:text-xl font-bold text-white mb-2 group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                  <h3 className="text-base sm:text-lg xl:text-xl font-bold text-white mb-1.5 group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
                     {service.title}
                   </h3>
 
                   {/* Description with unified min-height for uniform baseline */}
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6 min-h-[42px] font-sans">
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-3.5 font-sans">
                     {service.description}
                   </p>
 
                   {/* Bullet Checklist Points */}
-                  <ul className="space-y-3 mb-6 mt-auto">
+                  <ul className="space-y-2 mb-3.5 mt-auto">
                     {service.points.map((point) => (
-                      <li key={point} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-gray-300 font-medium">
-                        <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0" />
+                      <li key={point} className="flex items-center gap-2 text-xs sm:text-[13px] text-gray-300 font-medium">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#00E6D2] shrink-0" />
                         <span>{point}</span>
                       </li>
                     ))}
@@ -151,7 +151,7 @@ export const Services: React.FC = () => {
                 </div>
 
                 {/* Card Link to Service Page */}
-                <div className="pt-4 border-t border-white/10 mt-auto">
+                <div className="pt-3 border-t border-white/10 mt-auto">
                   <a
                     href={service.link}
                     className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#00E6D2] group-hover:text-white transition-colors"

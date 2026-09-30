@@ -5,100 +5,98 @@ import logoImg from '../../assets/logo.png';
 
 interface FlappingScrollLogoProps {
   progress: MotionValue<number>;
-  onTriggerReveal: () => void;
   isRevealed: boolean;
   reducedMotion?: boolean;
 }
 
 export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
   progress,
-  onTriggerReveal,
   isRevealed,
   reducedMotion = false,
 }) => {
 
-  // Vertical ascension: starts more downward, glides much higher upward into upper screen
+  // Vertical ascension: starts downward, glides upward into upper screen with smooth trajectory
   const logoY = useTransform(
     progress,
-    [0, 0.25, 0.55, 0.82, 1.0],
-    ['14vh', '5vh', '-8vh', '-24vh', '-38vh']
+    [0, 0.30, 0.60, 0.85, 1.0],
+    ['14vh', '6vh', '-6vh', '-22vh', '-38vh']
   );
 
-  // Scaling: base element is 460px wide, uniformly scaled up to 1.40 (authentic shape, no distortion)
+  // Scaling: base element uniformly scaled up to 1.40 (authentic shape, no distortion)
   const logoScale = useTransform(
     progress,
-    [0, 0.25, 0.55, 0.85, 1.0],
-    [0.18, 0.38, 0.75, 1.12, 1.40]
+    [0, 0.30, 0.60, 0.85, 1.0],
+    [0.18, 0.40, 0.75, 1.10, 1.40]
   );
 
   // Opacity: full visibility during ascension, then dissolves gently into stardust at peak size
   const logoOpacity = useTransform(
     progress,
-    [0, 0.75, 0.92, 1.0],
-    [1, 1, 0.3, 0]
+    [0, 0.82, 0.96, 1.0],
+    [1, 1, 0.4, 0]
   );
 
-  // Soft energy bloom burst flare when reaching peak size (reduced glow)
+  // Soft energy bloom burst flare when reaching peak size
   const flareOpacity = useTransform(
     progress,
-    [0.75, 0.88, 1.0],
-    [0, 0.32, 0]
+    [0.80, 0.92, 1.0],
+    [0, 0.30, 0]
   );
   const flareScale = useTransform(
     progress,
-    [0.75, 0.90, 1.0],
+    [0.80, 0.92, 1.0],
     [0.6, 2.2, 3.0]
   );
 
   // Scroll Down prompt text: fades out smoothly upon initial scroll
   const promptOpacity = useTransform(
     progress,
-    [0, 0.12],
+    [0, 0.10],
     [1, 0]
   );
   const promptY = useTransform(
     progress,
-    [0, 0.12],
-    [0, 12]
+    [0, 0.10],
+    [0, 10]
   );
 
-  // Distinct, clear 3D avian wing flapping with dynamic aerodynamic strokes:
+  // Slower, majestic, broad sweeping 3D avian wing flapping:
   // Left Wing 3D Transforms
   const leftWingRotateY = useTransform(
     progress,
-    [0, 0.10, 0.26, 0.42, 0.58, 0.72, 0.86, 1.0],
-    [0, -26, 44, -22, 34, -14, 16, 0]
+    [0, 0.25, 0.52, 0.76, 0.94, 1.0],
+    [0, -24, 30, -16, 12, 0]
   );
 
   const leftWingRotateZ = useTransform(
     progress,
-    [0, 0.10, 0.26, 0.42, 0.58, 0.72, 0.86, 1.0],
-    [0, 9, -18, 8, -14, 5, -5, 0]
+    [0, 0.25, 0.52, 0.76, 0.94, 1.0],
+    [0, 7, -12, 5, -4, 0]
   );
 
   const leftWingRotateX = useTransform(
     progress,
-    [0, 0.10, 0.26, 0.42, 0.58, 0.72, 0.86, 1.0],
-    [0, -8, 15, -7, 12, -4, 4, 0]
+    [0, 0.25, 0.52, 0.76, 0.94, 1.0],
+    [0, -6, 10, -4, 3, 0]
   );
 
   // Right Wing 3D Transforms (symmetrical)
   const rightWingRotateY = useTransform(
     progress,
-    [0, 0.10, 0.26, 0.42, 0.58, 0.72, 0.86, 1.0],
-    [0, 26, -44, 22, -34, 14, -16, 0]
+    [0, 0.25, 0.52, 0.76, 0.94, 1.0],
+    [0, 24, -30, 16, -12, 0]
   );
 
   const rightWingRotateZ = useTransform(
     progress,
-    [0, 0.10, 0.26, 0.42, 0.58, 0.72, 0.86, 1.0],
-    [0, -9, 18, -8, 14, -5, 5, 0]
+    [0, 0.25, 0.52, 0.76, 0.94, 1.0],
+    [0, -7, 12, -5, 4, 0]
   );
 
   const rightWingRotateX = useTransform(
     progress,
-    [0, 0.10, 0.26, 0.42, 0.58, 0.72, 0.86, 1.0],
-    [0, -8, 15, -7, 12, -4, 4, 0]
+    [0, 0.25, 0.52, 0.76, 0.94, 1.0],
+    [0, -6, 10, -4, 3, 0]
   );
 
 
@@ -116,25 +114,23 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
         style={{
           y: logoY,
         }}
-        className="relative flex items-center justify-center transform-gpu will-change-transform pointer-events-auto"
+        className="relative flex items-center justify-center transform-gpu will-change-transform pointer-events-none"
       >
-        {/* Outer Idle Hovering Wrapper - Hovers BOTH the logo and text together in static state */}
+        {/* Outer Idle Hovering Wrapper - Hovers smoothly in static state */}
         <motion.div
           animate={
             reducedMotion
               ? {}
               : {
-                y: [0, -14, 0],
+                y: [0, -10, 0],
               }
           }
           transition={{
-            duration: 2.8,
+            duration: 3.8,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="relative w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] md:w-[460px] md:h-[460px] flex items-center justify-center cursor-pointer"
-          onClick={onTriggerReveal}
-          title="Scroll to move"
+          className="relative w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] md:w-[460px] md:h-[460px] flex items-center justify-center select-none"
         >
           {/* Scaled Wings System Container (Uniform 1:1 scale, authentic original shape) */}
           <motion.div
@@ -231,8 +227,7 @@ export const FlappingScrollLogo: React.FC<FlappingScrollLogoProps> = ({
               opacity: promptOpacity,
               y: promptY,
             }}
-            onClick={onTriggerReveal}
-            className="absolute top-1/2 mt-14 sm:mt-16 flex flex-col items-center gap-1.5 cursor-pointer group pointer-events-auto z-30 select-none"
+            className="absolute top-1/2 mt-14 sm:mt-16 flex flex-col items-center gap-1.5 group pointer-events-none z-30 select-none"
           >
             <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.28em] text-[#00E6D2] font-mono group-hover:text-white drop-shadow-[0_0_10px_rgba(0,230,210,0.6)] transition-colors">
               scroll to move

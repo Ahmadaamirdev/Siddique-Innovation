@@ -4,12 +4,14 @@ import { ArrowLeft, ArrowUpRight, ExternalLink, Terminal, Sparkles, Filter, Code
 import { allProjects } from './projectsData';
 import brandLogo from '../assets/brand_logo.png';
 import { Footer } from './Footer';
+import { CTA } from './CTA';
 
 interface ProjectsPageProps {
   onBackToHome?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavigate }) => {
   const [filter, setFilter] = useState<'all' | 'web' | 'ai'>('all');
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
               }, 100);
             }
           }}
-          className="hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] font-bold text-xs hover:shadow-[0_0_20px_rgba(0,230,210,0.5)] transition-all duration-300 cursor-pointer"
+          className="hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] font-bold text-xs hover:shadow-[0_0_15px_rgba(0,230,210,0.3)] transition-all duration-300 cursor-pointer"
         >
           <span>Start a Project</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
@@ -122,11 +124,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
           >
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
-                filter === 'all'
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'all'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-              }`}
+                }`}
             >
               <Filter className="w-3.5 h-3.5" />
               <span>All Projects ({allProjects.length})</span>
@@ -134,11 +135,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
 
             <button
               onClick={() => setFilter('web')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
-                filter === 'web'
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'web'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-              }`}
+                }`}
             >
               <Code2 className="w-3.5 h-3.5" />
               <span>Web Development (3)</span>
@@ -146,11 +146,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
 
             <button
               onClick={() => setFilter('ai')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
-                filter === 'ai'
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'ai'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-              }`}
+                }`}
             >
               <Cpu className="w-3.5 h-3.5" />
               <span>AI Automation (3)</span>
@@ -165,10 +164,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
               const CardWrapper = project.link ? 'a' : 'div';
               const wrapperProps = project.link
                 ? {
-                    href: project.link,
-                    target: '_blank',
-                    rel: 'noopener noreferrer',
-                  }
+                  href: project.link,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                }
                 : {};
 
               return (
@@ -226,7 +225,9 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome }) => {
         </motion.div>
       </main>
 
-      <Footer />
+      <CTA />
+
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 };

@@ -15,11 +15,15 @@ import { BackgroundParticles } from './components/BackgroundParticles';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { ProjectsPage } from './components/ProjectsPage';
 import { ServiceDetailPage } from './components/ServiceDetailPage';
+import { AboutPage } from './components/AboutPage';
+import { ContactPage } from './components/ContactPage';
+import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
+import { TermsPage } from './components/TermsPage';
 import { servicesData } from './data/servicesData';
 
 export const App: React.FC = () => {
-  const heroProgress = useMotionValue(1);
-  const [isHeroRevealed, setIsHeroRevealed] = useState(true);
+  const heroProgress = useMotionValue(0);
+  const [isHeroRevealed, setIsHeroRevealed] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   useEffect(() => {
@@ -51,7 +55,27 @@ export const App: React.FC = () => {
 
   const renderContent = () => {
     if (currentPath === '/projects') {
-      return <ProjectsPage onBackToHome={navigateToHome} />;
+      return <ProjectsPage onBackToHome={navigateToHome} onNavigate={navigateToPath} />;
+    }
+
+    if (currentPath === '/about' || currentPath === '/about-us') {
+      return <AboutPage onNavigate={navigateToPath} />;
+    }
+
+    if (currentPath === '/contact' || currentPath === '/contact-us') {
+      return <ContactPage onNavigate={navigateToPath} />;
+    }
+
+    if (currentPath === '/privacy-policy' || currentPath === '/privacy') {
+      return <PrivacyPolicyPage onNavigate={navigateToPath} />;
+    }
+
+    if (
+      currentPath === '/terms' ||
+      currentPath === '/terms-and-conditions' ||
+      currentPath === '/terms-of-service'
+    ) {
+      return <TermsPage onNavigate={navigateToPath} />;
     }
 
     if (currentPath.startsWith('/services/')) {
@@ -70,7 +94,7 @@ export const App: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black overflow-x-hidden relative">
+      <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black overflow-x-clip relative">
         <BackgroundParticles />
         <Navbar
           heroProgress={heroProgress}
@@ -83,6 +107,7 @@ export const App: React.FC = () => {
             progressProp={heroProgress}
             isRevealedProp={isHeroRevealed}
             onRevealedChange={setIsHeroRevealed}
+            onNavigate={navigateToPath}
           />
           <Stats />
           <Services />
@@ -93,7 +118,7 @@ export const App: React.FC = () => {
           <FAQ />
           <CTA />
         </main>
-        <Footer />
+        <Footer onNavigate={navigateToPath} />
       </div>
     );
   };
