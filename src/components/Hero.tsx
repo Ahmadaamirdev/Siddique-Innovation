@@ -20,11 +20,24 @@ export const Hero: React.FC<HeroProps> = ({
   onNavigate,
 }) => {
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [localRevealed, setLocalRevealed] = useState(isRevealedProp);
+  const [localRevealed, setLocalRevealed] = useState(() => {
+    if (isRevealedProp) return true;
+    try {
+      return sessionStorage.getItem('si_intro_revealed') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const isRevealed = isRevealedProp || localRevealed;
 
   const fallbackProgress = useMotionValue(isRevealed ? 1 : 0);
   const progress = progressProp || fallbackProgress;
+
+  useEffect(() => {
+    if (isRevealed) {
+      progress.set(1);
+    }
+  }, [isRevealed, progress]);
 
   const isAnimatingRef = useRef(false);
   const { stopScroll, startScroll } = useSmoothScroll();
@@ -63,6 +76,9 @@ export const Hero: React.FC<HeroProps> = ({
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       startScroll();
+      if ((window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
     }
   }, [isRevealed, stopScroll, startScroll]);
 
@@ -76,6 +92,9 @@ export const Hero: React.FC<HeroProps> = ({
       ease: [0.22, 1, 0.32, 1],
       onComplete: () => {
         setLocalRevealed(true);
+        try {
+          sessionStorage.setItem('si_intro_revealed', 'true');
+        } catch {}
         if (onRevealedChange) onRevealedChange(true);
         (window as any).__heroRevealed = true;
         isAnimatingRef.current = false;

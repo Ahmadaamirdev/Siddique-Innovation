@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "upload:cloudinary": "node scripts/upload-to-cloudinary.mjs"
   },
   "dependencies": {
     "@types/react-google-recaptcha": "^2.1.9",

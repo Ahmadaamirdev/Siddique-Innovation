@@ -25,6 +25,7 @@ import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import { useSmoothScroll } from '../SmoothScrollProvider';
+import serviceHeroBg from '../../assets/service_hero_bg.png';
 
 const aiDeliverables = [
   {
@@ -141,6 +142,58 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           ref={heroRef}
           className="relative w-full overflow-hidden bg-[#040608] text-white pb-8 sm:pb-12 px-6 sm:px-10 md:px-14 lg:px-20"
         >
+          {/* Background image container with top/bottom vignettes */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 0,
+              overflow: 'hidden',
+              pointerEvents: 'none',
+            }}
+          >
+            <img
+              src={serviceHeroBg}
+              alt="Service hero background"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                display: 'block',
+                userSelect: 'none',
+                pointerEvents: 'none',
+                filter: 'brightness(0.65) contrast(1.1)',
+              }}
+            />
+            {/* Top vignette */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '120px',
+                background: 'linear-gradient(to bottom, #040608 0%, rgba(4,6,8,0.7) 60%, transparent 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            {/* Bottom vignette */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '240px',
+                background: 'linear-gradient(to top, #040608 0%, rgba(4,6,8,0.85) 60%, transparent 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            {/* Ambient overlay */}
+            <div className="absolute inset-0 bg-[#040608]/45 pointer-events-none" />
+          </div>
+
           <div className="relative z-10 max-w-[1360px] mx-auto w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center -mt-4 sm:-mt-8 lg:-mt-12">
               {/* LEFT COLUMN: Text Content Animated In from the Left (Pristine, no wave overlap) */}
@@ -150,15 +203,23 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="lg:col-span-6 flex flex-col items-start text-left relative z-10"
               >
+                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-2">
+                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                  <span>SMART ENTERPRISE AUTOMATION</span>
+                </div>
+
                 <motion.h1
                   initial={{ opacity: 0, x: -40 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading select-none"
+                  className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading select-none py-1"
                 >
-                  AUTOMATE BUSINESS <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00F5E0] to-[#00D6C4] drop-shadow-[0_0_30px_rgba(0,230,210,0.4)]">
-                    WITH ADVANCED AI
+                  <span className="block">Automate Business</span>
+                  <span
+                    className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+                    style={{ WebkitTextFillColor: 'transparent' }}
+                  >
+                    With Advanced AI
                   </span>
                 </motion.h1>
 
@@ -166,7 +227,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed font-sans max-w-xl mt-6"
+                  className="text-gray-300 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed font-sans max-w-xl mt-4"
                 >
                   {service.heroDescription}
                 </motion.p>
@@ -197,142 +258,142 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
               >
                 <div className="relative w-full flex items-center justify-center lg:justify-end">
                   {/* Luminous Green Aurora Borealis Waves (Confined strictly around video, active fluid motion) */}
-                <div className="absolute -inset-4 sm:-inset-6 lg:-inset-8 pointer-events-none flex items-center justify-center -z-10 overflow-hidden">
-                  {/* Rotating & Pulsing Aurora Glow Core (Scaled down for tighter fit) */}
-                  <motion.div
-                    animate={{
-                      scale: [0.88, 1.05, 0.88],
-                      opacity: [0.35, 0.55, 0.35],
-                      rotate: [0, 180, 360],
+                  <div className="absolute -inset-4 sm:-inset-6 lg:-inset-8 pointer-events-none flex items-center justify-center -z-10 overflow-hidden">
+                    {/* Rotating & Pulsing Aurora Glow Core (Scaled down for tighter fit) */}
+                    <motion.div
+                      animate={{
+                        scale: [0.88, 1.05, 0.88],
+                        opacity: [0.35, 0.55, 0.35],
+                        rotate: [0, 180, 360],
+                      }}
+                      transition={{ repeat: Infinity, duration: 16, ease: 'linear' }}
+                      className="absolute w-[290px] sm:w-[380px] lg:w-[440px] h-[290px] sm:h-[380px] lg:h-[440px] rounded-full bg-gradient-to-tr from-[#00E6D2]/25 via-[#10B981]/20 to-[#00FFE5]/15 blur-[75px] transform-gpu"
+                    />
+
+                    {/* Dynamic Undulating Aurora Wave Curtains SVG (Tighter 110% size) */}
+                    <svg
+                      className="absolute w-[110%] h-[110%] pointer-events-none"
+                      viewBox="0 0 600 600"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs>
+                        <linearGradient id="aurora-green-curtain-1" x1="0%" y1="100%" x2="60%" y2="0%">
+                          <stop offset="0%" stopColor="#059669" stopOpacity="0" />
+                          <stop offset="30%" stopColor="#10B981" stopOpacity="0.45" />
+                          <stop offset="65%" stopColor="#00FFE5" stopOpacity="0.8" />
+                          <stop offset="100%" stopColor="#00E6D2" stopOpacity="0" />
+                        </linearGradient>
+
+                        <linearGradient id="aurora-green-curtain-2" x1="100%" y1="100%" x2="20%" y2="0%">
+                          <stop offset="0%" stopColor="#00E6D2" stopOpacity="0" />
+                          <stop offset="35%" stopColor="#00FFE5" stopOpacity="0.7" />
+                          <stop offset="70%" stopColor="#10B981" stopOpacity="0.5" />
+                          <stop offset="100%" stopColor="#059669" stopOpacity="0" />
+                        </linearGradient>
+
+                        <linearGradient id="aurora-crest-glow" x1="0%" y1="50%" x2="100%" y2="50%">
+                          <stop offset="0%" stopColor="#10B981" stopOpacity="0.1" />
+                          <stop offset="50%" stopColor="#00FFE5" stopOpacity="0.95" />
+                          <stop offset="100%" stopColor="#00E6D2" stopOpacity="0.1" />
+                        </linearGradient>
+
+                        <filter id="aurora-soft-blur" x="-30%" y="-30%" width="160%" height="160%">
+                          <feGaussianBlur stdDeviation="16" />
+                        </filter>
+                        <filter id="aurora-crest-blur" x="-20%" y="-20%" width="140%" height="140%">
+                          <feGaussianBlur stdDeviation="4" />
+                        </filter>
+                      </defs>
+
+                      {/* Aurora Ribbon 1: Arching Green Wave in Active Motion */}
+                      <motion.path
+                        d="M100,500 C170,360 210,240 310,180 C410,120 480,200 520,320 C540,380 480,480 420,520 Z"
+                        fill="url(#aurora-green-curtain-1)"
+                        filter="url(#aurora-soft-blur)"
+                        animate={{
+                          y: [-12, 12, -12],
+                          x: [-10, 10, -10],
+                          rotate: [-2.5, 2.5, -2.5],
+                          scale: [0.88, 0.97, 0.88],
+                          opacity: [0.65, 0.88, 0.65],
+                        }}
+                        transition={{ repeat: Infinity, duration: 5.5, ease: 'easeInOut' }}
+                        style={{ transformOrigin: '300px 300px' }}
+                      />
+
+                      {/* Aurora Ribbon 2: Secondary Flowing Green Curtain in Counter Motion */}
+                      <motion.path
+                        d="M150,530 C230,410 270,270 370,210 C470,150 490,290 450,410 C410,490 330,550 250,540 Z"
+                        fill="url(#aurora-green-curtain-2)"
+                        filter="url(#aurora-soft-blur)"
+                        animate={{
+                          y: [12, -14, 12],
+                          x: [10, -8, 10],
+                          rotate: [2, -2, 2],
+                          scale: [0.96, 0.88, 0.96],
+                          opacity: [0.55, 0.82, 0.55],
+                        }}
+                        transition={{ repeat: Infinity, duration: 6.5, ease: 'easeInOut', delay: 0.5 }}
+                        style={{ transformOrigin: '300px 300px' }}
+                      />
+
+                      {/* Luminous Solid Aurora Crest Wave 1 (Clean, No Dots) */}
+                      <motion.path
+                        d="M110,450 C210,320 250,210 330,170 C430,120 480,220 500,340"
+                        stroke="url(#aurora-crest-glow)"
+                        strokeWidth="2.5"
+                        fill="none"
+                        filter="url(#aurora-crest-blur)"
+                        animate={{
+                          y: [-10, 10, -10],
+                          x: [-6, 6, -6],
+                          scale: [0.88, 0.96, 0.88],
+                        }}
+                        transition={{ repeat: Infinity, duration: 4.8, ease: 'easeInOut' }}
+                        style={{ transformOrigin: '300px 300px' }}
+                      />
+
+                      {/* Luminous Solid Aurora Wave Stream 2 (Clean, No Dots) */}
+                      <motion.path
+                        d="M130,470 C220,350 280,230 360,190 C450,150 510,250 480,380"
+                        stroke="#00FFE5"
+                        strokeWidth="1.8"
+                        strokeOpacity="0.8"
+                        fill="none"
+                        filter="url(#aurora-crest-blur)"
+                        animate={{
+                          y: [10, -10, 10],
+                          x: [8, -8, 8],
+                          scale: [0.88, 0.96, 0.88],
+                          opacity: [0.5, 0.82, 0.5],
+                        }}
+                        transition={{ repeat: Infinity, duration: 5.2, ease: 'easeInOut', delay: 0.3 }}
+                        style={{ transformOrigin: '300px 300px' }}
+                      />
+                    </svg>
+                  </div>
+
+                  <div
+                    className="relative w-full max-w-[480px] sm:max-w-[540px] lg:max-w-[580px] xl:max-w-[620px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
+                    style={{
+                      WebkitMaskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
+                      maskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
                     }}
-                    transition={{ repeat: Infinity, duration: 16, ease: 'linear' }}
-                    className="absolute w-[290px] sm:w-[380px] lg:w-[440px] h-[290px] sm:h-[380px] lg:h-[440px] rounded-full bg-gradient-to-tr from-[#00E6D2]/25 via-[#10B981]/20 to-[#00FFE5]/15 blur-[75px] transform-gpu"
-                  />
-
-                  {/* Dynamic Undulating Aurora Wave Curtains SVG (Tighter 110% size) */}
-                  <svg
-                    className="absolute w-[110%] h-[110%] pointer-events-none"
-                    viewBox="0 0 600 600"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <defs>
-                      <linearGradient id="aurora-green-curtain-1" x1="0%" y1="100%" x2="60%" y2="0%">
-                        <stop offset="0%" stopColor="#059669" stopOpacity="0" />
-                        <stop offset="30%" stopColor="#10B981" stopOpacity="0.45" />
-                        <stop offset="65%" stopColor="#00FFE5" stopOpacity="0.8" />
-                        <stop offset="100%" stopColor="#00E6D2" stopOpacity="0" />
-                      </linearGradient>
-
-                      <linearGradient id="aurora-green-curtain-2" x1="100%" y1="100%" x2="20%" y2="0%">
-                        <stop offset="0%" stopColor="#00E6D2" stopOpacity="0" />
-                        <stop offset="35%" stopColor="#00FFE5" stopOpacity="0.7" />
-                        <stop offset="70%" stopColor="#10B981" stopOpacity="0.5" />
-                        <stop offset="100%" stopColor="#059669" stopOpacity="0" />
-                      </linearGradient>
-
-                      <linearGradient id="aurora-crest-glow" x1="0%" y1="50%" x2="100%" y2="50%">
-                        <stop offset="0%" stopColor="#10B981" stopOpacity="0.1" />
-                        <stop offset="50%" stopColor="#00FFE5" stopOpacity="0.95" />
-                        <stop offset="100%" stopColor="#00E6D2" stopOpacity="0.1" />
-                      </linearGradient>
-
-                      <filter id="aurora-soft-blur" x="-30%" y="-30%" width="160%" height="160%">
-                        <feGaussianBlur stdDeviation="16" />
-                      </filter>
-                      <filter id="aurora-crest-blur" x="-20%" y="-20%" width="140%" height="140%">
-                        <feGaussianBlur stdDeviation="4" />
-                      </filter>
-                    </defs>
-
-                    {/* Aurora Ribbon 1: Arching Green Wave in Active Motion */}
-                    <motion.path
-                      d="M100,500 C170,360 210,240 310,180 C410,120 480,200 520,320 C540,380 480,480 420,520 Z"
-                      fill="url(#aurora-green-curtain-1)"
-                      filter="url(#aurora-soft-blur)"
-                      animate={{
-                        y: [-12, 12, -12],
-                        x: [-10, 10, -10],
-                        rotate: [-2.5, 2.5, -2.5],
-                        scale: [0.88, 0.97, 0.88],
-                        opacity: [0.65, 0.88, 0.65],
-                      }}
-                      transition={{ repeat: Infinity, duration: 5.5, ease: 'easeInOut' }}
-                      style={{ transformOrigin: '300px 300px' }}
+                    <video
+                      ref={videoRef}
+                      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260725_114042_d2ed2a89-f2fa-449b-9609-da456344257b.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover transform-gpu will-change-transform scale-[1.18]"
                     />
-
-                    {/* Aurora Ribbon 2: Secondary Flowing Green Curtain in Counter Motion */}
-                    <motion.path
-                      d="M150,530 C230,410 270,270 370,210 C470,150 490,290 450,410 C410,490 330,550 250,540 Z"
-                      fill="url(#aurora-green-curtain-2)"
-                      filter="url(#aurora-soft-blur)"
-                      animate={{
-                        y: [12, -14, 12],
-                        x: [10, -8, 10],
-                        rotate: [2, -2, 2],
-                        scale: [0.96, 0.88, 0.96],
-                        opacity: [0.55, 0.82, 0.55],
-                      }}
-                      transition={{ repeat: Infinity, duration: 6.5, ease: 'easeInOut', delay: 0.5 }}
-                      style={{ transformOrigin: '300px 300px' }}
-                    />
-
-                    {/* Luminous Solid Aurora Crest Wave 1 (Clean, No Dots) */}
-                    <motion.path
-                      d="M110,450 C210,320 250,210 330,170 C430,120 480,220 500,340"
-                      stroke="url(#aurora-crest-glow)"
-                      strokeWidth="2.5"
-                      fill="none"
-                      filter="url(#aurora-crest-blur)"
-                      animate={{
-                        y: [-10, 10, -10],
-                        x: [-6, 6, -6],
-                        scale: [0.88, 0.96, 0.88],
-                      }}
-                      transition={{ repeat: Infinity, duration: 4.8, ease: 'easeInOut' }}
-                      style={{ transformOrigin: '300px 300px' }}
-                    />
-
-                    {/* Luminous Solid Aurora Wave Stream 2 (Clean, No Dots) */}
-                    <motion.path
-                      d="M130,470 C220,350 280,230 360,190 C450,150 510,250 480,380"
-                      stroke="#00FFE5"
-                      strokeWidth="1.8"
-                      strokeOpacity="0.8"
-                      fill="none"
-                      filter="url(#aurora-crest-blur)"
-                      animate={{
-                        y: [10, -10, 10],
-                        x: [8, -8, 8],
-                        scale: [0.88, 0.96, 0.88],
-                        opacity: [0.5, 0.82, 0.5],
-                      }}
-                      transition={{ repeat: Infinity, duration: 5.2, ease: 'easeInOut', delay: 0.3 }}
-                      style={{ transformOrigin: '300px 300px' }}
-                    />
-                  </svg>
+                  </div>
                 </div>
-
-                <div
-                  className="relative w-full max-w-[480px] sm:max-w-[540px] lg:max-w-[580px] xl:max-w-[620px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
-                  style={{
-                    WebkitMaskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
-                    maskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
-                  }}
-                >
-                  <video
-                    ref={videoRef}
-                    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260725_114042_d2ed2a89-f2fa-449b-9609-da456344257b.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="w-full h-full object-cover transform-gpu will-change-transform scale-[1.18]"
-                  />
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -349,16 +410,16 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
 
           <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative items-stretch">
-              {/* Central Vertical Divider with "FROM MANUAL → AUTONOMOUS" Badge */}
+              {/* Central Vertical Divider */}
               <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
-                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3.5 py-1 rounded-full bg-[#080D12] border border-white/15 text-[10px] font-mono tracking-wider text-gray-300 uppercase whitespace-nowrap shadow-xl">
+                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
                   FROM MANUAL &rarr; AUTONOMOUS
                 </div>
               </div>
 
-              {/* Mobile Pill Divider */}
+              {/* Mobile Divider */}
               <div className="lg:hidden flex justify-center -my-4">
-                <div className="px-3 py-1 rounded-full bg-[#080D12] border border-white/15 text-[10px] font-mono tracking-wider text-gray-300 uppercase whitespace-nowrap">
+                <div className="px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
                   FROM MANUAL &rarr; AUTONOMOUS
                 </div>
               </div>
@@ -369,8 +430,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* Top Header Block */}
                   <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 font-semibold text-[11px] tracking-wider uppercase font-heading w-fit">
-                      <AlertTriangle className="w-3 h-3 text-red-400" />
+                    <div className="inline-flex items-center gap-2 text-red-400 font-semibold text-xs tracking-wider uppercase font-mono">
+                      <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
                       <span>MANUAL WORKFLOWS</span>
                     </div>
 
@@ -458,8 +519,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* Top Header Block */}
                   <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 text-[#00E6D2] font-semibold text-[11px] tracking-wider uppercase font-heading w-fit">
-                      <Zap className="w-3 h-3 text-[#00E6D2] fill-[#00E6D2]" />
+                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]">
+                      <WingLogo className="w-4 h-4 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
                       <span>AI AUTOPILOT</span>
                     </div>
 
@@ -574,8 +635,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 index === 3
                   ? 'lg:col-span-2 lg:col-start-2'
                   : index === 4
-                  ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
-                  : 'lg:col-span-2';
+                    ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
+                    : 'lg:col-span-2';
 
               return (
                 <motion.div
@@ -694,8 +755,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                       ease: [0.22, 0.61, 0.36, 1] as const,
                     }}
                     className={`rounded-2xl transition-all duration-300 border overflow-hidden ${isOpen
-                        ? 'bg-[#0A0E13] border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-                        : 'bg-[#0A0E13]/60 border-white/10 hover:border-white/20 hover:bg-[#0A0E13]/85'
+                      ? 'bg-[#0A0E13] border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+                      : 'bg-[#0A0E13]/60 border-white/10 hover:border-white/20 hover:bg-[#0A0E13]/85'
                       }`}
                   >
                     <button
@@ -709,8 +770,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                         </span>
                         <span
                           className={`text-base sm:text-[17px] font-medium tracking-tight transition-colors font-heading ${isOpen
-                              ? 'text-white'
-                              : 'text-gray-200 group-hover:text-white'
+                            ? 'text-white'
+                            : 'text-gray-200 group-hover:text-white'
                             }`}
                         >
                           {faq.question}
@@ -720,8 +781,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                       {/* Clean Dropdown Arrow Button */}
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${isOpen
-                            ? 'bg-[#00E6D2]/15 border-[#00E6D2]/50 text-[#00FFE5] rotate-180 shadow-[0_0_12px_rgba(0,230,210,0.2)]'
-                            : 'bg-white/[0.04] border-white/10 text-gray-400 group-hover:bg-[#00E6D2]/15 group-hover:border-[#00E6D2]/50 group-hover:text-[#00FFE5] group-hover:shadow-[0_0_12px_rgba(0,230,210,0.2)]'
+                          ? 'bg-[#00E6D2]/15 border-[#00E6D2]/50 text-[#00FFE5] rotate-180 shadow-[0_0_12px_rgba(0,230,210,0.2)]'
+                          : 'bg-white/[0.04] border-white/10 text-gray-400 group-hover:bg-[#00E6D2]/15 group-hover:border-[#00E6D2]/50 group-hover:text-[#00FFE5] group-hover:shadow-[0_0_12px_rgba(0,230,210,0.2)]'
                           }`}
                       >
                         <ChevronDown className="w-4 h-4 transition-transform duration-300" />

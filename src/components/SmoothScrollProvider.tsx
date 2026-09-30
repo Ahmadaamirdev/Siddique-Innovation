@@ -36,9 +36,14 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode; current
     lenisRef.current = lenis;
     (window as any).__lenis = lenis;
 
-    // Only pause Lenis if strictly on homepage AND hero is explicitly not revealed yet
+    // Only pause Lenis if strictly on homepage AND hero has never been revealed yet in this session
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
-    if (isHomePage && (window as any).__heroRevealed === false) {
+    let isIntroRevealed = false;
+    try {
+      isIntroRevealed = sessionStorage.getItem('si_intro_revealed') === 'true';
+    } catch {}
+
+    if (isHomePage && !isIntroRevealed && (window as any).__heroRevealed === false) {
       lenis.stop();
     } else {
       (window as any).__heroRevealed = true;

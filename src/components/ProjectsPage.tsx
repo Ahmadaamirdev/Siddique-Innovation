@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight, ExternalLink, Terminal, Sparkles, Filter, Code2, Cpu } from 'lucide-react';
+import { ExternalLink, Terminal, Filter, Code2, Cpu } from 'lucide-react';
 import { allProjects } from './projectsData';
-import brandLogo from '../assets/brand_logo.png';
+import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { CTA } from './CTA';
+import { WingLogo } from './WingLogo';
 
 interface ProjectsPageProps {
   onBackToHome?: () => void;
@@ -27,12 +28,14 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
     return p.category === filter;
   });
 
-  const handleBack = (e: React.MouseEvent) => {
-    if (onBackToHome) {
-      e.preventDefault();
+  const handleNav = (path: string) => {
+    if (path === '/' && onBackToHome) {
       onBackToHome();
+    } else if (onNavigate) {
+      onNavigate(path);
     } else {
-      window.location.href = '/';
+      window.history.pushState({}, '', path);
+      window.location.href = path;
     }
   };
 
@@ -42,66 +45,38 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
       <div className="fixed top-0 left-1/4 w-[600px] h-[400px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-[140px] pointer-events-none -z-0" />
       <div className="fixed bottom-0 right-1/4 w-[500px] h-[400px] bg-radial from-[#00FFE5]/5 via-transparent to-transparent blur-[140px] pointer-events-none -z-0" />
 
-      {/* Top Floating Header */}
-      <header className="fixed top-4 sm:top-6 left-0 right-0 z-50 flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6">
-        <a
-          href="/"
-          onClick={handleBack}
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A1218]/90 border border-white/10 hover:border-[#00E6D2]/50 backdrop-blur-xl text-xs sm:text-sm font-semibold text-gray-200 hover:text-[#00E6D2] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] group cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4 text-[#00E6D2] transition-transform group-hover:-translate-x-1" />
-          <span>Back to Home</span>
-        </a>
-
-        <a href="/" onClick={handleBack} className="block cursor-pointer">
-          <img
-            src={brandLogo}
-            alt="Siddiqui Innovations"
-            className="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,230,210,0.4)]"
-          />
-        </a>
-
-        <a
-          href="/#contact"
-          onClick={(e) => {
-            if (onBackToHome) {
-              e.preventDefault();
-              onBackToHome();
-              setTimeout(() => {
-                const el = document.getElementById('contact');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            }
-          }}
-          className="hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] font-bold text-xs hover:shadow-[0_0_15px_rgba(0,230,210,0.3)] transition-all duration-300 cursor-pointer"
-        >
-          <span>Start a Project</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
-        </a>
-      </header>
+      {/* Floating Navbar synced with all pages */}
+      <Navbar
+        isHeroRevealed={true}
+        currentPath="/projects"
+        onNavigate={handleNav}
+      />
 
       {/* Main Content Area */}
-      <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+      <main className="pt-28 sm:pt-36 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
         {/* Page Hero Intro */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/30 text-[#00FFE5] text-xs font-semibold tracking-wider uppercase font-mono shadow-[0_0_15px_rgba(0,230,210,0.2)]"
+            className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#00E6D2]" />
-            <span>PORTFOLIO & CASE STUDIES</span>
+            <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+            <span>PORTFOLIO &amp; CASE STUDIES</span>
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight font-heading leading-tight"
+            className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading max-w-2xl mx-auto py-1"
           >
-            All Work &{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,230,210,0.4)]">
+            <span className="block">All Work &amp;</span>
+            <span
+              className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+              style={{ WebkitTextFillColor: 'transparent' }}
+            >
               Innovations
             </span>
           </motion.h1>
@@ -110,7 +85,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-sans"
+            className="text-gray-300 text-xs sm:text-sm lg:text-[15px] max-w-lg mx-auto font-normal leading-relaxed font-sans"
           >
             From bespoke high-converting digital storefronts and corporate enterprises to intelligent autonomous AI workflows and custom Python bots.
           </motion.p>

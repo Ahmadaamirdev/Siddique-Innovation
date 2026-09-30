@@ -8,7 +8,6 @@ import {
   Send,
   CheckCircle2,
   Check,
-  MessageSquare,
 } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -190,9 +189,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: smoothEase }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 text-[#00E6D2] text-xs font-semibold tracking-wider uppercase font-heading"
+              className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]"
             >
-              <WingLogo className="w-4 h-4 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
               <span>GET IN TOUCH</span>
             </motion.div>
 
@@ -523,9 +522,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           {/* BOTTOM SECTION: Prefer to Reach Out Directly? */}
           <section className="mt-16 sm:mt-20 p-8 sm:p-10 rounded-3xl bg-[#080B10] border border-white/10 text-center relative overflow-hidden">
             <div className="max-w-2xl mx-auto space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold uppercase tracking-wider text-gray-300 font-heading">
-                <MessageSquare className="w-3.5 h-3.5 text-[#00E6D2]" />
-                <span>Instant Communication</span>
+              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]">
+                <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                <span>INSTANT COMMUNICATION</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-heading">

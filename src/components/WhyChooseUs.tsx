@@ -23,8 +23,9 @@ export const WhyChooseUs: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center text-[#00E6D2] text-xs sm:text-sm font-semibold tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]"
+            className="inline-flex items-center gap-2.5 text-[#00E6D2] text-xs sm:text-sm font-semibold tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]"
           >
+            <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
             <span>OUR ADVANTAGE</span>
           </motion.div>
 
