@@ -26,6 +26,7 @@ import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
+import serviceHeroBg from '../../assets/service_hero_bg.png';
 
 interface WebDevelopmentPageProps {
   service: ServiceItemData;
@@ -72,22 +73,78 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
       <main className="pt-28 sm:pt-36 relative z-10">
         {/* 1. HERO SECTION: Modern Studio Layout with Live Device Viewport */}
-        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20 text-center">
-          <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-6">
-            <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
-            <span>MODERN WEB ENGINEERING & HIGH-CONVERSION UI</span>
+        <section className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 pb-20 pt-4 sm:pt-6 text-center" style={{ background: '#040608' }}>
+          {/* Background image container with top/bottom vignettes */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 0,
+              overflow: 'hidden',
+              pointerEvents: 'none',
+            }}
+          >
+            <img
+              src={serviceHeroBg}
+              alt="Service hero background"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                display: 'block',
+                userSelect: 'none',
+                pointerEvents: 'none',
+                filter: 'brightness(0.65) contrast(1.1)',
+              }}
+            />
+            {/* Top vignette */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '120px',
+                background: 'linear-gradient(to bottom, #040608 0%, rgba(4,6,8,0.7) 60%, transparent 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            {/* Bottom vignette */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '240px',
+                background: 'linear-gradient(to top, #040608 0%, rgba(4,6,8,0.85) 60%, transparent 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            {/* Ambient overlay */}
+            <div className="absolute inset-0 bg-[#040608]/45 pointer-events-none" />
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-heading max-w-4xl mx-auto leading-tight">
-            High-Performance Websites That Turn{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#60A5FA]">
-              Visitors Into Customers
-            </span>
-          </h1>
+          <div className="relative z-10 max-w-7xl mx-auto">
+            <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-5">
+              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <span>MODERN WEB ENGINEERING &amp; HIGH-CONVERSION UI</span>
+            </div>
 
-          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mt-6 leading-relaxed">
-            {service.heroDescription}
-          </p>
+            <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading max-w-3xl mx-auto py-1">
+              <span className="block">High-Performance Websites That Turn</span>
+              <span
+                className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+                style={{ WebkitTextFillColor: 'transparent' }}
+              >
+                Visitors Into Customers
+              </span>
+            </h1>
+
+            <p className="text-gray-300 text-xs sm:text-sm lg:text-[15px] max-w-lg mx-auto font-normal leading-relaxed font-sans mt-4">
+              {service.heroDescription}
+            </p>
 
           <div className="pt-6 flex justify-center">
             <a
@@ -118,27 +175,24 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                 <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/5">
                   <button
                     onClick={() => setDeviceMode('desktop')}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-colors cursor-pointer ${
-                      deviceMode === 'desktop' ? 'bg-white/10 text-white' : 'text-gray-400'
-                    }`}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-colors cursor-pointer ${deviceMode === 'desktop' ? 'bg-white/10 text-white' : 'text-gray-400'
+                      }`}
                   >
                     <Monitor className="w-3.5 h-3.5" />
                     <span>Desktop</span>
                   </button>
                   <button
                     onClick={() => setDeviceMode('tablet')}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-colors cursor-pointer ${
-                      deviceMode === 'tablet' ? 'bg-white/10 text-white' : 'text-gray-400'
-                    }`}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-colors cursor-pointer ${deviceMode === 'tablet' ? 'bg-white/10 text-white' : 'text-gray-400'
+                      }`}
                   >
                     <Tablet className="w-3.5 h-3.5" />
                     <span>Tablet</span>
                   </button>
                   <button
                     onClick={() => setDeviceMode('mobile')}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-colors cursor-pointer ${
-                      deviceMode === 'mobile' ? 'bg-white/10 text-white' : 'text-gray-400'
-                    }`}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-colors cursor-pointer ${deviceMode === 'mobile' ? 'bg-white/10 text-white' : 'text-gray-400'
+                      }`}
                   >
                     <Smartphone className="w-3.5 h-3.5" />
                     <span>Mobile</span>
@@ -149,13 +203,12 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
               {/* Viewport Render Frame */}
               <div className="py-8 flex justify-center bg-black/20 rounded-xl my-4 min-h-[300px] items-center transition-all duration-300">
                 <div
-                  className={`border border-white/10 bg-[#0B1017] rounded-xl p-6 transition-all duration-300 shadow-xl ${
-                    deviceMode === 'desktop'
+                  className={`border border-white/10 bg-[#0B1017] rounded-xl p-6 transition-all duration-300 shadow-xl ${deviceMode === 'desktop'
                       ? 'w-full'
                       : deviceMode === 'tablet'
-                      ? 'w-[520px]'
-                      : 'w-[320px]'
-                  }`}
+                        ? 'w-[520px]'
+                        : 'w-[320px]'
+                    }`}
                 >
                   <div className="flex items-center justify-between pb-4 border-b border-white/5 text-xs text-gray-400">
                     <span className="font-bold text-white">BRAND DEMO</span>
@@ -201,7 +254,8 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* 2. PROBLEM VS. SOLUTION (Sluggish Outdated Site vs High-Performance Web) */}
         <section className="mt-12 sm:mt-16 lg:mt-20 pt-16 sm:pt-20 lg:pt-24 pb-14 sm:pb-16 lg:pb-20 bg-[#040608] border-y border-white/10 relative overflow-hidden select-none">
@@ -213,16 +267,16 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
           <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative items-stretch">
-              {/* Central Vertical Divider with Pill Badge */}
+              {/* Central Vertical Divider */}
               <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
-                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3.5 py-1 rounded-full bg-[#080D12] border border-white/15 text-[10px] font-mono tracking-wider text-gray-300 uppercase whitespace-nowrap shadow-xl">
+                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
                   FROM SLUGGISH &rarr; ULTRA-FAST
                 </div>
               </div>
 
-              {/* Mobile Pill Divider */}
+              {/* Mobile Divider */}
               <div className="lg:hidden flex justify-center -my-4">
-                <div className="px-3 py-1 rounded-full bg-[#080D12] border border-white/15 text-[10px] font-mono tracking-wider text-gray-300 uppercase whitespace-nowrap">
+                <div className="px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
                   FROM SLUGGISH &rarr; ULTRA-FAST
                 </div>
               </div>
@@ -231,8 +285,8 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
               <div className="w-full max-w-[460px] mx-auto lg:mr-12 xl:mr-14 lg:ml-auto flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 font-semibold text-[11px] tracking-wider uppercase font-heading w-fit">
-                      <AlertTriangle className="w-3 h-3 text-red-400" />
+                    <div className="inline-flex items-center gap-2 text-red-400 font-semibold text-xs tracking-wider uppercase font-mono">
+                      <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
                       <span>OUTDATED WEBSITES</span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
@@ -313,8 +367,8 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
               <div className="w-full max-w-[460px] mx-auto lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 text-[#00E6D2] font-semibold text-[11px] tracking-wider uppercase font-heading w-fit">
-                      <Zap className="w-3 h-3 text-[#00E6D2] fill-[#00E6D2]" />
+                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]">
+                      <WingLogo className="w-4 h-4 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
                       <span>HIGH-PERFORMANCE WEB</span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
@@ -531,11 +585,10 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                       delay: idx * 0.06,
                       ease: [0.22, 0.61, 0.36, 1] as const,
                     }}
-                    className={`rounded-2xl transition-all duration-300 border overflow-hidden ${
-                      isOpen
+                    className={`rounded-2xl transition-all duration-300 border overflow-hidden ${isOpen
                         ? 'bg-[#0A0E13] border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
                         : 'bg-[#0A0E13]/60 border-white/10 hover:border-white/20 hover:bg-[#0A0E13]/85'
-                    }`}
+                      }`}
                   >
                     <button
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
@@ -547,11 +600,10 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                           {String(idx + 1).padStart(2, '0')}
                         </span>
                         <span
-                          className={`text-base sm:text-[17px] font-medium tracking-tight transition-colors font-heading ${
-                            isOpen
+                          className={`text-base sm:text-[17px] font-medium tracking-tight transition-colors font-heading ${isOpen
                               ? 'text-white'
                               : 'text-gray-200 group-hover:text-white'
-                          }`}
+                            }`}
                         >
                           {faq.question}
                         </span>
@@ -559,11 +611,10 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
                       {/* Clean Dropdown Arrow Button */}
                       <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
-                          isOpen
+                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${isOpen
                             ? 'bg-[#00E6D2]/15 border-[#00E6D2]/50 text-[#00FFE5] rotate-180 shadow-[0_0_12px_rgba(0,230,210,0.2)]'
                             : 'bg-white/[0.04] border-white/10 text-gray-400 group-hover:bg-[#00E6D2]/15 group-hover:border-[#00E6D2]/50 group-hover:text-[#00FFE5] group-hover:shadow-[0_0_12px_rgba(0,230,210,0.2)]'
-                        }`}
+                          }`}
                       >
                         <ChevronDown className="w-4 h-4 transition-transform duration-300" />
                       </div>

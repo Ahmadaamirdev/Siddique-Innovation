@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { useMotionValue } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -13,32 +13,71 @@ import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { BackgroundParticles } from './components/BackgroundParticles';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
-import { ProjectsPage } from './components/ProjectsPage';
-import { ServiceDetailPage } from './components/ServiceDetailPage';
-import { AboutPage } from './components/AboutPage';
-import { ContactPage } from './components/ContactPage';
-import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
-import { TermsPage } from './components/TermsPage';
 import { servicesData } from './data/servicesData';
 
+const ProjectsPage = lazy(() =>
+  import('./components/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
+);
+const ServiceDetailPage = lazy(() =>
+  import('./components/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
+);
+const AboutPage = lazy(() =>
+  import('./components/AboutPage').then((m) => ({ default: m.AboutPage }))
+);
+const ContactPage = lazy(() =>
+  import('./components/ContactPage').then((m) => ({ default: m.ContactPage }))
+);
+const PrivacyPolicyPage = lazy(() =>
+  import('./components/PrivacyPolicyPage').then((m) => ({ default: m.PrivacyPolicyPage }))
+);
+const TermsPage = lazy(() =>
+  import('./components/TermsPage').then((m) => ({ default: m.TermsPage }))
+);
+
 export const App: React.FC = () => {
-  const heroProgress = useMotionValue(0);
-  const [isHeroRevealed, setIsHeroRevealed] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  // Loading animation should only run on initial website load on the homepage,
+  // and never when switching back to homepage.
+  const [isHeroRevealed, setIsHeroRevealed] = useState<boolean>(() => {
+    try {
+      if (window.location.pathname !== '/' && window.location.pathname !== '') {
+        sessionStorage.setItem('si_intro_revealed', 'true');
+        return true;
+      }
+      return sessionStorage.getItem('si_intro_revealed') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const heroProgress = useMotionValue(isHeroRevealed ? 1 : 0);
 
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
+      setIsHeroRevealed(true);
+      heroProgress.set(1);
+      try {
+        sessionStorage.setItem('si_intro_revealed', 'true');
+      } catch {}
+      (window as any).__heroRevealed = true;
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [heroProgress]);
 
   const navigateToPath = (path: string) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
+    // Any page navigation means the website has already been loaded
+    setIsHeroRevealed(true);
+    heroProgress.set(1);
+    try {
+      sessionStorage.setItem('si_intro_revealed', 'true');
+    } catch {}
+    (window as any).__heroRevealed = true;
     if ((window as any).__lenis) {
-      (window as any).__heroRevealed = true;
       (window as any).__lenis.start();
       (window as any).__lenis.scrollTo(0, { immediate: true });
       document.documentElement.classList.remove('lenis-stopped');
@@ -125,7 +164,9 @@ export const App: React.FC = () => {
 
   return (
     <SmoothScrollProvider currentPath={currentPath}>
-      {renderContent()}
+      <Suspense fallback={<div className="min-h-screen bg-[#050505] flex items-center justify-center" />}>
+        {renderContent()}
+      </Suspense>
     </SmoothScrollProvider>
   );
 };

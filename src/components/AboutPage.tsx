@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Users,
-  Target,
-  Sparkles,
   Bot,
   Code2,
   TrendingUp,
@@ -93,9 +90,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 text-[#00E6D2] text-xs font-semibold tracking-wider uppercase font-heading mb-6"
+            className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-6"
           >
-            <WingLogo className="w-4 h-4 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+            <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
             <span>ABOUT SIDDIQUI INNOVATIONS</span>
           </motion.div>
 
@@ -103,10 +100,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight font-heading leading-[1.12] mb-6"
+            className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading max-w-2xl mx-auto py-1 mb-5"
           >
-            Helping Businesses Move Into the{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#38bdf8]">
+            <span className="block">Helping Businesses Move Into the</span>
+            <span
+              className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+              style={{ WebkitTextFillColor: 'transparent' }}
+            >
               AI Era
             </span>
           </motion.h1>
@@ -115,7 +115,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto"
+            className="text-gray-300 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed font-sans max-w-lg mx-auto"
           >
             Siddiqui Innovations is a Pakistan-based team helping businesses automate their daily operations, build stronger digital presences and grow without needing to hire for every new task.
           </motion.p>
@@ -164,9 +164,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold uppercase tracking-wider text-gray-300 font-heading mb-6">
-                  <Sparkles className="w-3.5 h-3.5 text-[#00E6D2]" />
-                  <span>Our Story</span>
+                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-6">
+                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                  <span>OUR STORY</span>
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mb-6">
@@ -203,9 +203,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FFE5]/5 rounded-full blur-3xl pointer-events-none" />
 
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 text-xs font-semibold uppercase tracking-wider text-[#00E6D2] font-heading mb-6">
-                  <Target className="w-3.5 h-3.5 text-[#00FFE5]" />
-                  <span>Our Mission</span>
+                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-6">
+                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                  <span>OUR MISSION</span>
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mb-6">
@@ -245,9 +245,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         <section className="py-20 sm:py-28 bg-[#040608] border-t border-white/10 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold uppercase tracking-wider text-gray-300 font-heading mb-4">
-                <Users className="w-3.5 h-3.5 text-[#00E6D2]" />
-                <span>Our Team</span>
+              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-4">
+                <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                <span>OUR TEAM</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-heading tracking-tight mb-6">
                 A Team Built on Specialization

@@ -331,8 +331,8 @@ export const Testimonials: React.FC = () => {
                 {/* Subtle gradient overlay at bottom of video */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c1015] via-transparent to-black/30 pointer-events-none" />
 
-                {/* Category Tag Badge */}
-                <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-[#0c1015]/90 border border-[#00E6D2]/40 text-[#00E6D2] text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase font-mono pointer-events-none">
+                {/* Category Tag */}
+                <div className="absolute top-2.5 left-2.5 text-[#00E6D2] text-[11px] font-semibold tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] pointer-events-none">
                   {item.tag}
                 </div>
 
