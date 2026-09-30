@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useTransform, useMotionValue } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
 import {
-  ArrowUpRight,
   Menu,
   X,
   ChevronDown,
@@ -37,7 +36,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   heroProgress,
   isHeroRevealed = false,
   onNavigate,
-  currentPath = '/',
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { FileText, ArrowLeft, Scale } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';

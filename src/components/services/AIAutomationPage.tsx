@@ -9,8 +9,6 @@ import {
   ChevronDown,
   Layers,
   Database,
-  Share2,
-  Sparkles,
   Clock,
   CircleX,
   Hourglass,
