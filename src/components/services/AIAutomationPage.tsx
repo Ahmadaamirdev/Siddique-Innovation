@@ -25,7 +25,6 @@ import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import { useSmoothScroll } from '../SmoothScrollProvider';
-import serviceHeroBg from '../../assets/service_hero_bg.png';
 
 const aiDeliverables = [
   {
@@ -142,58 +141,6 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           ref={heroRef}
           className="relative w-full overflow-hidden bg-[#040608] text-white pb-8 sm:pb-12 px-6 sm:px-10 md:px-14 lg:px-20"
         >
-          {/* Background image container with top/bottom vignettes */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              zIndex: 0,
-              overflow: 'hidden',
-              pointerEvents: 'none',
-            }}
-          >
-            <img
-              src={serviceHeroBg}
-              alt="Service hero background"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                display: 'block',
-                userSelect: 'none',
-                pointerEvents: 'none',
-                filter: 'brightness(0.65) contrast(1.1)',
-              }}
-            />
-            {/* Top vignette */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '120px',
-                background: 'linear-gradient(to bottom, #040608 0%, rgba(4,6,8,0.7) 60%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Bottom vignette */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '240px',
-                background: 'linear-gradient(to top, #040608 0%, rgba(4,6,8,0.85) 60%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Ambient overlay */}
-            <div className="absolute inset-0 bg-[#040608]/45 pointer-events-none" />
-          </div>
-
           <div className="relative z-10 max-w-[1360px] mx-auto w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center -mt-4 sm:-mt-8 lg:-mt-12">
               {/* LEFT COLUMN: Text Content Animated In from the Left (Pristine, no wave overlap) */}
