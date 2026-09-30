@@ -18,13 +18,48 @@ import {
   RefreshCw,
   Check,
   X,
+  Mail,
 } from 'lucide-react';
 import type { ServiceItemData } from '../../data/servicesData';
 import { serviceList } from '../../data/servicesData';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
+import { CTA } from '../CTA';
 import { useSmoothScroll } from '../SmoothScrollProvider';
+
+const aiDeliverables = [
+  {
+    icon: Layers,
+    title: 'Workflow Automation',
+    description:
+      'Automating repetitive internal processes like data entry, reporting, and task handoffs.',
+  },
+  {
+    icon: Bot,
+    title: 'AI Chatbots & Assistants',
+    description:
+      'Automated customer support and lead responses that work around the clock.',
+  },
+  {
+    icon: Database,
+    title: 'CRM & Tool Integration',
+    description:
+      'Connecting your existing software so information flows automatically, without manual updates.',
+  },
+  {
+    icon: Mail,
+    title: 'Automated Follow-ups',
+    description:
+      'Emails, messages, or reminders sent automatically based on triggers you define.',
+  },
+  {
+    icon: Cpu,
+    title: 'Custom AI Solutions',
+    description:
+      'Automation built specifically around your business processes, not a one-size-fits-all template',
+  },
+];
 
 interface AIAutomationPageProps {
   service: ServiceItemData;
@@ -94,7 +129,6 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
     <div className="min-h-screen bg-[#040608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
       {/* Background Matrix / Cyber Grid Ambient */}
       <div className="fixed inset-0 bg-[linear-gradient(to_right,#00E6D208_1px,transparent_1px),linear-gradient(to_bottom,#00E6D208_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none -z-0" />
-      <div className="fixed top-12 left-1/4 w-[500px] h-[350px] bg-[#00E6D2]/10 blur-[130px] rounded-full pointer-events-none -z-0" />
 
       {/* Global website Navbar - synced with homepage */}
       <Navbar
@@ -103,99 +137,211 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
         onNavigate={handleNav}
       />
 
-      <main className="relative z-10">
-        {/* 1. HERO SECTION: Clean Split Headline in sync with Homepage Typography & Foreground Video Overlap */}
+      <main className="pt-20 sm:pt-24 lg:pt-20 relative z-10">
+        {/* 1. HERO SECTION: Heading & Text on Left, Video + Aurora Waves on Right */}
         <section
           ref={heroRef}
-          className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden bg-[#040608] text-white pt-24 sm:pt-28 pb-24 sm:pb-28 lg:pb-36 px-6 sm:px-10 md:px-14 lg:px-20"
+          className="relative w-full overflow-hidden bg-[#040608] text-white pb-8 sm:pb-12 px-6 sm:px-10 md:px-14 lg:px-20"
         >
-          {/* Text Layer (z-10, sits behind foreground video subject) */}
-          <div className="relative z-10 flex flex-col justify-between flex-1 max-w-[1360px] mx-auto w-full">
-            {/* Top spacer to balance vertical distribution */}
-            <div className="pt-2" />
-
-            {/* MIDDLE: Symmetrical Split Headline flanking the subject (Homepage typography) */}
-            <div className="my-auto py-4 sm:py-6 w-full">
-              <div className="grid grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 lg:gap-x-20 xl:gap-x-24 items-center">
-                {/* LEFT SIDE: "AUTOMATE" + "WITH AD" */}
-                <div className="flex flex-col items-end text-right select-none">
-                  <div className="font-heading font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-[3.9rem] xl:text-[4.6rem] tracking-[-0.03em] leading-[1.06]">
-                    AUTOMATE
-                  </div>
-                  <div className="flex items-baseline gap-2.5 sm:gap-3.5 mt-1.5 sm:mt-2.5">
-                    <span className="font-heading font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-[3.2rem] xl:text-[3.8rem] tracking-[-0.03em] leading-[1.06]">
-                      WITH
-                    </span>
-                    <span className="font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00F5E0] to-[#00D6C4] drop-shadow-[0_0_15px_rgba(0,255,229,0.45)] text-2xl sm:text-3xl md:text-4xl lg:text-[3.2rem] xl:text-[3.8rem] tracking-[-0.03em] leading-[1.06]">
-                      AD
-                    </span>
-                  </div>
-                </div>
-
-                {/* RIGHT SIDE: "BUSINESS" + "VANCED AI" */}
-                <div className="flex flex-col items-start text-left select-none">
-                  <div className="font-heading font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-[3.9rem] xl:text-[4.6rem] tracking-[-0.03em] leading-[1.06]">
-                    BUSINESS
-                  </div>
-                  <div className="mt-1.5 sm:mt-2.5">
-                    <span className="font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00F5E0] to-[#00D6C4] drop-shadow-[0_0_15px_rgba(0,255,229,0.45)] text-2xl sm:text-3xl md:text-4xl lg:text-[3.2rem] xl:text-[3.8rem] tracking-[-0.03em] leading-[1.06]">
-                      VANCED AI
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* BOTTOM ROW: Description (left) + CTA button (right) */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-4">
-              {/* Bottom Left: Description (clean, no green accent line) */}
-              <div className="max-w-sm">
-                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans font-normal">
-                  {service.heroDescription}
-                </p>
-              </div>
-
-              {/* Bottom Right: Button synced with homepage */}
-              <div className="flex justify-end">
-                <a
-                  href="#service-cta"
-                  onClick={handleScrollToContact}
-                  className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-heading font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.4)] hover:shadow-[0_0_40px_rgba(0,255,229,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
+          <div className="relative z-10 max-w-[1360px] mx-auto w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center -mt-4 sm:-mt-8 lg:-mt-12">
+              {/* LEFT COLUMN: Text Content Animated In from the Left (Pristine, no wave overlap) */}
+              <motion.div
+                initial={{ opacity: 0, x: -70 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-6 flex flex-col items-start text-left relative z-10"
+              >
+                <motion.h1
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading select-none"
                 >
-                  <span>{service.ctaButtonText}</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </a>
-              </div>
-            </div>
-          </div>
+                  AUTOMATE BUSINESS <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00F5E0] to-[#00D6C4] drop-shadow-[0_0_30px_rgba(0,230,210,0.4)]">
+                    WITH ADVANCED AI
+                  </span>
+                </motion.h1>
 
-          {/* FOREGROUND VIDEO: Positioned in front (z-20) with mask so the woman subject sits in front of the text */}
-          <div
-            className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center overflow-hidden transform-gpu will-change-transform [backface-visibility:hidden] [transform:translateZ(0)]"
-            style={{
-              WebkitMaskImage: 'radial-gradient(ellipse 20% 48% at 50% 50%, black 12%, transparent 72%)',
-              maskImage: 'radial-gradient(ellipse 20% 48% at 50% 50%, black 12%, transparent 72%)',
-            }}
-          >
-            <video
-              ref={videoRef}
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260725_114042_d2ed2a89-f2fa-449b-9609-da456344257b.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="h-full w-full object-cover lg:scale-[1.2] transform-gpu will-change-transform"
-            />
+                <motion.p
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed font-sans max-w-xl mt-6"
+                >
+                  {service.heroDescription}
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                  className="pt-6"
+                >
+                  <a
+                    href="#service-cta"
+                    onClick={handleScrollToContact}
+                    className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
+                  >
+                    <span>{service.ctaButtonText}</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </motion.div>
+              </motion.div>
+
+              {/* RIGHT COLUMN: Futuristic AI Avatar Video Emerging from the Bottom with Green Aurora Waves around it */}
+              <motion.div
+                initial={{ opacity: 0, y: 75, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 1.05, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-6 relative flex items-center justify-center lg:justify-end pointer-events-none select-none"
+              >
+                <div className="relative w-full flex items-center justify-center lg:justify-end">
+                  {/* Luminous Green Aurora Borealis Waves (Confined strictly around video, active fluid motion) */}
+                <div className="absolute -inset-4 sm:-inset-6 lg:-inset-8 pointer-events-none flex items-center justify-center -z-10 overflow-hidden">
+                  {/* Rotating & Pulsing Aurora Glow Core (Scaled down for tighter fit) */}
+                  <motion.div
+                    animate={{
+                      scale: [0.88, 1.05, 0.88],
+                      opacity: [0.35, 0.55, 0.35],
+                      rotate: [0, 180, 360],
+                    }}
+                    transition={{ repeat: Infinity, duration: 16, ease: 'linear' }}
+                    className="absolute w-[290px] sm:w-[380px] lg:w-[440px] h-[290px] sm:h-[380px] lg:h-[440px] rounded-full bg-gradient-to-tr from-[#00E6D2]/25 via-[#10B981]/20 to-[#00FFE5]/15 blur-[75px] transform-gpu"
+                  />
+
+                  {/* Dynamic Undulating Aurora Wave Curtains SVG (Tighter 110% size) */}
+                  <svg
+                    className="absolute w-[110%] h-[110%] pointer-events-none"
+                    viewBox="0 0 600 600"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="aurora-green-curtain-1" x1="0%" y1="100%" x2="60%" y2="0%">
+                        <stop offset="0%" stopColor="#059669" stopOpacity="0" />
+                        <stop offset="30%" stopColor="#10B981" stopOpacity="0.45" />
+                        <stop offset="65%" stopColor="#00FFE5" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#00E6D2" stopOpacity="0" />
+                      </linearGradient>
+
+                      <linearGradient id="aurora-green-curtain-2" x1="100%" y1="100%" x2="20%" y2="0%">
+                        <stop offset="0%" stopColor="#00E6D2" stopOpacity="0" />
+                        <stop offset="35%" stopColor="#00FFE5" stopOpacity="0.7" />
+                        <stop offset="70%" stopColor="#10B981" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#059669" stopOpacity="0" />
+                      </linearGradient>
+
+                      <linearGradient id="aurora-crest-glow" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stopColor="#10B981" stopOpacity="0.1" />
+                        <stop offset="50%" stopColor="#00FFE5" stopOpacity="0.95" />
+                        <stop offset="100%" stopColor="#00E6D2" stopOpacity="0.1" />
+                      </linearGradient>
+
+                      <filter id="aurora-soft-blur" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="16" />
+                      </filter>
+                      <filter id="aurora-crest-blur" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="4" />
+                      </filter>
+                    </defs>
+
+                    {/* Aurora Ribbon 1: Arching Green Wave in Active Motion */}
+                    <motion.path
+                      d="M100,500 C170,360 210,240 310,180 C410,120 480,200 520,320 C540,380 480,480 420,520 Z"
+                      fill="url(#aurora-green-curtain-1)"
+                      filter="url(#aurora-soft-blur)"
+                      animate={{
+                        y: [-12, 12, -12],
+                        x: [-10, 10, -10],
+                        rotate: [-2.5, 2.5, -2.5],
+                        scale: [0.88, 0.97, 0.88],
+                        opacity: [0.65, 0.88, 0.65],
+                      }}
+                      transition={{ repeat: Infinity, duration: 5.5, ease: 'easeInOut' }}
+                      style={{ transformOrigin: '300px 300px' }}
+                    />
+
+                    {/* Aurora Ribbon 2: Secondary Flowing Green Curtain in Counter Motion */}
+                    <motion.path
+                      d="M150,530 C230,410 270,270 370,210 C470,150 490,290 450,410 C410,490 330,550 250,540 Z"
+                      fill="url(#aurora-green-curtain-2)"
+                      filter="url(#aurora-soft-blur)"
+                      animate={{
+                        y: [12, -14, 12],
+                        x: [10, -8, 10],
+                        rotate: [2, -2, 2],
+                        scale: [0.96, 0.88, 0.96],
+                        opacity: [0.55, 0.82, 0.55],
+                      }}
+                      transition={{ repeat: Infinity, duration: 6.5, ease: 'easeInOut', delay: 0.5 }}
+                      style={{ transformOrigin: '300px 300px' }}
+                    />
+
+                    {/* Luminous Solid Aurora Crest Wave 1 (Clean, No Dots) */}
+                    <motion.path
+                      d="M110,450 C210,320 250,210 330,170 C430,120 480,220 500,340"
+                      stroke="url(#aurora-crest-glow)"
+                      strokeWidth="2.5"
+                      fill="none"
+                      filter="url(#aurora-crest-blur)"
+                      animate={{
+                        y: [-10, 10, -10],
+                        x: [-6, 6, -6],
+                        scale: [0.88, 0.96, 0.88],
+                      }}
+                      transition={{ repeat: Infinity, duration: 4.8, ease: 'easeInOut' }}
+                      style={{ transformOrigin: '300px 300px' }}
+                    />
+
+                    {/* Luminous Solid Aurora Wave Stream 2 (Clean, No Dots) */}
+                    <motion.path
+                      d="M130,470 C220,350 280,230 360,190 C450,150 510,250 480,380"
+                      stroke="#00FFE5"
+                      strokeWidth="1.8"
+                      strokeOpacity="0.8"
+                      fill="none"
+                      filter="url(#aurora-crest-blur)"
+                      animate={{
+                        y: [10, -10, 10],
+                        x: [8, -8, 8],
+                        scale: [0.88, 0.96, 0.88],
+                        opacity: [0.5, 0.82, 0.5],
+                      }}
+                      transition={{ repeat: Infinity, duration: 5.2, ease: 'easeInOut', delay: 0.3 }}
+                      style={{ transformOrigin: '300px 300px' }}
+                    />
+                  </svg>
+                </div>
+
+                <div
+                  className="relative w-full max-w-[480px] sm:max-w-[540px] lg:max-w-[580px] xl:max-w-[620px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
+                  style={{
+                    WebkitMaskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
+                    maskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
+                  }}
+                >
+                  <video
+                    ref={videoRef}
+                    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260725_114042_d2ed2a89-f2fa-449b-9609-da456344257b.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover transform-gpu will-change-transform scale-[1.18]"
+                  />
+                </div>
+              </div>
+            </motion.div>
+            </div>
           </div>
         </section>
 
 
         {/* 2. PROBLEM VS. SOLUTION (The Cost of Manual Repetition vs. The AI Advantage) */}
-        <section className="mt-20 sm:mt-28 lg:mt-36 pt-16 sm:pt-20 lg:pt-24 pb-14 sm:pb-16 lg:pb-20 bg-[#040608] border-y border-white/10 relative overflow-hidden select-none">
-          {/* Subtle Ambient Glows matching screenshot */}
-          <div className="absolute top-1/2 left-0 -translate-x-1/4 -translate-y-1/2 w-[450px] h-[450px] bg-red-600/[0.04] blur-[140px] rounded-full pointer-events-none -z-0" />
-          <div className="absolute top-1/2 right-0 translate-x-1/4 -translate-y-1/2 w-[450px] h-[450px] bg-[#00FFE5]/[0.05] blur-[140px] rounded-full pointer-events-none -z-0" />
+        <section className="py-16 sm:py-20 lg:py-24 bg-[#040608] border-y border-white/10 relative overflow-hidden select-none">
 
           {/* Faint contour waves on right side */}
           <svg className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none opacity-20 text-[#00E6D2]" viewBox="0 0 700 500" fill="none">
@@ -203,11 +349,11 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             <path d="M250 500C420 400 580 200 700 0" stroke="currentColor" strokeWidth="1" />
           </svg>
 
-          <div className="max-w-[1080px] xl:max-w-[1120px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative items-start">
+          <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative items-stretch">
               {/* Central Vertical Divider with "FROM MANUAL → AUTONOMOUS" Badge */}
               <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
-                <div className="absolute left-1/2 top-[215px] -translate-x-1/2 -translate-y-1/2 z-20 px-3.5 py-1 rounded-full bg-[#080D12] border border-white/15 text-[10px] font-mono tracking-wider text-gray-300 uppercase whitespace-nowrap shadow-xl">
+                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3.5 py-1 rounded-full bg-[#080D12] border border-white/15 text-[10px] font-mono tracking-wider text-gray-300 uppercase whitespace-nowrap shadow-xl">
                   FROM MANUAL &rarr; AUTONOMOUS
                 </div>
               </div>
@@ -219,11 +365,11 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 </div>
               </div>
 
-              {/* LEFT COLUMN: Manual Workflows (Centered in left half) */}
-              <div className="w-full max-w-[420px] sm:max-w-[440px] mx-auto lg:mr-12 xl:mr-16 lg:ml-auto flex flex-col justify-between">
+              {/* LEFT COLUMN: Manual Workflows */}
+              <div className="w-full max-w-[460px] mx-auto lg:mr-12 xl:mr-14 lg:ml-auto flex flex-col justify-between h-full">
                 <div>
-                  {/* Top Header Block with full column width and bottom margin */}
-                  <div className="w-full min-h-[160px] sm:min-h-[175px] mb-8 sm:mb-10 flex flex-col justify-start">
+                  {/* Top Header Block */}
+                  <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 font-semibold text-[11px] tracking-wider uppercase font-heading w-fit">
                       <AlertTriangle className="w-3 h-3 text-red-400" />
@@ -231,20 +377,15 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Headline */}
-                    <h2 className="text-2xl sm:text-3xl lg:text-[32px] xl:text-[34px] font-extrabold text-white tracking-tight leading-[1.12] font-heading mt-3 mb-2.5">
-                      The Cost of<br />Manual Repetition
+                    <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
+                      The Cost of Manual Repetition
                     </h2>
-
-                    {/* Subtitle description */}
-                    <p className="text-gray-400 text-xs sm:text-[13px] leading-relaxed font-sans">
-                      Manual workflows create invisible operational costs — consuming time, increasing errors, and slowing your business.
-                    </p>
                   </div>
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
                     {/* Row 1 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5">
+                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Clock className="w-4 h-4 text-red-400" />
                       </div>
@@ -259,7 +400,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 2 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5">
+                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <CircleX className="w-4 h-4 text-red-400" />
                       </div>
@@ -274,7 +415,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 3 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5">
+                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Hourglass className="w-4 h-4 text-red-400" />
                       </div>
@@ -290,22 +431,22 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   </div>
 
                   {/* Bullet points */}
-                  <div className="mt-4 sm:mt-5 space-y-2 sm:space-y-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans">
+                  <div className="mt-5 space-y-2.5">
+                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
                         Manual data entry and repetitive tasks
                       </span>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans">
+                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
                         Slow follow-ups and missed opportunities
                       </span>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans">
+                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
                         Costly copy-paste mistakes across systems
                       </span>
                     </div>
@@ -313,11 +454,11 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 </div>
               </div>
 
-              {/* RIGHT COLUMN: AI Autopilot (Centered in right half) */}
-              <div className="w-full max-w-[420px] sm:max-w-[440px] mx-auto lg:ml-12 xl:ml-16 lg:mr-auto flex flex-col justify-between">
+              {/* RIGHT COLUMN: AI Autopilot */}
+              <div className="w-full max-w-[460px] mx-auto lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
                 <div>
-                  {/* Top Header Block with full column width and bottom margin */}
-                  <div className="w-full min-h-[160px] sm:min-h-[175px] mb-8 sm:mb-10 flex flex-col justify-start">
+                  {/* Top Header Block */}
+                  <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 text-[#00E6D2] font-semibold text-[11px] tracking-wider uppercase font-heading w-fit">
                       <Zap className="w-3 h-3 text-[#00E6D2] fill-[#00E6D2]" />
@@ -325,20 +466,15 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Headline */}
-                    <h2 className="text-2xl sm:text-3xl lg:text-[32px] xl:text-[34px] font-extrabold text-white tracking-tight leading-[1.12] font-heading mt-3 mb-2.5">
-                      The <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00FFE5]">AI Advantage</span>
+                    <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
+                      The <span className="text-[#00FFE5]">AI Advantage</span>
                     </h2>
-
-                    {/* Subtitle description */}
-                    <p className="text-gray-400 text-xs sm:text-[13px] leading-relaxed font-sans">
-                      Intelligent systems remove the repetitive work, connect your tools, and execute your operations — so your team can focus on what actually grows your business.
-                    </p>
                   </div>
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
                     {/* Row 1 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5">
+                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <Zap className="w-4 h-4 text-[#00FFE5] fill-[#00FFE5]" />
                       </div>
@@ -353,7 +489,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 2 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5">
+                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <RefreshCw className="w-4 h-4 text-[#00FFE5]" />
                       </div>
@@ -368,7 +504,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 3 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5">
+                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <div className="relative w-5 h-5 flex items-center justify-center">
                           <svg className="w-4 h-4 text-[#00FFE5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -391,22 +527,22 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   </div>
 
                   {/* Bullet points */}
-                  <div className="mt-4 sm:mt-5 space-y-2 sm:space-y-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5]" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans">
+                  <div className="mt-5 space-y-2.5">
+                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
                         <strong className="text-white font-semibold">Instant qualification</strong> and lead routing
                       </span>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5]" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans">
+                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
                         <strong className="text-white font-semibold">Connected workflows</strong> across your CRM, marketing and tools
                       </span>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5]" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans">
+                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
                         <strong className="text-white font-semibold">Always-on execution</strong> without human intervention
                       </span>
                     </div>
@@ -417,88 +553,60 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
         </section>
 
-        {/* 3. CAPABILITIES / FEATURES (3D Rolling Cube) */}
-        <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* 3. CAPABILITIES / FEATURES (Service Cards) */}
+        <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
           {/* Subtle Ambient Radial Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#00E6D2]/[0.05] blur-[160px] pointer-events-none -z-0" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#00E6D2]/[0.04] blur-[160px] pointer-events-none -z-0" />
 
           <div className="text-center max-w-2xl mx-auto mb-14 relative z-10">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
               <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
-              <span>ENTERPRISE DELIVERABLES</span>
+              <span>SERVICES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1 font-heading">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading mt-1">
               What You Get With Our AI Automation
             </h2>
           </div>
 
-          {/* 3D Perspective Scene Container */}
-          <div className="w-full mx-auto h-[440px] sm:h-[500px] flex items-center justify-center cube-perspective relative z-10">
-            {/* Ambient cyber glow circle behind the cube */}
-            <div className="absolute w-[320px] h-[320px] sm:w-[440px] sm:h-[440px] rounded-full bg-[radial-gradient(circle,rgba(0,230,210,0.12)_0%,transparent_70%)] pointer-events-none -z-0" />
+          {/* 5 Service Cards Grid: 3 in first row, 2 centered in second row (Matches Home Page) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+            {aiDeliverables.map((item, index) => {
+              const IconComp = item.icon;
+              const layoutClasses =
+                index === 3
+                  ? 'lg:col-span-2 lg:col-start-2'
+                  : index === 4
+                  ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
+                  : 'lg:col-span-2';
 
-            {/* Rolling 3D Cube with 6 faces */}
-            <div className="relative w-[180px] h-[180px] sm:w-[250px] sm:h-[250px] preserve-3d animate-roll-3d hover:[animation-play-state:paused] cursor-pointer">
-              {/* Face 1 (Front): Workflow Automation */}
-              <div className="box [transform:translateZ(90px)] sm:[transform:translateZ(125px)]">
-                <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/30 flex items-center justify-center text-[#00FFE5] mb-3 shadow-[0_0_15px_rgba(0,255,229,0.3)]">
-                  <Layers className="w-6 h-6" />
-                </div>
-                <span className="font-heading font-extrabold text-base sm:text-xl text-white tracking-tight leading-snug">
-                  Workflow Automation
-                </span>
-              </div>
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
+                  className={`group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
+                >
+                  <div className="flex flex-col flex-1">
+                    {/* Icon Box */}
+                    <div className="w-10 h-10 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] mb-4 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
+                      <IconComp className="w-5 h-5 text-[#00E6D2]" />
+                    </div>
 
-              {/* Face 2 (Back): AI Chatbots & Assistants */}
-              <div className="box [transform:translateZ(-90px)_rotateY(180deg)] sm:[transform:translateZ(-125px)_rotateY(180deg)]">
-                <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/30 flex items-center justify-center text-[#00FFE5] mb-3 shadow-[0_0_15px_rgba(0,255,229,0.3)]">
-                  <Bot className="w-6 h-6" />
-                </div>
-                <span className="font-heading font-extrabold text-base sm:text-xl text-white tracking-tight leading-snug">
-                  AI Chatbots &amp; Assistants
-                </span>
-              </div>
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                      {item.title}
+                    </h3>
 
-              {/* Face 3 (Left): CRM & Tool Integration */}
-              <div className="box right-[90px] sm:right-[125px] [transform:rotateY(-90deg)]">
-                <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/30 flex items-center justify-center text-[#00FFE5] mb-3 shadow-[0_0_15px_rgba(0,255,229,0.3)]">
-                  <Database className="w-6 h-6" />
-                </div>
-                <span className="font-heading font-extrabold text-base sm:text-xl text-white tracking-tight leading-snug">
-                  CRM &amp; Tool Integration
-                </span>
-              </div>
-
-              {/* Face 4 (Right): Automated Follow-ups */}
-              <div className="box left-[90px] sm:left-[125px] [transform:rotateY(90deg)]">
-                <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/30 flex items-center justify-center text-[#00FFE5] mb-3 shadow-[0_0_15px_rgba(0,255,229,0.3)]">
-                  <Share2 className="w-6 h-6" />
-                </div>
-                <span className="font-heading font-extrabold text-base sm:text-xl text-white tracking-tight leading-snug">
-                  Automated Follow-ups
-                </span>
-              </div>
-
-              {/* Face 5 (Top): Custom AI Solutions */}
-              <div className="box bottom-[90px] sm:bottom-[125px] [transform:rotateX(90deg)]">
-                <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/30 flex items-center justify-center text-[#00FFE5] mb-3 shadow-[0_0_15px_rgba(0,255,229,0.3)]">
-                  <Cpu className="w-6 h-6" />
-                </div>
-                <span className="font-heading font-extrabold text-base sm:text-xl text-white tracking-tight leading-snug">
-                  Custom AI Solutions
-                </span>
-              </div>
-
-              {/* Face 6 (Bottom): Autonomous AI Agents */}
-              <div className="box top-[90px] sm:top-[125px] [transform:rotateX(-90deg)]">
-                <div className="w-12 h-12 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/30 flex items-center justify-center text-[#00FFE5] mb-3 shadow-[0_0_15px_rgba(0,255,229,0.3)]">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <span className="font-heading font-extrabold text-base sm:text-xl text-white tracking-tight leading-snug">
-                  Autonomous AI Agents
-                </span>
-              </div>
-            </div>
+                    {/* Description */}
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
@@ -671,30 +779,12 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
         </section>
 
         {/* 7. CTA SECTION */}
-        <section id="service-cta" className="py-24 text-center px-4 max-w-4xl mx-auto">
-          <div className="p-10 rounded-2xl bg-gradient-to-b from-[#080D12] to-[#040608] border border-white/10 shadow-2xl relative overflow-hidden">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-heading mb-4">
-              {service.ctaHeading}
-            </h2>
-            <p className="text-gray-300 text-base mb-8 max-w-xl mx-auto">
-              {service.ctaSubheading}
-            </p>
-            <a
-              href="/#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                onNavigateHome();
-                setTimeout(() => {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }, 200);
-              }}
-              className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.4)] hover:shadow-[0_0_40px_rgba(0,255,229,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
-            >
-              <span>{service.ctaButtonText}</span>
-              <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </a>
-          </div>
-        </section>
+        <CTA
+          id="service-cta"
+          initialService={service.title}
+          heading={service.ctaHeading}
+          subheading={service.ctaSubheading}
+        />
       </main>
 
       <Footer />
