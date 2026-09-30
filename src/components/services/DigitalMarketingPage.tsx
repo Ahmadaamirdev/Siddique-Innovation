@@ -27,7 +27,6 @@ import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
-import serviceHeroBg from '../../assets/service_hero_bg.png';
 
 interface DigitalMarketingPageProps {
   service: ServiceItemData;
@@ -74,61 +73,8 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
 
       <main className="pt-28 sm:pt-36 relative z-10">
         {/* 1. HERO SECTION: Split Growth Dashboard Layout */}
-        <section className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 pb-20 pt-4 sm:pt-6" style={{ background: '#040608' }}>
-          {/* Background image container with top/bottom vignettes */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              zIndex: 0,
-              overflow: 'hidden',
-              pointerEvents: 'none',
-            }}
-          >
-            <img
-              src={serviceHeroBg}
-              alt="Service hero background"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                display: 'block',
-                userSelect: 'none',
-                pointerEvents: 'none',
-                filter: 'brightness(0.65) contrast(1.1)',
-              }}
-            />
-            {/* Top vignette */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '120px',
-                background: 'linear-gradient(to bottom, #040608 0%, rgba(4,6,8,0.7) 60%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Bottom vignette */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '240px',
-                background: 'linear-gradient(to top, #040608 0%, rgba(4,6,8,0.85) 60%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Ambient overlay */}
-            <div className="absolute inset-0 bg-[#040608]/45 pointer-events-none" />
-          </div>
-
-          <div className="relative z-10 max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               {/* Left Content */}
               <div className="lg:col-span-6 space-y-6 text-left">
                 <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-2">
@@ -251,8 +197,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
         {/* 2. PROBLEM VS. SOLUTION (Ad Spend Wastage vs Data-Driven ROI) */}
         <section className="mt-12 sm:mt-16 lg:mt-20 pt-16 sm:pt-20 lg:pt-24 pb-14 sm:pb-16 lg:pb-20 bg-[#040608] border-y border-white/10 relative overflow-hidden select-none">
