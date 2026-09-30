@@ -9,8 +9,6 @@ import {
   CheckCircle2,
   Check,
   MessageSquare,
-  Sparkles,
-  ArrowUpRight,
 } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';

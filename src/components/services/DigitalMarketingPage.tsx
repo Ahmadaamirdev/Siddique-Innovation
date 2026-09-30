@@ -8,7 +8,6 @@ import {
   ArrowUpRight,
   ArrowRight,
   ChevronDown,
-  CheckCircle2,
   Users,
   Eye,
   Filter,

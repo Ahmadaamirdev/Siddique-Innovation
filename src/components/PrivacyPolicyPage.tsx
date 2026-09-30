@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ShieldCheck, ArrowLeft, Mail, Scale } from 'lucide-react';
+import { ShieldCheck, ArrowLeft, Scale } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { WingLogo } from './WingLogo';
 
 interface PrivacyPolicyPageProps {
   onNavigate: (path: string) => void;

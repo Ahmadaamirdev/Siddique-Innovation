@@ -7,11 +7,9 @@ import {
   ArrowUpRight,
   ArrowRight,
   ChevronDown,
-  CheckCircle2,
   Zap,
   Sparkles,
   ShieldCheck,
-  TrendingUp,
   Clock,
   CircleX,
   Hourglass,
@@ -19,11 +17,8 @@ import {
   RefreshCw,
   Check,
   X,
-  Code2,
-  Globe,
   Layers,
   ShoppingBag,
-  Cpu,
 } from 'lucide-react';
 import type { ServiceItemData } from '../../data/servicesData';
 import { serviceList } from '../../data/servicesData';
@@ -45,7 +40,6 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 }) => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [deviceMode, setDeviceMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
-  const [activeStep, setActiveStep] = useState(0);
 
   const handleNav = (path: string) => {
     if (path === '/') {
