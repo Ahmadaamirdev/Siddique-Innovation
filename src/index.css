@@ -43,6 +43,19 @@
     0 25px 60px rgba(0, 0, 0, 0.45);
 }
 
+/* Liquid Metal Chrome Keyframes */
+@keyframes liquidMetal {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -149,4 +162,29 @@ html.lenis body {
 
 .animate-marquee-infinite:hover {
   animation-play-state: paused;
+}
+
+/* YouTube 3D Transformation Reel Motion */
+@keyframes reel-scroll-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-reel-scroll {
+  display: flex;
+  width: max-content;
+  animation: reel-scroll-left 32s linear infinite;
+  will-change: transform;
+}
+
+/* 3D Cylindrical Curved Carousel (Left to Right Motion) */
+@keyframes spin-cylinder-ltr {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.animate-cylinder-ltr {
+  animation: spin-cylinder-ltr 36s linear infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
 }

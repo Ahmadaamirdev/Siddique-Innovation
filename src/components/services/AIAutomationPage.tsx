@@ -136,212 +136,90 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
       />
 
       <main className="pt-20 sm:pt-24 lg:pt-20 relative z-10">
-        {/* 1. HERO SECTION: Heading & Text on Left, Video + Aurora Waves on Right */}
+        {/* 1. HERO SECTION: Matched to Homepage Hero layout */}
         <section
           ref={heroRef}
-          className="relative w-full overflow-hidden bg-[#040608] text-white pb-8 sm:pb-12 px-6 sm:px-10 md:px-14 lg:px-20"
+          className="relative w-full h-[calc(100vh-5rem)] min-h-[580px] sm:min-h-[640px] max-h-[1050px] overflow-hidden bg-[#040608] text-white flex flex-col justify-between select-none"
         >
-          <div className="relative z-10 max-w-[1360px] mx-auto w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center -mt-4 sm:-mt-8 lg:-mt-12">
-              {/* LEFT COLUMN: Text Content Animated In from the Left (Pristine, no wave overlap) */}
-              <motion.div
-                initial={{ opacity: 0, x: -70 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:col-span-6 flex flex-col items-start text-left relative z-10"
+          {/* Centered Video Layer (Moved a bit above) */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+            <div className="relative z-0 flex items-center justify-center -translate-y-7 sm:-translate-y-11 lg:-translate-y-14">
+              <div
+                className="relative w-full max-w-[460px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
+                style={{
+                  WebkitMaskImage: 'radial-gradient(ellipse 52% 56% at 50% 46%, black 30%, transparent 72%)',
+                  maskImage: 'radial-gradient(ellipse 52% 56% at 50% 46%, black 30%, transparent 72%)',
+                }}
               >
-                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-2">
-                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
-                  <span>SMART ENTERPRISE AUTOMATION</span>
-                </div>
-
-                <motion.h1
-                  initial={{ opacity: 0, x: -40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading select-none py-1"
-                >
-                  <span className="block">Automate Business</span>
-                  <span
-                    className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
-                    style={{ WebkitTextFillColor: 'transparent' }}
-                  >
-                    With Advanced AI
-                  </span>
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-gray-300 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed font-sans max-w-xl mt-4"
-                >
-                  {service.heroDescription}
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                  className="pt-6"
-                >
-                  <a
-                    href="#service-cta"
-                    onClick={handleScrollToContact}
-                    className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
-                  >
-                    <span>{service.ctaButtonText}</span>
-                    <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                </motion.div>
-              </motion.div>
-
-              {/* RIGHT COLUMN: Futuristic AI Avatar Video Emerging from the Bottom with Green Aurora Waves around it */}
-              <motion.div
-                initial={{ opacity: 0, y: 75, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 1.05, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:col-span-6 relative flex items-center justify-center lg:justify-end pointer-events-none select-none"
-              >
-                <div className="relative w-full flex items-center justify-center lg:justify-end">
-                  {/* Luminous Green Aurora Borealis Waves (Confined strictly around video, active fluid motion) */}
-                  <div className="absolute -inset-4 sm:-inset-6 lg:-inset-8 pointer-events-none flex items-center justify-center -z-10 overflow-hidden">
-                    {/* Rotating & Pulsing Aurora Glow Core (Scaled down for tighter fit) */}
-                    <motion.div
-                      animate={{
-                        scale: [0.88, 1.05, 0.88],
-                        opacity: [0.35, 0.55, 0.35],
-                        rotate: [0, 180, 360],
-                      }}
-                      transition={{ repeat: Infinity, duration: 16, ease: 'linear' }}
-                      className="absolute w-[290px] sm:w-[380px] lg:w-[440px] h-[290px] sm:h-[380px] lg:h-[440px] rounded-full bg-gradient-to-tr from-[#00E6D2]/25 via-[#10B981]/20 to-[#00FFE5]/15 blur-[75px] transform-gpu"
-                    />
-
-                    {/* Dynamic Undulating Aurora Wave Curtains SVG (Tighter 110% size) */}
-                    <svg
-                      className="absolute w-[110%] h-[110%] pointer-events-none"
-                      viewBox="0 0 600 600"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <defs>
-                        <linearGradient id="aurora-green-curtain-1" x1="0%" y1="100%" x2="60%" y2="0%">
-                          <stop offset="0%" stopColor="#059669" stopOpacity="0" />
-                          <stop offset="30%" stopColor="#10B981" stopOpacity="0.45" />
-                          <stop offset="65%" stopColor="#00FFE5" stopOpacity="0.8" />
-                          <stop offset="100%" stopColor="#00E6D2" stopOpacity="0" />
-                        </linearGradient>
-
-                        <linearGradient id="aurora-green-curtain-2" x1="100%" y1="100%" x2="20%" y2="0%">
-                          <stop offset="0%" stopColor="#00E6D2" stopOpacity="0" />
-                          <stop offset="35%" stopColor="#00FFE5" stopOpacity="0.7" />
-                          <stop offset="70%" stopColor="#10B981" stopOpacity="0.5" />
-                          <stop offset="100%" stopColor="#059669" stopOpacity="0" />
-                        </linearGradient>
-
-                        <linearGradient id="aurora-crest-glow" x1="0%" y1="50%" x2="100%" y2="50%">
-                          <stop offset="0%" stopColor="#10B981" stopOpacity="0.1" />
-                          <stop offset="50%" stopColor="#00FFE5" stopOpacity="0.95" />
-                          <stop offset="100%" stopColor="#00E6D2" stopOpacity="0.1" />
-                        </linearGradient>
-
-                        <filter id="aurora-soft-blur" x="-30%" y="-30%" width="160%" height="160%">
-                          <feGaussianBlur stdDeviation="16" />
-                        </filter>
-                        <filter id="aurora-crest-blur" x="-20%" y="-20%" width="140%" height="140%">
-                          <feGaussianBlur stdDeviation="4" />
-                        </filter>
-                      </defs>
-
-                      {/* Aurora Ribbon 1: Arching Green Wave in Active Motion */}
-                      <motion.path
-                        d="M100,500 C170,360 210,240 310,180 C410,120 480,200 520,320 C540,380 480,480 420,520 Z"
-                        fill="url(#aurora-green-curtain-1)"
-                        filter="url(#aurora-soft-blur)"
-                        animate={{
-                          y: [-12, 12, -12],
-                          x: [-10, 10, -10],
-                          rotate: [-2.5, 2.5, -2.5],
-                          scale: [0.88, 0.97, 0.88],
-                          opacity: [0.65, 0.88, 0.65],
-                        }}
-                        transition={{ repeat: Infinity, duration: 5.5, ease: 'easeInOut' }}
-                        style={{ transformOrigin: '300px 300px' }}
-                      />
-
-                      {/* Aurora Ribbon 2: Secondary Flowing Green Curtain in Counter Motion */}
-                      <motion.path
-                        d="M150,530 C230,410 270,270 370,210 C470,150 490,290 450,410 C410,490 330,550 250,540 Z"
-                        fill="url(#aurora-green-curtain-2)"
-                        filter="url(#aurora-soft-blur)"
-                        animate={{
-                          y: [12, -14, 12],
-                          x: [10, -8, 10],
-                          rotate: [2, -2, 2],
-                          scale: [0.96, 0.88, 0.96],
-                          opacity: [0.55, 0.82, 0.55],
-                        }}
-                        transition={{ repeat: Infinity, duration: 6.5, ease: 'easeInOut', delay: 0.5 }}
-                        style={{ transformOrigin: '300px 300px' }}
-                      />
-
-                      {/* Luminous Solid Aurora Crest Wave 1 (Clean, No Dots) */}
-                      <motion.path
-                        d="M110,450 C210,320 250,210 330,170 C430,120 480,220 500,340"
-                        stroke="url(#aurora-crest-glow)"
-                        strokeWidth="2.5"
-                        fill="none"
-                        filter="url(#aurora-crest-blur)"
-                        animate={{
-                          y: [-10, 10, -10],
-                          x: [-6, 6, -6],
-                          scale: [0.88, 0.96, 0.88],
-                        }}
-                        transition={{ repeat: Infinity, duration: 4.8, ease: 'easeInOut' }}
-                        style={{ transformOrigin: '300px 300px' }}
-                      />
-
-                      {/* Luminous Solid Aurora Wave Stream 2 (Clean, No Dots) */}
-                      <motion.path
-                        d="M130,470 C220,350 280,230 360,190 C450,150 510,250 480,380"
-                        stroke="#00FFE5"
-                        strokeWidth="1.8"
-                        strokeOpacity="0.8"
-                        fill="none"
-                        filter="url(#aurora-crest-blur)"
-                        animate={{
-                          y: [10, -10, 10],
-                          x: [8, -8, 8],
-                          scale: [0.88, 0.96, 0.88],
-                          opacity: [0.5, 0.82, 0.5],
-                        }}
-                        transition={{ repeat: Infinity, duration: 5.2, ease: 'easeInOut', delay: 0.3 }}
-                        style={{ transformOrigin: '300px 300px' }}
-                      />
-                    </svg>
-                  </div>
-
-                  <div
-                    className="relative w-full max-w-[480px] sm:max-w-[540px] lg:max-w-[580px] xl:max-w-[620px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
-                    style={{
-                      WebkitMaskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
-                      maskImage: 'radial-gradient(ellipse 48% 54% at 50% 44%, black 20%, transparent 68%)',
-                    }}
-                  >
-                    <video
-                      ref={videoRef}
-                      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260725_114042_d2ed2a89-f2fa-449b-9609-da456344257b.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover transform-gpu will-change-transform scale-[1.18]"
-                    />
-                  </div>
-                </div>
-              </motion.div>
+                <video
+                  ref={videoRef}
+                  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260725_114042_d2ed2a89-f2fa-449b-9609-da456344257b.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover transform-gpu will-change-transform scale-[1.28]"
+                />
+              </div>
             </div>
+          </div>
+
+          {/* TOP-LEFT: H1 Heading (Size matched to homepage hero H1, smart enterprise automation removed) */}
+          <div className="w-full flex items-start justify-start pt-4 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-left"
+            >
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
+                <span className="block">Automate Business</span>
+                <span
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)]"
+                  style={{ WebkitTextFillColor: 'transparent' }}
+                >
+                  With Advanced AI
+                </span>
+              </h1>
+            </motion.div>
+          </div>
+
+          {/* RIGHT-SIDE MIDDLE: Description Card (Frosted glass card matched to homepage hero) */}
+          <div className="w-full flex items-center justify-end pointer-events-auto my-auto py-2 sm:py-4 pr-3 sm:pr-4 lg:pr-6 xl:pr-10 translate-y-3 sm:translate-y-5 lg:translate-y-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                background:
+                  'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
+              }}
+              className="relative max-w-[280px] sm:max-w-[320px] md:max-w-[350px] lg:max-w-[390px] xl:max-w-[420px] text-left p-4 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+            >
+              <p className="text-gray-300 text-xs sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
+                {service.heroDescription}
+              </p>
+            </motion.div>
+          </div>
+
+          {/* BOTTOM-LEFT: CTA Button (Moved a bit above for clear visibility) */}
+          <div className="w-full flex items-center justify-between pb-16 sm:pb-20 lg:pb-24 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 -translate-y-5 sm:-translate-y-8 lg:-translate-y-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-3 sm:gap-4"
+            >
+              <a
+                href="#service-cta"
+                onClick={handleScrollToContact}
+                className="group relative inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-bold text-sm text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_20px_rgba(0,230,210,0.35)] hover:shadow-[0_0_30px_rgba(0,255,229,0.6)] transition-all duration-300 font-heading cursor-pointer"
+              >
+                <span>{service.ctaButtonText}</span>
+                <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </a>
+            </motion.div>
           </div>
         </section>
 
@@ -466,8 +344,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* Top Header Block */}
                   <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]">
-                      <WingLogo className="w-4 h-4 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono">
+                      <WingLogo className="w-4 h-4 shrink-0" />
                       <span>AI AUTOPILOT</span>
                     </div>
 
@@ -566,10 +444,10 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
 
           <div className="text-center max-w-2xl mx-auto mb-14 relative z-10">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>SERVICES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading mt-1">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading mt-1">
               What You Get With Our AI Automation
             </h2>
           </div>
@@ -595,15 +473,15 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   className={`group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
                 >
                   <div className="flex flex-col flex-1">
-                    {/* Icon Box */}
-                    <div className="w-10 h-10 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] mb-4 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
-                      <IconComp className="w-5 h-5 text-[#00E6D2]" />
+                    {/* Header: Icon Box and Title inline */}
+                    <div className="flex items-center gap-3.5 mb-3.5">
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
+                        <IconComp className="w-5 h-5 text-[#00E6D2]" />
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                        {item.title}
+                      </h3>
                     </div>
-
-                    {/* Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
-                      {item.title}
-                    </h3>
 
                     {/* Description */}
                     <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
@@ -623,10 +501,10 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12 text-center">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>EXECUTION PIPELINE</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1 font-heading">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] mt-1 font-heading">
               {service.processHeading}
             </h2>
           </div>
@@ -673,10 +551,10 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
               <div className="space-y-3">
                 <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading">
-                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                  <WingLogo className="w-5 h-5 shrink-0" />
                   <span>FAQS</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading">
                   {service.faqsHeading}
                 </h2>
                 <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-sans pt-1">
@@ -762,7 +640,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
         <section className="py-16 border-t border-white/10 bg-[#06080B]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>EXPLORE SERVICES</span>
             </div>
             <h3 className="text-lg font-bold text-gray-300 mb-6 font-heading">
@@ -793,7 +671,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
         />
       </main>
 
-      <Footer />
+      <Footer onNavigate={handleNav} />
     </div>
   );
 };

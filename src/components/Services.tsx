@@ -11,7 +11,42 @@ import {
 } from 'lucide-react';
 import { WingLogo } from './WingLogo';
 
-export const Services: React.FC = () => {
+export interface ServicesProps {
+  onNavigate?: (path: string) => void;
+}
+
+export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
+  const handleLinkClick = (link: string, e?: React.MouseEvent) => {
+    if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) {
+      return;
+    }
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    if ((window as any).__lenis) {
+      try {
+        (window as any).__lenis.start();
+        (window as any).__lenis.scrollTo(0, { immediate: true });
+        document.documentElement.classList.remove('lenis-stopped');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      } catch {}
+    }
+    if (onNavigate) {
+      onNavigate(link);
+    } else {
+      window.history.pushState({}, '', link);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (window.location.pathname !== link) {
+        window.location.href = link;
+      }
+    }
+  };
+
   const servicesList = [
     {
       icon: Bot,
@@ -76,7 +111,7 @@ export const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="pt-12 pb-24 md:pt-16 md:pb-36 lg:pb-40 bg-[#050505] relative z-10 border-b border-white/10">
+    <section id="services" className="pt-12 pb-14 sm:pb-16 md:pt-16 bg-[#050505] relative z-20 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -89,10 +124,10 @@ export const Services: React.FC = () => {
             className="space-y-3"
           >
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>SERVICES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading">
               What We Do
             </h2>
             <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-sans pt-1">
@@ -121,18 +156,23 @@ export const Services: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 0.61, 0.36, 1] as const }}
-                className={`group relative flex flex-col justify-between h-full bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).closest('a')) return;
+                  handleLinkClick(service.link, e);
+                }}
+                className={`group relative flex flex-col justify-between h-full bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform cursor-pointer ${layoutClasses}`}
               >
                 <div className="flex flex-col flex-1">
-                  {/* Icon Box */}
-                  <div className="w-10 h-10 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] mb-3.5 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
-                    <IconComp className="w-5 h-5 text-[#00E6D2]" />
-                  </div>
+                  {/* Icon & Title Row */}
+                  <div className="flex items-center gap-3.5 mb-3.5">
+                    <div className="w-10 h-10 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] shrink-0 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
+                      <IconComp className="w-5 h-5 text-[#00E6D2]" />
+                    </div>
 
-                  {/* Title */}
-                  <h3 className="text-base sm:text-lg xl:text-xl font-bold text-white mb-1.5 group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
-                    {service.title}
-                  </h3>
+                    <h3 className="text-base sm:text-lg xl:text-xl font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                      {service.title}
+                    </h3>
+                  </div>
 
                   {/* Description with unified min-height for uniform baseline */}
                   <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-3.5 font-sans">
@@ -151,13 +191,15 @@ export const Services: React.FC = () => {
                 </div>
 
                 {/* Card Link to Service Page */}
-                <div className="pt-3 border-t border-white/10 mt-auto">
+                <div className="pt-3 border-t border-white/10 mt-auto relative z-10">
                   <a
                     href={service.link}
-                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#00E6D2] group-hover:text-white transition-colors"
+                    onClick={(e) => handleLinkClick(service.link, e)}
+                    aria-label={`Learn more about ${service.title}`}
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#00E6D2] hover:text-white group-hover:text-white transition-colors cursor-pointer group/btn"
                   >
                     <span>Learn More</span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5 text-[#00E6D2] group-hover:text-white" />
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5 text-[#00E6D2] hover:text-white group-hover:text-white group-hover/btn:text-white" />
                   </a>
                 </div>
               </motion.div>

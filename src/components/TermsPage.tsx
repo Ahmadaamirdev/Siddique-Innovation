@@ -44,11 +44,11 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
 
           <div className="bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] relative overflow-hidden">
             <div className="border-b border-white/10 pb-8 mb-10">
-              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-4">
-                <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-4">
+                <WingLogo className="w-5 h-5 shrink-0" />
                 <span>TERMS OF SERVICE</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading py-1">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
                 Terms &amp;{' '}
                 <span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"

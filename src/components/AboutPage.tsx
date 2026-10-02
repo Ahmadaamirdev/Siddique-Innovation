@@ -90,9 +90,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-6"
+            className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-6"
           >
-            <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+            <WingLogo className="w-5 h-5 shrink-0" />
             <span>ABOUT SIDDIQUI INNOVATIONS</span>
           </motion.div>
 
@@ -100,7 +100,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading max-w-2xl mx-auto py-1 mb-5"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading max-w-2xl mx-auto py-1 mb-5 drop-shadow-md"
           >
             <span className="block">Helping Businesses Move Into the</span>
             <span
@@ -164,8 +164,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
               <div>
-                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-6">
-                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-6">
+                  <WingLogo className="w-5 h-5 shrink-0" />
                   <span>OUR STORY</span>
                 </div>
 
@@ -203,8 +203,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FFE5]/5 rounded-full blur-3xl pointer-events-none" />
 
               <div>
-                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-6">
-                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-6">
+                  <WingLogo className="w-5 h-5 shrink-0" />
                   <span>OUR MISSION</span>
                 </div>
 
@@ -245,11 +245,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         <section className="py-20 sm:py-28 bg-[#040608] border-t border-white/10 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-4">
-                <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-4">
+                <WingLogo className="w-5 h-5 shrink-0" />
                 <span>OUR TEAM</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-heading tracking-tight mb-6">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white font-heading tracking-[-0.02em] leading-[1.18] mb-6">
                 A Team Built on Specialization
               </h2>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
@@ -257,9 +257,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
               {teamSpecializations.map((spec, i) => {
                 const SpecIcon = spec.icon;
+                const layoutClasses =
+                  i === 3
+                    ? 'lg:col-span-2 lg:col-start-2'
+                    : i === 4
+                      ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
+                      : 'lg:col-span-2';
+
                 return (
                   <motion.div
                     key={i}
@@ -267,15 +274,17 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="p-6 sm:p-7 rounded-2xl bg-[#080D12] border border-white/10 hover:border-[#00E6D2]/40 transition-all duration-300 flex flex-col justify-between group"
+                    className={`p-6 sm:p-7 rounded-2xl bg-[#080D12] border border-white/10 hover:border-[#00E6D2]/40 transition-all duration-300 flex flex-col justify-between group ${layoutClasses}`}
                   >
                     <div>
-                      <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 group-hover:border-[#00E6D2]/40 group-hover:bg-[#00E6D2]/10 flex items-center justify-center mb-5 transition-colors">
-                        <SpecIcon className="w-6 h-6 text-[#00E6D2]" />
+                      <div className="flex items-center gap-3.5 mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 group-hover:border-[#00E6D2]/40 group-hover:bg-[#00E6D2]/10 flex items-center justify-center shrink-0 transition-colors">
+                          <SpecIcon className="w-6 h-6 text-[#00E6D2]" />
+                        </div>
+                        <h3 className="text-lg font-bold text-white font-heading leading-snug group-hover:text-[#00FFE5] transition-colors">
+                          {spec.role}
+                        </h3>
                       </div>
-                      <h3 className="text-lg font-bold text-white font-heading mb-2.5">
-                        {spec.role}
-                      </h3>
                       <p className="text-sm text-gray-400 leading-relaxed font-sans">
                         {spec.desc}
                       </p>

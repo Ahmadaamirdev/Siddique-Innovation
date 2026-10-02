@@ -24,11 +24,12 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   useEffect(() => {
     (window as any).__heroRevealed = true;
     startScroll();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     if ((window as any).__lenis) {
       (window as any).__lenis.start();
       (window as any).__lenis.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'instant' });
     }
     document.documentElement.classList.remove('lenis-stopped');
     document.body.style.overflow = '';
@@ -95,3 +96,5 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
       );
   }
 };
+
+export default ServiceDetailPage;

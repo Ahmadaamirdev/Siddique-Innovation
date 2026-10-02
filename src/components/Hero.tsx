@@ -1,52 +1,25 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import type { MotionValue } from 'framer-motion';
-import { WingsShowcase } from './hero/WingsShowcase';
-import { FlappingScrollLogo } from './hero/FlappingScrollLogo';
-import { useSmoothScroll } from './SmoothScrollProvider';
-import heroBg from '../assets/hero_bg.png';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import {
+  ArrowUpRight,
+  CheckCircle2,
+} from 'lucide-react';
+import { FlappingWings } from './hero/FlappingWings';
 
 export interface HeroProps {
-  progressProp?: MotionValue<number>;
+  onNavigate?: (path: string) => void;
+  progressProp?: any;
   isRevealedProp?: boolean;
   onRevealedChange?: (revealed: boolean) => void;
-  onNavigate?: (path: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
-  progressProp,
-  isRevealedProp = false,
-  onRevealedChange,
   onNavigate,
 }) => {
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [localRevealed, setLocalRevealed] = useState(() => {
-    if (isRevealedProp) return true;
-    try {
-      return sessionStorage.getItem('si_intro_revealed') === 'true';
-    } catch {
-      return false;
-    }
-  });
-  const isRevealed = isRevealedProp || localRevealed;
-
-  const fallbackProgress = useMotionValue(isRevealed ? 1 : 0);
-  const progress = progressProp || fallbackProgress;
+  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isRevealed) {
-      progress.set(1);
-    }
-  }, [isRevealed, progress]);
-
-  const isAnimatingRef = useRef(false);
-  const { stopScroll, startScroll } = useSmoothScroll();
-
-  useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReducedMotion(mediaQuery.matches);
 
@@ -55,240 +28,288 @@ export const Hero: React.FC<HeroProps> = ({
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Strict page lock on mount: zero downward scrolling allowed until intro completes
-  useEffect(() => {
-    (window as any).__heroRevealed = isRevealed;
+  // Scroll tracking across the two sections of Hero
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end end'],
+  });
 
-    if (!isRevealed) {
-      window.scrollTo(0, 0);
-      (window as any).__lenis?.scrollTo(0, { immediate: true });
-      stopScroll();
+  // Section 1 elements smoothly fade out and glide slightly up on scroll
+  const section1Opacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
+  const section1Y = useTransform(scrollYProgress, [0, 0.35], [0, -35]);
 
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+  // Section 2 Big Transparent Card smooth emergence (prominent, never loses color)
+  const cardScale = useTransform(scrollYProgress, [0.15, 0.45], [0.96, 1]);
 
-      return () => {
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-        startScroll();
-      };
-    } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      startScroll();
-      if ((window as any).__lenis) {
-        (window as any).__lenis.start();
-      }
-    }
-  }, [isRevealed, stopScroll, startScroll]);
+  // Section 2 text blur effect: starts blurred as it appears, gets clearer and clearer as user scrolls
+  const textBlur = useTransform(scrollYProgress, [0.12, 0.4], [12, 0]);
+  const textFilter = useTransform(textBlur, (v) => (v <= 0.2 ? 'none' : `blur(${v.toFixed(1)}px)`));
 
-  // Trigger the majestic cinematic wing-flap ascension and unblur
-  const triggerReveal = useCallback(() => {
-    if (isRevealed || isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-
-    animate(progress, 1, {
-      duration: reducedMotion ? 0.3 : 4.2,
-      ease: [0.22, 1, 0.32, 1],
-      onComplete: () => {
-        setLocalRevealed(true);
-        try {
-          sessionStorage.setItem('si_intro_revealed', 'true');
-        } catch {}
-        if (onRevealedChange) onRevealedChange(true);
-        (window as any).__heroRevealed = true;
-        isAnimatingRef.current = false;
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-        startScroll();
-        (window as any).__lenis?.start();
-      },
-    });
-  }, [isRevealed, onRevealedChange, progress, reducedMotion, startScroll]);
-
-  // Intercept scroll/touch gestures to trigger intro reveal
-  useEffect(() => {
-    if (isRevealed) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (isRevealed) return;
-      e.preventDefault();
-      e.stopPropagation();
-      triggerReveal();
-    };
-
-    let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isRevealed) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const deltaY = touchStartY - e.touches[0].clientY;
-      if (Math.abs(deltaY) > 8) {
-        triggerReveal();
-      }
-    };
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (isRevealed) return;
-      if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space', 'Home', 'End'].includes(e.code)) {
+  const handleLinkClick = (link: string, e: React.MouseEvent) => {
+    if (link.startsWith('/')) {
+      if (onNavigate) {
         e.preventDefault();
-        e.stopPropagation();
-        triggerReveal();
+        onNavigate(link);
       }
-    };
+    } else if (link.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(link)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-    window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true, capture: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true });
-    window.addEventListener('keydown', handleKeyDown, { capture: true });
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel, { capture: true });
-      window.removeEventListener('touchstart', handleTouchStart, { capture: true });
-      window.removeEventListener('touchmove', handleTouchMove, { capture: true });
-      window.removeEventListener('keydown', handleKeyDown, { capture: true });
-    };
-  }, [isRevealed, triggerReveal]);
-
-  // Screen remains fully blurred and completely obscured until the wing animation completes
-  const overlayOpacity = useTransform(progress, [0, 0.90, 1.0], [1, 1, 0]);
-  const screenBlur = useTransform(progress, [0, 0.90, 1.0], [40, 40, 0]);
-  const backdropFilterString = useTransform(
-    screenBlur,
-    (b) => (reducedMotion || b < 0.5 ? 'none' : `blur(${b.toFixed(1)}px)`)
-  );
+  // The 3 points from Why Choose Us used in the cards (with 24/7 support merged)
+  const heroCards = [
+    {
+      id: 'understand-the-business',
+      title: 'Understand the Business',
+      subtitle: 'Clear purpose. Tailored strategy.',
+      points: [
+        'Analyze your real business objectives',
+        'Identify core challenges & bottlenecks',
+        'Focused work that delivers measurable value',
+      ],
+    },
+    {
+      id: 'quality-over-shortcuts',
+      title: 'Quality Over Shortcuts',
+      subtitle: 'Proper planning. Built to last.',
+      points: [
+        'Build it right rather than fast and broken',
+        'Rigorous end-to-end testing cycles',
+        'Enterprise-grade code and architecture',
+      ],
+    },
+    {
+      id: 'built-for-global-clients',
+      title: 'Built for Global Clients',
+      subtitle: 'Worldwide delivery & 24/7 support.',
+      points: [
+        'Adaptable across multiple global time zones',
+        '24/7 round-the-clock availability & fast response',
+        'Seamless communication tailored for remote teams',
+      ],
+    },
+  ];
 
   return (
-    <div className="relative w-full select-none" style={{ background: 'none' }}>
+    <div
+      ref={heroRef}
+      className="relative w-full bg-[#050505] select-none"
+      id="hero-experience"
+    >
+      {/* ============================================================== */}
+      {/* STICKY BACKGROUND WINGS LAYER                                  */}
+      {/* Pinned in center of screen: stays STILL & FLAPPING while user  */}
+      {/* scrolls through Section 1 and Section 2.                       */}
+      {/* Clean solid dark background without image.                     */}
+      {/* ============================================================== */}
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
+        {/* 3D Flapping Wings centered in the screen & staying still (shifted a bit downward) */}
+        <div className="relative z-10 flex items-center justify-center translate-y-6 sm:translate-y-10 lg:translate-y-12">
+          <FlappingWings reducedMotion={reducedMotion} size="lg" />
+        </div>
+      </div>
 
       {/* ============================================================== */}
-      {/* WHOLE SCREEN CONTENT (Section 1 + Section 2)                   */}
-      {/* Clean DOM layer without heavy filter re-rasterization          */}
+      {/* FOREGROUND SECTIONS CONTAINER (-mt-[100vh] overlays Section 1) */}
       {/* ============================================================== */}
-      <div className="relative w-full">
-        {/* SECTION 1 — Full viewport height */}
-        <section
-          className="relative w-full h-screen min-h-[660px] max-h-[960px] flex flex-col justify-between items-center"
-          style={{ zIndex: 10, background: '#050505', overflow: 'visible' }}
-        >
-          {/* Background image — clipped to section bounds independently */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              zIndex: 0,
-              overflow: 'hidden',
-              pointerEvents: 'none',
-            }}
-          >
-            <img
-              src={heroBg}
-              alt="Tech wave background"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                display: 'block',
-                userSelect: 'none',
-                pointerEvents: 'none',
-                filter: 'brightness(1.2) contrast(1.05)',
-              }}
-            />
-            {/* Top vignette — blends under navbar */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0, left: 0, right: 0,
-                height: '80px',
-                background: 'linear-gradient(to bottom, rgba(5,5,5,0.8) 0%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Bottom vignette — fades into the wings area below */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: 0, left: 0, right: 0,
-                height: '220px',
-                background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.5) 50%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-          </div>
+      <div className="relative z-10 -mt-[100vh] pb-4 sm:pb-6">
+        {/* ============================================================ */}
+        {/* SECTION 1: UPPER SECTION (100vh)                             */}
+        {/* Layout:                                                      */}
+        {/* - Top Left: H1 Heading + compact CTA Button just below it    */}
+        {/* - Center: Wings (Visible in the background, flapping)        */}
+        {/* - Right Middle: Description (blurry frosted glass card)      */}
+        {/* - Bottom Right: Scroll to explore prompt                     */}
+        {/* ============================================================ */}
+        <section className="relative w-full h-screen min-h-[660px] max-h-[1050px] flex flex-col justify-between pointer-events-none">
+          {/* Navbar Spacer */}
+          <div className="h-20 sm:h-24 lg:h-28 shrink-0 w-full" />
 
-          {/* Content Container */}
-          <div className="w-full h-full flex flex-col justify-between items-center relative z-10">
-            {/* Spacer for fixed navbar */}
-            <div className="h-24 sm:h-28 lg:h-32 shrink-0 w-full" />
-
-            {/* Centered headline & paragraph — Static without text emerge animation */}
-            <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex-1 flex flex-col items-center justify-center space-y-4 sm:space-y-5 -mt-6 sm:-mt-10">
-              {/* H1 — Static clean text */}
-              <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading max-w-2xl mx-auto py-1">
-                <span className="block">
-                  Innovation That Builds,
-                </span>
+          {/* TOP-LEFT: H1 Heading */}
+          <div className="w-full flex items-start justify-start pt-2 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
+            <motion.div
+              style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
+              className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-left"
+            >
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
+                <span className="block">Innovation That Builds,</span>
                 <span
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)]"
                   style={{ WebkitTextFillColor: 'transparent' }}
                 >
                   Automates &amp; Grows
                 </span>
-                <span className="block">
+                <span
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)]"
+                  style={{ WebkitTextFillColor: 'transparent' }}
+                >
                   Businesses
                 </span>
               </h1>
+            </motion.div>
+          </div>
 
-              <p className="text-gray-300 text-xs sm:text-sm lg:text-[15px] max-w-lg mx-auto font-normal leading-relaxed font-sans">
+          {/* RIGHT-SIDE MIDDLE: Description with rounded curved borders on all sides */}
+          <div className="w-full flex items-center justify-end pointer-events-auto my-auto py-2 sm:py-4 pr-3 sm:pr-4 lg:pr-6 translate-y-8 sm:translate-y-10 lg:translate-y-12">
+            <motion.div
+              style={{
+                ...(reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }),
+                background:
+                  'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
+              }}
+              className="relative max-w-[280px] sm:max-w-[320px] md:max-w-[350px] lg:max-w-[390px] xl:max-w-[420px] text-left p-4 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+            >
+              <p className="text-gray-300 text-xs sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
                 Siddiqui Innovations helps businesses build high-performing websites,
                 automate repetitive processes with AI and strengthen their digital presence
                 through strategic marketing solutions designed around their goals.
               </p>
-            </div>
+            </motion.div>
+          </div>
 
-            {/* Small bottom buffer */}
-            <div className="h-4 shrink-0" />
+          {/* BOTTOM-LEFT: Contact Us CTA Button & Social Links */}
+          <div className="w-full flex items-center justify-between pb-8 sm:pb-12 lg:pb-14 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
+            <motion.div
+              style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
+              className="flex flex-wrap items-center gap-3 sm:gap-4"
+            >
+              {/* Contact Us CTA Button */}
+              <motion.a
+                href="#contact"
+                onClick={(e) => handleLinkClick('#contact', e)}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="group relative inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-bold text-sm text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_20px_rgba(0,230,210,0.35)] hover:shadow-[0_0_30px_rgba(0,255,229,0.6)] transition-all duration-300 font-heading cursor-pointer"
+              >
+                <span>Contact Us</span>
+                <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </motion.a>
+
+              {/* Social Icons */}
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                {/* Instagram */}
+                <motion.a
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="https://www.instagram.com/siddiqui_innovations?igsh=MTYwNGUwbG1oNHoxZw%3D%3D&utm_source=qr"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-10 h-10 rounded-xl bg-[#060B10]/85 border border-[#00FFE5]/30 hover:border-[#00FFE5] hover:bg-[#00FFE5]/15 flex items-center justify-center text-gray-300 hover:text-[#00FFE5] transition-all duration-300 shadow-[0_0_12px_rgba(0,255,229,0.1)]"
+                  aria-label="Instagram"
+                  title="Instagram"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </motion.a>
+
+                {/* Facebook */}
+                <motion.a
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-10 h-10 rounded-xl bg-[#060B10]/85 border border-[#00FFE5]/30 hover:border-[#00FFE5] hover:bg-[#00FFE5]/15 flex items-center justify-center text-gray-300 hover:text-[#00FFE5] transition-all duration-300 shadow-[0_0_12px_rgba(0,255,229,0.1)]"
+                  aria-label="Facebook"
+                  title="Facebook"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                </motion.a>
+
+                {/* LinkedIn */}
+                <motion.a
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-10 h-10 rounded-xl bg-[#060B10]/85 border border-[#00FFE5]/30 hover:border-[#00FFE5] hover:bg-[#00FFE5]/15 flex items-center justify-center text-gray-300 hover:text-[#00FFE5] transition-all duration-300 shadow-[0_0_12px_rgba(0,255,229,0.1)]"
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.778-.773 1.778-1.729V1.73C24 .774 23.205 0 22.222 0h.003z" />
+                  </svg>
+                </motion.a>
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* SECTION 2 — Wings Showcase */}
-        <WingsShowcase onNavigate={onNavigate} />
+        {/* ============================================================ */}
+        {/* SECTION 2: SCROLLED BIG TRANSPARENT CARD                     */}
+        {/* As user scrolls down, this big frosted glass card slides up  */}
+        {/* over the middle. The flapping wings stay still in the center, */}
+        {/* visible and blurred behind the glass!                        */}
+        {/* Inside: 3 Small Cards containing the points from hero.       */}
+        {/* ============================================================ */}
+        <section className="relative w-full min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 z-20">
+          <motion.div
+            style={reducedMotion ? {} : { scale: cardScale }}
+            className="w-full max-w-6xl mx-auto rounded-3xl p-6 sm:p-10 lg:p-12 relative overflow-hidden backdrop-blur-sm bg-[#050505]/10 border border-[#00FFE5]/30 shadow-[0_0_60px_rgba(0,255,229,0.12),0_30px_70px_rgba(0,0,0,0.7)] pointer-events-auto"
+          >
+            {/* Inner Content with Scroll-Linked Text Blur to Clear effect (No fading, 100% solid text) */}
+            <motion.div
+              style={reducedMotion ? {} : { filter: textFilter }}
+              className="transform-gpu will-change-[filter]"
+            >
+              {/* Header of the Big Transparent Card (Why Businesses Choose Siddiqui Innovations) */}
+              <div className="relative text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                  <span className="block">Why Businesses Choose</span>{' '}
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.5)]">
+                    Siddiqui Innovations
+                  </span>
+                </h2>
+
+                <p className="text-gray-200 text-xs sm:text-sm font-sans mt-2.5 sm:mt-3 leading-relaxed drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                  We're not just another service provider, we're a team that treats your growth as our responsibility.
+                </p>
+              </div>
+
+              {/* The 3 Small Transparent Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative z-10">
+                {heroCards.map((card) => {
+                  return (
+                    <div
+                      key={card.id}
+                      className="relative flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-transparent border border-[#00FFE5]/30 shadow-[0_0_20px_rgba(0,255,229,0.06)]"
+                    >
+                      <div>
+                        {/* Card Title & Subtitle */}
+                        <h3 className="text-xl sm:text-2xl font-bold text-white font-heading leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                          {card.title}
+                        </h3>
+                        <p className="text-gray-300 text-xs sm:text-sm font-sans mt-2 leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                          {card.subtitle}
+                        </p>
+
+                        {/* Bullet Points */}
+                        <ul className="mt-5 space-y-2.5 border-t border-[#00FFE5]/20 pt-4">
+                          {card.points.map((point, pIdx) => (
+                            <li
+                              key={pIdx}
+                              className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-100 font-sans font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-[#00FFE5] shrink-0 mt-0.5 drop-shadow-[0_0_6px_rgba(0,255,229,0.8)]" />
+                              <span className="leading-tight">{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
       </div>
-
-      {/* ============================================================== */}
-      {/* WHOLE SCREEN BLUR OVERLAY (z-60)                               */}
-      {/* Covers navbar, hero, background image, and wing tips completely*/}
-      {/* Dissolves to 0 as scroll animation completes                   */}
-      {/* ============================================================== */}
-      {!isRevealed && (
-        <motion.div
-          style={{
-            opacity: overlayOpacity,
-            backdropFilter: backdropFilterString,
-            WebkitBackdropFilter: backdropFilterString,
-          }}
-          className="fixed inset-0 z-60 bg-[#050505] pointer-events-none transform-gpu will-change-[opacity]"
-        />
-      )}
-
-      {/* ============================================================== */}
-      {/* 3D FLAPPING WING LOGO & SCROLL DOWN PROMPT (z-70)              */}
-      {/* Crisp and sharp, floats above the whole screen blur            */}
-      {/* ============================================================== */}
-      {!isRevealed && (
-        <div className="fixed inset-0 z-70 pointer-events-none">
-          <FlappingScrollLogo
-            progress={progress}
-            isRevealed={isRevealed}
-            reducedMotion={reducedMotion}
-          />
-        </div>
-      )}
     </div>
   );
 };

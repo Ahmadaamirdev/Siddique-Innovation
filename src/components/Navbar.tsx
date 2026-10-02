@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useTransform, useMotionValue } from 'framer-motion';
-import type { MotionValue } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu,
   X,
@@ -26,15 +25,13 @@ const WhatsAppIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
 );
 
 export interface NavbarProps {
-  heroProgress?: MotionValue<number>;
-  isHeroRevealed?: boolean;
   onNavigate?: (path: string) => void;
   currentPath?: string;
+  heroProgress?: any;
+  isHeroRevealed?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  heroProgress,
-  isHeroRevealed = false,
   onNavigate,
 }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -52,17 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fallback progress if none provided
-  const fallbackProgress = useMotionValue(isHeroRevealed ? 1 : 0);
-  const currentProgress = heroProgress || fallbackProgress;
 
-  // Blur during intro logo animation: starts at blur(14px) and lower opacity, dissolves to 0 as logo animation reveals hero
-  const blurAmount = useTransform(currentProgress, [0.25, 0.92], [14, 0]);
-  const navFilter = useTransform(blurAmount, (b) => {
-    if (isHeroRevealed || b < 0.2) return 'none';
-    return `blur(${b.toFixed(1)}px)`;
-  });
-  const navOpacity = useTransform(currentProgress, [0.1, 0.85], [0.45, 1]);
 
   const navLinks = ['Home', 'Services', 'Projects', 'About', 'Contact'];
 
@@ -152,11 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top subtle viewport gradient to soften content scrolling under the floating navbar */}
       <div className="fixed top-0 inset-x-0 h-12 bg-gradient-to-b from-[#050608] via-[#050608]/80 to-transparent pointer-events-none z-40" />
 
-      <motion.header
-        style={{
-          filter: navFilter,
-          opacity: isHeroRevealed ? 1 : navOpacity,
-        }}
+      <header
         className="fixed top-4 sm:top-6 lg:top-7 left-0 right-0 z-50 flex flex-col items-center px-4 sm:px-6 pointer-events-none"
       >
       {/* Top Floating Header Wrapper */}
@@ -390,7 +373,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
     </>
   );
 };
