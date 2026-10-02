@@ -31,14 +31,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       transition={{ duration: 0.8, ease: entranceEase }}
       className="bg-[#030507] border-t border-white/10 pt-16 pb-12 relative z-10 text-gray-400 text-sm font-sans select-none overflow-hidden transform-gpu"
     >
-      {/* Soft Ambient Cyan Background Glow */}
+      {/* Soft Ambient Cyan Background Glow (Seamless, No Hard Boundaries) */}
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[300px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-[120px] pointer-events-none -z-0 transform-gpu will-change-transform" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[260px] bg-radial from-[#00FFE5]/8 via-transparent to-transparent blur-[140px] pointer-events-none -z-0 transform-gpu will-change-transform" />
       <div className="absolute top-0 left-10 w-[300px] h-[200px] bg-radial from-[#00FFE5]/5 to-transparent blur-[90px] pointer-events-none -z-0 transform-gpu will-change-transform" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Top Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-16 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-4 sm:pb-5">
 
           {/* Brand & Elevator Pitch Column (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
@@ -252,8 +253,35 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         </div>
 
+        {/* Large Outlined Brand Typography (70% Visible, Clean Outlines) */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="relative w-full text-center pt-2 sm:pt-3 pb-0 select-none group flex flex-col items-center justify-start"
+        >
+          {/* 70% visible clipping container sitting directly on the horizontal dividing line */}
+          <div className="relative w-full overflow-hidden h-[0.70em] text-[clamp(1.1rem,4.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15">
+            {/* Subtle cyan accent along the visible cut boundary */}
+            <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#00FFE5]/40 to-transparent pointer-events-none" />
+
+            <span
+              className="inline-block font-extrabold tracking-[0.06em] sm:tracking-[0.11em] uppercase leading-none whitespace-nowrap transition-opacity duration-300 opacity-80 group-hover:opacity-100 cursor-default select-none"
+              style={{
+                fontFamily: "Arial, 'Helvetica Neue', 'Segoe UI', sans-serif",
+                WebkitTextStroke: '1.2px #00FFE5',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+              }}
+            >
+              SIDDIQUI INNOVATIONS
+            </span>
+          </div>
+        </motion.div>
+
         {/* Bottom Bar Footer (Copyright & Back to Top) */}
-        <div className="pt-8 relative flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-500">
+        <div className="pt-6 sm:pt-8 relative flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-500">
           <div className="text-center">
             © {new Date().getFullYear()} <span className="text-gray-300 font-semibold font-heading">Siddiqui Innovations</span>. All Rights Reserved.
           </div>

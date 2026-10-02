@@ -77,12 +77,12 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               {/* Left Content */}
               <div className="lg:col-span-6 space-y-6 text-left">
-                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2] mb-2">
-                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-2">
+                  <WingLogo className="w-5 h-5 shrink-0" />
                   <span>ROI-FOCUSED PERFORMANCE MARKETING</span>
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-extrabold text-white tracking-[-0.03em] leading-[1.12] font-heading py-1">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
                   <span className="block">Marketing That Reaches the</span>
                   <span
                     className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
@@ -309,8 +309,8 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
               <div className="w-full max-w-[460px] mx-auto lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
-                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]">
-                      <WingLogo className="w-4 h-4 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono">
+                      <WingLogo className="w-4 h-4 shrink-0" />
                       <span>DATA-DRIVEN ROI</span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
@@ -397,10 +397,10 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
 
           <div className="text-center max-w-2xl mx-auto mb-14 relative z-10">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>SERVICES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading mt-1">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading mt-1">
               What You Get With Our Digital Marketing
             </h2>
           </div>
@@ -427,15 +427,15 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                   className={`group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
                 >
                   <div className="flex flex-col flex-1">
-                    {/* Icon Box */}
-                    <div className="w-10 h-10 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] mb-4 group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
-                      <IconComp className="w-5 h-5 text-[#00E6D2]" />
+                    {/* Header: Icon Box and Title inline */}
+                    <div className="flex items-center gap-3.5 mb-3.5">
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center text-[#00E6D2] group-hover:scale-105 group-hover:bg-[#00E6D2]/20 transition-all duration-300">
+                        <IconComp className="w-5 h-5 text-[#00E6D2]" />
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                        {feature.title}
+                      </h3>
                     </div>
-
-                    {/* Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
-                      {feature.title}
-                    </h3>
 
                     {/* Description */}
                     <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
@@ -455,10 +455,10 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12 text-center">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>EXECUTION PIPELINE</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1 font-heading">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] mt-1 font-heading">
               {service.processHeading}
             </h2>
           </div>
@@ -505,10 +505,10 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
             <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
               <div className="space-y-3">
                 <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading">
-                  <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                  <WingLogo className="w-5 h-5 shrink-0" />
                   <span>FAQS</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading">
                   {service.faqsHeading}
                 </h2>
                 <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-sans pt-1">
@@ -594,7 +594,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
         <section className="py-16 border-t border-white/10 bg-[#06080B]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+              <WingLogo className="w-5 h-5 shrink-0" />
               <span>EXPLORE SERVICES</span>
             </div>
             <h3 className="text-lg font-bold text-gray-300 mb-6 font-heading">
@@ -625,7 +625,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
         />
       </main>
 
-      <Footer />
+      <Footer onNavigate={handleNav} />
     </div>
   );
 };

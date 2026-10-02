@@ -1,25 +1,23 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { useMotionValue } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Stats } from './components/Stats';
 import { Services } from './components/Services';
 import { Process } from './components/Process';
 import { Projects } from './components/Projects';
-import { WhyChooseUs } from './components/WhyChooseUs';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
+import { Clientele } from './components/Clientele';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { BackgroundParticles } from './components/BackgroundParticles';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { servicesData } from './data/servicesData';
 
+import { ServiceDetailPage } from './components/ServiceDetailPage';
+
 const ProjectsPage = lazy(() =>
   import('./components/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
-);
-const ServiceDetailPage = lazy(() =>
-  import('./components/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
 );
 const AboutPage = lazy(() =>
   import('./components/AboutPage').then((m) => ({ default: m.AboutPage }))
@@ -33,58 +31,51 @@ const PrivacyPolicyPage = lazy(() =>
 const TermsPage = lazy(() =>
   import('./components/TermsPage').then((m) => ({ default: m.TermsPage }))
 );
+const NotFoundPage = lazy(() =>
+  import('./components/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
+);
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
-  // Loading animation should only run on initial website load on the homepage,
-  // and never when switching back to homepage.
-  const [isHeroRevealed, setIsHeroRevealed] = useState<boolean>(() => {
-    try {
-      if (window.location.pathname !== '/' && window.location.pathname !== '') {
-        sessionStorage.setItem('si_intro_revealed', 'true');
-        return true;
-      }
-      return sessionStorage.getItem('si_intro_revealed') === 'true';
-    } catch {
-      return false;
-    }
-  });
-
-  const heroProgress = useMotionValue(isHeroRevealed ? 1 : 0);
-
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
-      setIsHeroRevealed(true);
-      heroProgress.set(1);
-      try {
-        sessionStorage.setItem('si_intro_revealed', 'true');
-      } catch {}
-      (window as any).__heroRevealed = true;
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [heroProgress]);
+  }, []);
+
+  // Guarantee that every route change scrolls to top immediately
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    if ((window as any).__lenis) {
+      try {
+        (window as any).__lenis.start();
+        (window as any).__lenis.scrollTo(0, { immediate: true });
+        document.documentElement.classList.remove('lenis-stopped');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      } catch {}
+    }
+  }, [currentPath]);
 
   const navigateToPath = (path: string) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
-    // Any page navigation means the website has already been loaded
-    setIsHeroRevealed(true);
-    heroProgress.set(1);
-    try {
-      sessionStorage.setItem('si_intro_revealed', 'true');
-    } catch {}
-    (window as any).__heroRevealed = true;
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     if ((window as any).__lenis) {
-      (window as any).__lenis.start();
-      (window as any).__lenis.scrollTo(0, { immediate: true });
-      document.documentElement.classList.remove('lenis-stopped');
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-    } else {
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      try {
+        (window as any).__lenis.start();
+        (window as any).__lenis.scrollTo(0, { immediate: true });
+        document.documentElement.classList.remove('lenis-stopped');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      } catch {}
     }
   };
 
@@ -117,8 +108,9 @@ export const App: React.FC = () => {
       return <TermsPage onNavigate={navigateToPath} />;
     }
 
-    if (currentPath.startsWith('/services/')) {
-      const serviceSlug = currentPath.replace('/services/', '').replace(/\/$/, '');
+    if (currentPath.startsWith('/services/') || currentPath.startsWith('/service/')) {
+      const cleanPath = currentPath.split('?')[0].split('#')[0];
+      const serviceSlug = cleanPath.replace(/^\/services?\//, '').replace(/\/$/, '');
       const activeService = servicesData[serviceSlug];
 
       if (activeService) {
@@ -132,34 +124,33 @@ export const App: React.FC = () => {
       }
     }
 
-    return (
-      <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black overflow-x-clip relative">
-        <BackgroundParticles />
-        <Navbar
-          heroProgress={heroProgress}
-          isHeroRevealed={isHeroRevealed}
-          onNavigate={navigateToPath}
-          currentPath={currentPath}
-        />
-        <main id="home">
-          <Hero
-            progressProp={heroProgress}
-            isRevealedProp={isHeroRevealed}
-            onRevealedChange={setIsHeroRevealed}
+    if (currentPath === '/' || currentPath === '') {
+      return (
+        <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black overflow-x-clip relative">
+          <BackgroundParticles />
+          <Navbar
             onNavigate={navigateToPath}
+            currentPath={currentPath}
           />
-          <Stats />
-          <Services />
-          <Process />
-          <Projects onNavigateToProjects={navigateToProjects} />
-          <WhyChooseUs />
-          <Testimonials />
-          <FAQ />
-          <CTA />
-        </main>
-        <Footer onNavigate={navigateToPath} />
-      </div>
-    );
+          <main id="home">
+            <Hero
+              onNavigate={navigateToPath}
+            />
+            <Stats />
+            <Services onNavigate={navigateToPath} />
+            <Process />
+            <Projects onNavigateToProjects={navigateToProjects} />
+            <Testimonials />
+            <FAQ />
+            <Clientele />
+            <CTA />
+          </main>
+          <Footer onNavigate={navigateToPath} />
+        </div>
+      );
+    }
+
+    return <NotFoundPage onNavigate={navigateToPath} currentPath={currentPath} />;
   };
 
   return (

@@ -36,32 +36,16 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode; current
     lenisRef.current = lenis;
     (window as any).__lenis = lenis;
 
-    // Only pause Lenis if strictly on homepage AND hero has never been revealed yet in this session
-    const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
-    let isIntroRevealed = false;
-    try {
-      isIntroRevealed = sessionStorage.getItem('si_intro_revealed') === 'true';
-    } catch {}
+    lenis.start();
+    document.documentElement.classList.remove('lenis-stopped');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
 
-    if (isHomePage && !isIntroRevealed && (window as any).__heroRevealed === false) {
-      lenis.stop();
-    } else {
-      (window as any).__heroRevealed = true;
+    const handleLocationChange = () => {
       lenis.start();
       document.documentElement.classList.remove('lenis-stopped');
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
-    }
-
-    // Safety watchdog: on popstate or URL change, ensure scroll is enabled
-    const handleLocationChange = () => {
-      if (window.location.pathname !== '/' && window.location.pathname !== '') {
-        (window as any).__heroRevealed = true;
-        lenis.start();
-        document.documentElement.classList.remove('lenis-stopped');
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-      }
     };
     window.addEventListener('popstate', handleLocationChange);
 

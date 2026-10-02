@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2, Check } from 'lucide-react';
 import { WingLogo } from './WingLogo';
+import brandLogo from '../assets/brand_logo.png';
 
 declare global {
   interface Window {
@@ -131,11 +132,11 @@ export const CTA: React.FC<CTAProps> = ({
             {/* Left Column: Heading, Subheading & Direct Social Links */}
             <div className="lg:col-span-5 space-y-6">
               <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading">
-                <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+                <WingLogo className="w-5 h-5 shrink-0" />
                 <span>START A PROJECT</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading">
                 {heading}
               </h2>
 
@@ -192,6 +193,16 @@ export const CTA: React.FC<CTAProps> = ({
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.778-.773 1.778-1.729V1.73C24 .774 23.205 0 22.222 0h.003z" />
                   </svg>
                 </motion.a>
+              </div>
+
+              {/* Brand Logo under social links */}
+              <div className="pt-10 sm:pt-14 flex justify-center items-center w-full">
+                <img
+                  src={brandLogo}
+                  alt="Siddiqui Innovations Logo"
+                  className="w-64 sm:w-72 md:w-80 max-w-full h-auto object-contain select-none drop-shadow-[0_0_30px_rgba(0,230,210,0.22)] mx-auto"
+                  loading="lazy"
+                />
               </div>
             </div>
 

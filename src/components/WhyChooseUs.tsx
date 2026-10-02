@@ -23,9 +23,9 @@ export const WhyChooseUs: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 text-[#00E6D2] text-xs sm:text-sm font-semibold tracking-wider uppercase font-mono drop-shadow-[0_0_8px_#00E6D2]"
+            className="inline-flex items-center gap-2.5 text-[#00E6D2] text-xs sm:text-sm font-semibold tracking-wider uppercase font-mono"
           >
-            <WingLogo className="w-5 h-5 shrink-0 drop-shadow-[0_0_8px_#00E6D2]" />
+            <WingLogo className="w-5 h-5 shrink-0" />
             <span>OUR ADVANTAGE</span>
           </motion.div>
 
@@ -34,7 +34,7 @@ export const WhyChooseUs: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-heading leading-tight"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading"
           >
             Why Businesses Choose{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,230,210,0.35)]">
