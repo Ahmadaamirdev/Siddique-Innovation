@@ -203,8 +203,8 @@ const Curved3DCarousel: React.FC = () => {
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
 
-        // Continuous card index u relative to loop
-        let u = (i - offset / stride) % totalCards;
+        // Continuous card index u relative to loop (opposite motion: moving left-to-right)
+        let u = (i + offset / stride) % totalCards;
         if (u < 0) u += totalCards;
 
         let diffU = u;
