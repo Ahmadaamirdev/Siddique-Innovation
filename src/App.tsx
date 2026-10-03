@@ -119,6 +119,7 @@ export const App: React.FC = () => {
             service={activeService}
             onNavigateHome={navigateToHome}
             onNavigateService={navigateToService}
+            onNavigate={navigateToPath}
           />
         );
       }
