@@ -35,8 +35,9 @@ export const Clientele: React.FC = () => {
             <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed font-sans pt-0.5 max-w-xl mx-auto">
               Empowering forward-thinking enterprises and delivering scalable digital engineering across
               our core operational regions in <strong className="text-white">Pakistan</strong>,{' '}
-              <strong className="text-white">Oman</strong>, and{' '}
-              <strong className="text-white">Saudi Arabia (KSA)</strong>.
+              <strong className="text-white">Oman</strong>,{' '}
+              <strong className="text-white">Saudi Arabia (KSA)</strong>, and the{' '}
+              <strong className="text-white">USA</strong>.
             </p>
           </motion.div>
         </div>
