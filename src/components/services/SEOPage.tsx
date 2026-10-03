@@ -26,6 +26,12 @@ import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import { SeoGrowthPanel } from '../seo/SeoGrowthPanel';
+import { ServiceProjectsSection } from './ServiceProjectsSection';
+import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
+import {
+  seoProjects,
+  seoTestimonials,
+} from '../../data/serviceProjectsAndTestimonials';
 
 interface SEOPageProps {
   service: ServiceItemData;
@@ -397,6 +403,21 @@ export const SEOPage: React.FC<SEOPageProps> = ({
             </div>
           </div>
         </section>
+
+        {/* Projects Section */}
+        <ServiceProjectsSection
+          serviceName="SEO"
+          projects={seoProjects}
+          subheading="Data-driven technical SEO, high-authority keyword rankings, and organic search scale."
+          onNavigateToProjects={() => onNavigate?.('/projects')}
+        />
+
+        {/* Testimonials Section */}
+        <ServiceTestimonialsSection
+          serviceName="SEO"
+          testimonials={seoTestimonials}
+          subheading="How we helped our clients capture top positions and drive sustainable organic revenue."
+        />
 
         {/* 5. FAQS */}
         <section className="py-14 md:py-20 relative z-10 overflow-hidden border-b border-white/10">

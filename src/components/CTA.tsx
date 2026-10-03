@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2, Check } from 'lucide-react';
 import { WingLogo } from './WingLogo';
-import brandLogo from '../assets/brand_logo.png';
 
 declare global {
   interface Window {
@@ -195,15 +194,6 @@ export const CTA: React.FC<CTAProps> = ({
                 </motion.a>
               </div>
 
-              {/* Brand Logo under social links */}
-              <div className="pt-10 sm:pt-14 flex justify-center items-center w-full">
-                <img
-                  src={brandLogo}
-                  alt="Siddiqui Innovations Logo"
-                  className="w-64 sm:w-72 md:w-80 max-w-full h-auto object-contain select-none drop-shadow-[0_0_30px_rgba(0,230,210,0.22)] mx-auto"
-                  loading="lazy"
-                />
-              </div>
             </div>
 
             {/* Right Column: Contact Form */}

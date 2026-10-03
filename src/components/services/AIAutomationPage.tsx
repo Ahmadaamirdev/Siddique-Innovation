@@ -25,6 +25,12 @@ import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import { useSmoothScroll } from '../SmoothScrollProvider';
+import { ServiceProjectsSection } from './ServiceProjectsSection';
+import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
+import {
+  aiAutomationProjects,
+  aiAutomationTestimonials,
+} from '../../data/serviceProjectsAndTestimonials';
 
 const aiDeliverables = [
   {
@@ -544,6 +550,21 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </div>
           </div>
         </section>
+
+        {/* Projects Section */}
+        <ServiceProjectsSection
+          serviceName="AI Automation"
+          projects={aiAutomationProjects}
+          subheading="Explore our custom chatbots, automated lead gen engines, and autonomous HR workflow bots."
+          onNavigateToProjects={() => onNavigate?.('/projects')}
+        />
+
+        {/* Testimonials Section */}
+        <ServiceTestimonialsSection
+          serviceName="AI Automation"
+          testimonials={aiAutomationTestimonials}
+          subheading="How enterprise leaders and founders streamlined workflows and saved hundreds of weekly hours."
+        />
 
         {/* 5. ACCORDION FAQS */}
         <section className="py-14 md:py-20 relative z-10 overflow-hidden border-b border-white/10">

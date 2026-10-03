@@ -6,14 +6,15 @@ export interface HeroGlobeProps {
 }
 
 interface CountryMarker {
-  id: 'pakistan' | 'ksa' | 'oman';
+  id: 'pakistan' | 'ksa' | 'oman' | 'usa';
   name: string;
   lat: number;
   lng: number;
-  slot: 'upper-right' | 'left' | 'lower-right';
+  slot: 'upper-right' | 'left' | 'lower-right' | 'upper-left';
 }
 
 const COUNTRIES: CountryMarker[] = [
+  { id: 'usa', name: 'USA', lat: 38.0, lng: -97.0, slot: 'upper-left' },
   { id: 'pakistan', name: 'Pakistan', lat: 33.7, lng: 73.0, slot: 'upper-right' },
   { id: 'ksa', name: 'Saudi Arabia (KSA)', lat: 24.7, lng: 46.7, slot: 'left' },
   { id: 'oman', name: 'Oman', lat: 23.6, lng: 58.6, slot: 'lower-right' },
@@ -105,67 +106,6 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
         y: cy + y2 * radius,
         z: z2,
         visible: z2 > -0.15,
-      };
-    };
-
-    // Vector conversion helper
-    const latLngToVec = (lat: number, lng: number) => {
-      const phi = (lat * Math.PI) / 180;
-      const lambda = (lng * Math.PI) / 180;
-      return [
-        Math.cos(phi) * Math.sin(lambda),
-        -Math.sin(phi),
-        Math.cos(phi) * Math.cos(lambda),
-      ];
-    };
-
-    // Slerp helper
-    const slerp = (v1: number[], v2: number[], t: number) => {
-      let dot = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
-      dot = Math.max(-1, Math.min(1, dot));
-      const omega = Math.acos(dot);
-      if (Math.abs(omega) < 1e-4) return v1;
-      const sinOmega = Math.sin(omega);
-      const s1 = Math.sin((1 - t) * omega) / sinOmega;
-      const s2 = Math.sin(t * omega) / sinOmega;
-      return [
-        s1 * v1[0] + s2 * v2[0],
-        s1 * v1[1] + s2 * v2[1],
-        s1 * v1[2] + s2 * v2[2],
-      ];
-    };
-
-    // Projection for rotated 3D vector with altitude
-    const projectVecWithAltitude = (
-      unitVec: number[],
-      altitudeFactor: number,
-      radius: number,
-      yaw: number,
-      cx: number,
-      cy: number
-    ) => {
-      // Rotate around polar axis by yaw
-      const cosY = Math.cos(-yaw);
-      const sinY = Math.sin(-yaw);
-      const x0 = unitVec[0] * cosY - unitVec[2] * sinY;
-      const y0 = unitVec[1];
-      const z0 = unitVec[0] * sinY + unitVec[2] * cosY;
-
-      // Pitch forward 18 deg
-      const x1 = x0;
-      const y1 = y0 * cosPitch - z0 * sinPitch;
-      const z1 = y0 * sinPitch + z0 * cosPitch;
-
-      // Axial tilt -23 deg
-      const x2 = x1 * cosTilt - y1 * sinTilt;
-      const y2 = x1 * sinTilt + y1 * cosTilt;
-      const z2 = z1;
-
-      const r = radius * altitudeFactor;
-      return {
-        x: cx + x2 * r,
-        y: cy + y2 * r,
-        z: z2,
       };
     };
 
@@ -348,95 +288,7 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
       ctx.stroke();
 
       // ==============================================================
-      // 5. CURVED ARCS & TRAVELING DOTS (lifted by 28% above surface)
-      // ==============================================================
-      const ARC_PAIRS: [CountryMarker, CountryMarker, number][] = [
-        [COUNTRIES[0], COUNTRIES[1], 0.0], // Pakistan - KSA
-        [COUNTRIES[1], COUNTRIES[2], 0.33], // KSA - Oman
-        [COUNTRIES[2], COUNTRIES[0], 0.66], // Oman - Pakistan
-      ];
-
-      ARC_PAIRS.forEach(([c1, c2, timeOffset]) => {
-        const v1 = latLngToVec(c1.lat, c1.lng);
-        const v2 = latLngToVec(c2.lat, c2.lng);
-        const arcSteps = 40;
-        const arcPoints: { x: number; y: number; z: number }[] = [];
-
-        for (let i = 0; i <= arcSteps; i++) {
-          const t = i / arcSteps;
-          const vecInterp = slerp(v1, v2, t);
-          // Lift the midpoint by 28 percent above the surface
-          const altitude = 1 + 0.28 * Math.sin(t * Math.PI);
-          arcPoints.push(
-            projectVecWithAltitude(vecInterp, altitude, radius, yaw, cx, cy)
-          );
-        }
-
-        // Draw arc line segments
-        const isArcHovered =
-          hoveredCountry === c1.id || hoveredCountry === c2.id;
-
-        for (let i = 0; i < arcSteps; i++) {
-          const p1 = arcPoints[i];
-          const p2 = arcPoints[i + 1];
-          const avgZ = (p1.z + p2.z) / 2;
-          const isFront = avgZ > 0;
-
-          ctx.beginPath();
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-
-          if (isFront) {
-            ctx.strokeStyle = isArcHovered
-              ? 'rgba(31, 214, 187, 0.95)'
-              : 'rgba(31, 214, 187, 0.55)';
-            ctx.lineWidth = isArcHovered ? 2.0 : 1.2;
-          } else {
-            // Lower opacity on back hemisphere
-            ctx.strokeStyle = 'rgba(31, 214, 187, 0.12)';
-            ctx.lineWidth = 0.8;
-          }
-          ctx.stroke();
-        }
-
-        // ONE BRIGHT TRAVELING DOT WITH SHORT FADING TRAIL (offset per arc)
-        const travelT = ((time * 0.45 + timeOffset) % 1);
-        const currentIdx = travelT * (arcPoints.length - 1);
-        const baseIdx = Math.floor(currentIdx);
-        const frac = currentIdx - baseIdx;
-        const pA = arcPoints[baseIdx] || arcPoints[0];
-        const pB = arcPoints[Math.min(baseIdx + 1, arcPoints.length - 1)];
-
-        const dotX = pA.x + (pB.x - pA.x) * frac;
-        const dotY = pA.y + (pB.y - pA.y) * frac;
-        const dotZ = pA.z + (pB.z - pA.z) * frac;
-
-        if (dotZ > -0.05) {
-          // Trail
-          for (let tr = 1; tr <= 4; tr++) {
-            const trIdx = Math.max(0, baseIdx - tr * 2);
-            const trPt = arcPoints[trIdx];
-            if (trPt) {
-              ctx.beginPath();
-              ctx.arc(trPt.x, trPt.y, 2.5 - tr * 0.5, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(31, 214, 187, ${(0.4 / tr) * Math.max(0.2, dotZ)})`;
-              ctx.fill();
-            }
-          }
-
-          // Bright dot
-          ctx.beginPath();
-          ctx.arc(dotX, dotY, 3.2, 0, Math.PI * 2);
-          ctx.fillStyle = '#ffffff';
-          ctx.shadowColor = '#1fd6bb';
-          ctx.shadowBlur = 10;
-          ctx.fill();
-          ctx.shadowBlur = 0; // reset
-        }
-      });
-
-      // ==============================================================
-      // 6. COUNTRY MARKERS (solid 5px teal dot + 2 staggered pulse rings)
+      // 5. COUNTRY MARKERS (solid 5px teal dot + 2 staggered pulse rings)
       // ==============================================================
       const markerScreenCoords: {
         [key: string]: { x: number; y: number; z: number };
@@ -482,7 +334,7 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
         ctx.save();
         ctx.beginPath();
         ctx.arc(pt.x, pt.y, isFront ? 4.5 : 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = isFront ? '#1fd6bb' : 'rgba(31, 214, 187, 0.25)';
+        ctx.fillStyle = isFront ? '#1fd6bb' : 'rgba(31, 214, 187, 0.35)';
         if (isFront) {
           ctx.shadowColor = '#1fd6bb';
           ctx.shadowBlur = 12;
@@ -500,31 +352,38 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
       });
 
       // ==============================================================
-      // 7. LEADER LINES (1px teal at 60% opacity with small elbow)
+      // 6. LEADER LINES (always visible, connecting each country label to its globe marker)
       // ==============================================================
       // Redraw every frame so it follows the marker as the globe continuously rotates
       COUNTRIES.forEach((c) => {
         const markerPt = markerScreenCoords[c.id];
         const labelPos = labelPositionsRef.current[c.id];
         if (markerPt && labelPos) {
-          // Fade leader line smoothly if country rotates toward the back
-          const lineAlpha = Math.max(0, Math.min(1, (markerPt.z + 0.1) * 3)) * 0.6;
-          if (lineAlpha > 0.04) {
-            ctx.save();
-            ctx.strokeStyle = `rgba(31, 214, 187, ${lineAlpha})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(labelPos.x, labelPos.y);
+          const isFront = markerPt.z > -0.05;
+          const isHovered = hoveredCountry === c.id;
 
-            const elbowX =
-              labelPos.side === 'left' ? labelPos.x + 22 : labelPos.x - 22;
-            const elbowY = labelPos.y;
-
-            ctx.lineTo(elbowX, elbowY);
-            ctx.lineTo(markerPt.x, markerPt.y);
-            ctx.stroke();
-            ctx.restore();
+          ctx.save();
+          // Always visible with crisp styling
+          ctx.strokeStyle = isHovered
+            ? 'rgba(31, 214, 187, 0.95)'
+            : isFront
+            ? 'rgba(31, 214, 187, 0.65)'
+            : 'rgba(31, 214, 187, 0.35)';
+          ctx.lineWidth = isHovered ? 1.5 : 1;
+          if (!isFront) {
+            ctx.setLineDash([4, 4]); // Clean subtle dash when pointing to rear side
           }
+          ctx.beginPath();
+          ctx.moveTo(labelPos.x, labelPos.y);
+
+          const elbowX =
+            labelPos.side === 'left' ? labelPos.x + 22 : labelPos.x - 22;
+          const elbowY = labelPos.y;
+
+          ctx.lineTo(elbowX, elbowY);
+          ctx.lineTo(markerPt.x, markerPt.y);
+          ctx.stroke();
+          ctx.restore();
         }
       });
 
@@ -642,12 +501,33 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
       <canvas ref={canvasRef} className="block relative z-10" />
 
       {/* 3. FIXED PINNED HTML LABELS (always visible, never overlapping) */}
-      {/* Left Slot: Saudi Arabia (KSA) */}
+      {/* Upper-Left Slot: USA */}
+      <div
+        ref={(el) => updateLabelAnchor('usa', el, 'left')}
+        onMouseEnter={() => setHoveredCountry('usa')}
+        onMouseLeave={() => setHoveredCountry(null)}
+        className="absolute left-1 sm:left-4 md:left-6 top-[22%] sm:top-[24%] z-20 cursor-pointer pointer-events-auto transition-transform duration-200 hover:scale-105"
+      >
+        <div
+          style={{
+            backgroundColor: 'rgba(4, 9, 10, 0.85)',
+            border: '0.5px solid rgba(31, 214, 187, 0.5)',
+          }}
+          className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
+        >
+          <span className="w-2 h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
+          <span className="text-white font-medium text-xs sm:text-sm tracking-wide whitespace-nowrap">
+            USA
+          </span>
+        </div>
+      </div>
+
+      {/* Lower-Left Slot: Saudi Arabia (KSA) */}
       <div
         ref={(el) => updateLabelAnchor('ksa', el, 'left')}
         onMouseEnter={() => setHoveredCountry('ksa')}
         onMouseLeave={() => setHoveredCountry(null)}
-        className="absolute left-1 sm:left-4 md:left-6 top-[48%] -translate-y-1/2 z-20 cursor-pointer pointer-events-auto transition-transform duration-200 hover:scale-105"
+        className="absolute left-1 sm:left-4 md:left-6 top-[72%] sm:top-[70%] z-20 cursor-pointer pointer-events-auto transition-transform duration-200 hover:scale-105"
       >
         <div
           style={{

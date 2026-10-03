@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Stats } from './components/Stats';
@@ -12,6 +13,7 @@ import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { BackgroundParticles } from './components/BackgroundParticles';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
+import { LoadingScreen } from './components/LoadingScreen';
 import { servicesData } from './data/servicesData';
 
 import { ServiceDetailPage } from './components/ServiceDetailPage';
@@ -37,6 +39,9 @@ const NotFoundPage = lazy(() =>
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [isLoading, setIsLoading] = useState(() => {
+    return window.location.pathname === '/' || window.location.pathname === '';
+  });
 
   useEffect(() => {
     const handlePopState = () => {
@@ -156,6 +161,11 @@ export const App: React.FC = () => {
 
   return (
     <SmoothScrollProvider currentPath={currentPath}>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <LoadingScreen onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
       <Suspense fallback={<div className="min-h-screen bg-[#050505] flex items-center justify-center" />}>
         {renderContent()}
       </Suspense>

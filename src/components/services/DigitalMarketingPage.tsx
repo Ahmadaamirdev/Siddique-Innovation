@@ -27,6 +27,12 @@ import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
+import { ServiceProjectsSection } from './ServiceProjectsSection';
+import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
+import {
+  digitalMarketingProjects,
+  digitalMarketingTestimonials,
+} from '../../data/serviceProjectsAndTestimonials';
 
 interface DigitalMarketingPageProps {
   service: ServiceItemData;
@@ -498,6 +504,21 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
             </div>
           </div>
         </section>
+
+        {/* Projects Section */}
+        <ServiceProjectsSection
+          serviceName="Digital Marketing"
+          projects={digitalMarketingProjects}
+          subheading="High-performing ad campaigns, conversion funnels, and retention engines delivering measurable ROAS."
+          onNavigateToProjects={() => onNavigate?.('/projects')}
+        />
+
+        {/* Testimonials Section */}
+        <ServiceTestimonialsSection
+          serviceName="Digital Marketing"
+          testimonials={digitalMarketingTestimonials}
+          subheading="Real feedback from brands scaling their revenue and paid customer acquisition."
+        />
 
         {/* 6. FAQS */}
         <section className="py-14 md:py-20 relative z-10 overflow-hidden border-b border-white/10">

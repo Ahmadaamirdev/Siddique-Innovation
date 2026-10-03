@@ -27,6 +27,12 @@ import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import serviceHeroBg from '../../assets/service_hero_bg.png';
+import { ServiceProjectsSection } from './ServiceProjectsSection';
+import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
+import {
+  webDevelopmentProjects,
+  webDevelopmentTestimonials,
+} from '../../data/serviceProjectsAndTestimonials';
 
 interface WebDevelopmentPageProps {
   service: ServiceItemData;
@@ -550,6 +556,21 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
             </div>
           </div>
         </section>
+
+        {/* Projects Section */}
+        <ServiceProjectsSection
+          serviceName="Web Development"
+          projects={webDevelopmentProjects}
+          subheading="A curated selection of our high-converting web solutions and digital enterprise platforms."
+          onNavigateToProjects={() => onNavigate?.('/projects')}
+        />
+
+        {/* Testimonials Section */}
+        <ServiceTestimonialsSection
+          serviceName="Web Development"
+          testimonials={webDevelopmentTestimonials}
+          subheading="Real results and verified feedback from our web development clients and enterprise partners."
+        />
 
         {/* 5. FAQS */}
         <section className="py-14 md:py-20 relative z-10 overflow-hidden border-b border-white/10">

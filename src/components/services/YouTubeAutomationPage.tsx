@@ -25,6 +25,12 @@ import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
+import { ServiceProjectsSection } from './ServiceProjectsSection';
+import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
+import {
+  youtubeAutomationProjects,
+  youtubeAutomationTestimonials,
+} from '../../data/serviceProjectsAndTestimonials';
 
 
 const reelItems = [
@@ -746,6 +752,21 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
             </div>
           </div>
         </section>
+
+        {/* Projects Section */}
+        <ServiceProjectsSection
+          serviceName="YouTube Automation"
+          projects={youtubeAutomationProjects}
+          subheading="Automated channel pipelines, AI voice & script workflows, and high-retention video production."
+          onNavigateToProjects={() => onNavigate?.('/projects')}
+        />
+
+        {/* Testimonials Section */}
+        <ServiceTestimonialsSection
+          serviceName="YouTube Automation"
+          testimonials={youtubeAutomationTestimonials}
+          subheading="Verified results from channel owners and media creators scaling passive YouTube revenue."
+        />
 
         {/* 5. FAQS */}
         <section className="py-14 md:py-20 relative z-10 overflow-hidden border-b border-white/10">

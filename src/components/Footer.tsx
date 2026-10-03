@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
   ArrowUp,
 } from 'lucide-react';
+import brandLogo from '../assets/brand_logo.png';
 
 export interface FooterProps {
   onNavigate?: (path: string) => void;
@@ -50,14 +51,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               aria-label="Siddiqui Innovations Home"
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.04 }}
                 transition={{ type: 'spring', stiffness: 350, damping: 25 }}
                 className="relative flex items-center"
               >
                 <img
-                  src="/logo.png"
+                  src={brandLogo}
                   alt="Siddiqui Innovations Logo"
-                  className="h-14 sm:h-16 w-auto object-contain drop-shadow-[0_0_16px_rgba(0,230,210,0.35)]"
+                  className="h-14 sm:h-16 md:h-18 w-auto max-w-[240px] object-contain drop-shadow-[0_0_24px_rgba(0,230,210,0.25)]"
                 />
               </motion.div>
             </a>
@@ -253,7 +254,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         </div>
 
-        {/* Large Outlined Brand Typography (70% Visible, Clean Outlines) */}
+        {/* Large Outlined Brand Typography (80% Visible, Clean Outlines) */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -261,8 +262,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative w-full text-center pt-2 sm:pt-3 pb-0 select-none group flex flex-col items-center justify-start"
         >
-          {/* 70% visible clipping container sitting directly on the horizontal dividing line */}
-          <div className="relative w-full overflow-hidden h-[0.70em] text-[clamp(1.1rem,4.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15">
+          {/* 80% visible clipping container sitting directly on the horizontal dividing line */}
+          <div className="relative w-full overflow-hidden h-[0.80em] text-[clamp(1.1rem,4.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15">
             {/* Subtle cyan accent along the visible cut boundary */}
             <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#00FFE5]/40 to-transparent pointer-events-none" />
 
