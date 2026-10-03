@@ -368,24 +368,28 @@ interface YouTubeAutomationPageProps {
   service: ServiceItemData;
   onNavigateHome: () => void;
   onNavigateService: (slug: string) => void;
+  onNavigate?: (path: string) => void;
 }
 
 export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
   service,
   onNavigateHome,
   onNavigateService,
+  onNavigate,
 }) => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleNav = (path: string) => {
     if (path === '/') {
       onNavigateHome();
-    } else if (path.startsWith('/services/')) {
-      const slug = path.replace('/services/', '').replace(/\/$/, '');
+    } else if (path.startsWith('/services/') || path.startsWith('/service/')) {
+      const slug = path.replace(/^\/services?\//, '').replace(/\/$/, '');
       onNavigateService(slug);
+    } else if (onNavigate) {
+      onNavigate(path);
     } else {
       window.history.pushState({}, '', path);
-      window.location.href = path;
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
 

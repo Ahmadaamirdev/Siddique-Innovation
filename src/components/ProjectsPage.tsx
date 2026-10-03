@@ -35,7 +35,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
       onNavigate(path);
     } else {
       window.history.pushState({}, '', path);
-      window.location.href = path;
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
 

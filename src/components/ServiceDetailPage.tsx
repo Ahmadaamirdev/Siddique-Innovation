@@ -12,12 +12,14 @@ interface ServiceDetailPageProps {
   service: ServiceItemData;
   onNavigateHome: () => void;
   onNavigateService: (slug: string) => void;
+  onNavigate?: (path: string) => void;
 }
 
 export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   service,
   onNavigateHome,
   onNavigateService,
+  onNavigate,
 }) => {
   const { startScroll } = useSmoothScroll();
 
@@ -47,6 +49,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           service={service}
           onNavigateHome={onNavigateHome}
           onNavigateService={onNavigateService}
+          onNavigate={onNavigate}
         />
       );
 
@@ -56,6 +59,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           service={service}
           onNavigateHome={onNavigateHome}
           onNavigateService={onNavigateService}
+          onNavigate={onNavigate}
         />
       );
 
@@ -65,6 +69,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           service={service}
           onNavigateHome={onNavigateHome}
           onNavigateService={onNavigateService}
+          onNavigate={onNavigate}
         />
       );
 
@@ -74,6 +79,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           service={service}
           onNavigateHome={onNavigateHome}
           onNavigateService={onNavigateService}
+          onNavigate={onNavigate}
         />
       );
 
@@ -83,6 +89,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           service={service}
           onNavigateHome={onNavigateHome}
           onNavigateService={onNavigateService}
+          onNavigate={onNavigate}
         />
       );
 
@@ -92,6 +99,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           service={service}
           onNavigateHome={onNavigateHome}
           onNavigateService={onNavigateService}
+          onNavigate={onNavigate}
         />
       );
   }
