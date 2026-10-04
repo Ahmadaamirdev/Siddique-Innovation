@@ -51,10 +51,10 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       }
     }
 
-    // Safety fallback: if video doesn't end within 7 seconds, complete automatically
+    // Safety fallback: if video doesn't end within ~5 seconds, complete automatically
     const safetyTimer = setTimeout(() => {
       handleComplete();
-    }, 7000);
+    }, 5200);
 
     return () => {
       document.body.style.overflow = originalOverflow;
@@ -79,9 +79,14 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           playsInline
           preload="auto"
           onEnded={handleComplete}
+          onTimeUpdate={(e) => {
+            if (e.currentTarget.currentTime >= 5.0) {
+              handleComplete();
+            }
+          }}
           className="w-full max-h-[55vh] object-contain"
         >
-          <source src={loadingVideoWebm} type="video/webm; codecs=av01.0.05M.08" />
+          <source src={loadingVideoWebm} type="video/webm" />
           <source src="/videos/loadinganimation.webm" type="video/webm" />
           <source src={loadingVideoMp4} type="video/mp4" />
           <source src="/videos/loadinganimation.mp4" type="video/mp4" />
