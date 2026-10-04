@@ -20,15 +20,17 @@ import {
   CircleX,
   Hourglass,
   RefreshCw,
+  CheckCircle2,
+  Mail,
 } from 'lucide-react';
 import type { ServiceItemData } from '../../data/servicesData';
-import { serviceList } from '../../data/servicesData';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import { ServiceProjectsSection } from './ServiceProjectsSection';
 import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
+import { TargetingFunnelStage } from './TargetingFunnelStage';
 import {
   digitalMarketingProjects,
   digitalMarketingTestimonials,
@@ -48,7 +50,6 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
   onNavigate,
 }) => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [selectedCampaign, setSelectedCampaign] = useState<'meta' | 'google' | 'funnel'>('meta');
 
   const handleNav = (path: string) => {
     if (path === '/') {
@@ -82,128 +83,110 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
       />
 
       <main className="pt-28 sm:pt-36 relative z-10">
-        {/* 1. HERO SECTION: Split Growth Dashboard Layout */}
-        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Left Content */}
-              <div className="lg:col-span-6 space-y-6 text-left">
-                <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-2">
-                  <WingLogo className="w-5 h-5 shrink-0" />
-                  <span>ROI-FOCUSED PERFORMANCE MARKETING</span>
+        {/* 1. HERO SECTION: Targeting Funnel Centered Layout */}
+        <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-16 sm:pb-20 text-center overflow-hidden">
+          {/* Subtle Background Radial Teal Glow behind Funnel */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-radial from-[#00E6D2]/10 via-[#00E6D2]/2 to-transparent blur-[140px] pointer-events-none -z-0" />
+
+          {/* Faint Dot Grid that fades toward edges */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-25 -z-0"
+            style={{
+              backgroundImage: `radial-gradient(rgba(0, 230, 210, 0.3) 1px, transparent 1px)`,
+              backgroundSize: '24px 24px',
+              maskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 80%)',
+            }}
+          />
+
+          <div className="relative z-10 max-w-4xl mx-auto space-y-4 pt-2">
+            {/* H1: Size matched to homepage hero H1 */}
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md max-w-2xl mx-auto">
+              <span>Marketing That Reaches the </span>
+              <span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)] inline-block"
+                style={{ WebkitTextFillColor: 'transparent' }}
+              >
+                Right People
+              </span>
+            </h1>
+
+            {/* Description: max-width about 680px, muted light-gray, comfortable line-height */}
+            <p className="text-gray-300 text-sm sm:text-base lg:text-[17px] font-normal leading-relaxed font-sans max-w-[680px] mx-auto">
+              {service.heroDescription}
+            </p>
+
+            {/* 4. CTA Row: primary "Get a Free Quote" + secondary ghost button "See Our Work" */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="#service-cta"
+                onClick={handleScrollToContact}
+                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
+              >
+                <span>{service.ctaButtonText || 'Get a Free Quote'}</span>
+                <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+
+              <a
+                href="#service-projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('service-projects')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#00E6D2]/40 transition-all duration-300 font-heading cursor-pointer"
+              >
+                <span>See Our Work</span>
+                <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+              </a>
+            </div>
+          </div>
+
+          {/* 5. The Funnel Stage */}
+          <div className="mt-8 sm:mt-12 w-full">
+            <TargetingFunnelStage />
+          </div>
+
+          {/* 6. Under the stage: Slim row of 3 glass stat tiles */}
+          <div className="mt-8 sm:mt-10 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+            {/* Stat 1: Blended ROAS */}
+            <div className="group p-4 sm:p-5 rounded-2xl bg-[#080B10]/90 hover:bg-[#0A1218]/95 backdrop-blur-md border border-white/10 hover:border-[#00E6D2]/60 transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(0,230,210,0.15)] hover:-translate-y-1 cursor-pointer flex items-center justify-between sm:flex-col sm:items-start sm:justify-center">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/20 group-hover:bg-[#00E6D2]/20 group-hover:border-[#00E6D2]/60 flex items-center justify-center text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors duration-300">
+                  <DollarSign className="w-4 h-4" />
                 </div>
-
-                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
-                  <span className="block">Marketing That Reaches the</span>
-                  <span
-                    className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
-                    style={{ WebkitTextFillColor: 'transparent' }}
-                  >
-                    Right People
-                  </span>
-                </h1>
-
-                <p className="text-gray-300 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed font-sans max-w-xl">
-                  {service.heroDescription}
-                </p>
-
-              <div className="pt-2">
-                <a
-                  href="#service-cta"
-                  onClick={handleScrollToContact}
-                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
-                >
-                  <span>{service.ctaButtonText}</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300 font-medium font-sans">Blended ROAS</span>
+              </div>
+              <div className="text-right sm:text-left">
+                <div className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00FFE5] transition-colors duration-300 font-mono tracking-tight">4.4x</div>
+                <div className="text-[11px] text-emerald-400 group-hover:text-[#00FFE5] transition-colors duration-300 font-mono mt-0.5">+38% YoY</div>
               </div>
             </div>
 
-            {/* Right Live ROAS & Metric Dashboard */}
-            <div className="lg:col-span-6">
-              <div className="p-6 rounded-2xl bg-[#080B10] border border-white/10 shadow-2xl relative">
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                  <div className="flex items-center gap-2 text-xs font-mono text-gray-300">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
-                    <span>LIVE ATTRIBUTION ENGINE</span>
-                  </div>
-                  <div className="flex items-center gap-1 bg-black/40 p-1 rounded-md border border-white/5">
-                    <button
-                      onClick={() => setSelectedCampaign('meta')}
-                      className={`px-2.5 py-1 rounded text-xs transition-colors cursor-pointer ${selectedCampaign === 'meta'
-                          ? 'bg-[#00E6D2]/20 text-[#00FFE5]'
-                          : 'text-gray-400'
-                        }`}
-                    >
-                      Social Ads
-                    </button>
-                    <button
-                      onClick={() => setSelectedCampaign('google')}
-                      className={`px-2.5 py-1 rounded text-xs transition-colors cursor-pointer ${selectedCampaign === 'google'
-                          ? 'bg-[#00E6D2]/20 text-[#00FFE5]'
-                          : 'text-gray-400'
-                        }`}
-                    >
-                      Search Ads
-                    </button>
-                  </div>
+            {/* Stat 2: Qualified Leads */}
+            <div className="group p-4 sm:p-5 rounded-2xl bg-[#080B10]/90 hover:bg-[#0A1218]/95 backdrop-blur-md border border-white/10 hover:border-[#00E6D2]/60 transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(0,230,210,0.15)] hover:-translate-y-1 cursor-pointer flex items-center justify-between sm:flex-col sm:items-start sm:justify-center">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/20 group-hover:bg-[#00E6D2]/20 group-hover:border-[#00E6D2]/60 flex items-center justify-center text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors duration-300">
+                  <Users className="w-4 h-4" />
                 </div>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300 font-medium font-sans">Qualified Leads</span>
+              </div>
+              <div className="text-right sm:text-left">
+                <div className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00FFE5] transition-colors duration-300 font-mono tracking-tight">+280%</div>
+                <div className="text-[11px] text-emerald-400 group-hover:text-[#00FFE5] transition-colors duration-300 font-mono mt-0.5">High-Intent</div>
+              </div>
+            </div>
 
-                {/* Live Key Metric Cards */}
-                <div className="grid grid-cols-3 gap-3 py-6">
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="text-[11px] text-gray-400 mb-1 flex items-center gap-1">
-                      <DollarSign className="w-3 h-3 text-[#00E6D2]" />
-                      <span>Blended ROAS</span>
-                    </div>
-                    <div className="text-xl font-bold text-white font-mono">4.4x</div>
-                    <div className="text-[10px] text-emerald-400 mt-1 font-mono">+38% YoY</div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="text-[11px] text-gray-400 mb-1 flex items-center gap-1">
-                      <Users className="w-3 h-3 text-[#00E6D2]" />
-                      <span>Qualified Leads</span>
-                    </div>
-                    <div className="text-xl font-bold text-[#00E6D2] font-mono">+280%</div>
-                    <div className="text-[10px] text-emerald-400 mt-1 font-mono">High-Intent</div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="text-[11px] text-gray-400 mb-1 flex items-center gap-1">
-                      <Eye className="w-3 h-3 text-[#00E6D2]" />
-                      <span>Cost per Lead</span>
-                    </div>
-                    <div className="text-xl font-bold text-white font-mono">-42%</div>
-                    <div className="text-[10px] text-emerald-400 mt-1 font-mono">Cost Reduced</div>
-                  </div>
+            {/* Stat 3: Cost per Lead */}
+            <div className="group p-4 sm:p-5 rounded-2xl bg-[#080B10]/90 hover:bg-[#0A1218]/95 backdrop-blur-md border border-white/10 hover:border-[#00E6D2]/60 transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(0,230,210,0.15)] hover:-translate-y-1 cursor-pointer flex items-center justify-between sm:flex-col sm:items-start sm:justify-center">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/20 group-hover:bg-[#00E6D2]/20 group-hover:border-[#00E6D2]/60 flex items-center justify-center text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors duration-300">
+                  <Eye className="w-4 h-4" />
                 </div>
-
-                {/* Simulated Campaign Trajectory Bar Graph */}
-                <div className="p-4 rounded-xl bg-black/30 border border-white/5 space-y-3">
-                  <div className="flex justify-between text-xs text-gray-400">
-                    <span>Campaign Scale (Simulated Weekly Lift)</span>
-                    <span className="text-[#00E6D2] font-mono">Optimal CVR</span>
-                  </div>
-                  <div className="flex items-end gap-2 h-20 pt-2">
-                    {[35, 45, 60, 52, 75, 88, 98].map((h, i) => (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div
-                          style={{ height: `${h}%` }}
-                          className={`w-full rounded-t transition-all duration-500 ${i === 6
-                              ? 'bg-gradient-to-t from-[#00E6D2] to-[#00FFE5]'
-                              : 'bg-white/10'
-                            }`}
-                        />
-                        <span className="text-[9px] font-mono text-gray-500">W{i + 1}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
-                  <span>Targeting: Exact Purchase Intent</span>
-                  <span className="text-[#00E6D2] font-mono">Zero Budget Wastage</span>
-                </div>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300 font-medium font-sans">Cost per Lead</span>
+              </div>
+              <div className="text-right sm:text-left">
+                <div className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00FFE5] transition-colors duration-300 font-mono tracking-tight">-42%</div>
+                <div className="text-[11px] text-emerald-400 group-hover:text-[#00FFE5] transition-colors duration-300 font-mono mt-0.5">Cost Reduced</div>
               </div>
             </div>
           </div>
@@ -415,17 +398,11 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
             </h2>
           </div>
 
-          {/* 5 Service Cards Grid: 3 in first row, 2 centered in second row (Matches Home Page & AI Automation) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+          {/* 6 Service Cards Grid (3 in first row, 3 in second row) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
             {service.features.map((feature, index) => {
-              const icons = [Target, Filter, TrendingUp, PieChart, BarChart3];
+              const icons = [Target, Filter, TrendingUp, PieChart, BarChart3, Mail];
               const IconComp = icons[index % icons.length];
-              const layoutClasses =
-                index === 3
-                  ? 'lg:col-span-2 lg:col-start-2'
-                  : index === 4
-                    ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
-                    : 'lg:col-span-2';
 
               return (
                 <motion.div
@@ -434,7 +411,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
-                  className={`group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
+                  className="group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
                 >
                   <div className="flex flex-col flex-1">
                     {/* Header: Icon Box and Title inline */}
@@ -448,9 +425,21 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans mb-4">
                       {feature.description}
                     </p>
+
+                    {/* Bullet Checklist Points */}
+                    {feature.points && feature.points.length > 0 && (
+                      <ul className="space-y-2 mt-auto pt-2">
+                        {feature.points.map((point) => (
+                          <li key={point} className="flex items-center gap-2 text-xs sm:text-[13px] text-gray-300 font-medium">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#00E6D2] shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -615,33 +604,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
           </div>
         </section>
 
-        {/* 7. EXPLORE OTHER SERVICES */}
-        <section className="py-16 border-t border-white/10 bg-[#06080B]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0" />
-              <span>EXPLORE SERVICES</span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-300 mb-6 font-heading">
-              Explore Our Other Core Services
-            </h3>
-            <div className="flex flex-wrap justify-center gap-3">
-              {serviceList
-                .filter((s) => s.slug !== service.slug)
-                .map((s) => (
-                  <button
-                    key={s.slug}
-                    onClick={() => onNavigateService(s.slug)}
-                    className="px-5 py-2.5 rounded-full bg-[#0A0E13]/80 border border-white/10 hover:border-[#00E6D2]/40 hover:bg-[#00E6D2]/15 text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00FFE5] hover:shadow-[0_0_15px_rgba(0,230,210,0.2)] transition-all duration-200 cursor-pointer"
-                  >
-                    {s.title}
-                  </button>
-                ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 7. CTA SECTION */}
+        {/* 6. CTA SECTION */}
         <CTA
           id="service-cta"
           initialService={service.title}

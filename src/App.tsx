@@ -147,8 +147,8 @@ export const App: React.FC = () => {
             <Process />
             <Projects onNavigateToProjects={navigateToProjects} />
             <Testimonials />
-            <FAQ />
             <Clientele />
+            <FAQ />
             <CTA />
           </main>
           <Footer onNavigate={navigateToPath} />

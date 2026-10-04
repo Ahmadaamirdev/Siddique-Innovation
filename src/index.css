@@ -188,3 +188,39 @@ html.lenis body {
   transform-style: preserve-3d;
   will-change: transform;
 }
+
+/* Footer Outlined Brand Rise-From-The-Line Entrance Animation */
+@keyframes riseFromLine {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.brand-letter {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+.brand-letter.is-visible {
+  animation: riseFromLine 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+.brand-letter:last-child {
+  letter-spacing: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-letter {
+    animation: none !important;
+    transform: translateY(0) !important;
+  }
+  .brand-letter.is-visible {
+    animation: none !important;
+    transform: translateY(0) !important;
+  }
+}

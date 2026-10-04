@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
   Sparkles,
-  TrendingUp,
-  ArrowUpRight,
   ArrowRight,
   ChevronDown,
   Compass,
@@ -17,15 +15,16 @@ import {
   Hourglass,
   RefreshCw,
   Link2,
-  BarChart3,
+  CheckCircle2,
+  Globe,
+  Sliders,
 } from 'lucide-react';
 import type { ServiceItemData } from '../../data/servicesData';
-import { serviceList } from '../../data/servicesData';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
-import { SeoGrowthPanel } from '../seo/SeoGrowthPanel';
+import { OrganicPerformance } from '../seo/OrganicPerformance';
 import { ServiceProjectsSection } from './ServiceProjectsSection';
 import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
 import {
@@ -62,11 +61,6 @@ export const SEOPage: React.FC<SEOPageProps> = ({
     }
   };
 
-  const handleScrollToContact = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById('service-cta')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="min-h-screen bg-[#04070A] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
       {/* Background Soft Emerald-Cyan Search Glow */}
@@ -79,39 +73,9 @@ export const SEOPage: React.FC<SEOPageProps> = ({
       />
 
       <main className="pt-28 sm:pt-36 relative z-10">
-        {/* 1. HERO SECTION: Centered Showcase */}
-        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20 text-center">
-          <div className="max-w-4xl mx-auto space-y-5">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md text-center max-w-3xl mx-auto">
-              <span className="block">Get Found on Google &amp;</span>
-              <span
-                className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)]"
-                style={{ WebkitTextFillColor: 'transparent' }}
-              >
-                AI Search Engines
-              </span>
-            </h1>
-
-            <p className="text-gray-300 text-sm sm:text-base lg:text-[17px] font-normal leading-relaxed font-sans max-w-2xl mx-auto">
-              {service.heroDescription}
-            </p>
-
-            <div className="pt-2 flex justify-center">
-              <a
-                href="#service-cta"
-                onClick={handleScrollToContact}
-                className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
-              >
-                <span>{service.ctaButtonText}</span>
-                <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Centered Showcase Panel */}
-          <div id="serp-preview" className="mt-12 sm:mt-16 flex justify-center w-full">
-            <SeoGrowthPanel />
-          </div>
+        {/* 1. HERO SECTION: Organic Performance Showcase */}
+        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-16 sm:pb-20 text-center">
+          <OrganicPerformance description={service.heroDescription} />
         </section>
 
         {/* 2. PROBLEM VS. SOLUTION (Search Invisibility vs Organic Authority) */}
@@ -320,10 +284,10 @@ export const SEOPage: React.FC<SEOPageProps> = ({
             </h2>
           </div>
 
-          {/* 6 Service Cards Grid (Matches Home Page & AI Automation) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+          {/* 6 Service Cards Grid (3 in first row, 3 in second row) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
             {service.features.map((feature, index) => {
-              const icons = [Search, Compass, TrendingUp, Sparkles, Link2, BarChart3];
+              const icons = [Compass, Globe, Sliders, Search, Link2, Sparkles];
               const IconComp = icons[index % icons.length];
 
               return (
@@ -333,7 +297,7 @@ export const SEOPage: React.FC<SEOPageProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
-                  className="lg:col-span-2 group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
+                  className="group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
                 >
                   <div className="flex flex-col flex-1">
                     {/* Header: Icon Box and Title inline */}
@@ -347,9 +311,21 @@ export const SEOPage: React.FC<SEOPageProps> = ({
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans mb-4">
                       {feature.description}
                     </p>
+
+                    {/* Bullet Checklist Points */}
+                    {feature.points && feature.points.length > 0 && (
+                      <ul className="space-y-2 mt-auto pt-2">
+                        {feature.points.map((point) => (
+                          <li key={point} className="flex items-center gap-2 text-xs sm:text-[13px] text-gray-300 font-medium">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#00E6D2] shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -458,8 +434,8 @@ export const SEOPage: React.FC<SEOPageProps> = ({
                       ease: [0.22, 0.61, 0.36, 1] as const,
                     }}
                     className={`rounded-2xl transition-all duration-300 border overflow-hidden ${isOpen
-                        ? 'bg-[#0A0E13] border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-                        : 'bg-[#0A0E13]/60 border-white/10 hover:border-white/20 hover:bg-[#0A0E13]/85'
+                      ? 'bg-[#0A0E13] border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+                      : 'bg-[#0A0E13]/60 border-white/10 hover:border-white/20 hover:bg-[#0A0E13]/85'
                       }`}
                   >
                     <button
@@ -473,8 +449,8 @@ export const SEOPage: React.FC<SEOPageProps> = ({
                         </span>
                         <span
                           className={`text-base sm:text-[17px] font-medium tracking-tight transition-colors font-heading ${isOpen
-                              ? 'text-white'
-                              : 'text-gray-200 group-hover:text-white'
+                            ? 'text-white'
+                            : 'text-gray-200 group-hover:text-white'
                             }`}
                         >
                           {faq.question}
@@ -484,8 +460,8 @@ export const SEOPage: React.FC<SEOPageProps> = ({
                       {/* Clean Dropdown Arrow Button */}
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${isOpen
-                            ? 'bg-[#00E6D2]/15 border-[#00E6D2]/50 text-[#00FFE5] rotate-180 shadow-[0_0_12px_rgba(0,230,210,0.2)]'
-                            : 'bg-white/[0.04] border-white/10 text-gray-400 group-hover:bg-[#00E6D2]/15 group-hover:border-[#00E6D2]/50 group-hover:text-[#00FFE5] group-hover:shadow-[0_0_12px_rgba(0,230,210,0.2)]'
+                          ? 'bg-[#00E6D2]/15 border-[#00E6D2]/50 text-[#00FFE5] rotate-180 shadow-[0_0_12px_rgba(0,230,210,0.2)]'
+                          : 'bg-white/[0.04] border-white/10 text-gray-400 group-hover:bg-[#00E6D2]/15 group-hover:border-[#00E6D2]/50 group-hover:text-[#00FFE5] group-hover:shadow-[0_0_12px_rgba(0,230,210,0.2)]'
                           }`}
                       >
                         <ChevronDown className="w-4 h-4 transition-transform duration-300" />
@@ -514,33 +490,7 @@ export const SEOPage: React.FC<SEOPageProps> = ({
           </div>
         </section>
 
-        {/* 6. EXPLORE OTHER SERVICES */}
-        <section className="py-16 border-t border-white/10 bg-[#06080B]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0" />
-              <span>EXPLORE SERVICES</span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-300 mb-6 font-heading">
-              Explore Our Other Core Services
-            </h3>
-            <div className="flex flex-wrap justify-center gap-3">
-              {serviceList
-                .filter((s) => s.slug !== service.slug)
-                .map((s) => (
-                  <button
-                    key={s.slug}
-                    onClick={() => onNavigateService(s.slug)}
-                    className="px-5 py-2.5 rounded-full bg-[#0A0E13]/80 border border-white/10 hover:border-[#00E6D2]/40 hover:bg-[#00E6D2]/15 text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00FFE5] hover:shadow-[0_0_15px_rgba(0,230,210,0.2)] transition-all duration-200 cursor-pointer"
-                  >
-                    {s.title}
-                  </button>
-                ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 7. CTA SECTION */}
+        {/* 6. CTA SECTION */}
         <CTA
           id="service-cta"
           initialService={service.title}

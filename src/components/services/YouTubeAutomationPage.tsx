@@ -18,9 +18,9 @@ import {
   Check,
   X,
   ArrowRight,
+  CheckCircle2,
 } from 'lucide-react';
 import type { ServiceItemData } from '../../data/servicesData';
-import { serviceList } from '../../data/servicesData';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
@@ -696,9 +696,21 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans mb-4">
                       {feature.description}
                     </p>
+
+                    {/* Bullet Checklist Points */}
+                    {feature.points && feature.points.length > 0 && (
+                      <ul className="space-y-2 mt-auto pt-2">
+                        {feature.points.map((point) => (
+                          <li key={point} className="flex items-center gap-2 text-xs sm:text-[13px] text-gray-300 font-medium">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#00E6D2] shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -863,33 +875,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
           </div>
         </section>
 
-        {/* 6. EXPLORE OTHER SERVICES */}
-        <section className="py-16 border-t border-white/10 bg-[#06080B]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0" />
-              <span>EXPLORE SERVICES</span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-300 mb-6 font-heading">
-              Explore Our Other Core Services
-            </h3>
-            <div className="flex flex-wrap justify-center gap-3">
-              {serviceList
-                .filter((s) => s.slug !== service.slug)
-                .map((s) => (
-                  <button
-                    key={s.slug}
-                    onClick={() => onNavigateService(s.slug)}
-                    className="px-5 py-2.5 rounded-full bg-[#0A0E13]/80 border border-white/10 hover:border-[#00E6D2]/40 hover:bg-[#00E6D2]/15 text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00FFE5] hover:shadow-[0_0_15px_rgba(0,230,210,0.2)] transition-all duration-200 cursor-pointer"
-                  >
-                    {s.title}
-                  </button>
-                ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 7. CTA SECTION */}
+        {/* 6. CTA SECTION */}
         <CTA
           id="service-cta"
           initialService={service.title}

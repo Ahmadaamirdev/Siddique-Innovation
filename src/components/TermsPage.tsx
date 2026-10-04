@@ -42,27 +42,27 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
             </button>
           </div>
 
-          <div className="bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] relative overflow-hidden">
-            <div className="border-b border-white/10 pb-8 mb-10">
-              <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-4">
-                <WingLogo className="w-5 h-5 shrink-0" />
-                <span>TERMS OF SERVICE</span>
-              </div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
-                Terms &amp;{' '}
-                <span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
-                  style={{ WebkitTextFillColor: 'transparent' }}
-                >
-                  Conditions
-                </span>
-              </h1>
-              <p className="text-xs sm:text-sm text-gray-400 font-mono mt-3">
-                Last updated: March 2025
-              </p>
+          {/* Centered Heading */}
+          <div className="text-center flex flex-col items-center justify-center pb-10 sm:pb-12 border-b border-white/10 mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono mb-4">
+              <WingLogo className="w-5 h-5 shrink-0" />
+              <span>TERMS OF SERVICE</span>
             </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-[-0.02em] leading-[1.15] font-heading py-1 drop-shadow-md text-center">
+              Terms &amp;{' '}
+              <span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+                style={{ WebkitTextFillColor: 'transparent' }}
+              >
+                Conditions
+              </span>
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-400 font-mono mt-3 text-center">
+              Last updated: March 2025
+            </p>
+          </div>
 
-            <div className="prose prose-invert max-w-none text-gray-300 text-sm sm:text-base leading-relaxed space-y-8">
+          <div className="prose prose-invert max-w-none text-gray-300 text-sm sm:text-base leading-relaxed space-y-8">
               <p className="text-gray-200 text-base sm:text-lg">
                 Welcome to <strong className="text-white">Siddiqui Innovations</strong>. By accessing our website or engaging our services, you agree to the following terms and conditions. Please read them carefully.
               </p>
@@ -180,7 +180,6 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
                 </p>
               </div>
             </div>
-          </div>
         </div>
       </main>
 

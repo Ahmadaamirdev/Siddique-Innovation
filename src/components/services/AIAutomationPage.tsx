@@ -17,9 +17,10 @@ import {
   Check,
   X,
   Mail,
+  PhoneCall,
+  CheckCircle2,
 } from 'lucide-react';
 import type { ServiceItemData } from '../../data/servicesData';
-import { serviceList } from '../../data/servicesData';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
@@ -38,30 +39,67 @@ const aiDeliverables = [
     title: 'Workflow Automation',
     description:
       'Automating repetitive internal processes like data entry, reporting, and task handoffs.',
+    points: [
+      'Repetitive Task Autopilot',
+      'Multi-App Data Handshakes',
+      'Error-Free System Sync',
+    ],
   },
   {
     icon: Bot,
     title: 'AI Chatbots & Assistants',
     description:
       'Automated customer support and lead responses that work around the clock.',
+    points: [
+      'WhatsApp & Instagram DM Bots',
+      'Website Customer Support Bots',
+      'Lead Qualification & Sales Bots',
+      'Internal Knowledge Base Assistants',
+    ],
+  },
+  {
+    icon: PhoneCall,
+    title: 'AI Calling Agents',
+    description:
+      'Autonomous voice AI agents handling inbound inquiries and outbound calls with human realism.',
+    points: [
+      'Natural Voice Conversations',
+      'Inbound & Outbound Calling',
+      'Instant Appointment Booking',
+    ],
   },
   {
     icon: Database,
     title: 'CRM & Tool Integration',
     description:
       'Connecting your existing software so information flows automatically, without manual updates.',
+    points: [
+      'Real-Time Pipeline Updates',
+      'Zapier, Make & Native APIs',
+      'Centralized Customer History',
+    ],
   },
   {
     icon: Mail,
     title: 'Automated Follow-ups',
     description:
       'Emails, messages, or reminders sent automatically based on triggers you define.',
+    points: [
+      'Trigger-Based Email & SMS',
+      'Intelligent Re-Engagement',
+      'Scheduled Booking Reminders',
+    ],
   },
   {
     icon: Cpu,
     title: 'Custom AI Solutions',
     description:
-      'Automation built specifically around your business processes, not a one-size-fits-all template',
+      'Automation built specifically around your business processes, not a one-size-fits-all template.',
+    points: [
+      'Bespoke LLM Architectures',
+      'Custom Internal Tooling',
+      'Scalable Enterprise APIs',
+    ],
   },
 ];
 
@@ -462,16 +500,10 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </h2>
           </div>
 
-          {/* 5 Service Cards Grid: 3 in first row, 2 centered in second row (Matches Home Page) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+          {/* 6 Service Cards Grid (3 in first row, 3 in second row) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
             {aiDeliverables.map((item, index) => {
               const IconComp = item.icon;
-              const layoutClasses =
-                index === 3
-                  ? 'lg:col-span-2 lg:col-start-2'
-                  : index === 4
-                    ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
-                    : 'lg:col-span-2';
 
               return (
                 <motion.div
@@ -480,7 +512,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
-                  className={`group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform ${layoutClasses}`}
+                  className="group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
                 >
                   <div className="flex flex-col flex-1">
                     {/* Header: Icon Box and Title inline */}
@@ -494,9 +526,19 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans">
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-sans mb-4">
                       {item.description}
                     </p>
+
+                    {/* Bullet Checklist Points */}
+                    <ul className="space-y-2 mt-auto pt-2">
+                      {item.points.map((point) => (
+                        <li key={point} className="flex items-center gap-2 text-xs sm:text-[13px] text-gray-300 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#00E6D2] shrink-0" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
               );
@@ -661,33 +703,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
         </section>
 
-        {/* 6. EXPLORE OTHER SERVICES */}
-        <section className="py-16 border-t border-white/10 bg-[#06080B]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
-              <WingLogo className="w-5 h-5 shrink-0" />
-              <span>EXPLORE SERVICES</span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-300 mb-6 font-heading">
-              Explore Our Other Core Services
-            </h3>
-            <div className="flex flex-wrap justify-center gap-3">
-              {serviceList
-                .filter((s) => s.slug !== service.slug)
-                .map((s) => (
-                  <button
-                    key={s.slug}
-                    onClick={() => onNavigateService(s.slug)}
-                    className="px-5 py-2.5 rounded-full bg-[#0A0E13]/80 border border-white/10 hover:border-[#00E6D2]/40 hover:bg-[#00E6D2]/15 text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00FFE5] hover:shadow-[0_0_15px_rgba(0,230,210,0.2)] transition-all duration-200 cursor-pointer"
-                  >
-                    {s.title}
-                  </button>
-                ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 7. CTA SECTION */}
+        {/* 6. CTA SECTION */}
         <CTA
           id="service-cta"
           initialService={service.title}

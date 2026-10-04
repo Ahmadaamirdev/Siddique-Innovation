@@ -15,7 +15,7 @@ interface CountryMarker {
 
 const COUNTRIES: CountryMarker[] = [
   { id: 'usa', name: 'USA', lat: 38.0, lng: -97.0, slot: 'upper-left' },
-  { id: 'pakistan', name: 'Pakistan', lat: 33.7, lng: 73.0, slot: 'upper-right' },
+  { id: 'pakistan', name: 'Pakistan (HQ)', lat: 33.7, lng: 73.0, slot: 'upper-right' },
   { id: 'ksa', name: 'Saudi Arabia (KSA)', lat: 24.7, lng: 46.7, slot: 'left' },
   { id: 'oman', name: 'Oman', lat: 23.6, lng: 58.6, slot: 'lower-right' },
 ];
@@ -559,7 +559,7 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
         >
           <span className="w-2 h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
           <span className="text-white font-medium text-xs sm:text-sm tracking-wide whitespace-nowrap">
-            Pakistan
+            Pakistan (HQ)
           </span>
         </div>
       </div>
