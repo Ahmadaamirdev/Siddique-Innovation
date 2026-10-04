@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
 import {
   ArrowUpRight,
   ArrowUp,
@@ -11,6 +11,38 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const [isBrandTextVisible, setIsBrandTextVisible] = useState(false);
+  const brandTextRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mediaQuery.matches) {
+        setIsBrandTextVisible(true);
+        return;
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsBrandTextVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (brandTextRef.current) {
+      observer.observe(brandTextRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -24,11 +56,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   const entranceEase = [0.22, 0.61, 0.36, 1] as const;
 
+  const lineVariants: Variants = {
+    hidden: { scaleX: 0, opacity: 0 },
+    visible: {
+      scaleX: 1,
+      opacity: 1,
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  };
+
   return (
     <motion.footer
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
+      viewport={{ once: true, margin: '-20px' }}
       transition={{ duration: 0.8, ease: entranceEase }}
       className="bg-[#030507] border-t border-white/10 pt-16 pb-12 relative z-10 text-gray-400 text-sm font-sans select-none overflow-hidden transform-gpu"
     >
@@ -254,37 +295,54 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         </div>
 
-        {/* Large Outlined Brand Typography (80% Visible, Clean Outlines) */}
+        {/* Large Outlined Brand Typography with Slow Emergence Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0 }}
           className="relative w-full text-center pt-2 sm:pt-3 pb-0 select-none group flex flex-col items-center justify-start"
         >
           {/* 80% visible clipping container sitting directly on the horizontal dividing line */}
-          <div className="relative w-full overflow-hidden h-[0.80em] text-[clamp(1.1rem,4.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15">
-            {/* Subtle cyan accent along the visible cut boundary */}
-            <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#00FFE5]/40 to-transparent pointer-events-none" />
+          <div
+            ref={brandTextRef}
+            className="relative w-full overflow-hidden h-[0.80em] text-[clamp(1.1rem,4.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15"
+          >
+            {/* Subtle logo-green accent along the visible cut boundary */}
+            <motion.div
+              variants={lineVariants}
+              className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#96E6DA]/70 to-transparent pointer-events-none"
+            />
 
             <span
-              className="inline-block font-extrabold tracking-[0.06em] sm:tracking-[0.11em] uppercase leading-none whitespace-nowrap transition-opacity duration-300 opacity-80 group-hover:opacity-100 cursor-default select-none"
+              aria-label="SIDDIQUI INNOVATIONS"
+              className="inline-block font-extrabold tracking-[0.06em] sm:tracking-[0.11em] uppercase leading-none whitespace-nowrap transition-all duration-500 hover:opacity-100 cursor-default select-none drop-shadow-[0_0_18px_rgba(150,230,218,0.25)] hover:drop-shadow-[0_0_32px_rgba(150,230,218,0.5)] transform-gpu"
               style={{
                 fontFamily: "Arial, 'Helvetica Neue', 'Segoe UI', sans-serif",
-                WebkitTextStroke: '1.2px #00FFE5',
+                WebkitTextStroke: '1.1px #96E6DA',
                 WebkitTextFillColor: 'transparent',
                 color: 'transparent',
               }}
             >
-              SIDDIQUI INNOVATIONS
+              {'SIDDIQUI INNOVATIONS'.split('').map((char, index) => (
+                <span
+                  key={index}
+                  aria-hidden="true"
+                  className={`brand-letter ${isBrandTextVisible ? 'is-visible' : ''}`}
+                  style={{
+                    '--i': index,
+                  } as React.CSSProperties}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
             </span>
           </div>
         </motion.div>
 
         {/* Bottom Bar Footer (Copyright & Back to Top) */}
-        <div className="pt-6 sm:pt-8 relative flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-500">
-          <div className="text-center">
-            © {new Date().getFullYear()} <span className="text-gray-300 font-semibold font-heading">Siddiqui Innovations</span>. All Rights Reserved.
+        <div className="pt-6 sm:pt-8 relative flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="text-center text-sm sm:text-base md:text-[16px] text-gray-300 font-medium">
+            © {new Date().getFullYear()} <span className="text-white font-semibold font-heading">Siddiqui Innovations</span>. All Rights Reserved.
           </div>
 
           {/* Back to Top Floating Button */}
@@ -293,11 +351,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               onClick={scrollToTop}
               whileHover={{ y: -3, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E6D2]/50 hover:bg-[#00E6D2]/10 text-gray-300 hover:text-[#00E6D2] transition-all duration-300 shadow-[0_0_15px_rgba(0,230,210,0.05)] cursor-pointer"
+              className="group flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-[#96E6DA]/50 hover:bg-[#96E6DA]/10 text-gray-300 hover:text-[#96E6DA] transition-all duration-300 shadow-[0_0_15px_rgba(150,230,218,0.05)] cursor-pointer"
               aria-label="Back to Top"
             >
-              <span className="text-xs font-semibold font-heading">Back to Top</span>
-              <ArrowUp className="w-3.5 h-3.5 text-[#00E6D2] transition-transform duration-300 group-hover:-translate-y-0.5" />
+              <span className="text-xs sm:text-sm font-semibold font-heading">Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5 text-[#96E6DA] transition-transform duration-300 group-hover:-translate-y-0.5" />
             </motion.button>
           </div>
         </div>

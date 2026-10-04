@@ -11,6 +11,7 @@ export interface ServiceItemData {
   features: {
     title: string;
     description: string;
+    points: string[];
   }[];
   processHeading: string;
   processSteps: {
@@ -46,22 +47,57 @@ export const servicesData: Record<string, ServiceItemData> = {
       {
         title: 'Workflow Automation',
         description: 'Automating repetitive internal processes like data entry, reporting, and task handoffs.',
+        points: [
+          'Repetitive Task Autopilot',
+          'Multi-App Data Handshakes',
+          'Error-Free System Sync',
+        ],
       },
       {
         title: 'AI Chatbots & Assistants',
         description: 'Automated customer support and lead responses that work around the clock.',
+        points: [
+          'WhatsApp & Instagram DM Bots',
+          'Website Customer Support Bots',
+          'Lead Qualification & Sales Bots',
+          'Internal Knowledge Base Assistants',
+        ],
+      },
+      {
+        title: 'AI Calling Agents',
+        description: 'Autonomous voice AI agents handling inbound inquiries and outbound calls with human realism.',
+        points: [
+          'Natural Voice Conversations',
+          'Inbound & Outbound Calling',
+          'Instant Appointment Booking',
+        ],
       },
       {
         title: 'CRM & Tool Integration',
         description: 'Connecting your existing software so information flows automatically, without manual updates.',
+        points: [
+          'Real-Time Pipeline Updates',
+          'Zapier, Make & Native APIs',
+          'Centralized Customer History',
+        ],
       },
       {
         title: 'Automated Follow-ups',
         description: 'Emails, messages, or reminders sent automatically based on triggers you define.',
+        points: [
+          'Trigger-Based Email & SMS',
+          'Intelligent Re-Engagement',
+          'Scheduled Booking Reminders',
+        ],
       },
       {
         title: 'Custom AI Solutions',
         description: 'Automation built specifically around your business processes, not a one-size-fits-all template.',
+        points: [
+          'Bespoke LLM Architectures',
+          'Custom Internal Tooling',
+          'Scalable Enterprise APIs',
+        ],
       },
     ],
     processHeading: 'Our Automation Process',
@@ -142,26 +178,56 @@ export const servicesData: Record<string, ServiceItemData> = {
       {
         title: 'Custom Website Design',
         description: 'A design built around your brand, not a generic template.',
+        points: [
+          'Unique Bespoke Visuals',
+          'Conversion-Focused UX/UI',
+          'Brand Identity Consistency',
+        ],
       },
       {
         title: 'Responsive Development',
         description: 'Fully functional across desktop, tablet, and mobile devices.',
+        points: [
+          'Mobile-First Architecture',
+          'Flawless Multi-Device Layouts',
+          'Fluid Touch Interactions',
+        ],
       },
       {
         title: 'E-commerce Websites',
         description: 'Online stores with secure payments, product management, and smooth checkout.',
+        points: [
+          'Secure Stripe & PayPal Checkout',
+          'Inventory & Order Management',
+          'Optimized Purchase Funnels',
+        ],
       },
       {
         title: 'Web Applications',
         description: 'Custom-built tools and platforms for more complex business needs.',
+        points: [
+          'Modern Full-Stack Frameworks',
+          'Dynamic Portals & Dashboards',
+          'Custom Database Integrations',
+        ],
       },
       {
         title: 'Speed & Performance Optimization',
         description: 'Fast-loading pages, because slow websites lose visitors.',
+        points: [
+          'Sub-Second Page Load Times',
+          'Optimized Assets & Code Splitting',
+          'High Core Web Vitals Scores',
+        ],
       },
       {
         title: 'Ongoing Maintenance',
         description: 'Updates, fixes, and improvements after launch.',
+        points: [
+          'Proactive Security Patches',
+          'Regular Content & Feature Updates',
+          'Dedicated Technical Support',
+        ],
       },
     ],
     processHeading: 'Our Development Process',
@@ -241,22 +307,56 @@ export const servicesData: Record<string, ServiceItemData> = {
       {
         title: 'Social Media Marketing',
         description: 'Content and campaigns across platforms like Instagram, Facebook, and LinkedIn.',
+        points: [
+          'Platform-Specific Content',
+          'Consistent Audience Engagement',
+          'Organic Reach Amplification',
+        ],
       },
       {
         title: 'Paid Advertising',
         description: 'Targeted ad campaigns on Google and social platforms, built to maximize return on spend.',
+        points: [
+          'Google & Meta Ad Campaigns',
+          'High-Intent Audience Targeting',
+          'Continuous ROI Optimization',
+        ],
       },
       {
         title: 'Content Strategy',
         description: 'Planning what to post, when, and why, based on your audience and goals.',
+        points: [
+          'Audience-Focused Content Plans',
+          'High-Retention Copywriting',
+          'Cross-Channel Content Calendar',
+        ],
       },
       {
         title: 'Brand Positioning',
         description: 'Messaging that clearly communicates what makes your business worth choosing.',
+        points: [
+          'Distinct Market Identity',
+          'Compelling Value Propositions',
+          'Trust & Authority Building',
+        ],
       },
       {
         title: 'Performance Tracking & Reporting',
         description: "Clear, regular reports showing what's working and what's being improved.",
+        points: [
+          'Real-Time ROI Dashboards',
+          'Attribution & Conversion Tracking',
+          'Actionable Growth Insights',
+        ],
+      },
+      {
+        title: 'Email & Retention Marketing',
+        description: 'Automated newsletter flows and customer lifecycle campaigns that maximize repeat purchases.',
+        points: [
+          'Automated Welcome & Flow Sequences',
+          'Targeted List Segmentation',
+          'Maximized Customer Lifetime Value',
+        ],
       },
     ],
     processHeading: 'Our Marketing Process',
@@ -335,28 +435,58 @@ export const servicesData: Record<string, ServiceItemData> = {
       "We build SEO strategies focused on lasting results — improving your website's structure, content, and authority so search engines trust it, and so do your customers. It takes time, but it builds visibility that keeps working for you.",
     features: [
       {
-        title: 'Technical SEO',
-        description: 'Fixing site speed, structure, and other technical issues that affect ranking.',
-      },
-      {
         title: 'On-Page SEO',
         description: 'Optimizing content, titles, and pages to match what your customers are searching for.',
+        points: [
+          'Meta Tags & Header Structuring',
+          'Keyword Placement & Density',
+          'Internal Linking Architecture',
+        ],
+      },
+      {
+        title: 'Off-Page SEO',
+        description: 'Strengthening external domain trust, brand signals, and overall authority across the web.',
+        points: [
+          'Brand Mentions & Citations',
+          'Domain Authority Building',
+          'External Signal Optimization',
+        ],
+      },
+      {
+        title: 'Technical SEO',
+        description: 'Fixing site speed, structure, and other technical issues that affect ranking.',
+        points: [
+          'Site Crawlability & Indexing',
+          'Structured Data & Schema Markup',
+          'Core Web Vitals Optimization',
+        ],
       },
       {
         title: 'Keyword Research',
         description: 'Identifying the exact terms your potential customers use to find businesses like yours.',
-      },
-      {
-        title: 'Content Optimization',
-        description: 'Improving existing content and guiding new content to support ranking goals.',
+        points: [
+          'High-Intent Commercial Keywords',
+          'Search Volume & Competitor Gaps',
+          'Long-Tail Opportunity Discovery',
+        ],
       },
       {
         title: 'Link Building',
         description: "Building your website's authority through credible, relevant backlinks.",
+        points: [
+          'High-Domain Authority Placements',
+          'White-Hat Outreach Strategies',
+          'Sustainable Domain Trust',
+        ],
       },
       {
-        title: 'Monthly Reporting',
-        description: 'Clear updates showing ranking progress and traffic growth.',
+        title: 'Content Optimization',
+        description: 'Improving existing content and guiding new content to support ranking goals.',
+        points: [
+          'Search Intent Alignment',
+          'Content Freshness & Depth Audits',
+          'AI Search & AEO Optimization',
+        ],
       },
     ],
     processHeading: 'Our SEO Process',
@@ -437,26 +567,56 @@ export const servicesData: Record<string, ServiceItemData> = {
       {
         title: 'Content Strategy',
         description: "Researching what your audience wants to watch and planning topics that align with your channel's goals.",
+        points: [
+          'Viral Trend & Keyword Research',
+          'Audience Retention Mapping',
+          'Long-Term Editorial Calendars',
+        ],
       },
       {
         title: 'Scriptwriting',
         description: 'Clear, engaging scripts built around retention and viewer interest.',
+        points: [
+          'High-Hook Video Openers',
+          'Engaging Storytelling Structures',
+          'Strategic Audience Call-to-Actions',
+        ],
       },
       {
         title: 'Video Production & Editing',
         description: 'Professional editing, including visuals, voiceover, and pacing.',
+        points: [
+          'Dynamic Pacing & Sound Design',
+          'Motion Graphics & Visual B-Roll',
+          'Crisp Studio-Grade Audio',
+        ],
       },
       {
         title: 'Thumbnail & Title Optimization',
         description: 'Designed to increase click-through rates without being misleading.',
+        points: [
+          'High-CTR Psychology Design',
+          'A/B Testing Color Schemes',
+          'Algorithmic Title Formulations',
+        ],
       },
       {
         title: 'Upload & Scheduling Management',
         description: 'Consistent posting, handled entirely on your behalf.',
+        points: [
+          'Full SEO Tagging & Descriptions',
+          'Consistent Publishing Schedule',
+          'End Screen & Card Setup',
+        ],
       },
       {
         title: 'Performance Tracking',
         description: 'Monitoring views, watch time, and audience growth to refine future content.',
+        points: [
+          'Audience Retention Analytics',
+          'CTR & Traffic Source Tracking',
+          'Data-Driven Content Iteration',
+        ],
       },
     ],
     processHeading: 'Our YouTube Automation Process',
