@@ -59,55 +59,56 @@ const PARTNER_POSITIONS = [
 
 /* ───────────────────────── SCROLL PROGRESS TO ARC & ACTIVE PARTNER ───────────────────────── */
 function getArcAndActive(p: number) {
-  // 1) Initial state (p <= 0.08): No partner enlarged. Overview card shown.
-  // 2) Scroll advances: Partner 1 -> Partner 2 -> Partner 3 activate and move into right card.
-  // 3) Pin holds until all 3 partners and stories are read (releases at p >= 0.98).
+  // Phases:
+  // 0.00 – 0.08  : idle, no arc
+  // 0.08 – 0.32  : P1 active (top)
+  // 0.32 – 0.46  : travel P1 → P2
+  // 0.46 – 0.65  : P2 active (bottom-right)
+  // 0.65 – 0.77  : travel P2 → P3
+  // 0.77 – 0.87  : P3 active (bottom-left)
+  // 0.87 – 0.96  : travel P3 → P1 (loop back, 240 → 360)
+  // 0.96 – 1.00  : allComplete – show all three
 
   let sweepDeg = 0;
   let activeIndex: number | null = null;
+  let allComplete = false;
 
   if (p <= 0.08) {
     sweepDeg = 0;
     activeIndex = null;
   } else if (p <= 0.32) {
-    // Partner 1 active (dwell at 12 o'clock)
     sweepDeg = 0;
     activeIndex = 0;
   } else if (p < 0.46) {
-    // Travel from Partner 1 to Partner 2 (0 -> 120 deg)
     const t = (p - 0.32) / (0.46 - 0.32);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = eased * 120;
-    if (sweepDeg <= 14) {
-      activeIndex = 0;
-    } else if (sweepDeg >= 106) {
-      activeIndex = 1;
-    } else {
-      activeIndex = null;
-    }
-  } else if (p <= 0.7) {
-    // Partner 2 active (dwell at 4 o'clock)
+    activeIndex = sweepDeg <= 14 ? 0 : sweepDeg >= 106 ? 1 : null;
+  } else if (p <= 0.65) {
     sweepDeg = 120;
     activeIndex = 1;
-  } else if (p < 0.84) {
-    // Travel from Partner 2 to Partner 3 (120 -> 240 deg)
-    const t = (p - 0.7) / (0.84 - 0.7);
+  } else if (p < 0.77) {
+    const t = (p - 0.65) / (0.77 - 0.65);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = 120 + eased * 120;
-    if (sweepDeg <= 134) {
-      activeIndex = 1;
-    } else if (sweepDeg >= 226) {
-      activeIndex = 2;
-    } else {
-      activeIndex = null;
-    }
-  } else {
-    // Partner 3 active (dwells until full completion)
+    activeIndex = sweepDeg <= 134 ? 1 : sweepDeg >= 226 ? 2 : null;
+  } else if (p <= 0.87) {
     sweepDeg = 240;
     activeIndex = 2;
+  } else if (p < 0.96) {
+    // Return arc: travel from P3 back to P1 (240 → 360 deg)
+    const t = (p - 0.87) / (0.96 - 0.87);
+    const eased = t * t * (3 - 2 * t);
+    sweepDeg = 240 + eased * 120;
+    activeIndex = sweepDeg <= 254 ? 2 : sweepDeg >= 346 ? 0 : null;
+  } else {
+    // Full loop complete – arc full circle, show all three
+    sweepDeg = 360;
+    activeIndex = null;
+    allComplete = true;
   }
 
-  return { sweepDeg, activeIndex };
+  return { sweepDeg, activeIndex, allComplete };
 }
 
 /* ───────────────────────── PARTNER PHOTO ON ROUNDTABLE ───────────────────────── */
@@ -234,7 +235,7 @@ export const RoundtableSection: React.FC = () => {
   }, [prefersReducedMotion]);
 
   // Calculate arc geometry and active partner
-  const { sweepDeg, activeIndex } = useMemo(() => {
+  const { sweepDeg, activeIndex, allComplete } = useMemo(() => {
     return getArcAndActive(scrollProgress);
   }, [scrollProgress]);
 
@@ -242,6 +243,11 @@ export const RoundtableSection: React.FC = () => {
   const { arcD, dotPos } = useMemo(() => {
     if (sweepDeg <= 0.2) {
       return { arcD: '', dotPos: { x: 270, y: 80 } };
+    }
+    // Full circle: render a closed circle path instead of arc
+    if (sweepDeg >= 359.9) {
+      const d = `M 270 80 A ${R} ${R} 0 1 1 ${(CX + R * Math.cos((-90 + 359.9) * Math.PI / 180)).toFixed(2)} ${(CY + R * Math.sin((-90 + 359.9) * Math.PI / 180)).toFixed(2)}`;
+      return { arcD: d, dotPos: { x: 270, y: 80 } };
     }
     const currentDeg = -90 + sweepDeg;
     const currentRad = (currentDeg * Math.PI) / 180;
@@ -329,6 +335,7 @@ export const RoundtableSection: React.FC = () => {
 
   /* ───────────────────────── SINGLE VIEWPORT STICKY SECTION ───────────────────────── */
   const activePartner = activeIndex !== null ? PARTNERS[activeIndex] : null;
+  const [imgErrors, setImgErrors] = React.useState<Record<string, boolean>>({});
 
   return (
     <section
@@ -504,6 +511,73 @@ export const RoundtableSection: React.FC = () => {
                       <div className="pt-3.5 mt-3.5 border-t border-white/5 flex items-center justify-end text-xs text-gray-400 font-mono">
                         <span>Siddiqui Innovations</span>
                       </div>
+                    </div>
+                  </motion.div>
+                ) : allComplete ? (
+                  /* All-complete card: show all 3 partner images */
+                  <motion.div
+                    key="all-complete"
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.97 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-6 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
+
+                    {/* Header */}
+                    <div className="mb-4">
+                      <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest">Founding Partners</span>
+                      <h3 className="text-xl sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-1">
+                        The Team Behind the Vision
+                      </h3>
+                    </div>
+
+                    {/* Three partner images side by side */}
+                    <div className="flex flex-row items-stretch gap-4 flex-1">
+                      {PARTNERS.map((partner, idx) => (
+                        <motion.div
+                          key={partner.id}
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                          className="flex-1 flex flex-col items-center gap-3 rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-4 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
+                        >
+                          {/* Avatar */}
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_20px_rgba(0,230,210,0.55)] shrink-0 relative">
+                            {!imgErrors[partner.id] ? (
+                              <img
+                                src={partner.image}
+                                alt={partner.name}
+                                onError={() => setImgErrors(prev => ({ ...prev, [partner.id]: true }))}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm">
+                                {partner.initials}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Info */}
+                          <div className="text-center">
+                            <div className="text-[10px] font-mono text-[#00E6D2] uppercase tracking-widest mb-0.5">
+                              0{idx + 1} / 03
+                            </div>
+                            <div className="text-sm font-bold text-white font-heading leading-tight">
+                              {partner.name}
+                            </div>
+                            <div className="text-[11px] text-gray-400 font-mono mt-0.5 leading-snug">
+                              {partner.role.split('&')[0].trim()}
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    <div className="pt-3.5 mt-3.5 border-t border-white/5 flex items-center justify-between text-xs text-gray-400 font-mono">
+                      <span>Siddiqui Innovations</span>
+                      <span className="text-[#00E6D2]">✓ All partners met</span>
                     </div>
                   </motion.div>
                 ) : (

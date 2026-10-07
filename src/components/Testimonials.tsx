@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+﻿import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
 import { WingLogo } from './WingLogo';
@@ -274,7 +274,7 @@ export const Testimonials: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: false, margin: '-60px' }}
             transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] as const }}
             className="space-y-3"
           >

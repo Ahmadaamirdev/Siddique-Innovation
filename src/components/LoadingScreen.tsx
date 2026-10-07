@@ -10,21 +10,32 @@ interface LoadingScreenProps {
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const completedRef = useRef(false);
+  const finishTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleComplete = () => {
+  const handleComplete = (delayMs = 650) => {
     if (completedRef.current) return;
     completedRef.current = true;
 
-    // Restore smooth scroll when finished
-    if ((window as any).__lenis) {
+    // Keep video frozen on the final still frame
+    if (videoRef.current) {
       try {
-        (window as any).__lenis.start();
-        (window as any).__lenis.scrollTo(0, { immediate: true });
+        videoRef.current.pause();
       } catch {}
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
-    onComplete();
+    // Stay still for a brief moment before fading out
+    finishTimeoutRef.current = setTimeout(() => {
+      // Restore smooth scroll when finished
+      if ((window as any).__lenis) {
+        try {
+          (window as any).__lenis.start();
+          (window as any).__lenis.scrollTo(0, { immediate: true });
+        } catch {}
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+      onComplete();
+    }, delayMs);
   };
 
   useEffect(() => {
@@ -51,15 +62,18 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       }
     }
 
-    // Safety fallback: if video doesn't end within ~5 seconds, complete automatically
+    // Safety fallback: if video doesn't end within ~6 seconds, complete automatically
     const safetyTimer = setTimeout(() => {
-      handleComplete();
-    }, 5200);
+      handleComplete(0);
+    }, 6000);
 
     return () => {
       document.body.style.overflow = originalOverflow;
       document.documentElement.style.overflow = '';
       clearTimeout(safetyTimer);
+      if (finishTimeoutRef.current) {
+        clearTimeout(finishTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -78,10 +92,13 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           muted
           playsInline
           preload="auto"
-          onEnded={handleComplete}
+          onEnded={() => handleComplete(650)}
           onTimeUpdate={(e) => {
-            if (e.currentTarget.currentTime >= 5.0) {
-              handleComplete();
+            const v = e.currentTarget;
+            if (v.duration && v.currentTime >= v.duration - 0.05) {
+              handleComplete(650);
+            } else if (v.currentTime >= 5.0) {
+              handleComplete(650);
             }
           }}
           className="w-full max-h-[55vh] object-contain"

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
 import { CheckCircle2, Calendar, Users, Building2 } from 'lucide-react';
 
@@ -16,7 +16,7 @@ const AnimatedCounter: React.FC<CounterProps> = ({
   duration = 2,
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-20px' });
+  const isInView = useInView(ref, { once: false, margin: '-20px' });
 
   useEffect(() => {
     if (!isInView || !ref.current) return;
@@ -79,7 +79,7 @@ export const Stats: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="bg-[#0B0E13]/90 backdrop-blur-xl border border-[#00E6D2]/20 rounded-2xl py-4 sm:py-5 px-6 sm:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform-gpu will-change-transform"
         >

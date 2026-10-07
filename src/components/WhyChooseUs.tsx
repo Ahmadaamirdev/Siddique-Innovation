@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, ShieldCheck, Clock, Globe } from 'lucide-react';
 import { WingLogo } from './WingLogo';
@@ -21,7 +21,7 @@ export const WhyChooseUs: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2.5 text-[#00E6D2] text-xs sm:text-sm font-semibold tracking-wider uppercase font-mono"
           >
@@ -32,7 +32,7 @@ export const WhyChooseUs: React.FC = () => {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading"
           >
@@ -45,7 +45,7 @@ export const WhyChooseUs: React.FC = () => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed font-sans max-w-2xl mx-auto"
           >
@@ -67,7 +67,7 @@ export const WhyChooseUs: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: false, margin: '-40px' }}
               transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="group relative"
             >
@@ -88,7 +88,7 @@ export const WhyChooseUs: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: false, margin: '-40px' }}
               transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="group relative"
             >
@@ -114,7 +114,7 @@ export const WhyChooseUs: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.4 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: false, margin: '-40px' }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               className="relative flex items-center justify-center"
             >
@@ -148,7 +148,7 @@ export const WhyChooseUs: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: false, margin: '-40px' }}
               transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="group relative"
             >
@@ -169,7 +169,7 @@ export const WhyChooseUs: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: false, margin: '-40px' }}
               transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="group relative"
             >
