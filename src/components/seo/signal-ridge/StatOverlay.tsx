@@ -6,14 +6,13 @@ interface StatOverlayProps {
   progress: number; // 0 to 1
   hoveredColumn: HoveredColumnInfo | null;
   juneProjected: { x: number; y: number; visible: boolean } | null;
-  onReplay: () => void;
+  onReplay?: () => void;
 }
 
 export const StatOverlay: React.FC<StatOverlayProps> = ({
   progress,
   hoveredColumn,
   juneProjected,
-  onReplay,
 }) => {
   const { summary } = SIGNAL_RIDGE_DATA;
 
