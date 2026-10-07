@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp,
-  ArrowUpRight,
   ChevronDown,
   Clapperboard,
   Scissors,
@@ -31,88 +30,43 @@ import {
   youtubeAutomationProjects,
   youtubeAutomationTestimonials,
 } from '../../data/serviceProjectsAndTestimonials';
-
+import thumbDisaster from '../../assets/youtube/mrbeast-disaster-challenges.avif';
+import thumbBest from '../../assets/youtube/best-thumbnail-july-17.avif';
+import thumbDead from '../../assets/youtube/dead-6.avif';
+import thumbJul17 from '../../assets/youtube/thumbnail-july-17-pm.avif';
+import thumbLovedHated from '../../assets/youtube/mrbeast-team-loved-vs-hated.avif';
+import thumbMorningRoutine from '../../assets/youtube/perfect-morning-routine-men.avif';
 
 const reelItems = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-    title: 'Sunroom Conservatory',
+    image: thumbDisaster,
+    title: '12 MrBeast Challenges That Ended in Disaster',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern White Living Room',
+    image: thumbBest,
+    title: 'High CTR YouTube Thumbnail',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern Villa Exterior',
+    image: thumbDead,
+    title: 'DEAD - High Retaining Format',
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-    title: 'Yellow Armchair Room',
+    image: thumbJul17,
+    title: 'Viral Thumbnail Concept',
   },
   {
     id: 5,
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
-    title: 'Contemporary Studio Lounge',
+    image: thumbLovedHated,
+    title: 'MrBeast Most Loved vs Most Hated Team Members',
   },
   {
     id: 6,
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern Villa Poolside',
-  },
-  {
-    id: 7,
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-    title: 'Sunroom Conservatory 2',
-  },
-  {
-    id: 8,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern White Living Room 2',
-  },
-  {
-    id: 9,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern Villa Exterior 2',
-  },
-  {
-    id: 10,
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-    title: 'Yellow Armchair Room 2',
-  },
-  {
-    id: 11,
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
-    title: 'Contemporary Studio Lounge 2',
-  },
-  {
-    id: 12,
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern Villa Poolside 2',
-  },
-  {
-    id: 13,
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-    title: 'Sunroom Conservatory 3',
-  },
-  {
-    id: 14,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern White Living Room 3',
-  },
-  {
-    id: 15,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    title: 'Modern Villa Exterior 3',
-  },
-  {
-    id: 16,
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-    title: 'Yellow Armchair Room 3',
+    image: thumbMorningRoutine,
+    title: 'The Perfect Morning Routine for Men',
   },
 ];
 
@@ -122,7 +76,7 @@ const MAX_ANGLE = 46; // deg (natural curved wall perspective)
 const PUSH_Z = 130; // px (balanced forward projection without distortion)
 const GAP = 8; // px (clean tight spacing)
 
-const displayItems = [...reelItems, ...reelItems];
+const displayItems = [...reelItems, ...reelItems, ...reelItems];
 
 const Curved3DCarousel: React.FC = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -266,7 +220,7 @@ const Curved3DCarousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto mt-6 sm:mt-8 select-none">
+    <div className="relative w-full max-w-7xl mx-auto mt-4 sm:mt-5 select-none">
       {/* Inject custom pulsing glow keyframes for the central scanner beam */}
       <style>{`
         @keyframes scanner-pulse-glow {
@@ -282,7 +236,7 @@ const Curved3DCarousel: React.FC = () => {
       `}</style>
 
       {/* Top pill indicator with subtle cyan glow */}
-      <div className="w-12 sm:w-14 h-1 rounded-full bg-white/20 hover:bg-[#00E6D2]/60 mx-auto mb-4 sm:mb-5 shadow-[0_0_12px_rgba(0,230,210,0.25)] transition-colors" />
+      <div className="w-12 sm:w-14 h-1 rounded-full bg-white/20 hover:bg-[#00E6D2]/60 mx-auto mb-2.5 sm:mb-3 shadow-[0_0_12px_rgba(0,230,210,0.25)] transition-colors" />
 
       {/* Left & Right gradient edge blur for cinematic blending */}
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-r from-[#050608] via-[#050608]/80 to-transparent z-30" />
@@ -291,7 +245,7 @@ const Curved3DCarousel: React.FC = () => {
       {/* 3D Curved Viewport Container with perspective: 900px strictly on parent container */}
       <div
         ref={containerRef}
-        className="relative w-full h-[230px] sm:h-[250px] md:h-[270px] lg:h-[285px] overflow-hidden py-1 select-none"
+        className="relative w-full h-[210px] sm:h-[230px] md:h-[245px] lg:h-[255px] overflow-hidden py-1 select-none"
         style={{
           perspective: '900px',
           WebkitPerspective: '900px',
@@ -399,11 +353,6 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
     }
   };
 
-  const handleScrollToContact = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById('service-cta')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
       {/* Background Cinematic Crimson-Cyan Glow */}
@@ -415,7 +364,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
         onNavigate={handleNav}
       />
 
-      <main className="pt-28 sm:pt-36 relative z-10">
+      <main className="pt-24 sm:pt-28 relative z-10">
         {/* 1. HERO SECTION: Autonomous Studio Hero & 3D Curved Transformation Showcase */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-4">
           {/* Heading, Description, and CTA Block */}
@@ -430,16 +379,9 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
               </span>
             </h1>
 
-            <div className="pt-4 sm:pt-6 flex justify-center">
-              <a
-                href="#service-cta"
-                onClick={handleScrollToContact}
-                className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs sm:text-sm text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_20px_rgba(0,230,210,0.35)] hover:shadow-[0_0_30px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
-              >
-                <span>{service.ctaButtonText}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </div>
+            <p className="text-gray-300/90 text-sm sm:text-base md:text-[17px] font-normal leading-relaxed font-sans max-w-2xl mx-auto pt-2 text-center">
+              {service.heroDescription}
+            </p>
           </div>
 
           {/* 3D Curved Separate Cards Carousel */}
@@ -680,7 +622,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
                   key={feature.title}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={{ once: false, margin: '-40px' }}
                   transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
                   className="lg:col-span-2 group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
                 >
@@ -812,7 +754,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
                     key={idx}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
+                    viewport={{ once: false, margin: '-40px' }}
                     transition={{
                       duration: 0.5,
                       delay: idx * 0.06,

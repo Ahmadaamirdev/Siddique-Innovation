@@ -26,10 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        if (entry.isIntersecting) {
-          setIsBrandTextVisible(true);
-          observer.disconnect();
-        }
+        setIsBrandTextVisible(entry.isIntersecting);
       },
       { threshold: 0.3 }
     );
@@ -69,7 +66,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     <motion.footer
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-20px' }}
+      viewport={{ once: false, margin: '-20px' }}
       transition={{ duration: 0.8, ease: entranceEase }}
       className="bg-[#030507] border-t border-white/10 pt-16 pb-12 relative z-10 text-gray-400 text-sm font-sans select-none overflow-hidden transform-gpu"
     >

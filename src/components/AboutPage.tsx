@@ -29,7 +29,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
     return {
       initial: { opacity: 0, y: 12 },
       whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true, margin: '-40px' },
+      viewport: { once: false, margin: '-40px' },
       transition: { duration: 0.4, delay, ease: 'easeOut' as const },
     };
   };
@@ -111,21 +111,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                     <span>OUR STORY</span>
                   </div>
 
-                  <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold text-white font-heading tracking-tight leading-tight mb-6">
+                  <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white font-heading tracking-tight leading-snug mb-4">
                     Why We Started
                   </h2>
 
                   {/* Lead paragraph */}
-                  <p className="text-white font-medium text-lg sm:text-[20px] lg:text-[21px] leading-[1.55] max-w-[60ch] mb-6">
+                  <p className="text-gray-200 font-medium text-sm sm:text-base leading-relaxed max-w-[60ch] mb-5">
                     Siddiqui Innovations was built around a simple observation: most businesses are still spending hours every day on tasks that no longer need a human doing them manually. Data entry, follow-ups, repetitive replies, scheduling or operating whole tasks on CRMs.
                   </p>
 
                   {/* Body paragraphs with thin teal vertical rule */}
-                  <div className="space-y-5">
-                    <p className="text-[16px] sm:text-[16.5px] text-gray-300 leading-[1.65] border-l-2 border-[#00E6D2]/40 pl-4 max-w-[60ch]">
+                  <div className="space-y-4">
+                    <p className="text-xs sm:text-sm md:text-[14.5px] text-gray-300 leading-relaxed border-l-2 border-[#00E6D2]/40 pl-3.5 sm:pl-4 max-w-[60ch]">
                       We started this agency to change that. Our goal is to help businesses step confidently into the AI era by automating the repetitive parts of their operations without the cost or complexity of hiring additional staff.
                     </p>
-                    <p className="text-[16px] sm:text-[16.5px] text-gray-300 leading-[1.65] border-l-2 border-[#00E6D2]/40 pl-4 max-w-[60ch]">
+                    <p className="text-xs sm:text-sm md:text-[14.5px] text-gray-300 leading-relaxed border-l-2 border-[#00E6D2]/40 pl-3.5 sm:pl-4 max-w-[60ch]">
                       Alongside automation, we help businesses build the Advanced websites and marketing presence they need to grow, all under one dedicated and experienced team.
                     </p>
                   </div>
@@ -143,18 +143,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                     <span>OUR MISSION</span>
                   </div>
 
-                  <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold text-white font-heading tracking-tight leading-tight mb-6">
+                  <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white font-heading tracking-tight leading-snug mb-4">
                     What Drives Us
                   </h2>
 
                   {/* Lead paragraph */}
-                  <p className="text-white font-medium text-lg sm:text-[20px] lg:text-[21px] leading-[1.55] max-w-[60ch] mb-6">
+                  <p className="text-gray-200 font-medium text-sm sm:text-base leading-relaxed max-w-[60ch] mb-5">
                     We believe businesses shouldn't have to choose between growing and staying efficient.
                   </p>
 
                   {/* Body paragraph with thin teal vertical rule */}
-                  <div className="space-y-5">
-                    <p className="text-[16px] sm:text-[16.5px] text-gray-300 leading-[1.65] border-l-2 border-[#00E6D2]/40 pl-4 max-w-[60ch]">
+                  <div className="space-y-4">
+                    <p className="text-xs sm:text-sm md:text-[14.5px] text-gray-300 leading-relaxed border-l-2 border-[#00E6D2]/40 pl-3.5 sm:pl-4 max-w-[60ch]">
                       Our mission is to give businesses access to the same automation, development, and marketing capabilities that larger companies use, delivered in a way that's practical, affordable, and built around how they actually operate.
                     </p>
                   </div>
@@ -181,13 +181,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             >
               <div className="rounded-[16px] border border-[#00E6D2]/20 bg-[#0A0E14]/90 p-5 sm:py-5 sm:px-6 flex items-center gap-3.5 hover:border-[#00E6D2]/50 transition-colors duration-150">
                 <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00E6D2] shrink-0" aria-hidden="true" />
-                <span className="text-[#00E6D2] font-bold text-base sm:text-lg lg:text-[19px] tracking-wide font-heading leading-snug">
+                <span className="text-[#00E6D2] font-bold text-sm sm:text-base tracking-wide font-heading leading-snug">
                   Zero Busywork. Maximum Scalability.
                 </span>
               </div>
               <div className="rounded-[16px] border border-[#00E6D2]/20 bg-[#0A0E14]/90 p-5 sm:py-5 sm:px-6 flex items-center gap-3.5 hover:border-[#00E6D2]/50 transition-colors duration-150">
                 <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00E6D2] shrink-0" aria-hidden="true" />
-                <span className="text-[#00E6D2] font-bold text-base sm:text-lg lg:text-[19px] tracking-wide font-heading leading-snug">
+                <span className="text-[#00E6D2] font-bold text-sm sm:text-base tracking-wide font-heading leading-snug">
                   Empowering Global Growth From Pakistan
                 </span>
               </div>
@@ -226,7 +226,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                     key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
                     className={`p-6 sm:p-7 rounded-2xl bg-[#080D12] border border-white/10 hover:border-[#00E6D2]/40 transition-all duration-300 flex flex-col justify-between group ${layoutClasses}`}
                   >

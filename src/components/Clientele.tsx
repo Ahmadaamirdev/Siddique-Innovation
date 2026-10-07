@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { WingLogo } from './WingLogo';
 import { HeroGlobe } from './HeroGlobe';
@@ -19,7 +19,7 @@ export const Clientele: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
+            viewport={{ once: false, margin: '-40px' }}
             transition={{ duration: 0.6, ease: [0.22, 0.61, 0.36, 1] as const }}
             className="space-y-2"
           >

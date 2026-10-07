@@ -60,7 +60,6 @@ export const servicesData: Record<string, ServiceItemData> = {
           'WhatsApp & Instagram DM Bots',
           'Website Customer Support Bots',
           'Lead Qualification & Sales Bots',
-          'Internal Knowledge Base Assistants',
         ],
       },
       {
@@ -427,7 +426,7 @@ export const servicesData: Record<string, ServiceItemData> = {
     iconName: 'seo',
     heroHeading: 'Get Found on Google and AI Search',
     heroDescription:
-      'We improve your visibility across traditional search engines and AI-powered search through thoughtful SEO, AEO, and content strategies. Our approach focuses on building relevant, trustworthy visibility that helps your business get discovered by the right audience.',
+      'We improve your visibility across traditional and AI search engines through thoughtful SEO, AEO, and content strategies, helping your business get discovered by the right audience.',
     problemHeading: 'Invisible on Google Means Invisible to Customers',
     problemText:
       "If your business doesn't show up when people search for what you offer, you're losing customers to competitors who do. Most businesses either ignore SEO entirely or fall for quick-fix tactics that hurt their ranking in the long run.",

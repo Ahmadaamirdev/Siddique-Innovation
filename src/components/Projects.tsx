@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ExternalLink, Terminal } from 'lucide-react';
 import { WingLogo } from './WingLogo';
@@ -25,7 +25,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects }) => {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-mono"
           >
@@ -36,7 +36,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects }) => {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading"
           >
@@ -46,7 +46,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects }) => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-sans"
           >
@@ -71,7 +71,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects }) => {
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <CardWrapper
@@ -122,7 +122,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-14 text-center"
         >

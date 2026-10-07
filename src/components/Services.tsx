@@ -86,7 +86,7 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
     },
     {
       icon: Search,
-      title: 'SEO',
+      title: 'SEO, AEO, GEO',
       description:
         'Long-term visibility on search engines, built through proven, ethical strategies.',
       points: [
@@ -119,7 +119,7 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: false, margin: '-60px' }}
             transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] as const }}
             className="space-y-3"
           >
@@ -154,7 +154,7 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: false, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 0.61, 0.36, 1] as const }}
                 onClick={(e) => {
                   if ((e.target as HTMLElement).closest('a')) return;

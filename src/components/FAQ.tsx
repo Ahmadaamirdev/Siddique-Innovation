@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { WingLogo } from './WingLogo';
@@ -60,7 +60,7 @@ export const FAQ: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: false, margin: '-60px' }}
             transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] as const }}
             className="space-y-3"
           >
@@ -87,7 +87,7 @@ export const FAQ: React.FC = () => {
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: false, margin: '-40px' }}
                 transition={{
                   duration: 0.5,
                   delay: index * 0.06,

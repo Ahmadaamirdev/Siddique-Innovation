@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+﻿import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { WingLogo } from './WingLogo';
 
@@ -165,7 +165,7 @@ export const Process: React.FC = () => {
                   key={step.number}
                   initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={{ once: false, margin: '-40px' }}
                   transition={{ duration: 0.4, delay: idx * 0.06 }}
                   className="relative flex items-center group"
                 >

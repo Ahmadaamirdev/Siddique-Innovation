@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Code2,
@@ -182,7 +182,7 @@ export const WingsShowcase: React.FC<WingsShowcaseProps> = ({ onNavigate }) => {
                 onClick={(e) => handleCardClick(item.link, e)}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: idx * 0.12 }}
                 whileHover={{ scale: 1.04 }}
                 style={{ left: 20, top: topPos, width: 250, height: 52 }}
@@ -250,7 +250,7 @@ export const WingsShowcase: React.FC<WingsShowcaseProps> = ({ onNavigate }) => {
                 onClick={(e) => handleCardClick(item.link, e)}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: idx * 0.12 }}
                 whileHover={{ scale: 1.04 }}
                 style={{ right: 20, top: topPos, width: 250, height: 52 }}
@@ -335,7 +335,7 @@ export const WingsShowcase: React.FC<WingsShowcaseProps> = ({ onNavigate }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-12 relative z-20"
         >

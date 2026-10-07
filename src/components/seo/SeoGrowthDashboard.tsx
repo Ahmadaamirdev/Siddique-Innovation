@@ -51,13 +51,17 @@ const SEO_DASHBOARD_DATA = {
     { month: 'Jun', clicks: 12400, clicksFormatted: '12.4k', x: 368, y: 22 },
   ],
   rankingsBars: [
-    { pct: 25, opacity: 0.35 },
-    { pct: 34, opacity: 0.44 },
-    { pct: 30, opacity: 0.53 },
-    { pct: 48, opacity: 0.62 },
-    { pct: 56, opacity: 0.71 },
-    { pct: 66, opacity: 0.80 },
-    { pct: 80, opacity: 0.90 },
+    { pct: 18, opacity: 0.28 },
+    { pct: 26, opacity: 0.35 },
+    { pct: 22, opacity: 0.40 },
+    { pct: 36, opacity: 0.47 },
+    { pct: 44, opacity: 0.54 },
+    { pct: 38, opacity: 0.61 },
+    { pct: 55, opacity: 0.67 },
+    { pct: 68, opacity: 0.74 },
+    { pct: 62, opacity: 0.81 },
+    { pct: 78, opacity: 0.88 },
+    { pct: 90, opacity: 0.94 },
     { pct: 100, opacity: 1.0 },
   ],
   rankingsLabel: 'Top 10 rankings',
@@ -135,7 +139,7 @@ export const SeoGrowthDashboard: React.FC<SeoGrowthDashboardProps> = ({
     ],
     dashOffset: PATH_LENGTH,
     areaOpacity: 0,
-    barScales: [0, 0, 0, 0, 0, 0, 0, 0],
+    barScales: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     endDotVisible: false,
     endPulseRadius: 5,
     endPulseOpacity: 0,
@@ -194,7 +198,7 @@ export const SeoGrowthDashboard: React.FC<SeoGrowthDashboardProps> = ({
         })),
         dashOffset: 0,
         areaOpacity: 1,
-        barScales: [1, 1, 1, 1, 1, 1, 1, 1],
+        barScales: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         endDotVisible: true,
         endPulseRadius: 5,
         endPulseOpacity: 0,
@@ -279,10 +283,10 @@ export const SeoGrowthDashboard: React.FC<SeoGrowthDashboardProps> = ({
       const areaProgress = easeOutCubic((tSec - 0.9) / 2.7);
       const areaOpacity = areaProgress;
 
-      // 4. Bars growth: 1.60s - 3.40s (200ms stagger, ease-out)
+      // 4. Bars growth: 1.60s - 3.60s (140ms stagger, ease-out)
       const barScales = SEO_DASHBOARD_DATA.rankingsBars.map((_, i) => {
-        const barStart = 1.6 + i * 0.2;
-        return easeOutCubic((tSec - barStart) / 0.4);
+        const barStart = 1.6 + i * 0.14;
+        return easeOutCubic((tSec - barStart) / 0.45);
       });
 
       // 5. End dot & pulse at 3.60s
@@ -617,16 +621,6 @@ export const SeoGrowthDashboard: React.FC<SeoGrowthDashboardProps> = ({
                 {/* Static End Point Tooltip (at 3.6s) */}
                 {!isHoveringChart && renderState.endTooltipVisible && (
                   <g className="pointer-events-none transition-opacity duration-300">
-                    <line
-                      x1={lastPoint.x}
-                      y1={lastPoint.y + 6}
-                      x2={lastPoint.x}
-                      y2="134"
-                      stroke="#14e0c4"
-                      strokeWidth="1"
-                      strokeDasharray="2 2"
-                      strokeOpacity="0.4"
-                    />
                     <g transform={`translate(${lastPoint.x - 90}, ${lastPoint.y - 18})`}>
                       <rect
                         width="88"
@@ -715,22 +709,22 @@ export const SeoGrowthDashboard: React.FC<SeoGrowthDashboardProps> = ({
               <span className="text-[10px] font-mono text-[#5b7a76]">Top 10</span>
             </div>
 
-            {/* 8 Bars SVG with Rising Animation */}
+            {/* 12 Bars SVG with Rising Animation */}
             <div className="w-full flex-1 flex items-center justify-center my-1">
-              <svg viewBox="0 0 140 85" className="w-full max-h-[110px] overflow-visible">
+              <svg viewBox="0 0 160 95" className="w-full max-h-[130px] overflow-visible">
                 {/* Baseline */}
-                <line x1="6" y1="74" x2="134" y2="74" stroke="#16302d" strokeWidth="1" />
+                <line x1="4" y1="82" x2="156" y2="82" stroke="#16302d" strokeWidth="1" />
 
                 {SEO_DASHBOARD_DATA.rankingsBars.map((bar, i) => {
-                  const barWidth = 10;
-                  const barGap = 5;
-                  const startX = 12;
+                  const barWidth = 9;
+                  const barGap = 4;
+                  const startX = 7;
                   const x = startX + i * (barWidth + barGap);
-                  const maxH = 62;
+                  const maxH = 72;
                   const targetH = (bar.pct / 100) * maxH;
                   const scale = renderState.barScales[i] ?? 1;
                   const currentH = Math.max(targetH * scale, 0);
-                  const y = 74 - currentH;
+                  const y = 82 - currentH;
 
                   return (
                     <rect
@@ -739,8 +733,8 @@ export const SeoGrowthDashboard: React.FC<SeoGrowthDashboardProps> = ({
                       y={y}
                       width={barWidth}
                       height={currentH}
-                      rx="3"
-                      ry="3"
+                      rx="2.5"
+                      ry="2.5"
                       fill="#14e0c4"
                       fillOpacity={bar.opacity}
                     />

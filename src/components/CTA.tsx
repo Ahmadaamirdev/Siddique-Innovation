@@ -16,6 +16,7 @@ export interface CTAProps {
   heading?: string;
   subheading?: string;
   id?: string;
+  className?: string;
 }
 
 export const CTA: React.FC<CTAProps> = ({
@@ -23,6 +24,7 @@ export const CTA: React.FC<CTAProps> = ({
   heading = 'Ready to Build Something Better?',
   subheading = "Let's talk about your project and how we can help you grow.",
   id = 'contact',
+  className,
 }) => {
   const [formState, setFormState] = useState({
     name: '',
@@ -109,7 +111,7 @@ export const CTA: React.FC<CTAProps> = ({
   ];
 
   return (
-    <section id={id} className="py-14 md:py-20 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10 scroll-mt-20">
+    <section id={id} className={`bg-[#050505] relative z-10 overflow-hidden border-b border-white/10 scroll-mt-20 ${className || 'py-14 md:py-20'}`}>
       {id !== 'contact' && <span id="contact" className="sr-only" />}
       {id !== 'service-cta' && <span id="service-cta" className="sr-only" />}
       {/* Soft Ambient Cyan Background Glow */}
@@ -120,7 +122,7 @@ export const CTA: React.FC<CTAProps> = ({
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] as const }}
           className="relative bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 hover:border-[#00E6D2]/30 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-colors duration-500"
         >
