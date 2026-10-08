@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bot, Terminal, Sparkles, CheckCircle2, Zap } from 'lucide-react';
-import dwatsonFurnitureImg from '../assets/dwatson_furniture.png';
+import dwatsonFurnitureImg from '../assets/dwatson_furniture.webp';
 
 export interface ProjectItem {
   id: string;

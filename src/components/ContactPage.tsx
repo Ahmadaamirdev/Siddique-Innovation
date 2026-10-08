@@ -9,7 +9,7 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { WingLogo } from './WingLogo';
 import { CTA } from './CTA';
-import contactHeroBg from '../assets/contact_hero_bg.jpg';
+import contactHeroBg from '../assets/contact_hero_bg.webp';
 
 interface ContactPageProps {
   onNavigate: (path: string) => void;

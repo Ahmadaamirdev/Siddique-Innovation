@@ -16,8 +16,9 @@ import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { LoadingScreen } from './components/LoadingScreen';
 import { servicesData } from './data/servicesData';
 
-import { ServiceDetailPage } from './components/ServiceDetailPage';
-
+const ServiceDetailPage = lazy(() =>
+  import('./components/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
+);
 const ProjectsPage = lazy(() =>
   import('./components/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
 );

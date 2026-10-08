@@ -115,7 +115,7 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
       time += 0.016;
 
       const rect = containerRef.current?.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.25 : 1.75);
       const width = rect?.width || 600;
       const height = rect?.height || 480;
 
@@ -437,13 +437,56 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
 
       ctx.restore();
 
+      if (isRunning) {
+        animId = requestAnimationFrame(render);
+      }
+    };
+
+    let isInView = true;
+    let isRunning = false;
+
+    const startLoop = () => {
+      if (isRunning || !isInView) return;
+      isRunning = true;
       animId = requestAnimationFrame(render);
     };
 
-    animId = requestAnimationFrame(render);
+    const stopLoop = () => {
+      isRunning = false;
+      cancelAnimationFrame(animId);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView = entry.isIntersecting && !document.hidden;
+        if (isInView) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        stopLoop();
+      } else if (isInView) {
+        startLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    startLoop();
 
     return () => {
-      cancelAnimationFrame(animId);
+      stopLoop();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [tilt, hoveredCountry]);
 
