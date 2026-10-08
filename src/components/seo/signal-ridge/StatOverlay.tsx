@@ -24,33 +24,9 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
   const avgPosVal = Math.max(1, Math.round(50 - (50 - summary.avgPosition) * progress));
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-3.5 sm:p-5 lg:p-5 select-none">
-      {/* ── TOP BAR: Unified Status & Legend ── */}
-      <div className="w-full flex items-center justify-start gap-2.5 pointer-events-auto">
-        {/* Title & Live indicator */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0b1412]/90 backdrop-blur-md border border-white/5 text-[10.5px] sm:text-[11px] font-mono text-[#a9bfbb]">
-          <span className="w-2 h-2 rounded-full bg-[#1fd6a5] shadow-[0_0_8px_#1fd6a5] animate-pulse" />
-          <span className="font-medium text-[#e6f2ef]">Organic performance</span>
-          <span className="text-white/20">·</span>
-          <span className="text-[#6b8480]">Last 12 months</span>
-        </div>
-
-        {/* Legend */}
-        <div className="hidden sm:flex items-center gap-3 text-[10px] sm:text-[11px] font-mono text-[#6b8480] bg-[#0b1412]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
-          <span className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-sm bg-[#1fd6a5]/30 border border-[#1fd6a5]" />
-            <span>clicks</span>
-          </span>
-          <span className="text-white/20">·</span>
-          <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#5fd9c3] shadow-[0_0_8px_#5fd9c3]" />
-            <span>impressions</span>
-          </span>
-        </div>
-      </div>
-
-      {/* ── MIDDLE / BOTTOM STAT BLOCKS (Positioned in corners) ── */}
-      <div className="w-full flex items-end justify-between gap-4 pointer-events-auto">
+    <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-end p-3.5 sm:p-5 lg:p-6 select-none">
+      {/* ── BOTTOM STAT BLOCKS (Positioned in corners) ── */}
+      <div className="w-full max-w-6xl mx-auto flex items-end justify-between gap-4 pointer-events-auto">
         {/* LEFT COLUMN: Clicks & Impressions */}
         <div className="flex flex-col gap-3 sm:gap-4 text-left">
           {/* Clicks */}
@@ -149,12 +125,12 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
       </div>
 
       {/* ── PROJECTED 3D FINALE LABEL ── */}
-      {juneProjected && juneProjected.visible && (
+      {juneProjected && juneProjected.visible && (!hoveredColumn || hoveredColumn.month !== SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].month) && (
         <div
           style={{
             left: `${juneProjected.x}px`,
             top: `${juneProjected.y}px`,
-            transform: 'translate(-50%, -100%)',
+            transform: 'translate(16px, -50%)',
           }}
           className="absolute z-20 pointer-events-none transition-transform duration-75 ease-out animate-fadeIn"
         >
@@ -173,8 +149,8 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
         <div
           style={{
             left: `${hoveredColumn.screenX}px`,
-            top: `${hoveredColumn.screenY - 14}px`,
-            transform: 'translate(-50%, -100%)',
+            top: `${hoveredColumn.screenY}px`,
+            transform: 'translate(18px, -50%)',
           }}
           className="absolute z-30 pointer-events-none px-3 py-1 rounded-full bg-[#06110f]/95 border border-[#1fd6a5]/60 shadow-[0_0_15px_rgba(31,214,165,0.3)] backdrop-blur-lg text-xs font-mono text-[#e6f2ef] whitespace-nowrap flex items-center gap-1.5 animate-fadeIn"
         >
