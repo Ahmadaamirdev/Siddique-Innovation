@@ -50,24 +50,6 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       } catch {}
     }
 
-    // Adaptive fast-path for slow connections (2G/3G or Data Saver)
-    const isSlowConnection =
-      typeof navigator !== 'undefined' &&
-      ((navigator as any).connection?.saveData ||
-        (navigator as any).connection?.effectiveType === '2g' ||
-        (navigator as any).connection?.effectiveType === '3g');
-
-    if (isSlowConnection) {
-      const fastTimer = setTimeout(() => {
-        handleComplete(300);
-      }, 1000);
-      return () => {
-        document.body.style.overflow = originalOverflow;
-        document.documentElement.style.overflow = '';
-        clearTimeout(fastTimer);
-      };
-    }
-
     // Start video playback on normal/fast connections
     const video = videoRef.current;
     if (video) {
@@ -76,14 +58,16 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       if (playPromise !== undefined) {
         playPromise.catch((err) => {
           console.warn('Loading video autoplay note:', err);
+          // If video cannot autoplay or is blocked, complete gracefully
+          handleComplete(0);
         });
       }
     }
 
-    // Safety fallback: if video doesn't end within ~4.5 seconds, complete automatically
+    // Safety fallback: only triggers if video fails to load or stalls (video is 5.0s)
     const safetyTimer = setTimeout(() => {
       handleComplete(0);
-    }, 4500);
+    }, 7500);
 
     return () => {
       document.body.style.overflow = originalOverflow;
@@ -99,7 +83,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-[99999] flex items-center justify-center bg-black overflow-hidden select-none"
     >
       {/* Centered Logo Animation Video Element */}
@@ -110,13 +94,12 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           muted
           playsInline
           preload="auto"
-          onEnded={() => handleComplete(650)}
+          onEnded={() => handleComplete(700)}
+          onError={() => handleComplete(0)}
           onTimeUpdate={(e) => {
             const v = e.currentTarget;
-            if (v.duration && v.currentTime >= v.duration - 0.05) {
-              handleComplete(650);
-            } else if (v.currentTime >= 5.0) {
-              handleComplete(650);
+            if (v.duration && v.currentTime >= v.duration) {
+              handleComplete(700);
             }
           }}
           className="w-full max-h-[55vh] object-contain"
