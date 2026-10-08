@@ -50,7 +50,25 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       } catch {}
     }
 
-    // Start video playback
+    // Adaptive fast-path for slow connections (2G/3G or Data Saver)
+    const isSlowConnection =
+      typeof navigator !== 'undefined' &&
+      ((navigator as any).connection?.saveData ||
+        (navigator as any).connection?.effectiveType === '2g' ||
+        (navigator as any).connection?.effectiveType === '3g');
+
+    if (isSlowConnection) {
+      const fastTimer = setTimeout(() => {
+        handleComplete(300);
+      }, 1000);
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.documentElement.style.overflow = '';
+        clearTimeout(fastTimer);
+      };
+    }
+
+    // Start video playback on normal/fast connections
     const video = videoRef.current;
     if (video) {
       video.muted = true;
@@ -62,10 +80,10 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       }
     }
 
-    // Safety fallback: if video doesn't end within ~6 seconds, complete automatically
+    // Safety fallback: if video doesn't end within ~4.5 seconds, complete automatically
     const safetyTimer = setTimeout(() => {
       handleComplete(0);
-    }, 6000);
+    }, 4500);
 
     return () => {
       document.body.style.overflow = originalOverflow;

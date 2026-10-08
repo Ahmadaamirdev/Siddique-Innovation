@@ -192,7 +192,8 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
       antialias: true,
       powerPreference: 'high-performance',
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.2 : 1.6);
+    renderer.setPixelRatio(dpr);
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(width, height, false);
 
@@ -525,8 +526,11 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
     let lastTime = performance.now();
     let simTime = 0;
+    let isVisible = true;
+    let isRunning = false;
 
     const animate = (now: number) => {
+      if (!isRunning) return;
       const dt = Math.min(0.05, (now - lastTime) / 1000);
       lastTime = now;
       simTime += dt;
@@ -548,10 +552,47 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
       animId = requestAnimationFrame(animate);
     };
 
-    animId = requestAnimationFrame(animate);
+    const startLoop = () => {
+      if (isRunning || !isVisible) return;
+      isRunning = true;
+      lastTime = performance.now();
+      animId = requestAnimationFrame(animate);
+    };
+
+    const stopLoop = () => {
+      isRunning = false;
+      cancelAnimationFrame(animId);
+    };
+
+    // Pause WebGL rendering entirely when offscreen to preserve 100% GPU/battery
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting && !document.hidden;
+        if (isVisible) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopLoop();
+      } else if (isVisible) {
+        startLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    startLoop();
 
     return () => {
-      cancelAnimationFrame(animId);
+      stopLoop();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
 

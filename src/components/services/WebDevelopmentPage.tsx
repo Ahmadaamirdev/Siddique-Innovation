@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Monitor,
@@ -26,7 +26,7 @@ import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
-import serviceHeroBg from '../../assets/service_hero_bg.png';
+import serviceHeroBg from '../../assets/service_hero_bg.webp';
 import { ServiceProjectsSection } from './ServiceProjectsSection';
 import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
 import {

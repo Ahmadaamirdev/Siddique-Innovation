@@ -4,12 +4,8 @@ import {
   TrendingUp,
   Target,
   BarChart3,
-  DollarSign,
-  ArrowUpRight,
   ArrowRight,
   ChevronDown,
-  Users,
-  Eye,
   Filter,
   PieChart,
   Zap,
@@ -65,8 +61,8 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
     }
   };
 
-  const handleScrollToContact = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleScrollToContact = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     document.getElementById('service-cta')?.scrollIntoView({ behavior: 'smooth' });
   };
 

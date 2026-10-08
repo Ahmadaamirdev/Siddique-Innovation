@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import type { ServiceItemData } from '../data/servicesData';
-import { AIAutomationPage } from './services/AIAutomationPage';
-import { WebDevelopmentPage } from './services/WebDevelopmentPage';
-import { DigitalMarketingPage } from './services/DigitalMarketingPage';
-import { SEOPage } from './services/SEOPage';
-import { YouTubeAutomationPage } from './services/YouTubeAutomationPage';
-
 import { useSmoothScroll } from './SmoothScrollProvider';
+
+const AIAutomationPage = lazy(() =>
+  import('./services/AIAutomationPage').then((m) => ({ default: m.AIAutomationPage }))
+);
+const WebDevelopmentPage = lazy(() =>
+  import('./services/WebDevelopmentPage').then((m) => ({ default: m.WebDevelopmentPage }))
+);
+const DigitalMarketingPage = lazy(() =>
+  import('./services/DigitalMarketingPage').then((m) => ({ default: m.DigitalMarketingPage }))
+);
+const SEOPage = lazy(() =>
+  import('./services/SEOPage').then((m) => ({ default: m.SEOPage }))
+);
+const YouTubeAutomationPage = lazy(() =>
+  import('./services/YouTubeAutomationPage').then((m) => ({ default: m.YouTubeAutomationPage }))
+);
 
 interface ServiceDetailPageProps {
   service: ServiceItemData;
@@ -42,67 +52,81 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     };
   }, [service.slug, startScroll]);
 
-  switch (service.slug) {
-    case 'ai-automation':
-      return (
-        <AIAutomationPage
-          service={service}
-          onNavigateHome={onNavigateHome}
-          onNavigateService={onNavigateService}
-          onNavigate={onNavigate}
-        />
-      );
+  const renderPage = () => {
+    switch (service.slug) {
+      case 'ai-automation':
+        return (
+          <AIAutomationPage
+            service={service}
+            onNavigateHome={onNavigateHome}
+            onNavigateService={onNavigateService}
+            onNavigate={onNavigate}
+          />
+        );
 
-    case 'web-development':
-      return (
-        <WebDevelopmentPage
-          service={service}
-          onNavigateHome={onNavigateHome}
-          onNavigateService={onNavigateService}
-          onNavigate={onNavigate}
-        />
-      );
+      case 'web-development':
+        return (
+          <WebDevelopmentPage
+            service={service}
+            onNavigateHome={onNavigateHome}
+            onNavigateService={onNavigateService}
+            onNavigate={onNavigate}
+          />
+        );
 
-    case 'digital-marketing':
-      return (
-        <DigitalMarketingPage
-          service={service}
-          onNavigateHome={onNavigateHome}
-          onNavigateService={onNavigateService}
-          onNavigate={onNavigate}
-        />
-      );
+      case 'digital-marketing':
+        return (
+          <DigitalMarketingPage
+            service={service}
+            onNavigateHome={onNavigateHome}
+            onNavigateService={onNavigateService}
+            onNavigate={onNavigate}
+          />
+        );
 
-    case 'seo':
-      return (
-        <SEOPage
-          service={service}
-          onNavigateHome={onNavigateHome}
-          onNavigateService={onNavigateService}
-          onNavigate={onNavigate}
-        />
-      );
+      case 'seo':
+        return (
+          <SEOPage
+            service={service}
+            onNavigateHome={onNavigateHome}
+            onNavigateService={onNavigateService}
+            onNavigate={onNavigate}
+          />
+        );
 
-    case 'youtube-automation':
-      return (
-        <YouTubeAutomationPage
-          service={service}
-          onNavigateHome={onNavigateHome}
-          onNavigateService={onNavigateService}
-          onNavigate={onNavigate}
-        />
-      );
+      case 'youtube-automation':
+        return (
+          <YouTubeAutomationPage
+            service={service}
+            onNavigateHome={onNavigateHome}
+            onNavigateService={onNavigateService}
+            onNavigate={onNavigate}
+          />
+        );
 
-    default:
-      return (
-        <AIAutomationPage
-          service={service}
-          onNavigateHome={onNavigateHome}
-          onNavigateService={onNavigateService}
-          onNavigate={onNavigate}
-        />
-      );
-  }
+      default:
+        return (
+          <AIAutomationPage
+            service={service}
+            onNavigateHome={onNavigateHome}
+            onNavigateService={onNavigateService}
+            onNavigate={onNavigate}
+          />
+        );
+    }
+  };
+
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-[#00E6D2]/30 border-t-[#00E6D2] animate-spin" />
+        </div>
+      }
+    >
+      {renderPage()}
+    </Suspense>
+  );
 };
 
 export default ServiceDetailPage;
