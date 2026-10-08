@@ -51,7 +51,7 @@ export const SignalRidge: React.FC = () => {
 
   if (useFallback) {
     return (
-      <div className="relative w-full max-w-[940px] mx-auto overflow-hidden">
+      <div className="relative w-full mx-auto overflow-hidden">
         <SignalRidgeFallback />
         <StatOverlay
           progress={1}
@@ -64,7 +64,7 @@ export const SignalRidge: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full max-w-[960px] mx-auto overflow-hidden">
+    <div className="relative w-full mx-auto overflow-hidden">
       <Suspense fallback={<SignalRidgeSkeleton />}>
         <LazySignalRidgeScene
           onProgress={setProgress}

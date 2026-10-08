@@ -74,7 +74,7 @@ export const SEOPage: React.FC<SEOPageProps> = ({
 
       <main className="pt-28 sm:pt-32 relative z-10">
         {/* 1. HERO SECTION: Organic Performance Showcase */}
-        <section className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pb-4 sm:pb-6 text-center">
+        <section className="w-full relative pb-0 text-center overflow-hidden">
           <OrganicPerformance description={service.heroDescription} />
         </section>
 

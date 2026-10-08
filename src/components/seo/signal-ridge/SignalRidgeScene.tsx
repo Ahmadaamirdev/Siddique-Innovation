@@ -134,13 +134,13 @@ export const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
     scene.background = null; // transparent canvas
-    scene.fog = new THREE.Fog(0x04070a, 13, 27);
+    scene.fog = new THREE.Fog(0x04070a, 14, 42);
 
     // 2. Camera: fov 38, adjusted for 12-bar span
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 80);
     cameraRef.current = camera;
-    camera.position.set(8.5, 5.8, 10.2);
-    camera.lookAt(0.2, 2.3, 0);
+    camera.position.set(8.5, 5.9, 10.2);
+    camera.lookAt(0.2, 2.55, 0);
 
     // 3. Renderer (alpha:true so canvas composites over page bg)
     const renderer = new THREE.WebGLRenderer({
@@ -169,8 +169,8 @@ export const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     tealPointLight.position.set(2, 5, 4);
     scene.add(tealPointLight);
 
-    // 5. Floor: GridHelper in dark teal (Fog near 13, far 27)
-    const grid = new THREE.GridHelper(34, 34, 0x164e43, 0x0f362e);
+    // 5. Floor: GridHelper in dark teal (Fog near 14, far 42)
+    const grid = new THREE.GridHelper(100, 100, 0x164e43, 0x0f362e);
     grid.position.y = 0;
     scene.add(grid);
     disposablesRef.current.push(grid.geometry);
@@ -478,7 +478,7 @@ export const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       const camZ = orbitRadius * Math.sin(angle);
 
       camera.position.set(camX, camY, camZ);
-      camera.lookAt(0.2, 2.3, 0);
+      camera.lookAt(0.2, 2.55, 0);
 
       // 2. Columns staggered growth: snappy 0.10 + i * 0.16 over 0.75s
       columnsRef.current.forEach((col, i) => {
@@ -629,7 +629,7 @@ export const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[320px] sm:h-[350px] lg:h-[365px] select-none touch-pan-y overflow-hidden"
+      className="relative w-full h-[330px] sm:h-[365px] lg:h-[390px] xl:h-[405px] select-none touch-pan-y overflow-hidden cursor-default"
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
@@ -637,7 +637,7 @@ export const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
         ref={canvasRef}
         role="img"
         aria-label="Organic search performance: clicks rising from 3.1k to 12.4k over 6 months, impressions reaching 148k"
-        className="w-full h-full block cursor-crosshair"
+        className="w-full h-full block cursor-default"
         style={{ background: 'transparent' }}
       />
     </div>

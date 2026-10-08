@@ -14,7 +14,7 @@ export function OrganicPerformance({ heading, description }: OrganicPerformanceP
       <style>{CSS}</style>
 
       {/* ── 1 & 2. Centered Heading Block ── */}
-      <div className="op-heading-block">
+      <div className="op-heading-block px-4 sm:px-6 mb-4 sm:mb-5 lg:mb-6">
         {heading || (
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-0.5 drop-shadow-md text-center max-w-4xl mx-auto pt-0 whitespace-normal sm:whitespace-nowrap">
             Get Found on Google &amp;{' '}
@@ -26,7 +26,7 @@ export function OrganicPerformance({ heading, description }: OrganicPerformanceP
             </span>
           </h1>
         )}
-        <p className="text-gray-300 text-[11px] sm:text-xs font-normal leading-relaxed font-sans max-w-lg mx-auto mt-1 sm:mt-1.5 text-center">
+        <p className="text-gray-300 text-sm sm:text-base lg:text-[16.5px] font-normal leading-relaxed font-sans max-w-2xl mx-auto mt-2.5 sm:mt-3 text-center">
           {description ||
             'We improve your visibility across traditional and AI search engines through thoughtful SEO, AEO, and content strategies, helping your business get discovered by the right audience.'}
         </p>
@@ -48,9 +48,9 @@ const CSS = `
   --ink: #e6f2ef;
   --mute: #6b8480;
   position: relative;
-  max-width: 1040px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 12px 0;
+  padding: 0;
   color: var(--ink);
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   isolation: isolate;
@@ -58,7 +58,6 @@ const CSS = `
 
 .op-heading-block {
   text-align: center;
-  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;

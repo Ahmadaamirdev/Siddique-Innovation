@@ -26,7 +26,7 @@ export const SignalRidgeFallback: React.FC = () => {
     <div
       role="img"
       aria-label="Static 2D chart showing organic clicks rising from 3.1k in January to 12.4k in June"
-      className="relative w-full h-[320px] sm:h-[350px] lg:h-[365px] bg-[#0b1412] flex items-center justify-center p-4 select-none"
+      className="relative w-full h-[330px] sm:h-[365px] lg:h-[390px] xl:h-[405px] bg-[#0b1412] flex items-center justify-center p-4 select-none"
     >
       <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-full max-w-[650px] overflow-visible">
         <defs>

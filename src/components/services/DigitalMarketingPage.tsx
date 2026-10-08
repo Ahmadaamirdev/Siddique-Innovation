@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp,
@@ -30,7 +30,7 @@ import { WingLogo } from '../WingLogo';
 import { CTA } from '../CTA';
 import { ServiceProjectsSection } from './ServiceProjectsSection';
 import { ServiceTestimonialsSection } from './ServiceTestimonialsSection';
-import { TargetingFunnelStage } from './TargetingFunnelStage';
+import { MarketingGlobeHero } from './MarketingGlobeHero';
 import {
   digitalMarketingProjects,
   digitalMarketingTestimonials,
@@ -72,8 +72,8 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
 
   return (
     <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
-      {/* Background Amber-Cyan Glow Effect */}
-      <div className="fixed top-10 left-1/3 w-[500px] h-[350px] bg-[#00E6D2]/10 blur-[140px] pointer-events-none -z-0" />
+      {/* Background Soft Glow Effect */}
+      <div className="fixed top-10 left-1/3 w-[450px] h-[250px] bg-[#00E6D2]/3 blur-[140px] pointer-events-none -z-0" />
       <div className="fixed bottom-1/3 right-10 w-[400px] h-[300px] bg-amber-500/5 blur-[130px] pointer-events-none -z-0" />
 
       <Navbar
@@ -82,114 +82,28 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
         onNavigate={handleNav}
       />
 
-      <main className="pt-28 sm:pt-36 relative z-10">
-        {/* 1. HERO SECTION: Targeting Funnel Centered Layout */}
-        <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-16 sm:pb-20 text-center overflow-hidden">
-          {/* Subtle Background Radial Teal Glow behind Funnel */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-radial from-[#00E6D2]/10 via-[#00E6D2]/2 to-transparent blur-[140px] pointer-events-none -z-0" />
-
-          {/* Faint Dot Grid that fades toward edges */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-25 -z-0"
-            style={{
-              backgroundImage: `radial-gradient(rgba(0, 230, 210, 0.3) 1px, transparent 1px)`,
-              backgroundSize: '24px 24px',
-              maskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 80%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 80%)',
+      <main className="pt-20 sm:pt-24 relative z-10">
+        {/* 1. HERO SECTION: 3D Marketing Globe Hero */}
+        <section className="relative px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-4 sm:pb-6 text-center overflow-hidden">
+          <MarketingGlobeHero
+            heading={
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold text-white tracking-[-0.02em] leading-[1.16] font-heading py-1 drop-shadow-md max-w-3xl mx-auto">
+                <span>Marketing That Reaches the </span>
+                <span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)] inline-block"
+                  style={{ WebkitTextFillColor: 'transparent' }}
+                >
+                  Right People
+                </span>
+              </h1>
+            }
+            description={service.heroDescription}
+            ctaText={service.ctaButtonText || 'Get a Free Quote'}
+            onScrollToContact={handleScrollToContact}
+            onScrollToProjects={() => {
+              document.getElementById('service-projects')?.scrollIntoView({ behavior: 'smooth' });
             }}
           />
-
-          <div className="relative z-10 max-w-4xl mx-auto space-y-4 pt-2">
-            {/* H1: Size matched to homepage hero H1 */}
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md max-w-2xl mx-auto">
-              <span>Marketing That Reaches the </span>
-              <span
-                className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)] inline-block"
-                style={{ WebkitTextFillColor: 'transparent' }}
-              >
-                Right People
-              </span>
-            </h1>
-
-            {/* Description: max-width about 680px, muted light-gray, comfortable line-height */}
-            <p className="text-gray-300 text-sm sm:text-base lg:text-[17px] font-normal leading-relaxed font-sans max-w-[680px] mx-auto">
-              {service.heroDescription}
-            </p>
-
-            {/* 4. CTA Row: primary "Get a Free Quote" + secondary ghost button "See Our Work" */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-              <a
-                href="#service-cta"
-                onClick={handleScrollToContact}
-                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_25px_rgba(0,230,210,0.35)] hover:shadow-[0_0_35px_rgba(0,255,229,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 font-heading cursor-pointer"
-              >
-                <span>{service.ctaButtonText || 'Get a Free Quote'}</span>
-                <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-
-              <a
-                href="#service-projects"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('service-projects')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#00E6D2]/40 transition-all duration-300 font-heading cursor-pointer"
-              >
-                <span>See Our Work</span>
-                <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
-              </a>
-            </div>
-          </div>
-
-          {/* 5. The Funnel Stage */}
-          <div className="mt-8 sm:mt-12 w-full">
-            <TargetingFunnelStage />
-          </div>
-
-          {/* 6. Under the stage: Slim row of 3 glass stat tiles */}
-          <div className="mt-8 sm:mt-10 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-            {/* Stat 1: Blended ROAS */}
-            <div className="group p-4 sm:p-5 rounded-2xl bg-[#080B10]/90 hover:bg-[#0A1218]/95 backdrop-blur-md border border-white/10 hover:border-[#00E6D2]/60 transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(0,230,210,0.15)] hover:-translate-y-1 cursor-pointer flex items-center justify-between sm:flex-col sm:items-start sm:justify-center">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-8 h-8 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/20 group-hover:bg-[#00E6D2]/20 group-hover:border-[#00E6D2]/60 flex items-center justify-center text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors duration-300">
-                  <DollarSign className="w-4 h-4" />
-                </div>
-                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300 font-medium font-sans">Blended ROAS</span>
-              </div>
-              <div className="text-right sm:text-left">
-                <div className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00FFE5] transition-colors duration-300 font-mono tracking-tight">4.4x</div>
-                <div className="text-[11px] text-emerald-400 group-hover:text-[#00FFE5] transition-colors duration-300 font-mono mt-0.5">+38% YoY</div>
-              </div>
-            </div>
-
-            {/* Stat 2: Qualified Leads */}
-            <div className="group p-4 sm:p-5 rounded-2xl bg-[#080B10]/90 hover:bg-[#0A1218]/95 backdrop-blur-md border border-white/10 hover:border-[#00E6D2]/60 transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(0,230,210,0.15)] hover:-translate-y-1 cursor-pointer flex items-center justify-between sm:flex-col sm:items-start sm:justify-center">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-8 h-8 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/20 group-hover:bg-[#00E6D2]/20 group-hover:border-[#00E6D2]/60 flex items-center justify-center text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors duration-300">
-                  <Users className="w-4 h-4" />
-                </div>
-                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300 font-medium font-sans">Qualified Leads</span>
-              </div>
-              <div className="text-right sm:text-left">
-                <div className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00FFE5] transition-colors duration-300 font-mono tracking-tight">+280%</div>
-                <div className="text-[11px] text-emerald-400 group-hover:text-[#00FFE5] transition-colors duration-300 font-mono mt-0.5">High-Intent</div>
-              </div>
-            </div>
-
-            {/* Stat 3: Cost per Lead */}
-            <div className="group p-4 sm:p-5 rounded-2xl bg-[#080B10]/90 hover:bg-[#0A1218]/95 backdrop-blur-md border border-white/10 hover:border-[#00E6D2]/60 transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(0,230,210,0.15)] hover:-translate-y-1 cursor-pointer flex items-center justify-between sm:flex-col sm:items-start sm:justify-center">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-8 h-8 rounded-lg bg-[#00E6D2]/10 border border-[#00E6D2]/20 group-hover:bg-[#00E6D2]/20 group-hover:border-[#00E6D2]/60 flex items-center justify-center text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors duration-300">
-                  <Eye className="w-4 h-4" />
-                </div>
-                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300 font-medium font-sans">Cost per Lead</span>
-              </div>
-              <div className="text-right sm:text-left">
-                <div className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00FFE5] transition-colors duration-300 font-mono tracking-tight">-42%</div>
-                <div className="text-[11px] text-emerald-400 group-hover:text-[#00FFE5] transition-colors duration-300 font-mono mt-0.5">Cost Reduced</div>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* 2. PROBLEM VS. SOLUTION (Ad Spend Wastage vs Data-Driven ROI) */}

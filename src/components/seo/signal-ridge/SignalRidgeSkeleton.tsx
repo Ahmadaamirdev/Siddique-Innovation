@@ -5,7 +5,7 @@ export const SignalRidgeSkeleton: React.FC = () => {
     <div
       role="status"
       aria-label="Loading Signal Ridge 3D visualization"
-      className="relative w-full h-[320px] sm:h-[350px] lg:h-[365px] bg-[#0b1412] rounded-2xl border border-white/5 overflow-hidden flex flex-col justify-between p-6 animate-pulse"
+      className="relative w-full h-[330px] sm:h-[365px] lg:h-[390px] xl:h-[405px] bg-[#0b1412] rounded-2xl border border-white/5 overflow-hidden flex flex-col justify-between p-6 animate-pulse"
     >
       {/* Top Header skeleton */}
       <div className="flex items-center justify-between">
