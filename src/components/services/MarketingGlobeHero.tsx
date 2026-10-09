@@ -625,8 +625,8 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
       {/* ── Floating Social Media Badges (Original Brand Colors, Substantially Bigger Size, Asynchronous Random Floating) ── */}
       {/* 1. Instagram Badge (Left Top - Authentic Instagram Gradient App Icon) */}
       <div
-        className="marketing-social-pill pill-instagram float-random-1 hidden sm:flex left-[3%] md:left-[6%] lg:left-[8%] top-[105px] sm:top-[120px]"
-        title="Instagram Growth"
+        className="marketing-social-pill pill-instagram float-random-1 hidden sm:flex left-[3%] md:left-[6%] lg:left-[8%] top-[75px] sm:top-[90px] md:top-[95px]"
+        title="Instagram Growth & Ads"
       >
         <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
           <defs>
@@ -645,9 +645,23 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
         </svg>
       </div>
 
-      {/* 2. LinkedIn Badge (Left Lower - Authentic LinkedIn Blue #0A66C2) */}
+      {/* 2. Facebook Badge (Left Middle - Authentic Meta/Facebook Blue #1877F2) */}
       <div
-        className="marketing-social-pill pill-linkedin float-random-2 hidden sm:flex left-[4%] md:left-[8%] lg:left-[10%] top-[245px] sm:top-[270px]"
+        className="marketing-social-pill pill-facebook float-random-5 hidden sm:flex left-[1.5%] md:left-[3.5%] lg:left-[5%] top-[185px] sm:top-[205px] md:top-[215px]"
+        title="Facebook & Meta Ads"
+      >
+        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="12" fill="#1877F2" />
+          <path
+            d="M16.671 15.469l.532-3.47h-3.328v-2.25c0-.949.465-1.874 1.956-1.874h1.514V4.922s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.643H7.078v3.47h3.047v8.385a12.18 12.18 0 0 0 3.75 0v-8.385h2.796z"
+            fill="#FFFFFF"
+          />
+        </svg>
+      </div>
+
+      {/* 3. LinkedIn Badge (Left Lower - Authentic LinkedIn Blue #0A66C2) */}
+      <div
+        className="marketing-social-pill pill-linkedin float-random-2 hidden sm:flex left-[3.5%] md:left-[7%] lg:left-[9%] top-[295px] sm:top-[320px] md:top-[335px]"
         title="LinkedIn B2B Lead Gen"
       >
         <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
@@ -658,9 +672,34 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
         </svg>
       </div>
 
-      {/* 3. YouTube Badge (Right Top - Authentic YouTube Red #FF0000 & White Play Button) */}
+      {/* 4. Google Badge (Right Top - Authentic 4-Color Google G Icon) */}
       <div
-        className="marketing-social-pill pill-youtube float-random-3 hidden sm:flex right-[3%] md:right-[6%] lg:right-[8%] top-[110px] sm:top-[125px]"
+        className="marketing-social-pill pill-google float-random-6 hidden sm:flex right-[3%] md:right-[6%] lg:right-[8%] top-[75px] sm:top-[90px] md:top-[95px]"
+        title="Google Ads & Search Marketing"
+      >
+        <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            fill="#4285F4"
+          />
+          <path
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            fill="#34A853"
+          />
+          <path
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+            fill="#FBBC05"
+          />
+          <path
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+            fill="#EA4335"
+          />
+        </svg>
+      </div>
+
+      {/* 5. YouTube Badge (Right Middle - Authentic YouTube Red #FF0000 & White Play Button) */}
+      <div
+        className="marketing-social-pill pill-youtube float-random-3 hidden sm:flex right-[1.5%] md:right-[3.5%] lg:right-[5%] top-[185px] sm:top-[205px] md:top-[215px]"
         title="YouTube Content Strategy"
       >
         <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
@@ -672,9 +711,9 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
         </svg>
       </div>
 
-      {/* 4. TikTok Badge (Right Lower - Authentic Chromatic Glitch Cyan & Pink-Red) */}
+      {/* 6. TikTok Badge (Right Lower - Authentic Chromatic Glitch Cyan & Pink-Red) */}
       <div
-        className="marketing-social-pill pill-tiktok float-random-4 hidden sm:flex right-[4%] md:right-[8%] lg:right-[10%] top-[250px] sm:top-[275px]"
+        className="marketing-social-pill pill-tiktok float-random-4 hidden sm:flex right-[3.5%] md:right-[7%] lg:right-[9%] top-[295px] sm:top-[320px] md:top-[335px]"
         title="Viral Short-Form Campaigns"
       >
         <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
@@ -794,10 +833,22 @@ const STYLE = `
   background: radial-gradient(circle at center, rgba(35, 14, 25, 0.88), rgba(12, 10, 16, 0.92));
 }
 
+.pill-facebook {
+  border: 1.5px solid rgba(24, 119, 242, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65), 0 0 22px rgba(24, 119, 242, 0.28);
+  background: radial-gradient(circle at center, rgba(12, 25, 48, 0.88), rgba(8, 13, 22, 0.92));
+}
+
 .pill-linkedin {
   border: 1.5px solid rgba(10, 102, 194, 0.5);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65), 0 0 22px rgba(10, 102, 194, 0.25);
   background: radial-gradient(circle at center, rgba(10, 24, 42, 0.88), rgba(8, 12, 18, 0.92));
+}
+
+.pill-google {
+  border: 1.5px solid rgba(66, 133, 244, 0.48);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65), 0 0 22px rgba(66, 133, 244, 0.26);
+  background: radial-gradient(circle at center, rgba(15, 22, 36, 0.9), rgba(8, 11, 17, 0.92));
 }
 
 .pill-youtube {
@@ -812,7 +863,7 @@ const STYLE = `
   background: radial-gradient(circle at center, rgba(14, 18, 22, 0.88), rgba(8, 9, 12, 0.92));
 }
 
-/* 4 distinct asynchronous floating animations */
+/* 6 distinct asynchronous floating animations */
 .float-random-1 {
   animation: floatRandom1 5.8s ease-in-out infinite;
 }
@@ -827,6 +878,14 @@ const STYLE = `
 
 .float-random-4 {
   animation: floatRandom4 7.6s ease-in-out infinite 0.3s;
+}
+
+.float-random-5 {
+  animation: floatRandom5 6.7s ease-in-out infinite 0.9s;
+}
+
+.float-random-6 {
+  animation: floatRandom6 7.4s ease-in-out infinite 0.4s;
 }
 
 @keyframes floatRandom1 {
@@ -886,6 +945,36 @@ const STYLE = `
   }
   82% {
     transform: translate(-5px, 6px) rotate(-3deg);
+  }
+}
+
+@keyframes floatRandom5 {
+  0%, 100% {
+    transform: translate(0px, 0px) rotate(-3deg);
+  }
+  32% {
+    transform: translate(-8px, -14px) rotate(5deg);
+  }
+  68% {
+    transform: translate(7px, -9px) rotate(-4deg);
+  }
+  86% {
+    transform: translate(-3px, 8px) rotate(2deg);
+  }
+}
+
+@keyframes floatRandom6 {
+  0%, 100% {
+    transform: translate(0px, 0px) rotate(3deg);
+  }
+  26% {
+    transform: translate(9px, -12px) rotate(-4deg);
+  }
+  62% {
+    transform: translate(-7px, -15px) rotate(5deg);
+  }
+  84% {
+    transform: translate(5px, 7px) rotate(-2deg);
   }
 }
 `;
