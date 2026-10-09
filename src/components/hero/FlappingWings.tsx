@@ -166,5 +166,3 @@ export const FlappingWings: React.FC<FlappingWingsProps> = ({
     </div>
   );
 };
-
-export default FlappingWings;

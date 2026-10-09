@@ -38,7 +38,7 @@ const NotFoundPage = lazy(() =>
   import('./components/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
 );
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [isLoading, setIsLoading] = useState(() => {
     return window.location.pathname === '/' || window.location.pathname === '';

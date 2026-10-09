@@ -83,5 +83,3 @@ export const SignalRidge: React.FC = () => {
     </div>
   );
 };
-
-export default SignalRidge;

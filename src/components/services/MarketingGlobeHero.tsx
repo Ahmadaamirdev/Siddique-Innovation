@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
-import { feature } from 'topojson-client';
+import { feature, mesh } from 'topojson-client';
 
 interface MarketingGlobeHeroProps {
   heading?: React.ReactNode;
@@ -50,7 +50,7 @@ function latLongToVector3(lat: number, lon: number): THREE.Vector3 {
   );
 }
 
-// Generate genuine world map canvas with authentic country boundaries and smaller portions
+// Generate genuine world map canvas with prominent country and continent boundaries
 function drawGenuineWorldMap(topologyData: any, width = 2048, height = 1024): HTMLCanvasElement {
   const canvas = document.createElement('canvas');
   canvas.width = width;
@@ -58,11 +58,14 @@ function drawGenuineWorldMap(topologyData: any, width = 2048, height = 1024): HT
   const ctx = canvas.getContext('2d');
   if (!ctx) return canvas;
 
+  // Ocean: deep black (RGB: 0, 0, 0)
   ctx.fillStyle = '#000000';
   ctx.fillRect(0, 0, width, height);
 
   try {
-    const geo = feature(topologyData, topologyData.objects.countries || topologyData.objects.land) as any;
+    const land = feature(topologyData, topologyData.objects.land || topologyData.objects.countries) as any;
+    const coastlines = mesh(topologyData, topologyData.objects.countries, (a: any, b: any) => a === b) as any;
+    const internalBorders = mesh(topologyData, topologyData.objects.countries, (a: any, b: any) => a !== b) as any;
 
     const project = (lon: number, lat: number): [number, number] => {
       const x = ((lon + 180) / 360) * width;
@@ -73,8 +76,8 @@ function drawGenuineWorldMap(topologyData: any, width = 2048, height = 1024): HT
     const drawRing = (ring: number[][]) => {
       if (!ring || ring.length < 3) return;
       const [startX, startY] = project(ring[0][0], ring[0][1]);
-      let prevLon = ring[0][0];
       ctx.moveTo(startX, startY);
+      let prevLon = ring[0][0];
       for (let i = 1; i < ring.length; i++) {
         const [lon, lat] = ring[i];
         const [px, py] = project(lon, lat);
@@ -87,46 +90,63 @@ function drawGenuineWorldMap(topologyData: any, width = 2048, height = 1024): HT
       }
     };
 
-    // 1. Fill genuine landmasses
-    ctx.fillStyle = '#FFFFFF';
+    const drawMultiLine = (coords: number[][][]) => {
+      if (!coords) return;
+      ctx.beginPath();
+      for (const line of coords) {
+        if (!line || line.length < 2) continue;
+        const [startX, startY] = project(line[0][0], line[0][1]);
+        ctx.moveTo(startX, startY);
+        let prevLon = line[0][0];
+        for (let i = 1; i < line.length; i++) {
+          const [lon, lat] = line[i];
+          const [px, py] = project(lon, lat);
+          if (Math.abs(lon - prevLon) > 180) {
+            ctx.moveTo(px, py);
+          } else {
+            ctx.lineTo(px, py);
+          }
+          prevLon = lon;
+        }
+      }
+      ctx.stroke();
+    };
+
+    // 1. Fill genuine landmasses in RED channel (for dot matrix particles)
+    ctx.fillStyle = 'rgb(255, 0, 0)';
     ctx.beginPath();
-    for (const feat of geo.features || [geo]) {
+    const drawPolygon = (coordinates: number[][][]) => {
+      for (const ring of coordinates) {
+        drawRing(ring);
+      }
+    };
+
+    for (const feat of land.features || [land]) {
       const geom = feat.geometry || feat;
       if (!geom) continue;
       if (geom.type === 'Polygon') {
-        for (const ring of geom.coordinates) {
-          drawRing(ring);
-        }
+        drawPolygon(geom.coordinates);
       } else if (geom.type === 'MultiPolygon') {
         for (const poly of geom.coordinates) {
-          for (const ring of poly) {
-            drawRing(ring);
-          }
+          drawPolygon(poly);
         }
       }
     }
     ctx.fill();
 
-    // 2. Stroke genuine borders to break continents into smaller country portions
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 2.4;
-    ctx.beginPath();
-    for (const feat of geo.features || [geo]) {
-      const geom = feat.geometry || feat;
-      if (!geom) continue;
-      if (geom.type === 'Polygon') {
-        for (const ring of geom.coordinates) {
-          drawRing(ring);
-        }
-      } else if (geom.type === 'MultiPolygon') {
-        for (const poly of geom.coordinates) {
-          for (const ring of poly) {
-            drawRing(ring);
-          }
-        }
-      }
-    }
-    ctx.stroke();
+    // 2. Stroke country & continent boundaries in GREEN channel (for prominent vector lines)
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // 2a. Internal Country Borders (razor-sharp, thin boundary lines)
+    ctx.strokeStyle = 'rgb(0, 220, 0)';
+    ctx.lineWidth = 0.85;
+    drawMultiLine(internalBorders.coordinates);
+
+    // 2b. Coastlines / Continent Outlines (sharp, thin continent outlines)
+    ctx.strokeStyle = 'rgb(0, 255, 0)';
+    ctx.lineWidth = 1.25;
+    drawMultiLine(coastlines.coordinates);
   } catch (e) {
     console.error('Failed to draw genuine world map:', e);
   }
@@ -150,10 +170,11 @@ function createProceduralLandMask(): HTMLCanvasElement {
           Math.sin(lo * 2 + 1) * Math.cos(la * 3) +
           Math.sin(lo * 5) * Math.sin(la * 2) * 0.6;
         const idx = (j * 512 + i) * 4;
-        const val = v > 0.15 ? 255 : 0;
-        imgData.data[idx] = val;
-        imgData.data[idx + 1] = val;
-        imgData.data[idx + 2] = val;
+        const isLand = v > 0.15;
+        const isBorder = Math.abs(v - 0.15) < 0.05;
+        imgData.data[idx] = isLand ? 255 : 0;
+        imgData.data[idx + 1] = isBorder ? 255 : 0;
+        imgData.data[idx + 2] = 0;
         imgData.data[idx + 3] = 255;
       }
     }
@@ -251,25 +272,44 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
       varying vec2 vUv;
       varying vec3 vN;
       void main(){
-        // High density grid for authentic, articulate country portions (680 x 340)
-        vec2 g = vUv * vec2(680.0, 340.0);
+        // Grid sampling for continent dots (640 x 320)
+        vec2 g = vUv * vec2(640.0, 320.0);
         vec2 cell = floor(g) + 0.5;
-        float l = texture2D(uLand, cell / vec2(680.0, 340.0)).r;
+        vec4 cellSample = texture2D(uLand, cell / vec2(640.0, 320.0));
+        float land = cellSample.r;
         float dist = length(fract(g) - 0.5);
-        // Smaller, refined dots revealing genuine coastlines and country borders
-        float d = (1.0 - smoothstep(0.18, 0.40, dist)) * l;
+
+        // Discrete dots representing land interior
+        float dotShape = (1.0 - smoothstep(0.18, 0.40, dist)) * land;
         float la = abs(fract(vUv.y * 18.0) - 0.5);
         float lo = abs(fract(vUv.x * 36.0) - 0.5);
-        float gr = ((1.0 - smoothstep(0.0, 0.012, la)) + (1.0 - smoothstep(0.0, 0.006, lo))) * 0.05;
+        float gr = ((1.0 - smoothstep(0.0, 0.012, la)) + (1.0 - smoothstep(0.0, 0.006, lo))) * 0.035;
         
         // Pole fade prevents dots from condensing into a solid wall at the horizon
         float poleFade = smoothstep(0.02, 0.16, vUv.y) * smoothstep(0.98, 0.84, vUv.y);
-        d *= poleFade;
+        dotShape *= poleFade;
 
-        // Visible grazing rim glow on globe edge
-        float fr = pow(1.0 - max(dot(normalize(vN), vec3(0.0, 0.0, 1.0)), 0.0), 3.2);
-        vec3 c = uColor * (d * 0.92 + gr * 0.45) + uColor * (fr * 0.55);
-        gl_FragColor = vec4(c + vec3(0.004, 0.007, 0.006), 1.0);
+        // Sample continuous vector boundaries from Green channel at full UV resolution!
+        float rawBorder = texture2D(uLand, vUv).g;
+        // Sharpen the boundary into a razor-thin, crisp hairline line (cuts off soft anti-aliased fringes)
+        float border = smoothstep(0.38, 0.65, rawBorder);
+
+        // Outer surface gradient + radiant rim glow (leaves rich depth and glow without obscuring the continents)
+        float rim = 1.0 - max(dot(normalize(vN), vec3(0.0, 0.0, 1.0)), 0.0);
+        float surfaceGradient = pow(rim, 2.0) * 0.22;
+        float rimGlow = pow(rim, 3.2) * 0.52;
+        float fr = surfaceGradient + rimGlow;
+
+        // Land dots color (restrained tech teal)
+        vec3 landCol = uColor * (dotShape * 0.90 + gr * 0.25);
+
+        // Sharp, thin, luminous boundary line (high-contrast cyan-white)
+        vec3 borderCol = mix(uColor * 1.35, vec3(1.0, 1.0, 1.0), 0.65) * border * 1.5;
+
+        // Combine: land dots + sharp thin boundaries + balanced ambient surface glow
+        vec3 c = landCol * (1.0 - border * 0.5) + borderCol + uColor * fr;
+
+        gl_FragColor = vec4(c + vec3(0.003, 0.005, 0.004), 1.0);
       }
     `;
 
@@ -282,8 +322,8 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
     const globe = new THREE.Mesh(globeGeom, globeMat);
     spinGroup.add(globe);
 
-    // 3b. Atmospheric Rim Glow (luminous, vibrant cyan aura around the horizon)
-    const atmGeom = new THREE.SphereGeometry(1.07, 64, 48);
+    // 3b. Atmospheric Rim Glow (Balanced, luminous outer halo that preserves radiant aesthetic)
+    const atmGeom = new THREE.SphereGeometry(1.06, 64, 48);
     const atmMat = new THREE.ShaderMaterial({
       uniforms,
       transparent: true,
@@ -295,8 +335,8 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
         uniform vec3 uColor;
         varying vec3 vN;
         void main(){
-          float d = max(0.0, 0.64 - dot(normalize(vN), vec3(0.0, 0.0, 1.0)));
-          float i = pow(d, 2.3) * 1.25;
+          float d = max(0.0, 0.62 - dot(normalize(vN), vec3(0.0, 0.0, 1.0)));
+          float i = pow(d, 2.3) * 1.05;
           gl_FragColor = vec4(uColor * i, i);
         }
       `,
@@ -978,5 +1018,3 @@ const STYLE = `
   }
 }
 `;
-
-export default MarketingGlobeHero;
