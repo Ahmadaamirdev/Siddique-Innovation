@@ -92,5 +92,3 @@ export const SignalRidgeFallback: React.FC = () => {
     </div>
   );
 };
-
-export default SignalRidgeFallback;

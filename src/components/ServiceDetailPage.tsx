@@ -50,7 +50,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     return () => {
       document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
     };
-  }, [service.slug, startScroll]);
+  }, [service.slug, service.title, startScroll]);
 
   const renderPage = () => {
     switch (service.slug) {
@@ -128,5 +128,3 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     </Suspense>
   );
 };
-
-export default ServiceDetailPage;

@@ -38,5 +38,3 @@ export const SignalRidgeSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default SignalRidgeSkeleton;

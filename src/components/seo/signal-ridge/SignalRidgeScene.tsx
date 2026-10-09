@@ -65,7 +65,7 @@ function createMonthLabelSprite(text: string): THREE.Sprite {
   return sprite;
 }
 
-export const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
+const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   onProgress,
   onHoverColumn,
   onJuneProjected,

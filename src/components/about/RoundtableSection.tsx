@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 import { Users } from 'lucide-react';
 
 /* ───────────────────────── PARTNER DATA ───────────────────────── */
-export interface Partner {
+interface Partner {
   id: string;
   name: string;
   role: string;
@@ -12,7 +12,7 @@ export interface Partner {
   initials: string;
 }
 
-export const PARTNERS: Partner[] = [
+const PARTNERS: Partner[] = [
   {
     id: 'partner-1',
     name: 'Partner one',
@@ -274,6 +274,8 @@ export const RoundtableSection: React.FC = () => {
     });
   };
 
+  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+
   /* ───────────────────────── REDUCED MOTION VIEW ───────────────────────── */
   if (prefersReducedMotion) {
     return (
@@ -335,7 +337,6 @@ export const RoundtableSection: React.FC = () => {
 
   /* ───────────────────────── SINGLE VIEWPORT STICKY SECTION ───────────────────────── */
   const activePartner = activeIndex !== null ? PARTNERS[activeIndex] : null;
-  const [imgErrors, setImgErrors] = React.useState<Record<string, boolean>>({});
 
   return (
     <section
@@ -640,5 +641,3 @@ export const RoundtableSection: React.FC = () => {
     </section>
   );
 };
-
-export default RoundtableSection;

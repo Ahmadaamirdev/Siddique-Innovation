@@ -473,8 +473,9 @@ export const WebBuildingAnimation: React.FC = () => {
 
   useEffect(() => {
     play();
+    const currentRun = runRef;
     return () => {
-      runRef.current++;
+      currentRun.current++;
     };
   }, [play]);
 
@@ -523,5 +524,3 @@ const STYLE = `
   box-sizing: border-box;
 }
 `;
-
-export default WebBuildingAnimation;

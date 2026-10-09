@@ -63,6 +63,3 @@ const CSS = `
   align-items: center;
 }
 `;
-
-export default OrganicPerformance;
-export { SignalRidge };

@@ -8,9 +8,6 @@ import { FlappingWings } from './hero/FlappingWings';
 
 export interface HeroProps {
   onNavigate?: (path: string) => void;
-  progressProp?: any;
-  isRevealedProp?: boolean;
-  onRevealedChange?: (revealed: boolean) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -313,5 +310,3 @@ export const Hero: React.FC<HeroProps> = ({
     </div>
   );
 };
-
-export default Hero;
