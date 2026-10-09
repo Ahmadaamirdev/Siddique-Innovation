@@ -24,25 +24,25 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
   const avgPosVal = Math.max(1, Math.round(50 - (50 - summary.avgPosition) * progress));
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-end p-3.5 sm:p-5 lg:p-6 select-none">
-      {/* ── BOTTOM STAT BLOCKS (Positioned in corners) ── */}
-      <div className="w-full max-w-6xl mx-auto flex items-end justify-between gap-4 pointer-events-auto">
+    <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-end px-6 sm:px-12 lg:px-16 xl:px-24 pb-10 sm:pb-14 lg:pb-16 select-none">
+      {/* ── BOTTOM STAT BLOCKS (Positioned inward from corners) ── */}
+      <div className="w-full max-w-5xl mx-auto flex items-end justify-between gap-6 pointer-events-auto">
         {/* LEFT COLUMN: Clicks & Impressions */}
-        <div className="flex flex-col gap-3 sm:gap-4 text-left">
+        <div className="flex flex-col gap-16 sm:gap-20 lg:gap-24 text-left">
           {/* Clicks */}
           <div className="flex flex-col">
-            <span className="text-[10px] sm:text-[10.5px] font-mono text-[#6b8480] uppercase tracking-wider">
+            <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
               Clicks
             </span>
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-2.5">
               <span
-                className="text-2xl sm:text-3xl text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.2)]"
+                className="text-3xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
                 style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
               >
                 {clicksVal}
-                <small className="text-xs sm:text-sm text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
+                <small className="text-sm sm:text-base text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
               </span>
-              <span className="text-[10px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-1.5 py-0.5 rounded">
+              <span className="text-[11px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-2 py-0.5 rounded">
                 +{summary.clicksGrowthPercent}%
               </span>
             </div>
@@ -50,18 +50,18 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
 
           {/* Impressions */}
           <div className="flex flex-col">
-            <span className="text-[10px] sm:text-[10.5px] font-mono text-[#6b8480] uppercase tracking-wider">
+            <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
               Impressions
             </span>
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-2.5">
               <span
-                className="text-2xl sm:text-3xl text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.2)]"
+                className="text-3xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
                 style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
               >
                 {imprVal}
-                <small className="text-xs sm:text-sm text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
+                <small className="text-sm sm:text-base text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
               </span>
-              <span className="text-[10px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-1.5 py-0.5 rounded">
+              <span className="text-[11px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-2 py-0.5 rounded">
                 +{summary.impressionsGrowthPercent}%
               </span>
             </div>
@@ -69,48 +69,48 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
         </div>
 
         {/* RIGHT COLUMN: Avg. position */}
-        <div className="flex flex-col items-end text-right">
-          <span className="text-[10px] sm:text-[10.5px] font-mono text-[#6b8480] uppercase tracking-wider">
+        <div className="flex flex-col items-end text-right mb-12 sm:mb-16 lg:mb-20">
+          <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
             Avg. position
           </span>
           <span
-            className="text-2xl sm:text-3xl text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.2)]"
+            className="text-3xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
             style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
           >
             {String(avgPosVal).padStart(2, '0')}
           </span>
 
           {/* Tick ruler */}
-          <div className="w-24 sm:w-28 my-1.5">
-            <div className="flex justify-between items-end h-2">
+          <div className="w-28 sm:w-36 my-2">
+            <div className="flex justify-between items-end h-2.5">
               {Array.from({ length: 25 }, (_, i) => (
                 <i
                   key={i}
                   className={`w-px ${
                     i === 0 || i === 24
-                      ? 'h-2.5 bg-[#1fd6a5]'
+                      ? 'h-3 bg-[#1fd6a5]'
                       : i % 5 === 0
-                        ? 'h-1.5 bg-[#5fd9c3]/50'
-                        : 'h-1 bg-[#5fd9c3]/20'
+                        ? 'h-2 bg-[#5fd9c3]/50'
+                        : 'h-1.5 bg-[#5fd9c3]/20'
                   }`}
                 />
               ))}
             </div>
-            <div className="flex justify-between text-[8px] font-mono text-[#6b8480] mt-0.5">
+            <div className="flex justify-between text-[9px] sm:text-[10px] font-mono text-[#6b8480] mt-1">
               <span>01</span>
               <span>25</span>
               <span>50</span>
             </div>
           </div>
 
-          <div className="flex flex-col items-end mt-0.5">
+          <div className="flex flex-col items-end mt-1">
             <span
-              className="text-[11px] sm:text-xs text-[#e6f2ef] font-serif leading-none"
+              className="text-xs sm:text-[13px] text-[#e6f2ef] font-serif leading-none"
               style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
             >
               {summary.brandName}
             </span>
-            <span className="text-[8.5px] sm:text-[9.5px] font-mono text-[#1fd6a5] tracking-wider mt-0.5">
+            <span className="text-[9.5px] sm:text-[10.5px] font-mono text-[#1fd6a5] tracking-wider mt-0.5">
               {summary.rankBadge}
             </span>
           </div>
