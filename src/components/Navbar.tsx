@@ -305,7 +305,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="md:hidden pointer-events-auto w-full max-w-5xl mt-2 rounded-2xl bg-[#080D11]/90 backdrop-blur-2xl border border-[#00E6D2]/30 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(0,230,210,0.15)] p-3.5 flex flex-col gap-1.5"
+            className="md:hidden pointer-events-auto w-full max-w-5xl mt-2 max-h-[calc(100dvh-5.5rem)] overflow-y-auto overscroll-contain rounded-2xl bg-[#080D11]/95 backdrop-blur-2xl border border-[#00E6D2]/30 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(0,230,210,0.15)] p-3.5 flex flex-col gap-1.5"
           >
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
@@ -314,7 +314,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <div key={link} className="flex flex-col">
                       <button
                         onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                        className="w-full flex items-center justify-between text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
+                        className="w-full min-h-[44px] flex items-center justify-between text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
                       >
                         <span>Services</span>
                         <ChevronDown
@@ -330,10 +330,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                               key={service.slug}
                               href={`/services/${service.slug}`}
                               onClick={(e) => handleServiceSelect(service.slug, e)}
-                              className="flex items-center gap-2.5 py-2 px-3 rounded-full text-xs font-medium text-gray-300 hover:text-[#00FFE5] hover:bg-[#00E6D2]/10 transition-colors cursor-pointer"
+                              className="min-h-[44px] flex items-center gap-2.5 py-2 px-3 rounded-full text-xs font-medium text-gray-300 hover:text-[#00FFE5] hover:bg-[#00E6D2]/10 transition-colors cursor-pointer"
                             >
                               <span className="text-gray-400 group-hover:text-[#00FFE5]">
-                                {getServiceIcon(service.iconName, 'w-3.5 h-3.5')}
+                                {getServiceIcon(service.iconName, 'w-4 h-4')}
                               </span>
                               <span>{service.title}</span>
                             </a>
@@ -352,7 +352,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setMobileMenuOpen(false);
                       handleLinkClick(link, e);
                     }}
-                    className="text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
+                    className="min-h-[44px] flex items-center text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
                   >
                     {link}
                   </a>
@@ -364,7 +364,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-colors cursor-pointer"
+                className="mt-2 min-h-[44px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-colors cursor-pointer"
               >
                 <span>Book Discovery Call</span>
                 <WhatsAppIcon className="w-4 h-4 fill-current text-[#00E6D2]" />

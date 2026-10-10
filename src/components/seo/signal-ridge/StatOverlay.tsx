@@ -4,14 +4,14 @@ import type { HoveredColumnInfo } from './types';
 
 interface StatOverlayProps {
   progress: number; // 0 to 1
-  hoveredColumn: HoveredColumnInfo | null;
+  hoveredColumn?: HoveredColumnInfo | null;
   juneProjected: { x: number; y: number; visible: boolean } | null;
   onReplay?: () => void;
 }
 
 export const StatOverlay: React.FC<StatOverlayProps> = ({
   progress,
-  hoveredColumn,
+  hoveredColumn: _hoveredColumn,
   juneProjected,
 }) => {
   const { summary } = SIGNAL_RIDGE_DATA;
@@ -24,25 +24,25 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
   const avgPosVal = Math.max(1, Math.round(50 - (50 - summary.avgPosition) * progress));
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-end px-6 sm:px-12 lg:px-16 xl:px-24 pb-10 sm:pb-14 lg:pb-16 select-none">
+    <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-end px-3 sm:px-12 lg:px-16 xl:px-24 pb-4 sm:pb-14 lg:pb-16 select-none">
       {/* ── BOTTOM STAT BLOCKS (Positioned inward from corners) ── */}
-      <div className="w-full max-w-5xl mx-auto flex items-end justify-between gap-6 pointer-events-auto">
+      <div className="w-full max-w-5xl mx-auto flex items-end justify-between gap-3 sm:gap-6 pointer-events-auto">
         {/* LEFT COLUMN: Clicks & Impressions */}
-        <div className="flex flex-col gap-16 sm:gap-20 lg:gap-24 text-left">
+        <div className="flex flex-col gap-6 sm:gap-20 lg:gap-24 text-left">
           {/* Clicks */}
           <div className="flex flex-col">
-            <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
+            <span className="text-[10px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
               Clicks
             </span>
-            <div className="flex items-baseline gap-2.5">
+            <div className="flex items-baseline gap-2">
               <span
-                className="text-3xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
+                className="text-2xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
                 style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
               >
                 {clicksVal}
-                <small className="text-sm sm:text-base text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
+                <small className="text-xs sm:text-base text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
               </span>
-              <span className="text-[11px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-2 py-0.5 rounded">
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-1.5 sm:px-2 py-0.5 rounded">
                 +{summary.clicksGrowthPercent}%
               </span>
             </div>
@@ -50,18 +50,18 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
 
           {/* Impressions */}
           <div className="flex flex-col">
-            <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
+            <span className="text-[10px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
               Impressions
             </span>
-            <div className="flex items-baseline gap-2.5">
+            <div className="flex items-baseline gap-2">
               <span
-                className="text-3xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
+                className="text-2xl sm:text-4xl lg:text-[40px] text-[#1fd6a5] font-serif leading-none drop-shadow-[0_0_20px_rgba(31,214,165,0.25)]"
                 style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
               >
                 {imprVal}
-                <small className="text-sm sm:text-base text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
+                <small className="text-xs sm:text-base text-[#5fd9c3] opacity-80 ml-0.5 font-mono">k</small>
               </span>
-              <span className="text-[11px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-2 py-0.5 rounded">
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#5fd9c3] bg-[#1fd6a5]/10 border border-[#1fd6a5]/25 px-1.5 sm:px-2 py-0.5 rounded">
                 +{summary.impressionsGrowthPercent}%
               </span>
             </div>
@@ -69,7 +69,7 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
         </div>
 
         {/* RIGHT COLUMN: Avg. position */}
-        <div className="flex flex-col items-end text-right mb-12 sm:mb-16 lg:mb-20">
+        <div className="flex flex-col items-end text-right mb-2 sm:mb-16 lg:mb-20">
           <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
             Avg. position
           </span>
@@ -125,7 +125,7 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
       </div>
 
       {/* ── PROJECTED 3D FINALE LABEL ── */}
-      {juneProjected && juneProjected.visible && (!hoveredColumn || hoveredColumn.month !== SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].month) && (
+      {juneProjected && juneProjected.visible && (
         <div
           style={{
             left: `${juneProjected.x}px`,
@@ -144,29 +144,9 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
         </div>
       )}
 
-      {/* ── HOVER TOOLTIP PILL ── */}
-      {hoveredColumn && (
-        <div
-          style={{
-            left: `${hoveredColumn.screenX}px`,
-            top: `${hoveredColumn.screenY}px`,
-            transform: 'translate(18px, -50%)',
-          }}
-          className="absolute z-30 pointer-events-none px-3 py-1 rounded-full bg-[#06110f]/95 border border-[#1fd6a5]/60 shadow-[0_0_15px_rgba(31,214,165,0.3)] backdrop-blur-lg text-xs font-mono text-[#e6f2ef] whitespace-nowrap flex items-center gap-1.5 animate-fadeIn"
-        >
-          <span className="text-[#1fd6a5] font-bold">{hoveredColumn.month}</span>
-          <span className="text-white/30">·</span>
-          <span>{hoveredColumn.clicks.toFixed(1)}k clicks</span>
-          <span className="text-white/30">·</span>
-          <span className="text-[#5fd9c3]">{hoveredColumn.impressions}k impr.</span>
-        </div>
-      )}
-
       {/* Visually hidden text for accessibility */}
       <span className="sr-only">
-        {hoveredColumn
-          ? `${hoveredColumn.month}: ${hoveredColumn.clicks}k clicks, ${hoveredColumn.impressions}k impressions`
-          : `Interactive 3D graph showing organic search growth from ${SIGNAL_RIDGE_DATA.months[0].month} to ${SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].month}`}
+        {`Interactive 3D graph showing organic search growth from ${SIGNAL_RIDGE_DATA.months[0].month} to ${SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].month}`}
       </span>
     </div>
   );

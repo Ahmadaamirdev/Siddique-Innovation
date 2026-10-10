@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
 import { CheckCircle2, Calendar, Users, Building2 } from 'lucide-react';
 
@@ -81,22 +81,22 @@ export const Stats: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 0.6 }}
-          className="bg-[#0B0E13]/90 backdrop-blur-xl border border-[#00E6D2]/20 rounded-2xl py-4 sm:py-5 px-6 sm:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform-gpu will-change-transform"
+          className="bg-[#0B0E13]/90 backdrop-blur-xl border border-[#00E6D2]/20 rounded-2xl py-4 sm:py-5 px-3 sm:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform-gpu will-change-transform"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-6 lg:gap-8">
             {stats.map((stat, idx) => {
               const IconComponent = stat.icon;
               return (
                 <div
                   key={idx}
-                  className="group flex items-center justify-center gap-4 sm:gap-5 py-2 px-2 transition-transform duration-300 hover:-translate-y-1"
+                  className="group flex flex-col sm:flex-row items-center justify-center text-center sm:text-left gap-2 sm:gap-4 py-2 px-1 sm:px-2 transition-transform duration-300 hover:-translate-y-1"
                 >
-                  <div className="p-3 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/20 text-[#00E6D2] shrink-0 transition-colors duration-300 group-hover:border-[#00E6D2]/50 group-hover:bg-[#00E6D2]/15">
-                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-[#00E6D2]" />
+                  <div className="p-2.5 sm:p-3 rounded-xl bg-[#00E6D2]/10 border border-[#00E6D2]/20 text-[#00E6D2] shrink-0 transition-colors duration-300 group-hover:border-[#00E6D2]/50 group-hover:bg-[#00E6D2]/15">
+                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-[#00E6D2]" />
                   </div>
 
-                  <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight block transition-colors duration-300 group-hover:text-[#00E6D2]">
+                  <div className="min-w-0">
+                    <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight block transition-colors duration-300 group-hover:text-[#00E6D2]">
                       <AnimatedCounter
                         target={stat.target}
                         suffix={stat.suffix}
@@ -104,7 +104,7 @@ export const Stats: React.FC = () => {
                         duration={stat.duration}
                       />
                     </span>
-                    <span className="text-xs sm:text-sm text-gray-400 font-medium whitespace-nowrap">
+                    <span className="text-[11px] sm:text-xs lg:text-sm text-gray-400 font-medium block leading-tight">
                       {stat.label}
                     </span>
                   </div>

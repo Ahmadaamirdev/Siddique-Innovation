@@ -141,7 +141,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Clock className="w-4 h-4 text-red-400" />
                       </div>
@@ -155,7 +155,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <CircleX className="w-4 h-4 text-red-400" />
                       </div>
@@ -169,7 +169,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Hourglass className="w-4 h-4 text-red-400" />
                       </div>
@@ -223,7 +223,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <Zap className="w-4 h-4 text-[#00FFE5]" />
                       </div>
@@ -237,7 +237,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <RefreshCw className="w-4 h-4 text-[#00FFE5]" />
                       </div>
@@ -251,7 +251,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <Check className="w-4 h-4 text-[#00FFE5]" />
                       </div>

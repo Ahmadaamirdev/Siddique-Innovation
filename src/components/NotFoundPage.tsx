@@ -86,7 +86,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
               <span className="text-[#00FFE5] font-semibold">curl</span>
               <span className="text-gray-400">-I</span>
               <span className="text-gray-300 break-all">
-                https://siddiquiinnovations.com{displayPath}
+                https://siddiqui-innovations.com{displayPath}
               </span>
             </div>
 

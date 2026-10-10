@@ -468,14 +468,14 @@ export const RoundtableSection: React.FC = () => {
                     exit={{ opacity: 0, x: 40, scale: 0.97 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     aria-live="polite"
-                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-6 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden"
+                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-6 relative overflow-hidden"
                   >
                     {/* Ambient Glow */}
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
                     {/* Partner Avatar inside the right card */}
                     <div className="flex flex-col items-center justify-center shrink-0 my-auto">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_24px_rgba(0,230,210,0.7)] overflow-hidden relative">
+                      <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_24px_rgba(0,230,210,0.7)] overflow-hidden relative">
                         <img
                           src={activePartner.image}
                           alt={activePartner.name}
@@ -499,7 +499,7 @@ export const RoundtableSection: React.FC = () => {
                           </span>
                         </div>
 
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mb-2.5">
+                        <h3 className="text-xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mb-2">
                           {activePartner.name}
                         </h3>
 
@@ -522,20 +522,20 @@ export const RoundtableSection: React.FC = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-6 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col relative overflow-hidden"
+                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
                     {/* Header */}
                     <div className="mb-4">
                       <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest">Founding Partners</span>
-                      <h3 className="text-xl sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-1">
+                      <h3 className="text-lg sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-1">
                         The Team Behind the Vision
                       </h3>
                     </div>
 
-                    {/* Three partner images side by side */}
-                    <div className="flex flex-row items-stretch gap-4 flex-1">
+                    {/* Three partner images side by side or stacked on mobile */}
+                    <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4 flex-1">
                       {PARTNERS.map((partner, idx) => (
                         <motion.div
                           key={partner.id}

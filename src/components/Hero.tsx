@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({
       {/* scrolls through Section 1 and Section 2.                       */}
       {/* Clean solid dark background without image.                     */}
       {/* ============================================================== */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
+      <div className="sticky top-0 h-[100dvh] w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
         {/* 3D Flapping Wings centered in the screen & staying still (shifted a bit downward) */}
         <div className="relative z-10 flex items-center justify-center translate-y-6 sm:translate-y-10 lg:translate-y-12">
           <FlappingWings reducedMotion={reducedMotion} size="lg" />
@@ -108,23 +108,23 @@ export const Hero: React.FC<HeroProps> = ({
       </div>
 
       {/* ============================================================== */}
-      {/* FOREGROUND SECTIONS CONTAINER (-mt-[100vh] overlays Section 1) */}
+      {/* FOREGROUND SECTIONS CONTAINER (-mt-[100dvh] overlays Section 1) */}
       {/* ============================================================== */}
-      <div className="relative z-10 -mt-[100vh] pb-4 sm:pb-6">
+      <div className="relative z-10 -mt-[100dvh] pb-4 sm:pb-6">
         {/* ============================================================ */}
-        {/* SECTION 1: UPPER SECTION (100vh)                             */}
+        {/* SECTION 1: UPPER SECTION (100dvh)                            */}
         {/* Layout:                                                      */}
         {/* - Top Left: H1 Heading + compact CTA Button just below it    */}
         {/* - Center: Wings (Visible in the background, flapping)        */}
         {/* - Right Middle: Description (blurry frosted glass card)      */}
         {/* - Bottom Right: Scroll to explore prompt                     */}
         {/* ============================================================ */}
-        <section className="relative w-full h-screen min-h-[660px] max-h-[1050px] flex flex-col justify-between pointer-events-none">
+        <section className="relative w-full h-[100dvh] min-h-[560px] sm:min-h-[660px] max-h-[1050px] flex flex-col justify-between pointer-events-none">
           {/* Navbar Spacer */}
-          <div className="h-20 sm:h-24 lg:h-28 shrink-0 w-full" />
+          <div className="h-16 sm:h-24 lg:h-28 shrink-0 w-full" />
 
           {/* TOP-LEFT: H1 Heading */}
-          <div className="w-full flex items-start justify-start pt-2 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
+          <div className="w-full flex items-start justify-start pt-1 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
             <motion.div
               style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
               className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-left"
@@ -148,16 +148,16 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* RIGHT-SIDE MIDDLE: Description with rounded curved borders on all sides */}
-          <div className="w-full flex items-center justify-end pointer-events-auto my-auto py-2 sm:py-4 pr-3 sm:pr-4 lg:pr-6 translate-y-8 sm:translate-y-10 lg:translate-y-12">
+          <div className="w-full flex items-center justify-end pointer-events-auto my-auto py-2 sm:py-4 px-3 sm:px-4 lg:pr-6 translate-y-3 sm:translate-y-10 lg:translate-y-12">
             <motion.div
               style={{
                 ...(reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }),
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
-              className="relative max-w-[280px] sm:max-w-[320px] md:max-w-[350px] lg:max-w-[390px] xl:max-w-[420px] text-left p-4 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+              className="relative max-w-[270px] sm:max-w-[320px] md:max-w-[350px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
             >
-              <p className="text-gray-300 text-xs sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
+              <p className="text-gray-300 text-[11px] sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
                 Siddiqui Innovations helps businesses build high-performing websites,
                 automate repetitive processes with AI and strengthen their digital presence
                 through strategic marketing solutions designed around their goals.
@@ -206,7 +206,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <motion.a
                   whileHover={{ y: -3, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/share/17rWKh9V3M/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-xl bg-[#060B10]/85 border border-[#00FFE5]/30 hover:border-[#00FFE5] hover:bg-[#00FFE5]/15 flex items-center justify-center text-gray-300 hover:text-[#00FFE5] transition-all duration-300 shadow-[0_0_12px_rgba(0,255,229,0.1)]"
@@ -222,7 +222,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <motion.a
                   whileHover={{ y: -3, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/siddiqui-innovations"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-xl bg-[#060B10]/85 border border-[#00FFE5]/30 hover:border-[#00FFE5] hover:bg-[#00FFE5]/15 flex items-center justify-center text-gray-300 hover:text-[#00FFE5] transition-all duration-300 shadow-[0_0_12px_rgba(0,255,229,0.1)]"
@@ -245,10 +245,10 @@ export const Hero: React.FC<HeroProps> = ({
         {/* visible and blurred behind the glass!                        */}
         {/* Inside: 3 Small Cards containing the points from hero.       */}
         {/* ============================================================ */}
-        <section className="relative w-full min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 z-20">
+        <section className="relative w-full min-h-screen flex items-center justify-center pt-20 sm:pt-28 pb-12 sm:pb-16 px-3 sm:px-6 lg:px-8 z-20">
           <motion.div
             style={reducedMotion ? {} : { scale: cardScale }}
-            className="w-full max-w-6xl mx-auto rounded-3xl p-6 sm:p-10 lg:p-12 relative overflow-hidden backdrop-blur-sm bg-[#050505]/10 border border-[#00FFE5]/30 shadow-[0_0_60px_rgba(0,255,229,0.12),0_30px_70px_rgba(0,0,0,0.7)] pointer-events-auto"
+            className="w-full max-w-6xl mx-auto rounded-2xl sm:rounded-3xl p-4 sm:p-10 lg:p-12 relative overflow-hidden backdrop-blur-sm bg-[#050505]/10 border border-[#00FFE5]/30 shadow-[0_0_60px_rgba(0,255,229,0.12),0_30px_70px_rgba(0,0,0,0.7)] pointer-events-auto"
           >
             {/* Inner Content with Scroll-Linked Text Blur to Clear effect (No fading, 100% solid text) */}
             <motion.div
@@ -256,7 +256,7 @@ export const Hero: React.FC<HeroProps> = ({
               className="transform-gpu will-change-[filter]"
             >
               {/* Header of the Big Transparent Card (Why Businesses Choose Siddiqui Innovations) */}
-              <div className="relative text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+              <div className="relative text-center max-w-2xl mx-auto mb-6 sm:mb-12">
                 <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                   <span className="block">Why Businesses Choose</span>{' '}
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.5)]">
@@ -270,19 +270,19 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
 
               {/* The 3 Small Transparent Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 relative z-10">
                 {heroCards.map((card) => {
                   return (
                     <div
                       key={card.id}
-                      className="relative flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-transparent border border-[#00FFE5]/30 shadow-[0_0_20px_rgba(0,255,229,0.06)]"
+                      className="relative flex flex-col justify-between p-4 sm:p-8 rounded-2xl bg-transparent border border-[#00FFE5]/30 shadow-[0_0_20px_rgba(0,255,229,0.06)]"
                     >
                       <div>
                         {/* Card Title & Subtitle */}
-                        <h3 className="text-xl sm:text-2xl font-bold text-white font-heading leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                        <h3 className="text-lg sm:text-2xl font-bold text-white font-heading leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
                           {card.title}
                         </h3>
-                        <p className="text-gray-300 text-xs sm:text-sm font-sans mt-2 leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                        <p className="text-gray-300 text-xs sm:text-sm font-sans mt-1.5 sm:mt-2 leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
                           {card.subtitle}
                         </p>
 

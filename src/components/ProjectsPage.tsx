@@ -99,7 +99,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
           >
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'all'
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'all'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
                 }`}
@@ -110,7 +110,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
 
             <button
               onClick={() => setFilter('web')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'web'
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'web'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
                 }`}
@@ -121,7 +121,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
 
             <button
               onClick={() => setFilter('ai')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'ai'
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'ai'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
                 }`}
@@ -133,7 +133,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
         </div>
 
         {/* Project Cards Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           <AnimatePresence>
             {filteredProjects.map((project, index) => {
               const CardWrapper = project.link ? 'a' : 'div';
@@ -166,7 +166,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                     </div>
 
                     {/* Card Meta Footer */}
-                    <div className="p-6 flex flex-col justify-between flex-1">
+                    <div className="p-4 sm:p-6 flex flex-col justify-between flex-1">
                       <div>
                         <div className="flex items-start justify-between gap-2 mb-3">
                           <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">

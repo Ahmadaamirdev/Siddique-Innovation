@@ -172,10 +172,10 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
                   </button>{' '}
                   or via email at{' '}
                   <a
-                    href="mailto:info@siddiquiinnovations.com"
+                    href="mailto:info@siddiqui-innovations.com"
                     className="text-[#00FFE5] underline hover:text-white transition-colors"
                   >
-                    info@siddiquiinnovations.com
+                    info@siddiqui-innovations.com
                   </a>.
                 </p>
               </div>

@@ -149,10 +149,10 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
                   </button>{' '}
                   or via email at{' '}
                   <a
-                    href="mailto:info@siddiquiinnovations.com"
+                    href="mailto:info@siddiqui-innovations.com"
                     className="text-[#00FFE5] underline hover:text-white transition-colors"
                   >
-                    info@siddiquiinnovations.com
+                    info@siddiqui-innovations.com
                   </a>.
                 </p>
                 <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/10 text-xs font-mono text-gray-400 flex items-center gap-2">
