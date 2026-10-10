@@ -97,11 +97,6 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   const ring1MeshRef = useRef<THREE.Mesh | null>(null);
   const ring2MeshRef = useRef<THREE.Mesh | null>(null);
 
-  // Interaction
-  const raycasterRef = useRef<THREE.Raycaster>(new THREE.Raycaster());
-  const mouseNdcRef = useRef<THREE.Vector2>(new THREE.Vector2(-999, -999));
-  const mouseParallaxRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const hoveredColIndexRef = useRef<number>(-1);
   const introFinishedRef = useRef<boolean>(false);
   const june3DPosRef = useRef<THREE.Vector3>(new THREE.Vector3());
 
@@ -113,7 +108,6 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   // Reset function called on replay
   const handleResetTimeline = useCallback(() => {
     introFinishedRef.current = false;
-    hoveredColIndexRef.current = -1;
     if (onHoverColumn) onHoverColumn(null);
   }, [onHoverColumn]);
 
@@ -181,7 +175,6 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     }
 
     // 6. Columns: hexagonal prisms
-    // Increased height multiplier for dramatic length: clicks * 0.38
     const numMonths = SIGNAL_RIDGE_DATA.months.length;
     const centerOffset = (numMonths - 1) / 2;
     const colSpacing = 1.05;
@@ -206,6 +199,13 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     const padMat = new THREE.MeshBasicMaterial({ color: 0x06110f });
     disposablesRef.current.push(padMat);
 
+    const edgeMat = new THREE.LineBasicMaterial({
+      color: 0x1fd6a5,
+      transparent: true,
+      opacity: 0.75,
+    });
+    disposablesRef.current.push(edgeMat);
+
     SIGNAL_RIDGE_DATA.months.forEach((item, i) => {
       const x = (i - centerOffset) * colSpacing;
       const targetH = heights[i];
@@ -217,7 +217,7 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
 
       // Column Mesh
       const colMat = new THREE.MeshStandardMaterial({
-        color: 0x0e2e28,
+        color: 0x0c2722,
         emissive: 0x1fd6a5,
         emissiveIntensity: 0.16,
         roughness: 0.32,
@@ -233,13 +233,7 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       colMesh.scale.set(1, 0.001, 1);
       colMesh.userData = { index: i, month: item.month, clicks: item.clicks, impressions: item.impressions };
 
-      // Edges teal outline as child so it scales with column
-      const edgeMat = new THREE.LineBasicMaterial({
-        color: 0x1fd6a5,
-        transparent: true,
-        opacity: 0.75,
-      });
-      disposablesRef.current.push(edgeMat);
+      // Edges outline
       const edgeLines = new THREE.LineSegments(edgesGeom, edgeMat);
       colMesh.add(edgeLines);
 
@@ -382,72 +376,6 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     };
   }, [isMobile]);
 
-  // Pointer interactions (raycasting & parallax)
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const rect = container.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // NDC coordinates for Raycaster
-    mouseNdcRef.current.x = (x / rect.width) * 2 - 1;
-    mouseNdcRef.current.y = -(y / rect.height) * 2 + 1;
-
-    // Mouse parallax normalized [-1, 1]
-    mouseParallaxRef.current.x = ((x / rect.width) - 0.5) * 2;
-    mouseParallaxRef.current.y = ((y / rect.height) - 0.5) * 2;
-
-    // Raycast if intro is finished
-    if (introFinishedRef.current && cameraRef.current) {
-      raycasterRef.current.setFromCamera(mouseNdcRef.current, cameraRef.current);
-      const intersects = raycasterRef.current.intersectObjects(columnsRef.current, false);
-
-      if (intersects.length > 0) {
-        const hit = intersects[0].object as THREE.Mesh;
-        const colIdx = hit.userData.index;
-        if (hoveredColIndexRef.current !== colIdx) {
-          hoveredColIndexRef.current = colIdx;
-          if (onHoverColumn) {
-            onHoverColumn({
-              index: colIdx,
-              month: hit.userData.month,
-              clicks: hit.userData.clicks,
-              impressions: hit.userData.impressions,
-              screenX: x,
-              screenY: y,
-            });
-          }
-        } else if (onHoverColumn) {
-          // Update screen coordinates for tooltip following cursor
-          onHoverColumn({
-            index: colIdx,
-            month: hit.userData.month,
-            clicks: hit.userData.clicks,
-            impressions: hit.userData.impressions,
-            screenX: x,
-            screenY: y,
-          });
-        }
-      } else {
-        if (hoveredColIndexRef.current !== -1) {
-          hoveredColIndexRef.current = -1;
-          if (onHoverColumn) onHoverColumn(null);
-        }
-      }
-    }
-  };
-
-  const handlePointerLeave = () => {
-    mouseNdcRef.current.set(-999, -999);
-    mouseParallaxRef.current = { x: 0, y: 0 };
-    if (hoveredColIndexRef.current !== -1) {
-      hoveredColIndexRef.current = -1;
-      if (onHoverColumn) onHoverColumn(null);
-    }
-  };
-
   // Per-frame Tick Animation Callback
   const handleTick = useCallback(
     (time: number, dt: number) => {
@@ -460,49 +388,37 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       const overallProgress = Math.min(Math.max((time - 0.15) / 2.6, 0), 1);
       if (onProgress) onProgress(overallProgress);
 
-      if (time >= 2.8) {
+      if (time >= 0.5) {
         introFinishedRef.current = true;
       }
 
-      // 1. Camera Dolly in and Parallax
-      // Base radius 15.6, dolly in from ~16% farther back over 2.6s
+      // 1. Static Camera: Completely static view. Does not move or sway.
       const dollyT = Math.min(Math.max(time / 2.6, 0), 1);
       const dollyEase = 1 - Math.pow(1 - dollyT, 3); // ease-out cubic
       const orbitRadius = 15.6 * (1 + 0.16 * (1 - dollyEase));
 
-      // Base angle 0.88 rad with slow sine drift, plus parallax (angle +/- 0.22, height +/- 0.85)
-      const baseAngle = 0.88 + Math.sin(time * 0.3) * 0.035;
-      const angle = baseAngle + mouseParallaxRef.current.x * 0.22;
-      const camY = 6.0 - mouseParallaxRef.current.y * 0.85;
-      const camX = orbitRadius * Math.cos(angle);
-      const camZ = orbitRadius * Math.sin(angle);
+      // Fixed static angle and elevation
+      const staticAngle = 0.88;
+      const camY = 6.0;
+      const camX = orbitRadius * Math.cos(staticAngle);
+      const camZ = orbitRadius * Math.sin(staticAngle);
 
       camera.position.set(camX, camY, camZ);
       camera.lookAt(0.2, 2.55, 0);
 
-      // 2. Columns staggered growth: snappy 0.10 + i * 0.16 over 0.75s
+      // 2. Columns staggered growth (static dimensions and static uniform color)
       columnsRef.current.forEach((col, i) => {
         const start = 0.10 + i * 0.16;
         const p = Math.min(Math.max((time - start) / 0.75, 0), 1);
         const growth = p === 0 ? 0.001 : Math.max(0.001, easeOutBack(p, 1.25));
         const targetH = targetHeightsRef.current[i];
 
-        // Hover scale and emissive lerp
-        const isHovered = hoveredColIndexRef.current === i;
-        const targetScaleXZ = isHovered ? 1.09 : 1.0;
-        const targetEmissive = isHovered ? 0.75 : 0.16;
-
-        col.scale.x += (targetScaleXZ - col.scale.x) * 0.18;
-        col.scale.z += (targetScaleXZ - col.scale.z) * 0.18;
+        col.scale.x = 1.0;
+        col.scale.z = 1.0;
         col.scale.y = growth * targetH;
-
-        const mat = columnMaterialsRef.current[i];
-        if (mat) {
-          mat.emissiveIntensity += (targetEmissive - mat.emissiveIntensity) * 0.18;
-        }
       });
 
-      // 3. Ribbon Tube draw-on: 0.8s to 2.7s with smoothstep easing
+      // 3. Ribbon Tube draw-on
       if (tubeGeomRef.current) {
         const ribbonProg = smoothstep(0.8, 2.7, time);
         const indexCount = tubeGeomRef.current.index
@@ -630,8 +546,6 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     <div
       ref={containerRef}
       className="relative w-full h-[330px] sm:h-[365px] lg:h-[390px] xl:h-[405px] select-none touch-pan-y overflow-hidden cursor-default"
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
     >
       <canvas
         ref={canvasRef}

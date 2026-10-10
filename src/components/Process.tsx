@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { WingLogo } from './WingLogo';
 
@@ -137,9 +137,9 @@ export const Process: React.FC = () => {
           </div>
 
           {/* Right Column: 5 Steps Timeline */}
-          <div ref={trackRef} className="lg:col-span-7 relative pl-10 sm:pl-14 space-y-6 sm:space-y-8">
+          <div ref={trackRef} className="lg:col-span-7 relative pl-8 sm:pl-14 space-y-4 sm:space-y-8">
             {/* Straight Vertical Progress Line */}
-            <div className="absolute left-3.5 sm:left-5 top-5 bottom-5 w-[2px] pointer-events-none z-10">
+            <div className="absolute left-2.5 sm:left-5 top-5 bottom-5 w-[2px] pointer-events-none z-10">
               {/* Background inactive track */}
               <div className="w-full h-full bg-white/10 rounded-full" />
 
@@ -171,13 +171,13 @@ export const Process: React.FC = () => {
                 >
                   {/* Connector line from vertical track */}
                   <div
-                    className={`absolute -left-6 sm:-left-9 top-1/2 -translate-y-1/2 w-6 sm:w-9 h-[2px] transition-colors duration-300 pointer-events-none ${
+                    className={`absolute -left-5 sm:-left-9 top-1/2 -translate-y-1/2 w-5 sm:w-9 h-[2px] transition-colors duration-300 pointer-events-none ${
                       isActive ? 'bg-[#00E6D2]/60' : 'bg-white/10 group-hover:bg-[#00E6D2]/60'
                     }`}
                   />
 
                   <div
-                    className={`group relative flex items-start gap-4 sm:gap-5 bg-[#0B0E13]/90 hover:bg-[#0E131A] border rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.4)] w-full max-w-[540px] ${
+                    className={`group relative flex items-start gap-3.5 sm:gap-5 bg-[#0B0E13]/90 hover:bg-[#0E131A] border rounded-2xl p-4 sm:p-6 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.4)] w-full max-w-[540px] ${
                       isActive
                         ? 'border-[#00E6D2]/50 shadow-[0_10px_35px_rgba(0,230,210,0.12)]'
                         : 'border-white/10 hover:border-[#00E6D2]/50 hover:shadow-[0_10px_35px_rgba(0,230,210,0.12)]'

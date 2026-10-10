@@ -205,7 +205,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
               {/* Email Us */}
               <a
-                href="mailto:info@siddiquiinnovations.com"
+                href="mailto:info@siddiqui-innovations.com"
                 className="group relative flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#080D14]/85 border border-white/10 transition-all duration-300 shadow-[0_8px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 text-center"
               >
                 <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-[#00E6D2]/40 group-hover:bg-[#00E6D2]/10 transition-all duration-300 flex items-center justify-center mb-2.5 shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[0_0_15px_rgba(0,230,210,0.15)]">
@@ -215,7 +215,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                   Email Us
                 </span>
                 <span className="text-xs text-gray-400 font-sans mt-0.5 truncate max-w-full">
-                  info@siddiquiinnovations.com
+                  info@siddiqui-innovations.com
                 </span>
               </a>
             </div>
@@ -258,7 +258,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
               {/* Facebook */}
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/17rWKh9V3M/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noreferrer"
                 className="group relative flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#080D14]/85 border border-white/10 transition-all duration-300 shadow-[0_8px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 text-center"
@@ -278,7 +278,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
               {/* LinkedIn */}
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/siddiqui-innovations"
                 target="_blank"
                 rel="noreferrer"
                 className="group relative flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#080D14]/85 border border-white/10 transition-all duration-300 shadow-[0_8px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 text-center"

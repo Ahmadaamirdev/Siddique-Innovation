@@ -124,14 +124,14 @@ export const CTA: React.FC<CTAProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] as const }}
-          className="relative bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 hover:border-[#00E6D2]/30 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-colors duration-500"
+          className="relative bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 hover:border-[#00E6D2]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-10 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-colors duration-500"
         >
           {/* Subtle Corner Cyan Lighting */}
           <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#00E6D2]/15 blur-[90px] rounded-full pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start relative z-10">
             {/* Left Column: Heading, Subheading & Direct Social Links */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 space-y-5 sm:space-y-6">
               <div className="inline-flex items-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading">
                 <WingLogo className="w-5 h-5 shrink-0" />
                 <span>START A PROJECT</span>
@@ -141,7 +141,7 @@ export const CTA: React.FC<CTAProps> = ({
                 {heading}
               </h2>
 
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-sans">
+              <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed font-sans">
                 {subheading}
               </p>
 
@@ -167,7 +167,7 @@ export const CTA: React.FC<CTAProps> = ({
                 <motion.a
                   whileHover={{ y: -3, scale: 1.08 }}
                   whileTap={{ scale: 0.95 }}
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/share/17rWKh9V3M/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E6D2]/50 hover:bg-[#00E6D2]/10 flex items-center justify-center text-gray-300 hover:text-[#00E6D2] transition-all duration-300 shadow-[0_0_10px_rgba(0,230,210,0.05)]"
@@ -183,7 +183,7 @@ export const CTA: React.FC<CTAProps> = ({
                 <motion.a
                   whileHover={{ y: -3, scale: 1.08 }}
                   whileTap={{ scale: 0.95 }}
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/siddiqui-innovations"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E6D2]/50 hover:bg-[#00E6D2]/10 flex items-center justify-center text-gray-300 hover:text-[#00E6D2] transition-all duration-300 shadow-[0_0_10px_rgba(0,230,210,0.05)]"
@@ -199,7 +199,7 @@ export const CTA: React.FC<CTAProps> = ({
             </div>
 
             {/* Right Column: Contact Form */}
-            <div className="lg:col-span-7 bg-[#05080C]/80 border border-white/10 rounded-2xl p-6 sm:p-8">
+            <div className="lg:col-span-7 bg-[#05080C]/80 border border-white/10 rounded-2xl p-4 sm:p-8">
               {submitted ? (
                 <div className="py-12 text-center space-y-4">
                   <div className="w-14 h-14 rounded-full bg-[#00E6D2]/15 border border-[#00E6D2]/40 text-[#00FFE5] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(0,230,210,0.2)]">
@@ -310,7 +310,7 @@ export const CTA: React.FC<CTAProps> = ({
                   <div className="pt-1">
                     <div
                       onClick={handleVerifyClick}
-                      className={`inline-flex items-center justify-between gap-6 px-4 py-3 rounded-xl bg-[#0B0F15] border transition-all duration-300 cursor-pointer select-none ${
+                      className={`inline-flex items-center justify-between gap-3 sm:gap-6 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-[#0B0F15] border transition-all duration-300 cursor-pointer select-none max-w-full ${
                         isVerified
                           ? 'border-[#00E6D2]/60 shadow-[0_0_15px_rgba(0,230,210,0.15)]'
                           : 'border-white/10 hover:border-[#00E6D2]/40'

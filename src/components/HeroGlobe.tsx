@@ -556,10 +556,10 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
             backgroundColor: 'rgba(4, 9, 10, 0.85)',
             border: '0.5px solid rgba(31, 214, 187, 0.5)',
           }}
-          className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
         >
-          <span className="w-2 h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
-          <span className="text-white font-medium text-xs sm:text-sm tracking-wide whitespace-nowrap">
+          <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
+          <span className="text-white font-medium text-[11px] sm:text-sm tracking-wide whitespace-nowrap">
             USA
           </span>
         </div>
@@ -577,10 +577,10 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
             backgroundColor: 'rgba(4, 9, 10, 0.85)',
             border: '0.5px solid rgba(31, 214, 187, 0.5)',
           }}
-          className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
         >
-          <span className="w-2 h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
-          <span className="text-white font-medium text-xs sm:text-sm tracking-wide whitespace-nowrap">
+          <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
+          <span className="text-white font-medium text-[11px] sm:text-sm tracking-wide whitespace-nowrap">
             Saudi Arabia (KSA)
           </span>
         </div>
@@ -598,10 +598,10 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
             backgroundColor: 'rgba(4, 9, 10, 0.85)',
             border: '0.5px solid rgba(31, 214, 187, 0.5)',
           }}
-          className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
         >
-          <span className="w-2 h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
-          <span className="text-white font-medium text-xs sm:text-sm tracking-wide whitespace-nowrap">
+          <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
+          <span className="text-white font-medium text-[11px] sm:text-sm tracking-wide whitespace-nowrap">
             Pakistan (HQ)
           </span>
         </div>
@@ -619,10 +619,10 @@ export const HeroGlobe: React.FC<HeroGlobeProps> = ({ tilt = 23, className = '' 
             backgroundColor: 'rgba(4, 9, 10, 0.85)',
             border: '0.5px solid rgba(31, 214, 187, 0.5)',
           }}
-          className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.85)] hover:border-[#1fd6bb] transition-colors backdrop-blur-md"
         >
-          <span className="w-2 h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
-          <span className="text-white font-medium text-xs sm:text-sm tracking-wide whitespace-nowrap">
+          <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#1fd6bb] shadow-[0_0_6px_#1fd6bb] shrink-0" />
+          <span className="text-white font-medium text-[11px] sm:text-sm tracking-wide whitespace-nowrap">
             Oman
           </span>
         </div>

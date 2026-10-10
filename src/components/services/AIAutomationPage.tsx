@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bot,
@@ -317,7 +317,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
                     {/* Row 1 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Clock className="w-4 h-4 text-red-400" />
                       </div>
@@ -332,7 +332,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 2 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <CircleX className="w-4 h-4 text-red-400" />
                       </div>
@@ -347,7 +347,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 3 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Hourglass className="w-4 h-4 text-red-400" />
                       </div>
@@ -406,7 +406,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
                     {/* Row 1 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <Zap className="w-4 h-4 text-[#00FFE5] fill-[#00FFE5]" />
                       </div>
@@ -421,7 +421,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 2 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <RefreshCw className="w-4 h-4 text-[#00FFE5]" />
                       </div>
@@ -436,7 +436,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                     </div>
 
                     {/* Row 3 */}
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <div className="relative w-5 h-5 flex items-center justify-center">
                           <svg className="w-4 h-4 text-[#00FFE5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

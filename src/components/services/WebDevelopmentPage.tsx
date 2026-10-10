@@ -129,8 +129,8 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
           </div>
 
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
-            {/* Single-line H1 Headline */}
-            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] font-extrabold text-white tracking-[-0.02em] leading-tight font-heading max-w-full mx-auto py-0.5 drop-shadow-md whitespace-nowrap">
+            {/* Responsive H1 Headline */}
+            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] font-extrabold text-white tracking-[-0.02em] leading-tight font-heading max-w-full mx-auto py-0.5 drop-shadow-md whitespace-normal sm:whitespace-nowrap text-center px-2">
               <span>Websites That Turn </span>
               <span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
@@ -188,7 +188,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Clock className="w-4 h-4 text-red-400" />
                       </div>
@@ -202,7 +202,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <CircleX className="w-4 h-4 text-red-400" />
                       </div>
@@ -216,7 +216,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
                         <Hourglass className="w-4 h-4 text-red-400" />
                       </div>
@@ -270,7 +270,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <Zap className="w-4 h-4 text-[#00FFE5]" />
                       </div>
@@ -284,7 +284,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <RefreshCw className="w-4 h-4 text-[#00FFE5]" />
                       </div>
@@ -298,7 +298,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 py-3 sm:py-3.5 h-[72px]">
+                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
                         <Check className="w-4 h-4 text-[#00FFE5]" />
                       </div>

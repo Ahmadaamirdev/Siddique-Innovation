@@ -1,4 +1,4 @@
-﻿import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
 import { WingLogo } from './WingLogo';
@@ -74,8 +74,8 @@ export const Testimonials: React.FC = () => {
     const updateDimensions = () => {
       if (containerRef.current) {
         const width = containerRef.current.clientWidth;
-        rx = Math.min(width * 0.32, 330);
-        rz = Math.min(width * 0.15, 150);
+        rx = width < 640 ? Math.min(width * 0.18, 70) : Math.min(width * 0.32, 330);
+        rz = width < 640 ? Math.min(width * 0.12, 100) : Math.min(width * 0.15, 150);
       }
     };
 
@@ -292,23 +292,23 @@ export const Testimonials: React.FC = () => {
         </div>
 
         {/* 3D Circular Orbit Stage with Left & Right Arrow Buttons */}
-        <div className="relative max-w-5xl mx-auto flex items-center justify-center">
-          {/* Left Arrow Navigation Button */}
+        <div className="relative max-w-5xl mx-auto flex flex-col items-center justify-center">
+          {/* Desktop Left Arrow Navigation Button */}
           <button
             type="button"
             onClick={handlePrev}
-            className="absolute left-1 sm:left-2 md:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#0c1015]/85 hover:bg-[#00E6D2]/15 border border-[#00E6D2]/30 hover:border-[#00FFE5] text-gray-300 hover:text-[#00FFE5] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(0,255,229,0.12)] transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer group"
+            className="hidden md:flex absolute md:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#0c1015]/85 hover:bg-[#00E6D2]/15 border border-[#00E6D2]/30 hover:border-[#00FFE5] text-gray-300 hover:text-[#00FFE5] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(0,255,229,0.12)] transition-all duration-200 hover:scale-110 active:scale-95 items-center justify-center cursor-pointer group"
             aria-label="Previous testimonial"
             title="Previous testimonial"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
           </button>
 
-          {/* Right Arrow Navigation Button */}
+          {/* Desktop Right Arrow Navigation Button */}
           <button
             type="button"
             onClick={handleNext}
-            className="absolute right-1 sm:right-2 md:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#0c1015]/85 hover:bg-[#00E6D2]/15 border border-[#00E6D2]/30 hover:border-[#00FFE5] text-gray-300 hover:text-[#00FFE5] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(0,255,229,0.12)] transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer group"
+            className="hidden md:flex absolute md:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#0c1015]/85 hover:bg-[#00E6D2]/15 border border-[#00E6D2]/30 hover:border-[#00FFE5] text-gray-300 hover:text-[#00FFE5] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(0,255,229,0.12)] transition-all duration-200 hover:scale-110 active:scale-95 items-center justify-center cursor-pointer group"
             aria-label="Next testimonial"
             title="Next testimonial"
           >
@@ -318,7 +318,7 @@ export const Testimonials: React.FC = () => {
           {/* 3D Orbit Stage */}
           <div
             ref={containerRef}
-            className="w-full h-[430px] sm:h-[460px] flex items-center justify-center select-none"
+            className="w-full h-[400px] sm:h-[460px] flex items-center justify-center select-none"
             style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
           >
             {testimonialsData.map((item, idx) => (
@@ -326,7 +326,7 @@ export const Testimonials: React.FC = () => {
                 key={item.id}
                 ref={cardRefs[idx]}
                 onClick={() => handleCardClick(idx)}
-                className="absolute top-1/2 left-1/2 w-[270px] sm:w-[310px] md:w-[340px] -ml-[135px] sm:-ml-[155px] md:-ml-[170px] -mt-[170px] sm:-mt-[185px] rounded-2xl bg-[#0c1015] border border-[#00E6D2]/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden cursor-pointer will-change-transform flex flex-col"
+                className="absolute top-1/2 left-1/2 w-[240px] xs:w-[260px] sm:w-[310px] md:w-[340px] -ml-[120px] xs:-ml-[130px] sm:-ml-[155px] md:-ml-[170px] -mt-[165px] sm:-mt-[185px] rounded-2xl bg-[#0c1015] border border-[#00E6D2]/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden cursor-pointer will-change-transform flex flex-col"
                 style={{
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
@@ -334,7 +334,7 @@ export const Testimonials: React.FC = () => {
                 }}
               >
                 {/* Video Container (Expanded to cover upper & former description area) */}
-                <div className="relative w-full h-[260px] sm:h-[285px] bg-black overflow-hidden">
+                <div className="relative w-full h-[235px] sm:h-[285px] bg-black overflow-hidden">
                   <video
                     ref={videoRefs[idx]}
                     src={item.video}
@@ -390,6 +390,26 @@ export const Testimonials: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Mobile Testimonial Navigation Buttons (Thumb-friendly & no card overlap) */}
+          <div className="flex md:hidden items-center justify-center gap-6 mt-3 z-30">
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="w-11 h-11 rounded-full bg-[#0c1015]/90 border border-[#00E6D2]/35 text-[#00E6D2] hover:text-white flex items-center justify-center active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(0,255,229,0.15)] cursor-pointer"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="w-11 h-11 rounded-full bg-[#0c1015]/90 border border-[#00E6D2]/35 text-[#00E6D2] hover:text-white flex items-center justify-center active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(0,255,229,0.15)] cursor-pointer"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>

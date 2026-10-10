@@ -129,7 +129,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <motion.a
                 whileHover={{ y: -3, scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/17rWKh9V3M/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E6D2]/50 hover:bg-[#00E6D2]/10 flex items-center justify-center text-gray-300 hover:text-[#00E6D2] transition-all duration-300 shadow-[0_0_10px_rgba(0,230,210,0.05)]"
@@ -145,7 +145,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <motion.a
                 whileHover={{ y: -3, scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/siddiqui-innovations"
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E6D2]/50 hover:bg-[#00E6D2]/10 flex items-center justify-center text-gray-300 hover:text-[#00E6D2] transition-all duration-300 shadow-[0_0_10px_rgba(0,230,210,0.05)]"
