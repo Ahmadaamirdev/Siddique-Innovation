@@ -32,6 +32,7 @@ import {
   aiAutomationProjects,
   aiAutomationTestimonials,
 } from '@/data/serviceProjectsAndTestimonials';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const aiDeliverables = [
   {
@@ -116,6 +117,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
   onNavigateService,
   onNavigate,
 }) => {
+  const isMobile = useIsMobile();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { startScroll } = useSmoothScroll();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -233,8 +235,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </motion.div>
           </div>
 
-          {/* RIGHT-SIDE MIDDLE: Description Card (Frosted glass card matched to homepage hero) */}
-          <div className="w-full flex items-center justify-end pointer-events-auto my-auto py-2 sm:py-4 pr-3 sm:pr-4 lg:pr-6 xl:pr-10 translate-y-3 sm:translate-y-5 lg:translate-y-6 relative z-10">
+          {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, right-aligned on desktop */}
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-4 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 translate-y-0 lg:translate-y-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -243,7 +245,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
-              className="relative max-w-[280px] sm:max-w-[320px] md:max-w-[350px] lg:max-w-[390px] xl:max-w-[420px] text-left p-4 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+              className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
             >
               <p className="text-gray-300 text-xs sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
                 {service.heroDescription}
@@ -251,8 +253,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </motion.div>
           </div>
 
-          {/* BOTTOM-LEFT: CTA Button (Moved a bit above for clear visibility) */}
-          <div className="w-full flex items-center justify-between pb-16 sm:pb-20 lg:pb-24 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 -translate-y-5 sm:-translate-y-8 lg:-translate-y-10">
+          {/* BOTTOM-LEFT: CTA Button */}
+          <div className="w-full flex items-center justify-between pb-8 sm:pb-12 lg:pb-24 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 translate-y-0 lg:-translate-y-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -508,11 +510,11 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
               return (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: '-40px' }}
-                  transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
-                  className="group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
+                  initial={isMobile ? false : { opacity: 0, y: 30 }}
+                  whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                  viewport={isMobile ? undefined : { once: false, margin: '-40px' }}
+                  transition={isMobile ? { duration: 0 } : { duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
+                  className="service-card group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 md:transition-all md:duration-300 md:hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
                 >
                   <div className="flex flex-col flex-1">
                     {/* Header: Icon Box and Title inline */}

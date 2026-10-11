@@ -101,8 +101,8 @@ export const Hero: React.FC<HeroProps> = ({
       {/* Clean solid dark background without image.                     */}
       {/* ============================================================== */}
       <div className="sticky top-0 h-[100dvh] w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
-        {/* 3D Flapping Wings centered in the screen & staying still (shifted a bit downward) */}
-        <div className="relative z-10 flex items-center justify-center translate-y-6 sm:translate-y-10 lg:translate-y-12">
+        {/* 3D Flapping Wings centered in the screen & staying still */}
+        <div className="relative z-10 flex items-center justify-center translate-y-0 sm:translate-y-0 lg:translate-y-12">
           <FlappingWings reducedMotion={reducedMotion} size="lg" />
         </div>
       </div>
@@ -147,15 +147,15 @@ export const Hero: React.FC<HeroProps> = ({
             </motion.div>
           </div>
 
-          {/* RIGHT-SIDE MIDDLE: Description with rounded curved borders on all sides */}
-          <div className="w-full flex items-center justify-end pointer-events-auto my-auto py-2 sm:py-4 px-3 sm:px-4 lg:pr-6 translate-y-3 sm:translate-y-10 lg:translate-y-12">
+          {/* Description Card: positioned below wings on mobile/tablet to avoid overlapping, right-aligned on desktop */}
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 translate-y-0 lg:translate-y-12">
             <motion.div
               style={{
                 ...(reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }),
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
-              className="relative max-w-[270px] sm:max-w-[320px] md:max-w-[350px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+              className="relative w-full max-w-[300px] sm:max-w-[315px] md:max-w-[330px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
             >
               <p className="text-gray-300 text-[11px] sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
                 Siddiqui Innovations helps businesses build high-performing websites,

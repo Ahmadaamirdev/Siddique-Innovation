@@ -10,12 +10,14 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export interface ServicesProps {
   onNavigate?: (path: string) => void;
 }
 
 export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
+  const isMobile = useIsMobile();
   const handleLinkClick = (link: string, e?: React.MouseEvent) => {
     if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) {
       return;
@@ -152,15 +154,15 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
             return (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '-40px' }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 0.61, 0.36, 1] as const }}
+                initial={isMobile ? false : { opacity: 0, y: 30 }}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: false, margin: '-40px' }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.6, delay: index * 0.1, ease: [0.22, 0.61, 0.36, 1] as const }}
                 onClick={(e) => {
                   if ((e.target as HTMLElement).closest('a')) return;
                   handleLinkClick(service.link, e);
                 }}
-                className={`group relative flex flex-col justify-between h-full bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform cursor-pointer ${layoutClasses}`}
+                className={`service-card group relative flex flex-col justify-between h-full bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-4 sm:p-5 md:transition-all md:duration-300 md:hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform cursor-pointer ${layoutClasses}`}
               >
                 <div className="flex flex-col flex-1">
                   {/* Icon & Title Row */}

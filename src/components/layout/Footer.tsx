@@ -159,108 +159,111 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Quick Links Column 1: Services (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-white font-bold text-sm tracking-wider uppercase font-heading">
-              Services
-            </h4>
-            <ul className="space-y-2.5 text-xs text-gray-400 font-medium">
-              <li>
-                <a
-                  href="/services/ai-automation"
-                  onClick={(e) => handleNav('/services/ai-automation', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">AI Automation</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/services/web-development"
-                  onClick={(e) => handleNav('/services/web-development', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">Web Development</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/services/digital-marketing"
-                  onClick={(e) => handleNav('/services/digital-marketing', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">Digital Marketing</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/services/seo"
-                  onClick={(e) => handleNav('/services/seo', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">SEO</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/services/youtube-automation"
-                  onClick={(e) => handleNav('/services/youtube-automation', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">YouTube Automation</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Links Wrapper: Quick Links (Services) and Legal Links side by side on mobile */}
+          <div className="grid grid-cols-2 gap-6 sm:gap-8 col-span-1 md:col-span-1 lg:col-span-5 lg:contents">
+            {/* Quick Links Column 1: Services (3 cols) */}
+            <div className="lg:col-span-3 space-y-4">
+              <h4 className="text-white font-bold text-sm tracking-wider uppercase font-heading">
+                Services
+              </h4>
+              <ul className="space-y-2.5 text-xs text-gray-400 font-medium">
+                <li>
+                  <a
+                    href="/services/ai-automation"
+                    onClick={(e) => handleNav('/services/ai-automation', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">AI Automation</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/web-development"
+                    onClick={(e) => handleNav('/services/web-development', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">Web Development</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/digital-marketing"
+                    onClick={(e) => handleNav('/services/digital-marketing', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">Digital Marketing</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/seo"
+                    onClick={(e) => handleNav('/services/seo', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">SEO</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/youtube-automation"
+                    onClick={(e) => handleNav('/services/youtube-automation', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">YouTube Automation</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          {/* Quick Links Column 2: Legal Links (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-white font-bold text-sm tracking-wider uppercase font-heading">
-              Legal Links
-            </h4>
-            <ul className="space-y-2.5 text-xs text-gray-400 font-medium">
-              <li>
-                <a
-                  href="/about"
-                  onClick={(e) => handleNav('/about', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">About Us</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/contact"
-                  onClick={(e) => handleNav('/contact', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">Contact</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/privacy-policy"
-                  onClick={(e) => handleNav('/privacy-policy', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">Privacy Policy</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/terms"
-                  onClick={(e) => handleNav('/terms', e)}
-                  className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">Terms &amp; Conditions</span>
-                </a>
-              </li>
-            </ul>
+            {/* Quick Links Column 2: Legal Links (2 cols) */}
+            <div className="lg:col-span-2 space-y-4">
+              <h4 className="text-white font-bold text-sm tracking-wider uppercase font-heading">
+                Legal Links
+              </h4>
+              <ul className="space-y-2.5 text-xs text-gray-400 font-medium">
+                <li>
+                  <a
+                    href="/about"
+                    onClick={(e) => handleNav('/about', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">About Us</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact"
+                    onClick={(e) => handleNav('/contact', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">Contact</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/privacy-policy"
+                    onClick={(e) => handleNav('/privacy-policy', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">Privacy Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/terms"
+                    onClick={(e) => handleNav('/terms', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">Terms &amp; Conditions</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Newsletter / Contact Box Column (3 cols) */}

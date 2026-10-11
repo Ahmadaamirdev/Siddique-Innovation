@@ -124,3 +124,15 @@ html.lenis body {
     transform: translateY(0) !important;
   }
 }
+
+/* Disable service card animations and hover motion on mobile responsiveness */
+@media (max-width: 768px) {
+  .service-card {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .service-card:hover {
+    transform: none !important;
+  }
+}
