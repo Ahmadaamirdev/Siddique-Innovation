@@ -45,7 +45,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
         {/* HERO SECTION — with the cyber workstation background           */}
         {/* Matches exact font size, colors and emerge animation of hero   */}
         {/* ============================================================== */}
-        <section className="relative w-full min-h-screen min-h-[100dvh] flex flex-col justify-between items-center overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8">
+        <section className="relative w-full min-h-screen min-h-[100dvh] flex flex-col justify-between items-center overflow-hidden pt-20 sm:pt-28 pb-6 sm:pb-8">
           {/* Background image container with cover & soft vignette overlays */}
           <div
             style={{
@@ -97,10 +97,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Top spacer to balance floating navbar */}
-          <div className="h-6 sm:h-8 shrink-0 w-full" />
+          <div className="h-0 sm:h-8 shrink-0 w-full" />
 
-          {/* Centered headline & paragraph */}
-          <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center justify-center space-y-4 sm:space-y-5 my-auto">
+          {/* Centered headline & paragraph (moved upward on mobile to fill empty space) */}
+          <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center justify-center space-y-3 sm:space-y-5 mt-2 sm:my-auto mb-auto sm:mb-auto -translate-y-8 sm:translate-y-0">
             {/* Tag badge */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}

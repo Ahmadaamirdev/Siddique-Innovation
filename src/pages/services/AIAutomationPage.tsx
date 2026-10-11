@@ -280,7 +280,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
 
 
         {/* 2. PROBLEM VS. SOLUTION (The Cost of Manual Repetition vs. The AI Advantage) */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-[#040608] border-y border-white/10 relative overflow-hidden select-none">
+        <section className="py-10 sm:py-20 lg:py-24 bg-[#040608] border-y border-white/10 relative overflow-hidden select-none">
 
           {/* Faint contour waves on right side */}
           <svg className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none opacity-20 text-[#00E6D2]" viewBox="0 0 700 500" fill="none">
@@ -288,35 +288,28 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             <path d="M250 500C420 400 580 200 700 0" stroke="currentColor" strokeWidth="1" />
           </svg>
 
-          <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative items-stretch">
+          <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-3 sm:px-8 lg:px-10 relative z-10">
+            <div className="grid grid-cols-2 gap-3 sm:gap-12 lg:gap-0 relative items-stretch">
               {/* Central Vertical Divider */}
-              <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
-                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
-                  FROM MANUAL &rarr; AUTONOMOUS
-                </div>
-              </div>
-
-              {/* Mobile Divider */}
-              <div className="lg:hidden flex justify-center -my-4">
-                <div className="px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
+              <div className="block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
+                <div className="absolute left-1/2 top-[85px] sm:top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-1.5 sm:px-3 py-0.5 bg-[#080D12] border border-white/10 sm:border-0 rounded-full sm:rounded-none text-[7px] sm:text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap max-w-[45vw] overflow-hidden text-ellipsis">
                   FROM MANUAL &rarr; AUTONOMOUS
                 </div>
               </div>
 
               {/* LEFT COLUMN: Manual Workflows */}
-              <div className="w-full max-w-[460px] mx-auto lg:mr-12 xl:mr-14 lg:ml-auto flex flex-col justify-between h-full">
+              <div className="w-full max-w-none lg:max-w-[460px] mx-auto pr-1 sm:pr-0 lg:mr-12 xl:mr-14 lg:ml-auto flex flex-col justify-between h-full">
                 <div>
                   {/* Top Header Block */}
-                  <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
+                  <div className="w-full mb-3 sm:mb-6 min-h-[65px] sm:min-h-0 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 text-red-400 font-semibold text-xs tracking-wider uppercase font-mono">
-                      <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+                    <div className="inline-flex items-center gap-1 sm:gap-2 text-red-400 font-semibold text-[8px] sm:text-xs tracking-wider uppercase font-mono">
+                      <AlertTriangle className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-red-400" />
                       <span>MANUAL WORKFLOWS</span>
                     </div>
 
                     {/* Headline */}
-                    <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
+                    <h2 className="text-[11px] sm:text-2xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15] font-heading mt-1 sm:mt-3">
                       The Cost of Manual Repetition
                     </h2>
                   </div>
@@ -324,45 +317,45 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
                     {/* Row 1 */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
-                        <Clock className="w-4 h-4 text-red-400" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                        <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-white tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-white tracking-tight font-heading leading-tight">
                           15–20 <span className="text-red-500">hrs</span>
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
                           WASTED WEEKLY
                         </div>
                       </div>
                     </div>
 
                     {/* Row 2 */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
-                        <CircleX className="w-4 h-4 text-red-400" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                        <CircleX className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
                           4–7%
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
                           COPY-PASTE ERRORS
                         </div>
                       </div>
                     </div>
 
                     {/* Row 3 */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
-                        <Hourglass className="w-4 h-4 text-red-400" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                        <Hourglass className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
                           24h+
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
                           LEAD RESPONSE LAG
                         </div>
                       </div>
@@ -370,22 +363,22 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   </div>
 
                   {/* Bullet points */}
-                  <div className="mt-5 space-y-2.5">
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
+                  <div className="mt-3 sm:mt-5 space-y-1.5 sm:space-y-2.5">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <X className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
                         Manual data entry and repetitive tasks
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
                       <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
                         Slow follow-ups and missed opportunities
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
                       <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
                         Costly copy-paste mistakes across systems
                       </span>
                     </div>
@@ -394,18 +387,18 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
               </div>
 
               {/* RIGHT COLUMN: AI Autopilot */}
-              <div className="w-full max-w-[460px] mx-auto lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
+              <div className="w-full max-w-none lg:max-w-[460px] mx-auto pl-1 sm:pl-0 lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
                 <div>
                   {/* Top Header Block */}
-                  <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
+                  <div className="w-full mb-3 sm:mb-6 min-h-[65px] sm:min-h-0 lg:h-[130px] flex flex-col justify-start">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono">
-                      <WingLogo className="w-4 h-4 shrink-0" />
+                    <div className="inline-flex items-center gap-1 sm:gap-2 text-[#00E6D2] font-semibold text-[8px] sm:text-xs tracking-wider uppercase font-mono">
+                      <WingLogo className="w-2.5 h-2.5 sm:w-4 sm:h-4 shrink-0" />
                       <span>AI AUTOPILOT</span>
                     </div>
 
                     {/* Headline */}
-                    <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
+                    <h2 className="text-[11px] sm:text-2xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15] font-heading mt-1 sm:mt-3">
                       The <span className="text-[#00FFE5]">AI Advantage</span>
                     </h2>
                   </div>
@@ -413,52 +406,52 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
                     {/* Row 1 */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
-                        <Zap className="w-4 h-4 text-[#00FFE5] fill-[#00FFE5]" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
+                        <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-[#00FFE5] fill-[#00FFE5]" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
                           &lt;150ms
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
                           EXECUTION SPEED
                         </div>
                       </div>
                     </div>
 
                     {/* Row 2 */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
-                        <RefreshCw className="w-4 h-4 text-[#00FFE5]" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
+                        <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4 text-[#00FFE5]" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
                           0.0%
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
                           DATA SYNC ERRORS
                         </div>
                       </div>
                     </div>
 
                     {/* Row 3 */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
-                        <div className="relative w-5 h-5 flex items-center justify-center">
-                          <svg className="w-4 h-4 text-[#00FFE5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
+                        <div className="relative w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center">
+                          <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00FFE5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4 12a8 8 0 0 1 14.93-4M20 12a8 8 0 0 1-14.93 4" />
                             <polyline points="19 4 19 8 15 8" />
                             <polyline points="5 20 5 16 9 16" />
                           </svg>
-                          <span className="absolute text-[5.5px] font-extrabold text-[#00FFE5] font-mono leading-none tracking-tighter">24/7</span>
+                          <span className="absolute text-[4.5px] sm:text-[5.5px] font-extrabold text-[#00FFE5] font-mono leading-none tracking-tighter">24/7</span>
                         </div>
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
                           24/7
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
                           AUTONOMOUS UPTIME
                         </div>
                       </div>
@@ -466,23 +459,23 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                   </div>
 
                   {/* Bullet points */}
-                  <div className="mt-5 space-y-2.5">
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
-                        <strong className="text-white font-semibold">Instant qualification</strong> and lead routing
+                  <div className="mt-3 sm:mt-5 space-y-1.5 sm:space-y-2.5">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
+                        <strong className="text-white font-semibold">Instant qualification</strong> and routing
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
-                        <strong className="text-white font-semibold">Connected workflows</strong> across your CRM, marketing and tools
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
+                        <strong className="text-white font-semibold">Connected workflows</strong> across CRM & tools
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
-                        <strong className="text-white font-semibold">Always-on execution</strong> without human intervention
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
+                        <strong className="text-white font-semibold">Always-on execution</strong> without humans
                       </span>
                     </div>
                   </div>

@@ -25,11 +25,12 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode; current
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    // Mobile & tablet touchscreens achieve silky 120Hz native compositor inertia without JS thread lag
-    const isTouchDevice =
-      ('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
-      window.matchMedia('(max-width: 1024px)').matches;
-    if (isTouchDevice) {
+    // Mobile & tablet devices achieve silky 120Hz native compositor inertia without JS thread lag
+    const isMobileOrTouch =
+      window.matchMedia('(max-width: 768px)').matches ||
+      (('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
+        window.matchMedia('(max-width: 1024px)').matches);
+    if (isMobileOrTouch) {
       document.documentElement.classList.remove('lenis-stopped');
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';

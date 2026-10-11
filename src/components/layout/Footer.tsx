@@ -81,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-4 sm:pb-5">
 
           {/* Brand & Elevator Pitch Column (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-4 space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
             <a
               href="/"
               onClick={(e) => handleNav('/', e)}
@@ -91,17 +91,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <motion.div
                 whileHover={{ scale: 1.04 }}
                 transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                className="relative flex items-center"
+                className="relative flex items-center justify-center md:justify-start"
               >
                 <img
                   src={brandLogo}
                   alt="Siddiqui Innovations Logo"
-                  className="h-14 sm:h-16 md:h-18 w-auto max-w-[240px] object-contain drop-shadow-[0_0_24px_rgba(0,230,210,0.25)]"
+                  className="h-14 sm:h-16 md:h-18 w-auto max-w-[240px] object-contain drop-shadow-[0_0_24px_rgba(0,230,210,0.25)] mx-auto md:mx-0"
                 />
               </motion.div>
             </a>
 
-            <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-sans">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-sans mx-auto md:mx-0">
               Empowering businesses through cutting-edge AI Automation, high-ranking SEO strategies, and modern, high-converting digital web experiences.
             </p>
           </div>

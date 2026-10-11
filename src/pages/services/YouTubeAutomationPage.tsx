@@ -17,6 +17,7 @@ import {
   Check,
   X,
   ArrowRight,
+  ArrowUpRight,
   CheckCircle2,
 } from 'lucide-react';
 import type { ServiceItemData } from '@/data/servicesData';
@@ -391,10 +392,25 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
 
           {/* 3D Curved Separate Cards Carousel */}
           <Curved3DCarousel />
+
+          {/* Mobile CTA: Get a Free Quote Button right after the animation */}
+          <div className="sm:hidden flex items-center justify-center pt-5 pb-1">
+            <a
+              href="#service-cta"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('service-cta')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-xs text-[#050505] bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] hover:from-[#00E6D2] hover:to-[#00FFE5] shadow-[0_0_20px_rgba(0,230,210,0.35)] transition-all duration-300 font-heading cursor-pointer active:scale-95"
+            >
+              <span>{service.ctaButtonText || 'Get a Free Quote'}</span>
+              <ArrowUpRight className="w-4 h-4 text-[#050505] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </a>
+          </div>
         </section>
 
         {/* 2. PROBLEM & SOLUTION: Burning Out on YouTube vs Scaled System */}
-        <section className="py-20 md:py-28 relative overflow-hidden bg-[#050608] border-y border-white/10">
+        <section className="py-10 sm:py-20 md:py-28 relative overflow-hidden bg-[#050608] border-y border-white/10">
           {/* Subtle Background Radial / Waves */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[#00E6D2]/[0.03] blur-[170px] pointer-events-none" />
 
@@ -418,97 +434,90 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
             </defs>
           </svg>
 
-          <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative items-stretch">
+          <div className="max-w-[1140px] xl:max-w-[1220px] mx-auto px-3 sm:px-8 lg:px-10 relative z-10">
+            <div className="grid grid-cols-2 gap-3 sm:gap-12 lg:gap-0 relative items-stretch">
               {/* Central Vertical Divider */}
-              <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
-                <div className="absolute left-1/2 top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
-                  FROM BURNOUT &rarr; AUTOPILOT
-                </div>
-              </div>
-
-              {/* Mobile Divider */}
-              <div className="lg:hidden flex justify-center -my-4">
-                <div className="px-3 py-0.5 bg-[#080D12] text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap">
+              <div className="block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-white/10 pointer-events-none">
+                <div className="absolute left-1/2 top-[85px] sm:top-[154px] -translate-x-1/2 -translate-y-1/2 z-20 px-1.5 sm:px-3 py-0.5 bg-[#080D12] border border-white/10 sm:border-0 rounded-full sm:rounded-none text-[7px] sm:text-[10px] font-mono tracking-wider text-gray-400 uppercase whitespace-nowrap max-w-[45vw] overflow-hidden text-ellipsis">
                   FROM BURNOUT &rarr; AUTOPILOT
                 </div>
               </div>
 
               {/* LEFT COLUMN: Problem (Burning Out on Content) */}
-              <div className="w-full max-w-[460px] mx-auto lg:mr-12 xl:mr-14 lg:ml-auto flex flex-col justify-between h-full">
+              <div className="w-full max-w-none lg:max-w-[460px] mx-auto pr-1 sm:pr-0 lg:mr-12 xl:mr-14 lg:ml-auto flex flex-col justify-between h-full">
                 <div>
-                  <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
-                    <div className="inline-flex items-center gap-2 text-red-400 font-semibold text-xs tracking-wider uppercase font-mono">
-                      <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
-                      <span>BURNING OUT ON CONTENT</span>
+                  <div className="w-full mb-3 sm:mb-6 min-h-[65px] sm:min-h-0 lg:h-[130px] flex flex-col justify-start">
+                    <div className="inline-flex items-center gap-1 sm:gap-2 text-red-400 font-semibold text-[8px] sm:text-xs tracking-wider uppercase font-mono">
+                      <AlertTriangle className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-red-400" />
+                      <span>BURNING OUT</span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
+                    <h2 className="text-[11px] sm:text-2xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15] font-heading mt-1 sm:mt-3">
                       Growing a Channel Takes More Time Than You Have
                     </h2>
                   </div>
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
-                        <Clock className="w-4 h-4 text-red-400" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                        <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-white tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-white tracking-tight font-heading leading-tight">
                           20+ hrs <span className="text-red-500">burned</span>
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
-                          WEEKLY PRODUCTION TIME DRAIN
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
+                          WEEKLY PRODUCTION DRAIN
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
-                        <CircleX className="w-4 h-4 text-red-400" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                        <CircleX className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
                           0%
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
-                          ALGORITHM MOMENTUM (INCONSISTENT)
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
+                          ALGORITHM MOMENTUM
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
-                        <Hourglass className="w-4 h-4 text-red-400" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                        <Hourglass className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-red-500 tracking-tight font-heading leading-tight">
                           Low CTR
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
-                          AMATEUR PACKAGING &amp; SKIPPED HOOKS
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
+                          AMATEUR PACKAGING
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Bullet points */}
-                  <div className="mt-5 space-y-2.5">
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
+                  <div className="mt-3 sm:mt-5 space-y-1.5 sm:space-y-2.5">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <X className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
                         Spending 20+ hours editing videos instead of running your company
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <X className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
                         Inconsistent uploads causing algorithm penalty and flatlined views
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <X className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <X className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
                         Amateur thumbnails and poor retention hooks that get skipped
                       </span>
                     </div>
@@ -517,81 +526,81 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
               </div>
 
               {/* RIGHT COLUMN: Solution (Hands-Off Autonomous Studio) */}
-              <div className="w-full max-w-[460px] mx-auto lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
+              <div className="w-full max-w-none lg:max-w-[460px] mx-auto pl-1 sm:pl-0 lg:ml-12 xl:ml-14 lg:mr-auto flex flex-col justify-between h-full">
                 <div>
-                  <div className="w-full mb-6 lg:h-[130px] flex flex-col justify-start">
-                    <div className="inline-flex items-center gap-2 text-[#00E6D2] font-semibold text-xs tracking-wider uppercase font-mono">
-                      <WingLogo className="w-4 h-4 shrink-0" />
-                      <span>HANDS-OFF AUTOMATION</span>
+                  <div className="w-full mb-3 sm:mb-6 min-h-[65px] sm:min-h-0 lg:h-[130px] flex flex-col justify-start">
+                    <div className="inline-flex items-center gap-1 sm:gap-2 text-[#00E6D2] font-semibold text-[8px] sm:text-xs tracking-wider uppercase font-mono">
+                      <WingLogo className="w-2.5 h-2.5 sm:w-4 sm:h-4 shrink-0" />
+                      <span>AUTONOMOUS STUDIO</span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.15] font-heading mt-3">
+                    <h2 className="text-[11px] sm:text-2xl lg:text-[28px] xl:text-[30px] font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15] font-heading mt-1 sm:mt-3">
                       Full-Scale <span className="text-[#00FFE5]">Autonomous Studio</span>
                     </h2>
                   </div>
 
                   {/* 3 Metric Rows */}
                   <div className="divide-y divide-white/10 border-y border-white/10">
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
-                        <Zap className="w-4 h-4 text-[#00FFE5]" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
+                        <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-[#00FFE5]" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-white tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-white tracking-tight font-heading leading-tight">
                           100%
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
-                          HANDS-OFF PRODUCTION PIPELINE
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
+                          HANDS-OFF PIPELINE
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
-                        <RefreshCw className="w-4 h-4 text-[#00FFE5]" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
+                        <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4 text-[#00FFE5]" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
                           12-15%
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
-                          HIGH-CTR VIRAL PACKAGING
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
+                          HIGH-CTR PACKAGING
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-3.5 min-h-[72px]">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
-                        <Check className="w-4 h-4 text-[#00FFE5]" />
+                    <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3.5 min-h-[50px] sm:min-h-[72px]">
+                      <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#00E6D2]/10 border border-[#00E6D2]/25 flex items-center justify-center shrink-0">
+                        <Check className="w-3 h-3 sm:w-4 sm:h-4 text-[#00FFE5]" />
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
+                        <div className="text-xs sm:text-2xl font-bold text-[#00FFE5] tracking-tight font-heading leading-tight">
                           Weekly
                         </div>
-                        <div className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5">
-                          GUARANTEED CONSISTENT UPLOADS
+                        <div className="text-[7px] sm:text-[10px] font-semibold text-gray-400 tracking-wider uppercase font-sans mt-0.5 leading-tight">
+                          CONSISTENT UPLOADS
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Bullet points */}
-                  <div className="mt-5 space-y-2.5">
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
-                        <strong className="text-white font-semibold">Full studio pipeline:</strong> Scripting, Voiceover, 4K Editing, Packaging
+                  <div className="mt-3 sm:mt-5 space-y-1.5 sm:space-y-2.5">
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
+                        <strong className="text-white font-semibold">Full studio:</strong> Scripting, Voiceover, 4K Editing
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
-                        <strong className="text-white font-semibold">High-converting viral thumbnail designs</strong> tested for maximum CTR
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
+                        <strong className="text-white font-semibold">Viral thumbnail designs</strong> tested for max CTR
                       </span>
                     </div>
-                    <div className="flex items-start gap-2.5 min-h-[32px]">
-                      <Check className="w-3.5 h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span className="text-xs sm:text-[13px] text-gray-300 font-sans leading-snug">
-                        <strong className="text-white font-semibold">Consistent weekly uploads</strong> without you touching video editing software
+                    <div className="flex items-start gap-1.5 sm:gap-2.5 min-h-0 sm:min-h-[32px]">
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00FFE5] shrink-0 stroke-[2.5] mt-0.5" />
+                      <span className="text-[9.5px] sm:text-[13px] text-gray-300 font-sans leading-tight sm:leading-snug">
+                        <strong className="text-white font-semibold">Weekly uploads</strong> without you editing videos
                       </span>
                     </div>
                   </div>
