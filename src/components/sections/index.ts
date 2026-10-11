@@ -1,0 +1,11 @@
+export { Hero } from './Hero';
+export { HeroGlobe } from './HeroGlobe';
+export { FlappingWings } from './FlappingWings';
+export { Stats } from './Stats';
+export { Services } from './Services';
+export { Process } from './Process';
+export { Projects } from './Projects';
+export { Testimonials } from './Testimonials';
+export { Clientele } from './Clientele';
+export { FAQ } from './FAQ';
+export { CTA } from './CTA';

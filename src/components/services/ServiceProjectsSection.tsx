@@ -1,8 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Terminal } from 'lucide-react';
-import { WingLogo } from '../WingLogo';
-import type { ServiceProjectItem } from '../../data/serviceProjectsAndTestimonials';
+import { WingLogo } from '@/components/ui/WingLogo';
+import type { ServiceProjectItem } from '@/data/serviceProjectsAndTestimonials';
 
 interface ServiceProjectsSectionProps {
   serviceName: string;
