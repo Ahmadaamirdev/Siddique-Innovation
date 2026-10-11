@@ -30,6 +30,7 @@ import {
   youtubeAutomationProjects,
   youtubeAutomationTestimonials,
 } from '@/data/serviceProjectsAndTestimonials';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import thumbDisaster from '@/assets/youtube/mrbeast-disaster-challenges.avif';
 import thumbBest from '@/assets/youtube/best-thumbnail-july-17.avif';
 import thumbDead from '@/assets/youtube/dead-6.avif';
@@ -337,6 +338,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
   onNavigateService,
   onNavigate,
 }) => {
+  const isMobile = useIsMobile();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleNav = (path: string) => {
@@ -620,11 +622,11 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
               return (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: '-40px' }}
-                  transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
-                  className="lg:col-span-2 group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
+                  initial={isMobile ? false : { opacity: 0, y: 30 }}
+                  whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                  viewport={isMobile ? undefined : { once: false, margin: '-40px' }}
+                  transition={isMobile ? { duration: 0 } : { duration: 0.6, delay: index * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
+                  className="service-card lg:col-span-2 group relative flex flex-col justify-between bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl p-5 sm:p-6 md:transition-all md:duration-300 md:hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] transform-gpu will-change-transform"
                 >
                   <div className="flex flex-col flex-1">
                     {/* Header: Icon Box and Title inline */}
