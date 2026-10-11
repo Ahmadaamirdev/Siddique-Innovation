@@ -108,11 +108,14 @@ const Curved3DCarousel: React.FC = () => {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Recalculate sizes on resize: card width sized smaller to fit comfortably (~21% of container, max 255px)
+    // Recalculate sizes on resize: card width sized smaller to fit comfortably (~21% of container, max 255px on desktop, ~48% on mobile)
     const updateSize = () => {
       if (!containerRef.current) return;
       const cw = containerRef.current.offsetWidth || 1200;
-      const w = Math.min(255, Math.max(110, Math.round((cw - GAP * 4) * 0.21)));
+      const isMobileView = cw < 640;
+      const w = isMobileView
+        ? Math.round(Math.min(230, Math.max(160, cw * 0.48)))
+        : Math.min(255, Math.max(110, Math.round((cw - GAP * 4) * 0.21)));
       const h = Math.round(w / 1.6);
 
       containerWidthRef.current = cw;
@@ -221,7 +224,7 @@ const Curved3DCarousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto mt-4 sm:mt-5 select-none">
+    <div className="relative w-full max-w-7xl mx-auto mt-3.5 sm:mt-5 select-none overflow-hidden">
       {/* Inject custom pulsing glow keyframes for the central scanner beam */}
       <style>{`
         @keyframes scanner-pulse-glow {
@@ -237,7 +240,7 @@ const Curved3DCarousel: React.FC = () => {
       `}</style>
 
       {/* Top pill indicator with subtle cyan glow */}
-      <div className="w-12 sm:w-14 h-1 rounded-full bg-white/20 hover:bg-[#00E6D2]/60 mx-auto mb-2.5 sm:mb-3 shadow-[0_0_12px_rgba(0,230,210,0.25)] transition-colors" />
+      <div className="w-12 sm:w-14 h-1 rounded-full bg-white/20 hover:bg-[#00E6D2]/60 mx-auto mb-2 sm:mb-3 shadow-[0_0_12px_rgba(0,230,210,0.25)] transition-colors" />
 
       {/* Left & Right gradient edge blur for cinematic blending */}
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-r from-[#050608] via-[#050608]/80 to-transparent z-30" />
@@ -246,7 +249,7 @@ const Curved3DCarousel: React.FC = () => {
       {/* 3D Curved Viewport Container with perspective: 900px strictly on parent container */}
       <div
         ref={containerRef}
-        className="relative w-full h-[210px] sm:h-[230px] md:h-[245px] lg:h-[255px] overflow-hidden py-1 select-none"
+        className="relative w-full h-[195px] sm:h-[230px] md:h-[245px] lg:h-[255px] overflow-hidden py-1 select-none"
         style={{
           perspective: '900px',
           WebkitPerspective: '900px',
@@ -310,7 +313,7 @@ const Curved3DCarousel: React.FC = () => {
         ))}
 
         {/* 3px Vertical Scanner Line in the Exact Center with Pulsing Glow (reduced length) */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none flex items-center justify-center h-[145px] sm:h-[160px] md:h-[175px] lg:h-[185px]">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none flex items-center justify-center h-[135px] sm:h-[160px] md:h-[175px] lg:h-[185px]">
           <div
             className="w-[3px] h-full rounded-full"
             style={{
@@ -366,12 +369,12 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
         onNavigate={handleNav}
       />
 
-      <main className="pt-24 sm:pt-28 relative z-10">
+      <main className="pt-16 sm:pt-28 relative z-10">
         {/* 1. HERO SECTION: Autonomous Studio Hero & 3D Curved Transformation Showcase */}
-        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-4">
+        <section className="relative w-full min-h-[calc(100dvh-4rem)] sm:min-h-0 flex flex-col justify-center sm:justify-start px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-6 sm:pb-4">
           {/* Heading, Description, and CTA Block */}
-          <div className="max-w-4xl mx-auto text-center space-y-2 mb-2 sm:mb-3">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-0.5 drop-shadow-md">
+          <div className="max-w-4xl mx-auto text-center space-y-2.5 mb-2.5 sm:mb-3">
+            <h1 className="text-[27px] sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.22] font-heading py-1 sm:py-0.5 drop-shadow-md">
               <span className="block">Grow a YouTube Channel Without</span>
               <span
                 className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)]"

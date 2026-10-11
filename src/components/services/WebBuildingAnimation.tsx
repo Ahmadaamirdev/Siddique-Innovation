@@ -75,7 +75,7 @@ export const WebBuildingAnimation: React.FC = () => {
 <div style="display:inline-block;font-size:10px;color:#0f766e;background:#ccfbf1;border-radius:99px;padding:3px 9px;font-weight:600">&#9679; Now booking Q4</div>
 <div style="font-size:27px;line-height:1.1;font-weight:700;color:#0f172a;margin-top:8px">Build something<br><span style="color:#0d9488">remarkable.</span></div>
 <div style="font-size:11.5px;line-height:1.45;color:#64748b;margin-top:8px;width:270px">Design, engineering and launch &mdash; one small team shipping fast, modern websites.</div>
-<div style="display:flex;gap:8px;margin-top:11px"><span class="cta" style="background:#0d9488;color:#fff;font-size:11px;font-weight:600;border-radius:7px;padding:7px 14px;cursor:pointer">Start a project</span><span class="cta" style="border:1px solid #cbd5e1;color:#0f172a;font-size:11px;font-weight:600;border-radius:7px;padding:6px 13px;background:#fff;cursor:pointer">See our work</span></div></div>`,
+<div style="display:flex;gap:8px;margin-top:11px"><span class="cta" style="background:#0d9488;color:#fff;font-size:11px;font-weight:600;border-radius:7px;padding:7px 14px;cursor:pointer">Start a project</span><span class="cta btn-see-our-work" style="border:1px solid #cbd5e1;color:#0f172a;font-size:11px;font-weight:600;border-radius:7px;padding:6px 13px;background:#fff;cursor:pointer">See our work</span></div></div>`,
       },
       feat: {
         b: [24, 196, 592, 92],
@@ -480,7 +480,7 @@ export const WebBuildingAnimation: React.FC = () => {
   }, [play]);
 
   return (
-    <div className="w-full max-w-[960px] mx-auto mt-1 sm:mt-1.5 relative flex flex-col items-center">
+    <div className="w-full max-w-[960px] mx-auto mt-7 sm:mt-1.5 relative flex flex-col items-center">
       <style>{STYLE}</style>
 
       {/* Viewport Wrapper - Seamless, completely transparent, no card background, no border, no shadow */}
@@ -522,5 +522,10 @@ const STYLE = `
   border-left: 2px solid #94a3b8;
   border-right: 2px solid #94a3b8;
   box-sizing: border-box;
+}
+@media (max-width: 639px) {
+  .btn-see-our-work {
+    display: none !important;
+  }
 }
 `;
