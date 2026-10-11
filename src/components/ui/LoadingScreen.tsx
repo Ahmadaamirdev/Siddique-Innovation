@@ -105,9 +105,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           className="w-full max-h-[55vh] object-contain"
         >
           <source src={loadingVideoWebm} type="video/webm" />
-          <source src="/videos/loadinganimation.webm" type="video/webm" />
           <source src={loadingVideoMp4} type="video/mp4" />
-          <source src="/videos/loadinganimation.mp4" type="video/mp4" />
         </video>
       </div>
     </motion.div>
