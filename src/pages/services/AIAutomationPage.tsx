@@ -193,7 +193,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
         >
           {/* Centered Video Layer (Moved upward on mobile) */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-            <div className="relative z-0 flex items-center justify-center -translate-y-18 sm:-translate-y-14 lg:-translate-y-14">
+            <div className="relative z-0 flex items-center justify-center -translate-y-24 sm:-translate-y-14 lg:-translate-y-14">
               <div
                 className="relative w-full max-w-[340px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
                 style={{
@@ -236,7 +236,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
 
           {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, moved upward */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-3 sm:-translate-y-2 lg:translate-y-6 relative z-10">
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-8 translate-x-3 sm:translate-x-0 sm:-translate-y-2 lg:translate-y-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}

@@ -102,7 +102,7 @@ export const Hero: React.FC<HeroProps> = ({
       {/* ============================================================== */}
       <div className="sticky top-0 h-[100dvh] w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
         {/* 3D Flapping Wings centered in the screen & staying still */}
-        <div className="relative z-10 flex items-center justify-center translate-y-0 sm:translate-y-0 lg:translate-y-12">
+        <div className="relative z-10 flex items-center justify-center -translate-y-8 sm:translate-y-0 lg:translate-y-12">
           <FlappingWings reducedMotion={reducedMotion} size="lg" />
         </div>
       </div>
@@ -148,7 +148,7 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Description Card: positioned below wings on mobile/tablet to avoid overlapping, right-aligned on desktop */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 translate-y-0 lg:translate-y-12">
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 -translate-y-5 translate-x-3 sm:translate-x-0 sm:translate-y-0 lg:translate-y-12">
             <motion.div
               style={{
                 ...(reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }),
