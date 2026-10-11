@@ -10,7 +10,7 @@ import {
   Zap,
   CheckCircle2,
 } from 'lucide-react';
-import { allProjects } from '../components/projectsData';
+import { allProjects } from './projectsData';
 
 export interface ServiceProjectItem {
   id: string;

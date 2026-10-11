@@ -1,41 +1,30 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Stats } from './components/Stats';
-import { Services } from './components/Services';
-import { Process } from './components/Process';
-import { Projects } from './components/Projects';
-import { Testimonials } from './components/Testimonials';
-import { FAQ } from './components/FAQ';
-import { Clientele } from './components/Clientele';
-import { CTA } from './components/CTA';
-import { Footer } from './components/Footer';
-import { BackgroundParticles } from './components/BackgroundParticles';
-import { SmoothScrollProvider } from './components/SmoothScrollProvider';
-import { LoadingScreen } from './components/LoadingScreen';
-import { servicesData } from './data/servicesData';
+import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { SmoothScrollProvider } from '@/context/SmoothScrollProvider';
+import { HomePage } from '@/pages/HomePage';
+import { servicesData } from '@/data/servicesData';
 
 const ServiceDetailPage = lazy(() =>
-  import('./components/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
+  import('@/pages/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
 );
 const ProjectsPage = lazy(() =>
-  import('./components/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
+  import('@/pages/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
 );
 const AboutPage = lazy(() =>
-  import('./components/AboutPage').then((m) => ({ default: m.AboutPage }))
+  import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage }))
 );
 const ContactPage = lazy(() =>
-  import('./components/ContactPage').then((m) => ({ default: m.ContactPage }))
+  import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage }))
 );
 const PrivacyPolicyPage = lazy(() =>
-  import('./components/PrivacyPolicyPage').then((m) => ({ default: m.PrivacyPolicyPage }))
+  import('@/pages/PrivacyPolicyPage').then((m) => ({ default: m.PrivacyPolicyPage }))
 );
 const TermsPage = lazy(() =>
-  import('./components/TermsPage').then((m) => ({ default: m.TermsPage }))
+  import('@/pages/TermsPage').then((m) => ({ default: m.TermsPage }))
 );
 const NotFoundPage = lazy(() =>
-  import('./components/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
+  import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
 );
 
 const App: React.FC = () => {
@@ -133,27 +122,11 @@ const App: React.FC = () => {
 
     if (currentPath === '/' || currentPath === '') {
       return (
-        <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black overflow-x-clip relative">
-          <BackgroundParticles />
-          <Navbar
-            onNavigate={navigateToPath}
-            currentPath={currentPath}
-          />
-          <main id="home">
-            <Hero
-              onNavigate={navigateToPath}
-            />
-            <Stats />
-            <Services onNavigate={navigateToPath} />
-            <Process />
-            <Projects onNavigateToProjects={navigateToProjects} />
-            <Testimonials />
-            <Clientele />
-            <FAQ />
-            <CTA />
-          </main>
-          <Footer onNavigate={navigateToPath} />
-        </div>
+        <HomePage
+          currentPath={currentPath}
+          onNavigate={navigateToPath}
+          onNavigateToProjects={navigateToProjects}
+        />
       );
     }
 

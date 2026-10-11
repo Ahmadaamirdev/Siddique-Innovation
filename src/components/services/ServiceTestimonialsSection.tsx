@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
-import { WingLogo } from '../WingLogo';
-import type { ServiceTestimonialCard } from '../../data/serviceProjectsAndTestimonials';
+import { WingLogo } from '@/components/ui/WingLogo';
+import type { ServiceTestimonialCard } from '@/data/serviceProjectsAndTestimonials';
 
 interface ServiceTestimonialsSectionProps {
   serviceName: string;
