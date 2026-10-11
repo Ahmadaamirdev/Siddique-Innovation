@@ -19,7 +19,6 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
   // Number interpolation using easeOutCubic
   const clicksVal = (summary.clicksTotal * progress).toFixed(1);
   const imprVal = Math.round(summary.impressionsTotal * progress);
-  const kwVal = Math.round(summary.keywordsOnPageOne * progress);
   // Avg position starts from e.g. 50 and moves to 1
   const avgPosVal = Math.max(1, Math.round(50 - (50 - summary.avgPosition) * progress));
 
@@ -113,13 +112,6 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
             <span className="text-[9.5px] sm:text-[10.5px] font-mono text-[#1fd6a5] tracking-wider mt-0.5">
               {summary.rankBadge}
             </span>
-          </div>
-
-          {/* Mobile Keywords on Page 1 Chip */}
-          <div className="sm:hidden mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#081815]/90 border border-[#1fd6a5]/30 text-[10px] font-mono">
-            <span className="text-gray-400">Keywords:</span>
-            <span className="text-[#1fd6a5] font-bold font-serif">{kwVal}</span>
-            <span className="text-[#5fd9c3]">+{summary.keywordsGrowth}</span>
           </div>
         </div>
       </div>
