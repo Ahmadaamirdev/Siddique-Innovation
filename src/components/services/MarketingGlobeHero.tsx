@@ -655,7 +655,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[490px] sm:h-[530px] lg:h-[560px] overflow-hidden select-none bg-[#050608] rounded-3xl border border-white/5 flex flex-col items-center justify-between"
+      className="relative w-full h-[calc(100dvh-5rem)] min-h-[540px] sm:min-h-0 sm:h-[530px] lg:h-[560px] overflow-hidden select-none bg-[#050608] rounded-3xl border border-white/5 flex flex-col items-center justify-between"
     >
       <style>{STYLE}</style>
 
@@ -665,10 +665,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
       {/* ── Floating Social Media Badges (Original Brand Colors, Substantially Bigger Size, Asynchronous Random Floating) ── */}
       {/* 1. Instagram Badge (Left Top - Authentic Instagram Gradient App Icon) */}
       <div
-        className="marketing-social-pill pill-instagram float-random-1 hidden sm:flex left-[3%] md:left-[6%] lg:left-[8%] top-[75px] sm:top-[90px] md:top-[95px]"
+        className="marketing-social-pill pill-instagram float-random-1 flex left-[3%] sm:left-[3%] md:left-[6%] lg:left-[8%] top-[240px] sm:top-[90px] md:top-[95px]"
         title="Instagram Growth & Ads"
       >
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+        <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
           <defs>
             <radialGradient id="ig-brand-radial" cx="20%" cy="105%" r="120%">
               <stop offset="0%" stopColor="#fdf497" />
@@ -687,10 +687,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 2. Facebook Badge (Left Middle - Authentic Meta/Facebook Blue #1877F2) */}
       <div
-        className="marketing-social-pill pill-facebook float-random-5 hidden sm:flex left-[1.5%] md:left-[3.5%] lg:left-[5%] top-[185px] sm:top-[205px] md:top-[215px]"
+        className="marketing-social-pill pill-facebook float-random-5 flex left-[2%] sm:left-[1.5%] md:left-[3.5%] lg:left-[5%] top-[340px] sm:top-[205px] md:top-[215px]"
         title="Facebook & Meta Ads"
       >
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+        <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="12" fill="#1877F2" />
           <path
             d="M16.671 15.469l.532-3.47h-3.328v-2.25c0-.949.465-1.874 1.956-1.874h1.514V4.922s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.643H7.078v3.47h3.047v8.385a12.18 12.18 0 0 0 3.75 0v-8.385h2.796z"
@@ -701,10 +701,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 3. LinkedIn Badge (Left Lower - Authentic LinkedIn Blue #0A66C2) */}
       <div
-        className="marketing-social-pill pill-linkedin float-random-2 hidden sm:flex left-[3.5%] md:left-[7%] lg:left-[9%] top-[295px] sm:top-[320px] md:top-[335px]"
+        className="marketing-social-pill pill-linkedin float-random-2 flex left-[4%] sm:left-[3.5%] md:left-[7%] lg:left-[9%] top-[440px] sm:top-[320px] md:top-[335px]"
         title="LinkedIn B2B Lead Gen"
       >
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+        <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
           <rect width="24" height="24" rx="5" fill="#0A66C2" />
           <path d="M7.12 9.5H4.88V18H7.12V9.5Z" fill="#FFFFFF" />
           <path d="M6 8.25C6.76 8.25 7.38 7.63 7.38 6.87C7.38 6.11 6.76 5.5 6 5.5C5.24 5.5 4.62 6.11 4.62 6.87C4.62 7.63 5.24 8.25 6 8.25Z" fill="#FFFFFF" />
@@ -714,10 +714,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 4. Google Badge (Right Top - Authentic 4-Color Google G Icon) */}
       <div
-        className="marketing-social-pill pill-google float-random-6 hidden sm:flex right-[3%] md:right-[6%] lg:right-[8%] top-[75px] sm:top-[90px] md:top-[95px]"
+        className="marketing-social-pill pill-google float-random-6 flex right-[3%] sm:right-[3%] md:right-[6%] lg:right-[8%] top-[240px] sm:top-[90px] md:top-[95px]"
         title="Google Ads & Search Marketing"
       >
-        <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
+        <svg className="w-5 h-5 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
           <path
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
             fill="#4285F4"
@@ -739,10 +739,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 5. YouTube Badge (Right Middle - Authentic YouTube Red #FF0000 & White Play Button) */}
       <div
-        className="marketing-social-pill pill-youtube float-random-3 hidden sm:flex right-[1.5%] md:right-[3.5%] lg:right-[5%] top-[185px] sm:top-[205px] md:top-[215px]"
+        className="marketing-social-pill pill-youtube float-random-3 flex right-[2%] sm:right-[1.5%] md:right-[3.5%] lg:right-[5%] top-[340px] sm:top-[205px] md:top-[215px]"
         title="YouTube Content Strategy"
       >
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+        <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
           <path
             d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"
             fill="#FF0000"
@@ -753,10 +753,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 6. TikTok Badge (Right Lower - Authentic Chromatic Glitch Cyan & Pink-Red) */}
       <div
-        className="marketing-social-pill pill-tiktok float-random-4 hidden sm:flex right-[3.5%] md:right-[7%] lg:right-[9%] top-[295px] sm:top-[320px] md:top-[335px]"
+        className="marketing-social-pill pill-tiktok float-random-4 flex right-[4%] sm:right-[3.5%] md:right-[7%] lg:right-[9%] top-[440px] sm:top-[320px] md:top-[335px]"
         title="Viral Short-Form Campaigns"
       >
-        <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
+        <svg className="w-5 h-5 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
           <g>
             <path
               d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.16 1.18 2.09 2.35 2.27.77.14 1.58.01 2.26-.35.88-.44 1.47-1.32 1.56-2.29.07-2.61.04-5.22.04-7.83V.02h.85z"
@@ -845,12 +845,12 @@ const STYLE = `
 /* Substantially larger social media icons (uniform 66px x 66px, rounded-2xl) */
 .marketing-social-pill {
   position: absolute;
-  width: 58px;
-  height: 58px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   background: rgba(10, 13, 16, 0.85);
-  border-radius: 18px;
+  border-radius: 14px;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 20;

@@ -80,9 +80,9 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
         onNavigate={handleNav}
       />
 
-      <main className="pt-20 sm:pt-24 relative z-10">
+      <main className="pt-16 sm:pt-24 relative z-10">
         {/* 1. HERO SECTION: 3D Marketing Globe Hero */}
-        <section className="relative px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-4 sm:pb-6 text-center overflow-hidden">
+        <section className="relative px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-3 sm:pb-6 text-center overflow-hidden min-h-[calc(100dvh-4rem)] sm:min-h-0 flex flex-col justify-center">
           <MarketingGlobeHero
             heading={
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold text-white tracking-[-0.02em] leading-[1.16] font-heading py-1 drop-shadow-md max-w-3xl mx-auto">
