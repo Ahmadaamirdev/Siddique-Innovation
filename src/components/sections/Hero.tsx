@@ -124,7 +124,7 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="h-16 sm:h-24 lg:h-28 shrink-0 w-full" />
 
           {/* TOP-LEFT: H1 Heading */}
-          <div className="w-full flex items-start justify-start pt-6 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
+          <div className="w-full flex items-start justify-start pt-10 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
             <motion.div
               style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
               className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-left"
@@ -166,10 +166,10 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* BOTTOM-LEFT: Contact Us CTA Button & Social Links */}
-          <div className="w-full flex items-center justify-between pb-8 sm:pb-12 lg:pb-14 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
+          <div className="w-full flex items-center justify-center sm:justify-between pb-8 sm:pb-12 lg:pb-14 px-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
             <motion.div
               style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
-              className="flex flex-wrap items-center gap-3 sm:gap-4"
+              className="w-full sm:w-auto flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4"
             >
               {/* Contact Us CTA Button */}
               <motion.a
