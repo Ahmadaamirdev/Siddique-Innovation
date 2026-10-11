@@ -216,7 +216,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
 
           {/* TOP-LEFT: H1 Heading (Size matched to homepage hero H1, smart enterprise automation removed) */}
-          <div className="w-full flex items-start justify-start pt-2 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
+          <div className="w-full flex items-start justify-start pt-6 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -253,13 +253,13 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </motion.div>
           </div>
 
-          {/* BOTTOM-LEFT: CTA Button: moved upward on mobile so it stays on single screen */}
-          <div className="w-full flex items-center justify-between pb-4 sm:pb-8 lg:pb-24 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 -translate-y-3 sm:-translate-y-2 lg:-translate-y-10">
+          {/* CTA Button: centered on mobile, left-aligned on tablet/desktop */}
+          <div className="w-full flex items-center justify-center sm:justify-between pb-4 sm:pb-8 lg:pb-24 px-4 sm:pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 -translate-y-3 sm:-translate-y-2 lg:-translate-y-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-3 sm:gap-4"
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4"
             >
               <a
                 href="#service-cta"
