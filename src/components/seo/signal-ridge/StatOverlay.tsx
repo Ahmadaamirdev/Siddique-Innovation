@@ -67,8 +67,8 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Avg. position */}
-        <div className="flex flex-col items-end text-right mb-2 sm:mb-16 lg:mb-20">
+        {/* RIGHT COLUMN: Avg. position (Hidden on mobile so graph occupies proper space, visible on desktop) */}
+        <div className="hidden sm:flex flex-col items-end text-right mb-2 sm:mb-16 lg:mb-20">
           <span className="text-[11px] sm:text-xs font-mono text-[#6b8480] uppercase tracking-wider mb-0.5">
             Avg. position
           </span>
@@ -116,15 +116,15 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
         </div>
       </div>
 
-      {/* ── PROJECTED 3D FINALE LABEL ── */}
-      {juneProjected && juneProjected.visible && (
+      {/* ── PROJECTED 3D FINALE LABEL (Desktop) ── */}
+      {juneProjected && juneProjected.visible && !_hoveredColumn && (
         <div
           style={{
             left: `${juneProjected.x}px`,
             top: `${juneProjected.y}px`,
             transform: 'translate(16px, -50%)',
           }}
-          className="absolute z-20 pointer-events-none transition-transform duration-75 ease-out animate-fadeIn"
+          className="hidden sm:block absolute z-20 pointer-events-none transition-transform duration-75 ease-out animate-fadeIn"
         >
           <div className="px-3.5 py-1.5 rounded-full bg-[#081815]/95 border border-[#1fd6a5]/50 backdrop-blur-md shadow-[0_0_20px_rgba(31,214,165,0.35)] text-xs font-mono text-[#e6f2ef] flex items-center gap-1.5 whitespace-nowrap">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1fd6a5] animate-ping" />
@@ -132,6 +132,43 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
               {SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].month} ·{' '}
               {SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].clicks.toFixed(1)}k clicks
             </span>
+          </div>
+        </div>
+      )}
+
+      {/* ── HOVER TOOLTIP PILL (Desktop) ── */}
+      {_hoveredColumn && (
+        <div
+          style={{
+            left: `${_hoveredColumn.screenX}px`,
+            top: `${_hoveredColumn.screenY}px`,
+            transform: 'translate(18px, -50%)',
+          }}
+          className="hidden sm:block absolute z-30 pointer-events-none px-3 py-1 rounded-full bg-[#06110f]/95 border border-[#1fd6a5]/60 shadow-[0_0_15px_rgba(31,214,165,0.3)] backdrop-blur-lg text-xs font-mono text-[#e6f2ef] whitespace-nowrap flex items-center gap-1.5 animate-fadeIn"
+        >
+          <span className="text-[#1fd6a5] font-bold">{_hoveredColumn.month}</span>
+          <span className="text-white/30">·</span>
+          <span>{_hoveredColumn.clicks.toFixed(1)}k clicks</span>
+          <span className="text-white/30">·</span>
+          <span className="text-[#5fd9c3]">{_hoveredColumn.impressions}k impr.</span>
+        </div>
+      )}
+
+      {/* ── MOBILE HOVER / ACTIVE PILL (Adjusted to small size on bottom right side so it is clearly visible) ── */}
+      {(_hoveredColumn || (juneProjected && juneProjected.visible)) && (
+        <div className="sm:hidden absolute bottom-3 right-3 z-30 pointer-events-none animate-fadeIn">
+          <div className="px-2.5 py-1 rounded-full bg-[#081815]/95 border border-[#1fd6a5]/50 backdrop-blur-md shadow-[0_0_15px_rgba(31,214,165,0.3)] text-[10px] font-mono text-[#e6f2ef] flex items-center gap-1.5 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1fd6a5] animate-pulse" />
+            {_hoveredColumn ? (
+              <span>
+                <strong className="text-[#1fd6a5]">{_hoveredColumn.month}</strong> · {_hoveredColumn.clicks.toFixed(1)}k clicks
+              </span>
+            ) : (
+              <span>
+                <strong className="text-[#1fd6a5]">{SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].month}</strong> ·{' '}
+                {SIGNAL_RIDGE_DATA.months[SIGNAL_RIDGE_DATA.months.length - 1].clicks.toFixed(1)}k clicks
+              </span>
+            )}
           </div>
         </div>
       )}

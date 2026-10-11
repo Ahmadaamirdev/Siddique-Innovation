@@ -132,7 +132,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
             {/* Responsive H1 Headline */}
-            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] font-extrabold text-white tracking-[-0.02em] leading-tight font-heading max-w-full mx-auto py-0.5 drop-shadow-md whitespace-normal sm:whitespace-nowrap text-center px-2">
+            <h1 className="text-[26px] sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] font-extrabold text-white tracking-[-0.02em] leading-[1.2] font-heading max-w-full mx-auto py-1 sm:py-0.5 drop-shadow-md whitespace-normal sm:whitespace-nowrap text-center px-3 sm:px-2">
               <span>Websites That Turn </span>
               <span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
@@ -142,7 +142,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
               </span>
             </h1>
 
-            <p className="text-gray-300 text-xs sm:text-[13px] md:text-sm max-w-2xl mx-auto font-normal leading-relaxed font-sans mt-0.5 mb-1">
+            <p className="text-gray-300 text-sm sm:text-[13px] md:text-sm max-w-2xl mx-auto font-normal leading-relaxed font-sans mt-2.5 sm:mt-0.5 mb-3.5 sm:mb-1 px-3 sm:px-0">
               {service.heroDescription}
             </p>
 

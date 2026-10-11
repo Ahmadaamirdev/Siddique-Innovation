@@ -171,9 +171,7 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     const grid = new THREE.GridHelper(100, 100, 0x164e43, 0x0f362e);
     grid.position.y = 0;
     gridRef.current = grid;
-    if (isMobile) {
-      grid.visible = false;
-    }
+    grid.visible = true; // Green lines in background visible on mobile and desktop
     scene.add(grid);
     disposablesRef.current.push(grid.geometry);
     if (Array.isArray(grid.material)) {
@@ -414,9 +412,9 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       const isMobileView = currentWidth < 768;
       const aspect = camera.aspect || 1.6;
 
-      // On mobile / narrow screens, scale camera distance so the entire 12-column graph fits completely inside the screen
+      // On mobile, scale camera distance moderately so the graph is larger and occupies proper space
       const distFactor = isMobileView
-        ? Math.max(1.35, 1.85 / Math.max(aspect, 0.65))
+        ? Math.max(1.10, 1.30 / Math.max(aspect, 0.70))
         : 1.0;
 
       // 1. Static Camera: Completely static view. Does not move or sway.
@@ -431,11 +429,11 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       const camZ = orbitRadius * Math.sin(staticAngle);
 
       camera.position.set(camX, camY, camZ);
-      camera.lookAt(isMobileView ? 0.45 : 0.2, 2.55, 0);
+      camera.lookAt(isMobileView ? 0.35 : 0.2, 2.55, 0);
 
-      // Hide floor grid (scale) and month labels on mobile responsiveness
+      // Green lines in background visible on both mobile and desktop
       if (gridRef.current) {
-        gridRef.current.visible = !isMobileView;
+        gridRef.current.visible = true;
       }
       if (monthLabelsGroupRef.current) {
         monthLabelsGroupRef.current.visible = !isMobileView;
@@ -586,7 +584,7 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[330px] sm:h-[365px] lg:h-[390px] xl:h-[405px] select-none touch-pan-y overflow-hidden cursor-default"
+      className="relative w-full h-[365px] sm:h-[365px] lg:h-[390px] xl:h-[405px] select-none touch-pan-y overflow-hidden cursor-default"
     >
       <canvas
         ref={canvasRef}
