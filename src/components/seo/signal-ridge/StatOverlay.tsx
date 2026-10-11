@@ -80,8 +80,8 @@ export const StatOverlay: React.FC<StatOverlayProps> = ({
             {String(avgPosVal).padStart(2, '0')}
           </span>
 
-          {/* Tick ruler */}
-          <div className="w-28 sm:w-36 my-2">
+          {/* Tick ruler: hidden on mobile responsiveness, visible on desktop */}
+          <div className="hidden sm:block sm:w-36 my-2">
             <div className="flex justify-between items-end h-2.5">
               {Array.from({ length: 25 }, (_, i) => (
                 <i
