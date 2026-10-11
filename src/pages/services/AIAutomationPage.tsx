@@ -185,17 +185,17 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
         onNavigate={handleNav}
       />
 
-      <main className="pt-20 sm:pt-24 lg:pt-20 relative z-10">
+      <main className="pt-16 sm:pt-24 lg:pt-20 relative z-10">
         {/* 1. HERO SECTION: Matched to Homepage Hero layout */}
         <section
           ref={heroRef}
-          className="relative w-full h-[calc(100vh-5rem)] min-h-[580px] sm:min-h-[640px] max-h-[1050px] overflow-hidden bg-[#040608] text-white flex flex-col justify-between select-none"
+          className="relative w-full h-[calc(100dvh-4rem)] sm:h-[calc(100vh-5rem)] min-h-[500px] sm:min-h-[640px] max-h-[1050px] overflow-hidden bg-[#040608] text-white flex flex-col justify-between select-none"
         >
           {/* Centered Video Layer (Moved upward on mobile) */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-            <div className="relative z-0 flex items-center justify-center -translate-y-12 sm:-translate-y-12 lg:-translate-y-14">
+            <div className="relative z-0 flex items-center justify-center -translate-y-18 sm:-translate-y-14 lg:-translate-y-14">
               <div
-                className="relative w-full max-w-[460px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
+                className="relative w-full max-w-[340px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
                 style={{
                   WebkitMaskImage: 'radial-gradient(ellipse 52% 56% at 50% 46%, black 30%, transparent 72%)',
                   maskImage: 'radial-gradient(ellipse 52% 56% at 50% 46%, black 30%, transparent 72%)',
@@ -216,7 +216,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
 
           {/* TOP-LEFT: H1 Heading (Size matched to homepage hero H1, smart enterprise automation removed) */}
-          <div className="w-full flex items-start justify-start pt-4 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
+          <div className="w-full flex items-start justify-start pt-2 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -235,8 +235,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </motion.div>
           </div>
 
-          {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, right-aligned on desktop */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-4 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 translate-y-0 lg:translate-y-6 relative z-10">
+          {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, moved upward */}
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-3 sm:-translate-y-2 lg:translate-y-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -245,16 +245,16 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
-              className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+              className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
             >
-              <p className="text-gray-300 text-xs sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
+              <p className="text-gray-300 text-[11px] sm:text-[13px] lg:text-sm leading-snug sm:leading-relaxed font-sans font-normal">
                 {service.heroDescription}
               </p>
             </motion.div>
           </div>
 
-          {/* BOTTOM-LEFT: CTA Button */}
-          <div className="w-full flex items-center justify-between pb-8 sm:pb-12 lg:pb-24 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 translate-y-0 lg:-translate-y-10">
+          {/* BOTTOM-LEFT: CTA Button: moved upward on mobile so it stays on single screen */}
+          <div className="w-full flex items-center justify-between pb-4 sm:pb-8 lg:pb-24 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10 -translate-y-3 sm:-translate-y-2 lg:-translate-y-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
