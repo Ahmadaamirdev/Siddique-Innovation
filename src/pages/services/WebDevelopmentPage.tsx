@@ -416,29 +416,26 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
 
           {/* Continuous Moving Cards Carousel Track */}
           <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] py-4">
-            <div className="animate-marquee-infinite gap-6 pl-6">
+            <div className="animate-marquee-infinite gap-3 sm:gap-6 pl-3 sm:pl-6">
               {[...service.processSteps, ...service.processSteps].map((step, idx) => (
                 <div
                   key={`${step.number}-${idx}`}
-                  className="w-[280px] sm:w-[320px] shrink-0 p-6 rounded-2xl bg-[#090D12] border border-white/10 hover:border-[#00FFE5]/50 hover:bg-[#00FFE5]/[0.04] transition-all duration-300 flex flex-col justify-between group shadow-[0_4px_20px_rgba(0,0,0,0.5)] select-none"
+                  className="w-[205px] sm:w-[320px] shrink-0 p-3.5 sm:p-6 rounded-2xl bg-[#090D12] border border-white/10 hover:border-[#00FFE5]/50 hover:bg-[#00FFE5]/[0.04] transition-all duration-300 flex flex-col justify-between group shadow-[0_4px_20px_rgba(0,0,0,0.5)] select-none"
                 >
                   <div>
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-mono font-bold tracking-wider text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors">
+                    <div className="flex items-center justify-between mb-2.5 sm:mb-4">
+                      <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider text-[#00E6D2] group-hover:text-[#00FFE5] transition-colors">
                         STAGE 0{step.number}
                       </span>
-                      <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-[#00FFE5] group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500 group-hover:text-[#00FFE5] group-hover:translate-x-1 transition-all" />
                     </div>
-                    <h4 className="text-lg font-bold text-white mb-2 font-heading group-hover:text-[#00FFE5] transition-colors">
+                    <h4 className="text-sm sm:text-lg font-bold text-white mb-1.5 sm:mb-2 font-heading group-hover:text-[#00FFE5] transition-colors">
                       {step.title}
                     </h4>
-                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-sans">
+                    <p className="text-[11px] sm:text-xs md:text-sm text-gray-400 leading-relaxed font-sans">
                       {step.description}
                     </p>
-                  </div>
-                  <div className="pt-4 mt-4 border-t border-white/5 flex items-center gap-1.5 text-[11px] font-mono text-[#00E6D2]/80">
-                    <span>STAGE 0{step.number} // ACTIVE</span>
                   </div>
                 </div>
               ))}
