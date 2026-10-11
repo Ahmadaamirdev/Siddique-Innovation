@@ -130,10 +130,12 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     scene.background = null; // transparent canvas
     scene.fog = new THREE.Fog(0x04070a, 14, 42);
 
-    // 2. Camera: fov 38, adjusted for 12-bar span
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 80);
+    // 2. Camera: fov 38, adjusted for 12-bar span; on mobile (aspect < 1.6), adjust distance so graph fits inside screen
+    const aspect = width / height;
+    const distFactor = aspect < 1.6 ? Math.min(1.65, 1.6 / Math.max(aspect, 0.75)) : 1;
+    const camera = new THREE.PerspectiveCamera(38, aspect, 0.1, 80);
     cameraRef.current = camera;
-    camera.position.set(8.5, 5.9, 10.2);
+    camera.position.set(8.5 * distFactor, 5.9 * distFactor, 10.2 * distFactor);
     camera.lookAt(0.2, 2.55, 0);
 
     // 3. Renderer (alpha:true so canvas composites over page bg)
@@ -524,7 +526,11 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   // Resize handler
   const handleResize = useCallback((w: number, h: number) => {
     if (cameraRef.current && rendererRef.current) {
-      cameraRef.current.aspect = w / h;
+      const aspect = w / h;
+      cameraRef.current.aspect = aspect;
+      const distFactor = aspect < 1.6 ? Math.min(1.65, 1.6 / Math.max(aspect, 0.75)) : 1;
+      cameraRef.current.position.set(8.5 * distFactor, 5.9 * distFactor, 10.2 * distFactor);
+      cameraRef.current.lookAt(0.2, 2.55, 0);
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(w, h, false);
     }
