@@ -216,7 +216,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
 
           {/* TOP-LEFT: H1 Heading (Size matched to homepage hero H1, smart enterprise automation removed) */}
-          <div className="w-full flex items-start justify-start pt-6 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
+          <div className="w-full flex items-start justify-start pt-10 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -235,8 +235,8 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
             </motion.div>
           </div>
 
-          {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, moved upward */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-8 translate-x-3 sm:translate-x-0 sm:-translate-y-2 lg:translate-y-6 relative z-10">
+          {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, moved upward and to right on mobile */}
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-12 translate-x-6 sm:translate-x-0 sm:-translate-y-2 lg:translate-y-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -245,10 +245,15 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
-              className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+              className="relative w-full max-w-[285px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
             >
               <p className="text-gray-300 text-[11px] sm:text-[13px] lg:text-sm leading-snug sm:leading-relaxed font-sans font-normal">
-                {service.heroDescription}
+                <span className="sm:hidden">
+                  We develop AI-powered automation and intelligent AI agents that work alongside your existing business processes and tools.
+                </span>
+                <span className="hidden sm:inline">
+                  {service.heroDescription}
+                </span>
               </p>
             </motion.div>
           </div>

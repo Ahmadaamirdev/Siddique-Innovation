@@ -148,19 +148,22 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Description Card: positioned below wings on mobile/tablet to avoid overlapping, right-aligned on desktop */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 -translate-y-5 translate-x-3 sm:translate-x-0 sm:translate-y-0 lg:translate-y-12">
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 -translate-y-10 translate-x-6 sm:translate-x-0 sm:translate-y-0 lg:translate-y-12">
             <motion.div
               style={{
                 ...(reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }),
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
-              className="relative w-full max-w-[300px] sm:max-w-[315px] md:max-w-[330px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
+              className="relative w-full max-w-[285px] sm:max-w-[315px] md:max-w-[330px] lg:max-w-[390px] xl:max-w-[420px] text-left p-3.5 sm:p-5 lg:p-6 rounded-2xl border border-[#00FFE5]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,229,0.08)] [box-shadow:inset_0_1px_1px_rgba(0,255,229,0.2)]"
             >
               <p className="text-gray-300 text-[11px] sm:text-[13px] lg:text-sm leading-relaxed font-sans font-normal">
                 Siddiqui Innovations helps businesses build high-performing websites,
                 automate repetitive processes with AI and strengthen their digital presence
-                through strategic marketing solutions designed around their goals.
+                <span className="hidden sm:inline">
+                  {' '}through strategic marketing solutions designed around their goals.
+                </span>
+                <span className="sm:hidden">.</span>
               </p>
             </motion.div>
           </div>
