@@ -303,7 +303,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* 80% visible clipping container sitting directly on the horizontal dividing line */}
           <div
             ref={brandTextRef}
-            className="relative w-full overflow-hidden h-[0.80em] text-[clamp(1.1rem,4.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15"
+            className="relative w-full overflow-hidden h-[0.80em] text-[clamp(1.45rem,6.4vw,4.8rem)] leading-none flex justify-center items-start border-b border-white/15"
           >
             {/* Subtle logo-green accent along the visible cut boundary */}
             <motion.div
@@ -313,7 +313,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
             <span
               aria-label="SIDDIQUI INNOVATIONS"
-              className="inline-block font-extrabold tracking-[0.06em] sm:tracking-[0.11em] uppercase leading-none whitespace-nowrap transition-all duration-500 hover:opacity-100 cursor-default select-none drop-shadow-[0_0_18px_rgba(150,230,218,0.25)] hover:drop-shadow-[0_0_32px_rgba(150,230,218,0.5)] transform-gpu"
+              className="inline-block font-extrabold tracking-[0.03em] sm:tracking-[0.11em] uppercase leading-none whitespace-nowrap transition-all duration-500 hover:opacity-100 cursor-default select-none drop-shadow-[0_0_18px_rgba(150,230,218,0.25)] hover:drop-shadow-[0_0_32px_rgba(150,230,218,0.5)] transform-gpu"
               style={{
                 fontFamily: "Arial, 'Helvetica Neue', 'Segoe UI', sans-serif",
                 WebkitTextStroke: '1.1px #96E6DA',
