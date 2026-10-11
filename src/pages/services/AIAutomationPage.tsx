@@ -191,9 +191,9 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           ref={heroRef}
           className="relative w-full h-[calc(100vh-5rem)] min-h-[580px] sm:min-h-[640px] max-h-[1050px] overflow-hidden bg-[#040608] text-white flex flex-col justify-between select-none"
         >
-          {/* Centered Video Layer (Moved a bit above) */}
+          {/* Centered Video Layer (Moved upward on mobile) */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-            <div className="relative z-0 flex items-center justify-center -translate-y-7 sm:-translate-y-11 lg:-translate-y-14">
+            <div className="relative z-0 flex items-center justify-center -translate-y-12 sm:-translate-y-12 lg:-translate-y-14">
               <div
                 className="relative w-full max-w-[460px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
                 style={{
