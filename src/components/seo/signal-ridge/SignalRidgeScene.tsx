@@ -102,6 +102,8 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
 
   // Disposal tracker
   const disposablesRef = useRef<Array<THREE.BufferGeometry | THREE.Material | THREE.Texture>>([]);
+  const gridRef = useRef<THREE.GridHelper | null>(null);
+  const monthLabelsGroupRef = useRef<THREE.Group | null>(null);
 
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window);
 
@@ -165,9 +167,13 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     tealPointLight.position.set(2, 5, 4);
     scene.add(tealPointLight);
 
-    // 5. Floor: GridHelper in dark teal (Fog near 14, far 42)
+    // 5. Floor: GridHelper in dark teal (Fog near 14, far 65)
     const grid = new THREE.GridHelper(100, 100, 0x164e43, 0x0f362e);
     grid.position.y = 0;
+    gridRef.current = grid;
+    if (isMobile) {
+      grid.visible = false;
+    }
     scene.add(grid);
     disposablesRef.current.push(grid.geometry);
     if (Array.isArray(grid.material)) {
@@ -175,6 +181,13 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
     } else {
       disposablesRef.current.push(grid.material);
     }
+
+    const monthLabelsGroup = new THREE.Group();
+    monthLabelsGroupRef.current = monthLabelsGroup;
+    if (isMobile) {
+      monthLabelsGroup.visible = false;
+    }
+    scene.add(monthLabelsGroup);
 
     // 6. Columns: hexagonal prisms
     const numMonths = SIGNAL_RIDGE_DATA.months.length;
@@ -242,10 +255,10 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       scene.add(colMesh);
       columns.push(colMesh);
 
-      // Month sprite label in front of column on the floor
+      // Month sprite label in front of column on the floor (grouped to toggle visibility on mobile)
       const labelSprite = createMonthLabelSprite(item.month);
       labelSprite.position.set(x, 0.06, 0.95);
-      scene.add(labelSprite);
+      monthLabelsGroup.add(labelSprite);
       disposablesRef.current.push(labelSprite.material);
       if (labelSprite.material.map) disposablesRef.current.push(labelSprite.material.map);
 
@@ -372,6 +385,8 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
       });
       disposablesRef.current = [];
       renderer.dispose();
+      gridRef.current = null;
+      monthLabelsGroupRef.current = null;
       sceneRef.current = null;
       rendererRef.current = null;
       cameraRef.current = null;
@@ -394,19 +409,43 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
         introFinishedRef.current = true;
       }
 
+      // Dynamically detect mobile view from container width or window
+      const currentWidth = containerRef.current?.clientWidth || window.innerWidth;
+      const isMobileView = currentWidth < 768;
+      const aspect = camera.aspect || 1.6;
+
+      // On mobile / narrow screens, scale camera distance so the entire 12-column graph fits completely inside the screen
+      const distFactor = isMobileView
+        ? Math.max(1.35, 1.85 / Math.max(aspect, 0.65))
+        : 1.0;
+
       // 1. Static Camera: Completely static view. Does not move or sway.
       const dollyT = Math.min(Math.max(time / 2.6, 0), 1);
       const dollyEase = 1 - Math.pow(1 - dollyT, 3); // ease-out cubic
-      const orbitRadius = 15.6 * (1 + 0.16 * (1 - dollyEase));
+      const orbitRadius = 15.6 * distFactor * (1 + 0.16 * (1 - dollyEase));
 
       // Fixed static angle and elevation
       const staticAngle = 0.88;
-      const camY = 6.0;
+      const camY = 6.0 * distFactor;
       const camX = orbitRadius * Math.cos(staticAngle);
       const camZ = orbitRadius * Math.sin(staticAngle);
 
       camera.position.set(camX, camY, camZ);
-      camera.lookAt(0.2, 2.55, 0);
+      camera.lookAt(isMobileView ? 0.45 : 0.2, 2.55, 0);
+
+      // Hide floor grid (scale) and month labels on mobile responsiveness
+      if (gridRef.current) {
+        gridRef.current.visible = !isMobileView;
+      }
+      if (monthLabelsGroupRef.current) {
+        monthLabelsGroupRef.current.visible = !isMobileView;
+      }
+
+      // Keep fog distance adapted to camera distance
+      if (scene.fog && scene.fog instanceof THREE.Fog) {
+        scene.fog.near = 14 * distFactor;
+        scene.fog.far = 65 * distFactor;
+      }
 
       // 2. Columns staggered growth (static dimensions and static uniform color)
       columnsRef.current.forEach((col, i) => {
@@ -526,11 +565,7 @@ const SignalRidgeScene: React.FC<SignalRidgeSceneProps> = ({
   // Resize handler
   const handleResize = useCallback((w: number, h: number) => {
     if (cameraRef.current && rendererRef.current) {
-      const aspect = w / h;
-      cameraRef.current.aspect = aspect;
-      const distFactor = aspect < 1.6 ? Math.min(1.65, 1.6 / Math.max(aspect, 0.75)) : 1;
-      cameraRef.current.position.set(8.5 * distFactor, 5.9 * distFactor, 10.2 * distFactor);
-      cameraRef.current.lookAt(0.2, 2.55, 0);
+      cameraRef.current.aspect = w / h;
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(w, h, false);
     }
