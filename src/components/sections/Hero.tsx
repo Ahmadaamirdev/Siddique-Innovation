@@ -124,7 +124,7 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="h-16 sm:h-24 lg:h-28 shrink-0 w-full" />
 
           {/* TOP-LEFT: H1 Heading */}
-          <div className="w-full flex items-start justify-start pt-1 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
+          <div className="w-full flex items-start justify-start pt-6 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
             <motion.div
               style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
               className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-left"
