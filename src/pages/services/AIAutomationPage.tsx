@@ -191,9 +191,9 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           ref={heroRef}
           className="relative w-full h-[calc(100dvh-4rem)] sm:h-[calc(100vh-5rem)] min-h-[500px] sm:min-h-[640px] max-h-[1050px] overflow-hidden bg-[#040608] text-white flex flex-col justify-between select-none"
         >
-          {/* Centered Video Layer (Moved upward on mobile) */}
+          {/* Centered Video Layer (Moved downward slightly on mobile) */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-            <div className="relative z-0 flex items-center justify-center -translate-y-24 sm:-translate-y-14 lg:-translate-y-14">
+            <div className="relative z-0 flex items-center justify-center -translate-y-16 sm:-translate-y-14 lg:-translate-y-14">
               <div
                 className="relative w-full max-w-[340px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px] aspect-[4/5] sm:aspect-square lg:aspect-[4/5] flex items-center justify-center overflow-hidden"
                 style={{
@@ -216,7 +216,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
 
           {/* TOP-LEFT: H1 Heading (Size matched to homepage hero H1, smart enterprise automation removed) */}
-          <div className="w-full flex items-start justify-start pt-10 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
+          <div className="w-full flex items-start justify-start pt-16 sm:pt-6 lg:pt-8 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
