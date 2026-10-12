@@ -69,7 +69,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Soft Glow Effect */}
       <div className="fixed top-10 left-1/3 w-[450px] h-[250px] bg-[#00E6D2]/3 blur-[140px] pointer-events-none -z-0" />
       <div className="fixed bottom-1/3 right-10 w-[400px] h-[300px] bg-amber-500/5 blur-[130px] pointer-events-none -z-0" />

@@ -5,7 +5,6 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { FlappingWings } from './FlappingWings';
-import { useIsMobile } from '@/hooks/useIsMobile';
 
 export interface HeroProps {
   onNavigate?: (path: string) => void;
@@ -16,7 +15,6 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const [reducedMotion, setReducedMotion] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -97,47 +95,38 @@ export const Hero: React.FC<HeroProps> = ({
       id="hero-experience"
     >
       {/* ============================================================== */}
-      {/* STICKY BACKGROUND WINGS LAYER (Desktop Only)                   */}
+      {/* STICKY BACKGROUND WINGS LAYER                                  */}
       {/* Pinned in center of screen: stays STILL & FLAPPING while user  */}
       {/* scrolls through Section 1 and Section 2.                       */}
       {/* Clean solid dark background without image.                     */}
       {/* ============================================================== */}
-      <div className="hidden sm:flex sticky top-0 h-[100dvh] w-full items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
+      <div className="sticky top-0 h-[100svh] sm:h-[100dvh] w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden bg-[#050505]">
         {/* 3D Flapping Wings centered in the screen & staying still */}
-        <div className="relative z-10 flex items-center justify-center sm:translate-y-0 lg:translate-y-12">
+        <div className="relative z-10 flex items-center justify-center -translate-y-8 sm:translate-y-0 lg:translate-y-12">
           <FlappingWings reducedMotion={reducedMotion} size="lg" />
         </div>
       </div>
 
       {/* ============================================================== */}
-      {/* FOREGROUND SECTIONS CONTAINER                                  */}
-      {/* Desktop: -mt-[100dvh] overlays Section 1 over sticky wings     */}
-      {/* Mobile: mt-0 natural flow without dead-scroll trap             */}
+      {/* FOREGROUND SECTIONS CONTAINER (-mt overlays Section 1)         */}
       {/* ============================================================== */}
-      <div className="relative z-10 mt-0 sm:-mt-[100dvh] pb-4 sm:pb-6">
+      <div className="relative z-10 -mt-[100svh] sm:-mt-[100dvh] pb-4 sm:pb-6">
         {/* ============================================================ */}
-        {/* SECTION 1: UPPER SECTION (100dvh)                            */}
+        {/* SECTION 1: UPPER SECTION (100svh / 100dvh)                   */}
         {/* Layout:                                                      */}
         {/* - Top Left: H1 Heading + compact CTA Button just below it    */}
         {/* - Center: Wings (Visible in the background, flapping)        */}
         {/* - Right Middle: Description (blurry frosted glass card)      */}
         {/* - Bottom Right: Scroll to explore prompt                     */}
         {/* ============================================================ */}
-        <section className="relative w-full h-[100dvh] min-h-[560px] sm:min-h-[660px] max-h-[1050px] flex flex-col justify-between pointer-events-none">
-          {/* Mobile Wings Layer (Inside Section 1 so it scrolls away naturally on mobile) */}
-          <div className="sm:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-            <div className="relative z-0 flex items-center justify-center -translate-y-8">
-              <FlappingWings reducedMotion={reducedMotion} size="lg" />
-            </div>
-          </div>
-
+        <section className="relative w-full h-[100svh] sm:h-[100dvh] min-h-[560px] sm:min-h-[660px] max-h-[1050px] flex flex-col justify-between pointer-events-none">
           {/* Navbar Spacer */}
           <div className="h-16 sm:h-24 lg:h-28 shrink-0 w-full" />
 
           {/* TOP-LEFT: H1 Heading */}
           <div className="w-full flex items-start justify-start pt-10 sm:pt-4 pl-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
             <motion.div
-              style={reducedMotion || isMobile ? {} : { opacity: section1Opacity, y: section1Y }}
+              style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
               className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-left"
             >
               <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-extrabold text-white tracking-[-0.02em] leading-[1.18] font-heading py-1 drop-shadow-md">
@@ -159,10 +148,10 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Description Card: positioned below wings on mobile/tablet to avoid overlapping, right-aligned on desktop */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 -translate-y-10 translate-x-6 sm:translate-x-0 sm:translate-y-0 lg:translate-y-12">
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 sm:py-2 lg:py-4 px-4 sm:px-8 lg:px-0 lg:pr-6 -translate-y-10 translate-x-10 sm:translate-x-0 sm:translate-y-0 lg:translate-y-12">
             <motion.div
               style={{
-                ...(reducedMotion || isMobile ? {} : { opacity: section1Opacity, y: section1Y }),
+                ...(reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }),
                 background:
                   'radial-gradient(circle at 85% 15%, rgba(0, 255, 229, 0.09) 0%, rgba(6, 16, 20, 0.6) 55%, rgba(5, 10, 12, 0.7) 100%)',
               }}
@@ -182,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* BOTTOM-LEFT: Contact Us CTA Button & Social Links */}
           <div className="w-full flex items-center justify-center sm:justify-between pb-8 sm:pb-12 lg:pb-14 px-4 sm:px-8 lg:px-14 xl:px-20 pointer-events-auto">
             <motion.div
-              style={reducedMotion || isMobile ? {} : { opacity: section1Opacity, y: section1Y }}
+              style={reducedMotion ? {} : { opacity: section1Opacity, y: section1Y }}
               className="w-full sm:w-auto flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4"
             >
               {/* Contact Us CTA Button */}
@@ -261,12 +250,12 @@ export const Hero: React.FC<HeroProps> = ({
         {/* ============================================================ */}
         <section className="relative w-full min-h-screen flex items-center justify-center pt-8 sm:pt-28 pb-12 sm:pb-16 px-3 sm:px-6 lg:px-8 z-20">
           <motion.div
-            style={reducedMotion || isMobile ? {} : { scale: cardScale }}
+            style={reducedMotion ? {} : { scale: cardScale }}
             className="w-full max-w-6xl mx-auto rounded-2xl sm:rounded-3xl p-4 sm:p-10 lg:p-12 relative overflow-hidden backdrop-blur-sm bg-[#050505]/10 border border-[#00FFE5]/30 shadow-[0_0_60px_rgba(0,255,229,0.12),0_30px_70px_rgba(0,0,0,0.7)] pointer-events-auto"
           >
             {/* Inner Content with Scroll-Linked Text Blur to Clear effect (No fading, 100% solid text) */}
             <motion.div
-              style={reducedMotion || isMobile ? {} : { filter: textFilter }}
+              style={reducedMotion ? {} : { filter: textFilter }}
               className="transform-gpu will-change-[filter]"
             >
               {/* Header of the Big Transparent Card (Why Businesses Choose Siddiqui Innovations) */}

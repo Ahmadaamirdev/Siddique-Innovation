@@ -360,7 +360,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Cinematic Crimson-Cyan Glow */}
       <div className="fixed top-12 left-1/3 w-[600px] h-[350px] bg-gradient-to-r from-red-600/5 via-[#00E6D2]/10 to-transparent blur-[140px] pointer-events-none -z-0" />
 

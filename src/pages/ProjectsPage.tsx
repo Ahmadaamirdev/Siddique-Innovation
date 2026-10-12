@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Terminal, Filter, Code2, Cpu } from 'lucide-react';
+import { ExternalLink, Filter, Code2, Cpu } from 'lucide-react';
 import { allProjects } from '@/data/projectsData';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { CTA } from '@/components/sections/CTA';
 import { WingLogo } from '@/components/ui/WingLogo';
+import { ProjectDetailsModal, type ProjectModalData } from '@/components/ui/ProjectDetailsModal';
 
 interface ProjectsPageProps {
   onBackToHome?: () => void;
@@ -14,6 +15,7 @@ interface ProjectsPageProps {
 
 export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavigate }) => {
   const [filter, setFilter] = useState<'all' | 'web' | 'ai'>('all');
+  const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -39,8 +41,11 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
     }
   };
 
+  const webCount = allProjects.filter((p) => p.category === 'web').length;
+  const aiCount = allProjects.filter((p) => p.category === 'ai').length;
+
   return (
-    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black relative">
       {/* Background Glow Orbs */}
       <div className="fixed top-0 left-1/4 w-[600px] h-[400px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-[140px] pointer-events-none -z-0" />
       <div className="fixed bottom-0 right-1/4 w-[500px] h-[400px] bg-radial from-[#00FFE5]/5 via-transparent to-transparent blur-[140px] pointer-events-none -z-0" />
@@ -99,10 +104,11 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
           >
             <button
               onClick={() => setFilter('all')}
-              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'all'
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+                filter === 'all'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-                }`}
+              }`}
             >
               <Filter className="w-3.5 h-3.5" />
               <span>All Projects ({allProjects.length})</span>
@@ -110,24 +116,26 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
 
             <button
               onClick={() => setFilter('web')}
-              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'web'
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+                filter === 'web'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-                }`}
+              }`}
             >
               <Code2 className="w-3.5 h-3.5" />
-              <span>Web Development (3)</span>
+              <span>Web Development ({webCount})</span>
             </button>
 
             <button
               onClick={() => setFilter('ai')}
-              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${filter === 'ai'
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+                filter === 'ai'
                   ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-                }`}
+              }`}
             >
               <Cpu className="w-3.5 h-3.5" />
-              <span>AI Automation (3)</span>
+              <span>AI Automation ({aiCount})</span>
             </button>
           </motion.div>
         </div>
@@ -136,15 +144,6 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           <AnimatePresence>
             {filteredProjects.map((project, index) => {
-              const CardWrapper = project.link ? 'a' : 'div';
-              const wrapperProps = project.link
-                ? {
-                  href: project.link,
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                }
-                : {};
-
               return (
                 <motion.div
                   key={project.id}
@@ -154,10 +153,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                 >
-                  <CardWrapper
-                    {...wrapperProps}
-                    className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full block transform-gpu will-change-transform"
-                  >
+                  <div className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full transform-gpu will-change-transform">
                     {/* Image Preview Container */}
                     <div className="relative overflow-hidden border-b border-white/10 group-hover:opacity-95 transition-opacity">
                       <div className="transform group-hover:scale-105 transition-transform duration-500 ease-out">
@@ -166,33 +162,45 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                     </div>
 
                     {/* Card Meta Footer */}
-                    <div className="p-4 sm:p-6 flex flex-col justify-between flex-1">
+                    <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 gap-4">
                       <div>
-                        <div className="flex items-start justify-between gap-2 mb-3">
-                          <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
-                            {project.title}
-                          </h3>
-                          {project.link && (
-                            <span className="p-1.5 rounded-lg bg-white/5 group-hover:bg-[#00E6D2] group-hover:text-black text-gray-300 transition-all border border-white/10 shrink-0">
-                              {project.isGithub ? <Terminal className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
-                            </span>
-                          )}
-                        </div>
+                        <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                          {project.title}
+                        </h3>
                       </div>
 
-                      {/* Badges */}
-                      <div className="flex flex-wrap items-center gap-1.5 pt-2">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 rounded-md text-[11px] font-medium text-gray-300 bg-white/5 border border-white/10"
+                      {/* Action Buttons: View Project & View Details */}
+                      <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-white/10 mt-auto">
+                        {project.link ? (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
                           >
-                            {tag}
-                          </span>
-                        ))}
+                            <span>View Project</span>
+                            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled
+                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 text-gray-500 font-semibold text-xs font-mono tracking-wide cursor-not-allowed text-center border border-white/5"
+                          >
+                            <span>View Project</span>
+                          </button>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProject(project)}
+                          className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer"
+                        >
+                          <span>View Details</span>
+                        </button>
                       </div>
                     </div>
-                  </CardWrapper>
+                  </div>
                 </motion.div>
               );
             })}
@@ -203,6 +211,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
       <CTA />
 
       <Footer onNavigate={onNavigate} />
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 };

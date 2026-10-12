@@ -18,7 +18,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Ambient Glows */}
       <div className="fixed top-20 left-1/4 w-[600px] h-[350px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-[140px] pointer-events-none -z-0" />
 

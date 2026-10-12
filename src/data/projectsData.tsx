@@ -1,6 +1,11 @@
 import React from 'react';
 import { Bot, Terminal, Sparkles, CheckCircle2, Zap } from 'lucide-react';
-import dwatsonFurnitureImg from '../assets/dwatson_furniture.webp';
+import sbdCommercialImg from '../assets/projects/sbd_commercial_avenue.png';
+import saimElectronicsImg from '../assets/projects/saim_electronics.webp';
+import dewatsonFurnitureImg from '../assets/projects/dewatson_furniture.webp';
+import nawazGroupImg from '../assets/projects/nawaz_group.webp';
+import alHadithaEnergyImg from '../assets/projects/al_haditha_energy.webp';
+import disdInternationalImg from '../assets/projects/disd_international.png';
 
 export interface ProjectItem {
   id: string;
@@ -12,7 +17,54 @@ export interface ProjectItem {
   renderPreview: () => React.ReactNode;
 }
 
+const ProjectScreenshotPreview: React.FC<{
+  image: string;
+  alt: string;
+  domain: string;
+}> = ({ image, alt, domain }) => (
+  <div className="w-full aspect-video relative overflow-hidden bg-[#080B10]">
+    <img
+      src={image}
+      alt={alt}
+      className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+      loading="lazy"
+    />
+    <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white/95 shadow-md">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#00FFE5]" />
+      <span>{domain}</span>
+    </div>
+  </div>
+);
+
 export const allProjects: ProjectItem[] = [
+  {
+    id: 'sbd-commercial-avenue',
+    title: 'SBD Commercial Avenue',
+    category: 'web',
+    tags: ['Next.js', 'Commercial Showrooms', 'DHA Multan', 'Luxury Living'],
+    link: 'https://www.sbdcommercialavenue.com/',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={sbdCommercialImg}
+        alt="SBD Commercial Avenue Hero Section"
+        domain="sbdcommercialavenue.com"
+      />
+    ),
+  },
+  {
+    id: 'saim-electronics',
+    title: 'SAIM Electronics',
+    category: 'web',
+    tags: ['React', 'E-Commerce', 'Smartphones & Tech', 'Online Store'],
+    link: 'https://saim-electronics.vercel.app/',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={saimElectronicsImg}
+        alt="SAIM Electronics Hero Section"
+        domain="saim-electronics.vercel.app"
+      />
+    ),
+  },
   {
     id: 'd-watson-shop',
     title: 'D.Watson Home & Furniture',
@@ -20,36 +72,11 @@ export const allProjects: ProjectItem[] = [
     tags: ['WooCommerce', 'Furniture & Decor', 'E-Commerce', 'UI/UX'],
     link: 'https://dewatsonshop.com',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#120F0D] text-white p-4 flex flex-col justify-between overflow-hidden relative font-sans">
-        {/* Header Bar */}
-        <div className="flex items-center justify-between border-b border-amber-500/20 pb-2 z-10">
-          <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 bg-amber-500 rounded-sm" />
-            <span className="font-extrabold tracking-wider text-xs text-amber-300 font-serif">D.WATSON FURNITURE</span>
-          </div>
-          <div className="flex items-center gap-3 text-[10px] text-amber-200/80 font-medium">
-            <span>Living</span>
-            <span>Bedroom</span>
-            <span>Dining</span>
-            <span>Decor</span>
-          </div>
-        </div>
-        {/* Hero Content */}
-        <div className="my-auto space-y-1.5 z-10 w-3/5">
-          <span className="text-[9px] uppercase tracking-widest text-amber-400 font-semibold">Luxury Home & Furniture E-Store</span>
-          <h4 className="text-base sm:text-lg font-serif font-bold text-white leading-tight">
-            Modern Living & <br /> Crafted Interiors
-          </h4>
-          <div className="pt-1">
-            <span className="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-black text-[9px] font-bold px-2.5 py-1 rounded shadow">
-              Explore Catalogue
-            </span>
-          </div>
-        </div>
-        {/* Luxury Furniture Background Image */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center opacity-75 -z-0 border-l border-amber-500/20" style={{ backgroundImage: `url(${dwatsonFurnitureImg})` }} />
-        <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-28 h-28 bg-amber-500/15 blur-xl rounded-full pointer-events-none" />
-      </div>
+      <ProjectScreenshotPreview
+        image={dewatsonFurnitureImg}
+        alt="D.Watson Home & Furniture Hero Section"
+        domain="dewatsonshop.com"
+      />
     ),
   },
   {
@@ -59,75 +86,39 @@ export const allProjects: ProjectItem[] = [
     tags: ['WordPress', 'Corporate', 'Enterprise', 'Development'],
     link: 'https://nawazgroupofcompanies.com',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0A111E] text-white p-4 flex flex-col justify-between overflow-hidden relative font-sans">
-        {/* Header Bar */}
-        <div className="flex items-center justify-between border-b border-blue-500/20 pb-2 z-10">
-          <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 bg-blue-500 rounded-sm" />
-            <span className="font-bold tracking-wider text-xs text-blue-200">NAWAZ GROUP</span>
-          </div>
-          <div className="flex items-center gap-3 text-[10px] text-gray-300">
-            <span>Sectors</span>
-            <span>Portfolio</span>
-            <span>Leadership</span>
-            <span>Contact</span>
-          </div>
-        </div>
-        {/* Hero Content */}
-        <div className="my-auto space-y-2 z-10 w-3/5">
-          <span className="text-[9px] uppercase tracking-widest text-blue-400 font-mono">Multinational Enterprise</span>
-          <h4 className="text-base sm:text-lg font-bold text-white leading-tight">
-            Building Sustainable <br /> Industry Futures
-          </h4>
-          <div className="pt-1">
-            <span className="inline-block bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-semibold px-2.5 py-1 rounded shadow">
-              Discover Group
-            </span>
-          </div>
-        </div>
-        {/* Corporate Image Background */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center opacity-50 -z-0 border-l border-blue-500/20" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80')` }} />
-        <div className="absolute left-1/4 bottom-0 w-32 h-32 bg-blue-600/15 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <ProjectScreenshotPreview
+        image={nawazGroupImg}
+        alt="Nawaz Group of Companies Hero Section"
+        domain="nawazgroupofcompanies.com"
+      />
     ),
   },
   {
-    id: 'rumanza-view-villas',
-    title: 'Rumanza View Villas',
+    id: 'al-hadith-energy',
+    title: 'Al Haditha Energy S.A.O.C',
     category: 'web',
-    tags: ['WordPress', 'Luxury Villas', 'DHA Multan', 'Real Estate'],
-    link: 'https://rumanzaviewvillas.com',
+    tags: ['React', 'Energy & Infrastructure', 'Corporate Portal', 'Sultanate of Oman'],
+    link: 'https://al-hadith-phi.vercel.app/',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0B1512] text-white p-4 flex flex-col justify-between overflow-hidden relative font-sans">
-        {/* Header Bar */}
-        <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
-          <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-            <span className="font-bold tracking-wider text-xs text-emerald-300">RUMANZA VIEW</span>
-          </div>
-          <div className="flex items-center gap-3 text-[10px] text-emerald-200/80">
-            <span>Overview</span>
-            <span>Floor Plans</span>
-            <span>Amenities</span>
-            <span>Booking</span>
-          </div>
-        </div>
-        {/* Hero Content */}
-        <div className="my-auto space-y-1.5 z-10 w-3/5">
-          <span className="text-[9px] uppercase tracking-widest text-emerald-400 font-mono">DHA Multan Golf Community</span>
-          <h4 className="text-base sm:text-lg font-serif font-bold text-white leading-tight">
-            Luxury Golf-Front <br /> Smart Villas
-          </h4>
-          <div className="pt-1">
-            <span className="inline-block bg-emerald-500 text-black text-[9px] font-bold px-2.5 py-1 rounded shadow">
-              Book a Villa
-            </span>
-          </div>
-        </div>
-        {/* Villa Image Background */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center opacity-60 -z-0 border-l border-emerald-500/20" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=600&q=80')` }} />
-        <div className="absolute right-1/4 top-1/3 w-32 h-32 bg-emerald-500/15 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <ProjectScreenshotPreview
+        image={alHadithaEnergyImg}
+        alt="Al Haditha Energy Hero Section"
+        domain="al-hadith-phi.vercel.app"
+      />
+    ),
+  },
+  {
+    id: 'disd-international',
+    title: 'Dragon International Services & Development (DISD)',
+    category: 'web',
+    tags: ['React & Three.js', 'Heavy Mining Equipment', '3D Web Experience', 'Industrial'],
+    link: 'https://disd2.vercel.app/',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={disdInternationalImg}
+        alt="Dragon International Services & Development Hero Section"
+        domain="disd2.vercel.app"
+      />
     ),
   },
   {

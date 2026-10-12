@@ -25,6 +25,9 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
 
     // Stay still for a brief moment before fading out
     finishTimeoutRef.current = setTimeout(() => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+
       // Restore smooth scroll when finished
       if ((window as any).__lenis) {
         try {

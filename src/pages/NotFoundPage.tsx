@@ -43,7 +43,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
   const displayPath = currentPath && currentPath !== '/' ? currentPath : '/workspaces/atlas';
 
   return (
-    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans flex flex-col justify-between">
+    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans flex flex-col justify-between">
       {/* Background Matrix & Subtle Cyber Radial Glow */}
       <div className="fixed inset-0 bg-[linear-gradient(to_right,#00E6D206_1px,transparent_1px),linear-gradient(to_bottom,#00E6D206_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none -z-0" />
       <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-radial from-[#00E6D2]/8 via-transparent to-transparent blur-[140px] pointer-events-none -z-0" />
