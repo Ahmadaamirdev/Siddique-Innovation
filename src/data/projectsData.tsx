@@ -6,6 +6,10 @@ import dewatsonFurnitureImg from '../assets/projects/dewatson_furniture.webp';
 import nawazGroupImg from '../assets/projects/nawaz_group.webp';
 import alHadithaEnergyImg from '../assets/projects/al_haditha_energy.webp';
 import disdInternationalImg from '../assets/projects/disd_international.png';
+import leadHarvestImg from '../assets/projects/lead_harvest.png';
+import dataMapperImg from '../assets/projects/data_mapper.png';
+import medVerifyImg from '../assets/projects/med_verify.png';
+import leadFlowImg from '../assets/projects/lead_flow.png';
 
 export interface ProjectItem {
   id: string;
@@ -14,6 +18,7 @@ export interface ProjectItem {
   tags: string[];
   link?: string;
   isGithub?: boolean;
+  description?: string;
   renderPreview: () => React.ReactNode;
 }
 
@@ -118,6 +123,70 @@ export const allProjects: ProjectItem[] = [
         image={disdInternationalImg}
         alt="Dragon International Services & Development Hero Section"
         domain="disd2.vercel.app"
+      />
+    ),
+  },
+  {
+    id: 'lead-harvest',
+    title: 'LeadHarvest – AI Lead Scraper & Discovery Engine',
+    category: 'ai',
+    tags: ['AI Lead Scraping', 'LinkedIn & B2B', 'Apify Engine', 'Data Enrichment'],
+    link: 'https://leads-scrapper-drab.vercel.app/',
+    description:
+      'Automated multi-channel prospect discovery engine targeting B2B decision makers across LinkedIn, Reddit Intent, and Google Maps without credentials or session cookies.',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={leadHarvestImg}
+        alt="LeadHarvest AI Lead Scraper Dashboard"
+        domain="leads-scrapper-drab.vercel.app"
+      />
+    ),
+  },
+  {
+    id: 'data-mapper',
+    title: 'DataMapper – AI Ecommerce Listing & Template Engine',
+    category: 'ai',
+    tags: ['Groq AI Engine', 'Ecommerce Automation', 'Amazon & Shopify', 'Zero Hallucination'],
+    link: 'https://ecommerce-listing-iota.vercel.app/',
+    description:
+      'Converts unstructured product titles, supplier sheets, and media into structured, template-perfect catalog listings for Amazon and Shopify using high-speed Groq LLM pipelines.',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={dataMapperImg}
+        alt="DataMapper AI Ecommerce Listing Dashboard"
+        domain="ecommerce-listing-iota.vercel.app"
+      />
+    ),
+  },
+  {
+    id: 'med-verify',
+    title: 'MedVerify AI – Medical TRF Evaluation Assistant',
+    category: 'ai',
+    tags: ['MedVerify AI', 'Medical TRF Evaluation', 'Standards Mapping', 'Document AI'],
+    link: 'https://medical-frontend-swart.vercel.app/',
+    description:
+      'Automated medical device test report form (TRF) extraction, regulatory standards mapping, and preliminary compliance evaluation powered by high-capacity LLMs.',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={medVerifyImg}
+        alt="MedVerify AI Medical TRF Evaluation Dashboard"
+        domain="medical-frontend-swart.vercel.app"
+      />
+    ),
+  },
+  {
+    id: 'lead-flow',
+    title: 'LeadFlow – AI Workspace & CRM Console',
+    category: 'ai',
+    tags: ['LeadFlow CRM', 'AI Pipeline Routing', 'Lead Management', 'Enterprise Console'],
+    link: 'https://lead-smoky-psi.vercel.app/',
+    description:
+      'Centralized AI operations workspace and management console connecting lead ingestion, automated employee assignment routing, and multi-stage pipeline status workflows.',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={leadFlowImg}
+        alt="LeadFlow AI Management Console"
+        domain="lead-smoky-psi.vercel.app"
       />
     ),
   },
