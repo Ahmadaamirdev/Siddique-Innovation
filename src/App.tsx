@@ -4,6 +4,25 @@ import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { SmoothScrollProvider } from '@/context/SmoothScrollProvider';
 import { HomePage } from '@/pages/HomePage';
 import { servicesData } from '@/data/servicesData';
+import { prefetchCommonRoutes } from '@/utils/routePrefetch';
+import { PageTransitionFallback } from '@/components/ui/PageTransitionFallback';
+
+// Top-level direct route imports (eliminates double-waterfall on service pages)
+const AIAutomationPage = lazy(() =>
+  import('@/pages/services/AIAutomationPage').then((m) => ({ default: m.AIAutomationPage }))
+);
+const WebDevelopmentPage = lazy(() =>
+  import('@/pages/services/WebDevelopmentPage').then((m) => ({ default: m.WebDevelopmentPage }))
+);
+const DigitalMarketingPage = lazy(() =>
+  import('@/pages/services/DigitalMarketingPage').then((m) => ({ default: m.DigitalMarketingPage }))
+);
+const SEOPage = lazy(() =>
+  import('@/pages/services/SEOPage').then((m) => ({ default: m.SEOPage }))
+);
+const YouTubeAutomationPage = lazy(() =>
+  import('@/pages/services/YouTubeAutomationPage').then((m) => ({ default: m.YouTubeAutomationPage }))
+);
 
 const ServiceDetailPage = lazy(() =>
   import('@/pages/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
@@ -32,6 +51,13 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(() => {
     return window.location.pathname === '/' || window.location.pathname === '';
   });
+
+  // Silently prefetch common routes in idle moments after initial screen clears
+  useEffect(() => {
+    if (!isLoading) {
+      prefetchCommonRoutes();
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -109,14 +135,62 @@ const App: React.FC = () => {
       const activeService = servicesData[serviceSlug];
 
       if (activeService) {
-        return (
-          <ServiceDetailPage
-            service={activeService}
-            onNavigateHome={navigateToHome}
-            onNavigateService={navigateToService}
-            onNavigate={navigateToPath}
-          />
-        );
+        switch (serviceSlug) {
+          case 'ai-automation':
+            return (
+              <AIAutomationPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+          case 'web-development':
+            return (
+              <WebDevelopmentPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+          case 'digital-marketing':
+            return (
+              <DigitalMarketingPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+          case 'seo':
+            return (
+              <SEOPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+          case 'youtube-automation':
+            return (
+              <YouTubeAutomationPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+          default:
+            return (
+              <ServiceDetailPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+        }
       }
     }
 
@@ -140,7 +214,7 @@ const App: React.FC = () => {
           <LoadingScreen onComplete={() => setIsLoading(false)} />
         )}
       </AnimatePresence>
-      <Suspense fallback={<div className="min-h-screen bg-[#050505] flex items-center justify-center" />}>
+      <Suspense fallback={<PageTransitionFallback />}>
         {renderContent()}
       </Suspense>
     </SmoothScrollProvider>

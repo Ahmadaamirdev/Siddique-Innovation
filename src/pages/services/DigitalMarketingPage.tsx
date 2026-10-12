@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp,
@@ -26,7 +26,12 @@ import { WingLogo } from '@/components/ui/WingLogo';
 import { CTA } from '@/components/sections/CTA';
 import { ServiceProjectsSection } from '@/components/services/ServiceProjectsSection';
 import { ServiceTestimonialsSection } from '@/components/services/ServiceTestimonialsSection';
-import { MarketingGlobeHero } from '@/components/services/MarketingGlobeHero';
+
+const MarketingGlobeHero = lazy(() =>
+  import('@/components/services/MarketingGlobeHero').then((m) => ({
+    default: m.MarketingGlobeHero,
+  }))
+);
 import {
   digitalMarketingProjects,
   digitalMarketingTestimonials,
@@ -83,25 +88,34 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
       <main className="pt-16 sm:pt-24 relative z-10">
         {/* 1. HERO SECTION: 3D Marketing Globe Hero */}
         <section className="relative px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-3 sm:pb-6 text-center overflow-hidden min-h-[calc(100dvh-4rem)] sm:min-h-0 flex flex-col justify-center">
-          <MarketingGlobeHero
-            heading={
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold text-white tracking-[-0.02em] leading-[1.16] font-heading py-1 drop-shadow-md max-w-3xl mx-auto">
-                <span>Marketing That Reaches the </span>
-                <span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)] inline-block"
-                  style={{ WebkitTextFillColor: 'transparent' }}
-                >
-                  Right People
-                </span>
-              </h1>
+          <Suspense
+            fallback={
+              <div className="relative w-full h-[calc(100dvh-5rem)] min-h-[540px] sm:min-h-0 sm:h-[530px] lg:h-[560px] overflow-hidden select-none bg-[#050608] rounded-3xl border border-white/5 flex flex-col items-center justify-center p-6 text-center">
+                <div className="w-8 h-8 rounded-full border-2 border-[#00E6D2]/20 border-t-[#00FFE5] animate-spin mb-3" />
+                <div className="text-xs font-mono text-[#00FFE5]/70 tracking-wider uppercase">Loading Interactive 3D Experience...</div>
+              </div>
             }
-            description={service.heroDescription}
-            ctaText={service.ctaButtonText || 'Get a Free Quote'}
-            onScrollToContact={handleScrollToContact}
-            onScrollToProjects={() => {
-              document.getElementById('service-projects')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          />
+          >
+            <MarketingGlobeHero
+              heading={
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold text-white tracking-[-0.02em] leading-[1.16] font-heading py-1 drop-shadow-md max-w-3xl mx-auto">
+                  <span>Marketing That Reaches the </span>
+                  <span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6] drop-shadow-[0_0_25px_rgba(0,255,229,0.35)] inline-block"
+                    style={{ WebkitTextFillColor: 'transparent' }}
+                  >
+                    Right People
+                  </span>
+                </h1>
+              }
+              description={service.heroDescription}
+              ctaText={service.ctaButtonText || 'Get a Free Quote'}
+              onScrollToContact={handleScrollToContact}
+              onScrollToProjects={() => {
+                document.getElementById('service-projects')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
+          </Suspense>
         </section>
 
         {/* 2. PROBLEM VS. SOLUTION (Ad Spend Wastage vs Data-Driven ROI) */}
