@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { serviceList } from '@/data/servicesData';
+import { prefetchRoute } from '@/utils/routePrefetch';
 
 const YouTubeIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -76,6 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
     setServicesDropdownOpen(true);
     setHoveredTab('Services');
+    serviceList.forEach((s) => prefetchRoute(`/services/${s.slug}`));
   };
 
   const handleMouseLeaveServices = () => {
@@ -251,12 +253,29 @@ export const Navbar: React.FC<NavbarProps> = ({
                 );
               }
 
+              const href =
+                link === 'Projects'
+                  ? '/projects'
+                  : link === 'About'
+                  ? '/about'
+                  : link === 'Contact'
+                  ? '/contact'
+                  : link === 'Home'
+                  ? '/'
+                  : `#${link.toLowerCase()}`;
+
               return (
                 <a
                   key={link}
-                  href={link === 'Projects' ? '/projects' : link === 'About' ? '/about' : link === 'Contact' ? '/contact' : link === 'Home' ? '/' : `#${link.toLowerCase()}`}
+                  href={href}
                   onClick={(e) => handleLinkClick(link, e)}
-                  onMouseEnter={() => setHoveredTab(link)}
+                  onMouseEnter={() => {
+                    setHoveredTab(link);
+                    if (href.startsWith('/')) prefetchRoute(href);
+                  }}
+                  onTouchStart={() => {
+                    if (href.startsWith('/')) prefetchRoute(href);
+                  }}
                   className={`relative px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors select-none cursor-pointer ${isHovered ? 'text-[#00FFE5]' : 'text-gray-300 hover:text-[#00FFE5]'
                     }`}
                 >
@@ -288,7 +307,20 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              const next = !mobileMenuOpen;
+              setMobileMenuOpen(next);
+              if (next) {
+                prefetchRoute('/about');
+                prefetchRoute('/projects');
+                prefetchRoute('/contact');
+                prefetchRoute('/services/ai-automation');
+                prefetchRoute('/services/web-development');
+                prefetchRoute('/services/digital-marketing');
+                prefetchRoute('/services/seo');
+                prefetchRoute('/services/youtube-automation');
+              }
+            }}
             className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none cursor-pointer"
             aria-label="Toggle menu"
           >
@@ -313,7 +345,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   return (
                     <div key={link} className="flex flex-col">
                       <button
-                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                        onClick={() => {
+                          const next = !mobileServicesOpen;
+                          setMobileServicesOpen(next);
+                          if (next) {
+                            serviceList.forEach((s) => prefetchRoute(`/services/${s.slug}`));
+                          }
+                        }}
                         className="w-full min-h-[44px] flex items-center justify-between text-sm font-medium py-2 px-3 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-white/[0.06] cursor-pointer"
                       >
                         <span>Services</span>
@@ -330,6 +368,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                               key={service.slug}
                               href={`/services/${service.slug}`}
                               onClick={(e) => handleServiceSelect(service.slug, e)}
+                              onTouchStart={() => prefetchRoute(`/services/${service.slug}`)}
                               className="min-h-[44px] flex items-center gap-2.5 py-2 px-3 rounded-full text-xs font-medium text-gray-300 hover:text-[#00FFE5] hover:bg-[#00E6D2]/10 transition-colors cursor-pointer"
                             >
                               <span className="text-gray-400 group-hover:text-[#00FFE5]">
@@ -344,10 +383,24 @@ export const Navbar: React.FC<NavbarProps> = ({
                   );
                 }
 
+                const mobileHref =
+                  link === 'Projects'
+                    ? '/projects'
+                    : link === 'About'
+                    ? '/about'
+                    : link === 'Contact'
+                    ? '/contact'
+                    : link === 'Home'
+                    ? '/'
+                    : `#${link.toLowerCase()}`;
+
                 return (
                   <a
                     key={link}
-                    href={link === 'Projects' ? '/projects' : link === 'About' ? '/about' : link === 'Contact' ? '/contact' : link === 'Home' ? '/' : `#${link.toLowerCase()}`}
+                    href={mobileHref}
+                    onTouchStart={() => {
+                      if (mobileHref.startsWith('/')) prefetchRoute(mobileHref);
+                    }}
                     onClick={(e) => {
                       setMobileMenuOpen(false);
                       handleLinkClick(link, e);

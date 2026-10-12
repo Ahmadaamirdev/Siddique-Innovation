@@ -18,7 +18,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
   const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = 'Projects & Case Studies | Siddiqui Innovations';
     return () => {
       document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';

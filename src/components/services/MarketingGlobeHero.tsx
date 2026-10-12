@@ -234,9 +234,10 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
     fetch('/countries-110m.json')
       .then((res) => res.json())
       .then((data) => {
-        const genuineCanvas = drawGenuineWorldMap(data, 2048, 1024);
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        const genuineCanvas = drawGenuineWorldMap(data, isMobile ? 1024 : 2048, isMobile ? 512 : 1024);
         const genuineTex = new THREE.CanvasTexture(genuineCanvas);
-        genuineTex.anisotropy = 4;
+        genuineTex.anisotropy = isMobile ? 2 : 4;
         uniforms.uLand.value.dispose();
         uniforms.uLand.value = genuineTex;
       })

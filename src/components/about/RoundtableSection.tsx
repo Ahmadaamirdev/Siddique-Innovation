@@ -60,30 +60,26 @@ const PARTNER_POSITIONS = [
 /* ───────────────────────── SCROLL PROGRESS TO ARC & ACTIVE PARTNER ───────────────────────── */
 function getArcAndActive(p: number) {
   // Phases:
-  // 0.00 – 0.08  : idle, no arc
-  // 0.08 – 0.32  : P1 active (top)
+  // 0.00 – 0.32  : P1 active (top) from the start
   // 0.32 – 0.46  : travel P1 → P2
   // 0.46 – 0.65  : P2 active (bottom-right)
   // 0.65 – 0.77  : travel P2 → P3
   // 0.77 – 0.87  : P3 active (bottom-left)
-  // 0.87 – 0.96  : travel P3 → P1 (loop back, 240 → 360)
-  // 0.96 – 1.00  : allComplete – show all three
+  // 0.87 – 0.93  : travel P3 → P1 (loop back, 240 → 360)
+  // 0.93 – 1.00  : allComplete – show all three
 
   let sweepDeg = 0;
-  let activeIndex: number | null = null;
+  let activeIndex: number | null = 0;
   let allComplete = false;
 
-  if (p <= 0.08) {
-    sweepDeg = 0;
-    activeIndex = null;
-  } else if (p <= 0.32) {
+  if (p <= 0.32) {
     sweepDeg = 0;
     activeIndex = 0;
   } else if (p < 0.46) {
     const t = (p - 0.32) / (0.46 - 0.32);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = eased * 120;
-    activeIndex = sweepDeg <= 14 ? 0 : sweepDeg >= 106 ? 1 : null;
+    activeIndex = sweepDeg < 60 ? 0 : 1;
   } else if (p <= 0.65) {
     sweepDeg = 120;
     activeIndex = 1;
@@ -91,7 +87,7 @@ function getArcAndActive(p: number) {
     const t = (p - 0.65) / (0.77 - 0.65);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = 120 + eased * 120;
-    activeIndex = sweepDeg <= 134 ? 1 : sweepDeg >= 226 ? 2 : null;
+    activeIndex = sweepDeg < 180 ? 1 : 2;
   } else if (p <= 0.87) {
     sweepDeg = 240;
     activeIndex = 2;
@@ -100,7 +96,7 @@ function getArcAndActive(p: number) {
     const t = (p - 0.87) / (0.93 - 0.87);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = 240 + eased * 120;
-    activeIndex = sweepDeg <= 254 ? 2 : sweepDeg >= 346 ? 0 : null;
+    activeIndex = sweepDeg < 300 ? 2 : 0;
   } else {
     // Full loop complete – arc full circle, show all three
     sweepDeg = 360;
@@ -195,28 +191,38 @@ export const RoundtableSection: React.FC = () => {
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (!prefersReducedMotion) {
-      setScrollProgress(latest);
+      setScrollProgress((prev) => {
+        if (Math.abs(latest - prev) < 0.003 && latest > 0 && latest < 1) {
+          return prev;
+        }
+        return latest;
+      });
     }
   });
 
-  // Native and Lenis scroll listeners as companion fallback
+  // Native and Lenis scroll listeners as companion fallback with RAF throttling
   useEffect(() => {
     if (prefersReducedMotion) return;
 
+    let ticking = false;
     const handleScroll = () => {
-      if (!runwayRef.current) return;
-      const rect = runwayRef.current.getBoundingClientRect();
-      const runwayHeight = runwayRef.current.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const maxScroll = runwayHeight - windowHeight;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        if (!runwayRef.current) return;
+        const rect = runwayRef.current.getBoundingClientRect();
+        const runwayHeight = runwayRef.current.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const maxScroll = runwayHeight - windowHeight;
 
-      if (maxScroll <= 0) return;
+        if (maxScroll <= 0) return;
 
-      const p = Math.min(Math.max(-rect.top / maxScroll, 0), 1);
-      setScrollProgress(p);
+        const p = Math.min(Math.max(-rect.top / maxScroll, 0), 1);
+        setScrollProgress((prev) => (Math.abs(p - prev) < 0.003 && p > 0 && p < 1 ? prev : p));
+      });
     };
 
-    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
 
@@ -459,62 +465,7 @@ export const RoundtableSection: React.FC = () => {
           <div className="flex-1 w-full lg:mr-2 xl:mr-6 flex items-center -mt-2 sm:-mt-4">
             <div className="w-full min-h-[250px] sm:min-h-[270px] relative">
               <AnimatePresence mode="wait">
-                {activePartner ? (
-                  /* Active Partner moves into the right card with animated slide from left */
-                  <motion.div
-                    key={activePartner.id}
-                    initial={{ opacity: 0, x: -60, scale: 0.97 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 40, scale: 0.97 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    aria-live="polite"
-                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-6 relative overflow-hidden"
-                  >
-                    {/* Ambient Glow */}
-                    <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
-
-                    {/* Partner Avatar inside the right card */}
-                    <div className="flex flex-col items-center justify-center shrink-0 my-auto">
-                      <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_24px_rgba(0,230,210,0.7)] overflow-hidden relative">
-                        <img
-                          src={activePartner.image}
-                          alt={activePartner.name}
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                          }}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-lg">
-                          {activePartner.initials}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Partner Content & Story */}
-                    <div className="flex-1 flex flex-col justify-between h-full text-center md:text-left">
-                      <div>
-                        <div className="flex items-center justify-center md:justify-between mb-2">
-                          <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest">
-                            Founding Partner
-                          </span>
-                        </div>
-
-                        <h3 className="text-xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mb-2">
-                          {activePartner.name}
-                        </h3>
-
-                        <p className="text-gray-300 text-xs sm:text-sm lg:text-[14.5px] leading-relaxed font-sans max-w-2xl">
-                          {activePartner.story}
-                        </p>
-                      </div>
-
-                      {/* Clean footer */}
-                      <div className="pt-3.5 mt-3.5 border-t border-white/5 flex items-center justify-end text-xs text-gray-400 font-mono">
-                        <span>Siddiqui Innovations</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ) : allComplete ? (
+                {allComplete ? (
                   /* All-complete card: show all 3 partner images */
                   <motion.div
                     key="all-complete"
@@ -582,47 +533,57 @@ export const RoundtableSection: React.FC = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  /* Initial state card before scrolling */
+                  /* Active Partner card */
                   <motion.div
-                    key="intro"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, x: 40 }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-6 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden"
+                    key={(activePartner || PARTNERS[0]).id}
+                    initial={{ opacity: 0, x: -60, scale: 0.97 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: 40, scale: 0.97 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    aria-live="polite"
+                    className="w-full min-h-[140px] sm:min-h-[250px] md:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-3 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-row items-center md:items-start gap-3 sm:gap-6 relative overflow-hidden"
                   >
+                    {/* Ambient Glow */}
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
-                    {/* Intro Icon */}
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-[#00E6D2]/30 bg-[#080D12] flex flex-col items-center justify-center text-[#00E6D2] shrink-0 shadow-[0_0_20px_rgba(0,230,210,0.15)] my-auto">
-                      <Users className="w-8 h-8 sm:w-9 sm:h-9 mb-1" />
-                      <span className="text-[9px] font-mono tracking-widest uppercase text-gray-300">Founders</span>
+                    {/* Partner Avatar on left */}
+                    <div className="flex flex-col items-center justify-center shrink-0 my-auto">
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_24px_rgba(0,230,210,0.7)] overflow-hidden relative">
+                        <img
+                          src={(activePartner || PARTNERS[0]).image}
+                          alt={(activePartner || PARTNERS[0]).name}
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base md:text-lg">
+                          {(activePartner || PARTNERS[0]).initials}
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Intro Text */}
-                    <div className="flex-1 flex flex-col justify-between h-full text-center md:text-left">
+                    {/* Partner Content & Story on right */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-between h-full text-left">
                       <div>
-                        <div className="flex items-center justify-center md:justify-between mb-2">
-                          <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest">
-                            Roundtable
+                        <div className="flex items-center justify-between mb-1 sm:mb-2">
+                          <span className="text-[9.5px] sm:text-[11px] font-mono text-[#00E6D2] uppercase tracking-widest font-semibold">
+                            Founding Partner
                           </span>
                         </div>
 
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mb-2.5">
-                          Meet the Partners
+                        <h3 className="text-sm sm:text-2xl md:text-3xl font-extrabold text-white font-heading tracking-tight mb-1 sm:mb-2">
+                          {(activePartner || PARTNERS[0]).name}
                         </h3>
 
-                        <p className="text-gray-300 text-xs sm:text-sm lg:text-[14.5px] leading-relaxed font-sans max-w-2xl">
-                          Scroll down to travel around the roundtable. Watch each founding partner move directly into focus with their background and philosophy.
+                        <p className="text-gray-300 text-[11px] sm:text-sm lg:text-[14.5px] leading-relaxed font-sans line-clamp-4 sm:line-clamp-none">
+                          {(activePartner || PARTNERS[0]).story}
                         </p>
                       </div>
 
-                      <div className="pt-3.5 mt-3.5 border-t border-white/5 flex items-center justify-between text-xs text-gray-400 font-mono">
-                        <span className="text-gray-400">Siddiqui Innovations</span>
-                        <span className="text-gray-400 flex items-center gap-1">
-                          <span>Scroll to begin</span>
-                          <span>↓</span>
-                        </span>
+                      {/* Clean footer */}
+                      <div className="pt-2 sm:pt-3.5 mt-2 sm:mt-3.5 border-t border-white/5 flex items-center justify-end text-[10px] sm:text-xs text-gray-400 font-mono">
+                        <span>Siddiqui Innovations</span>
                       </div>
                     </div>
                   </motion.div>
