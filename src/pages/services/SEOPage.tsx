@@ -64,7 +64,7 @@ export const SEOPage: React.FC<SEOPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#04070A] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#04070A] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Soft Emerald-Cyan Search Glow */}
       <div className="fixed top-12 left-1/4 w-[600px] h-[350px] bg-gradient-to-r from-emerald-500/5 via-[#00E6D2]/10 to-transparent blur-[140px] pointer-events-none -z-0" />
 

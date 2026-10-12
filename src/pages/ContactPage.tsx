@@ -28,7 +28,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const smoothEase = [0.16, 1, 0.3, 1] as const;
 
   return (
-    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#050608] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Ambient Glows */}
       <div className="fixed top-20 left-1/4 w-[650px] h-[400px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-[150px] pointer-events-none -z-0" />
       <div className="fixed bottom-1/3 right-1/4 w-[500px] h-[400px] bg-radial from-[#00FFE5]/5 via-transparent to-transparent blur-[150px] pointer-events-none -z-0" />

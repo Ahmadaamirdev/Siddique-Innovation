@@ -95,9 +95,9 @@ function getArcAndActive(p: number) {
   } else if (p <= 0.87) {
     sweepDeg = 240;
     activeIndex = 2;
-  } else if (p < 0.96) {
+  } else if (p < 0.93) {
     // Return arc: travel from P3 back to P1 (240 → 360 deg)
-    const t = (p - 0.87) / (0.96 - 0.87);
+    const t = (p - 0.87) / (0.93 - 0.87);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = 240 + eased * 120;
     activeIndex = sweepDeg <= 254 ? 2 : sweepDeg >= 346 ? 0 : null;
@@ -341,7 +341,7 @@ export const RoundtableSection: React.FC = () => {
   return (
     <section
       ref={runwayRef}
-      className="relative h-[320vh]"
+      className="relative h-[420vh] sm:h-[320vh]"
       aria-label="About Siddiqui Innovations: Agency Leadership"
     >
       {/* Pinned Viewport Container (100vh) */}
@@ -522,30 +522,30 @@ export const RoundtableSection: React.FC = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full min-h-[250px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col relative overflow-hidden"
+                    className="w-full min-h-[220px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-3 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
                     {/* Header */}
-                    <div className="mb-4">
-                      <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest">Founding Partners</span>
-                      <h3 className="text-lg sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-1">
+                    <div className="mb-2 sm:mb-4">
+                      <span className="text-[10px] sm:text-[11px] font-mono text-gray-400 uppercase tracking-widest">Founding Partners</span>
+                      <h3 className="text-base sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-0.5 sm:mt-1">
                         The Team Behind the Vision
                       </h3>
                     </div>
 
-                    {/* Three partner images side by side or stacked on mobile */}
-                    <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4 flex-1">
+                    {/* Three partner images side by side - uncropped on mobile */}
+                    <div className="grid grid-cols-3 sm:flex sm:flex-row items-stretch gap-2 sm:gap-4 flex-1">
                       {PARTNERS.map((partner, idx) => (
                         <motion.div
                           key={partner.id}
                           initial={{ opacity: 0, y: 16 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                          className="flex-1 flex flex-col items-center gap-3 rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-4 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
+                          className="flex-1 flex flex-col items-center gap-1.5 sm:gap-3 rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-2 sm:p-4 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
                         >
                           {/* Avatar */}
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_20px_rgba(0,230,210,0.55)] shrink-0 relative">
+                          <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_20px_rgba(0,230,210,0.55)] shrink-0 relative">
                             {!imgErrors[partner.id] ? (
                               <img
                                 src={partner.image}
@@ -562,13 +562,13 @@ export const RoundtableSection: React.FC = () => {
 
                           {/* Info */}
                           <div className="text-center">
-                            <div className="text-[10px] font-mono text-[#00E6D2] uppercase tracking-widest mb-0.5">
+                            <div className="text-[9px] sm:text-[10px] font-mono text-[#00E6D2] uppercase tracking-widest mb-0.5">
                               0{idx + 1} / 03
                             </div>
-                            <div className="text-sm font-bold text-white font-heading leading-tight">
+                            <div className="text-xs sm:text-sm font-bold text-white font-heading leading-tight truncate">
                               {partner.name}
                             </div>
-                            <div className="text-[11px] text-gray-400 font-mono mt-0.5 leading-snug">
+                            <div className="text-[10px] sm:text-[11px] text-gray-400 font-mono mt-0.5 leading-snug line-clamp-1">
                               {partner.role.split('&')[0].trim()}
                             </div>
                           </div>
@@ -576,7 +576,7 @@ export const RoundtableSection: React.FC = () => {
                       ))}
                     </div>
 
-                    <div className="pt-3.5 mt-3.5 border-t border-white/5 flex items-center justify-between text-xs text-gray-400 font-mono">
+                    <div className="pt-2 sm:pt-3.5 mt-2 sm:mt-3.5 border-t border-white/5 flex items-center justify-between text-[11px] sm:text-xs text-gray-400 font-mono">
                       <span>Siddiqui Innovations</span>
                       <span className="text-[#00E6D2]">✓ All partners met</span>
                     </div>

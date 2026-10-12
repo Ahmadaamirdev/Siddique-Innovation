@@ -64,7 +64,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#05070A] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#05070A] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Soft Engineering Grid */}
       <div className="fixed inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none -z-0" />
       <div className="fixed top-20 right-1/4 w-[600px] h-[350px] bg-gradient-to-br from-[#00E6D2]/10 via-[#3B82F6]/5 to-transparent blur-[140px] pointer-events-none -z-0" />

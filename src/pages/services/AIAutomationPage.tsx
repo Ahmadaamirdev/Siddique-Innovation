@@ -174,7 +174,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#040608] text-white selection:bg-[#00E6D2] selection:text-black relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#040608] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Matrix / Cyber Grid Ambient */}
       <div className="fixed inset-0 bg-[linear-gradient(to_right,#00E6D208_1px,transparent_1px),linear-gradient(to_bottom,#00E6D208_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none -z-0" />
 
@@ -236,7 +236,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           </div>
 
           {/* Description Card: positioned below wings/video on mobile/tablet to avoid overlapping, moved upward and to right on mobile */}
-          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-12 translate-x-6 sm:translate-x-0 sm:-translate-y-2 lg:translate-y-6 relative z-10">
+          <div className="w-full flex items-center justify-center sm:justify-end pointer-events-auto mt-auto mb-2 sm:mb-3 lg:my-auto py-1 px-4 sm:px-8 lg:px-0 lg:pr-6 xl:pr-10 -translate-y-12 translate-x-10 sm:translate-x-0 sm:-translate-y-2 lg:translate-y-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}

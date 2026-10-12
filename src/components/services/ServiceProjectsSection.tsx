@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Terminal } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
+import { ProjectDetailsModal, type ProjectModalData } from '@/components/ui/ProjectDetailsModal';
 import type { ServiceProjectItem } from '@/data/serviceProjectsAndTestimonials';
 
 interface ServiceProjectsSectionProps {
@@ -9,6 +10,7 @@ interface ServiceProjectsSectionProps {
   projects: ServiceProjectItem[];
   subheading?: string;
   onNavigateToProjects?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
 export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
@@ -16,7 +18,9 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
   projects,
   subheading = 'A curated showcase of high-impact implementations and proven client deliverables.',
   onNavigateToProjects,
+  onNavigate,
 }) => {
+  const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
   const headingText = `${serviceName} Projects`;
 
   return (
@@ -63,15 +67,6 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => {
-            const CardWrapper = project.link ? 'a' : 'div';
-            const wrapperProps = project.link
-              ? {
-                  href: project.link,
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                }
-              : {};
-
             return (
               <motion.div
                 key={project.id}
@@ -80,10 +75,7 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                 viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <CardWrapper
-                  {...wrapperProps}
-                  className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full block transform-gpu will-change-transform"
-                >
+                <div className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full transform-gpu will-change-transform">
                   {/* Image Preview Container */}
                   <div className="relative overflow-hidden border-b border-white/10 group-hover:opacity-95 transition-opacity">
                     <div className="transform group-hover:scale-105 transition-transform duration-500 ease-out">
@@ -92,33 +84,45 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                   </div>
 
                   {/* Card Meta Footer */}
-                  <div className="p-6 flex flex-col justify-between flex-1">
+                  <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 gap-4">
                     <div>
-                      <div className="flex items-start justify-between gap-2 mb-3">
-                        <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
-                          {project.title}
-                        </h3>
-                        {project.link && (
-                          <span className="p-1.5 rounded-lg bg-white/5 group-hover:bg-[#00E6D2] group-hover:text-black text-gray-300 transition-all border border-white/10 shrink-0">
-                            {project.isGithub ? <Terminal className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
-                          </span>
-                        )}
-                      </div>
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                        {project.title}
+                      </h3>
                     </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10 mt-auto">
-                      {project.tags.map((tag, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/5 group-hover:border-[#00E6D2]/20 transition-colors"
+                    {/* Action Buttons: View Project & View Details */}
+                    <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-white/10 mt-auto">
+                      {project.link ? (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
                         >
-                          {tag}
-                        </span>
-                      ))}
+                          <span>View Project</span>
+                          <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled
+                          className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 text-gray-500 font-semibold text-xs font-mono tracking-wide cursor-not-allowed text-center border border-white/5"
+                        >
+                          <span>View Project</span>
+                        </button>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => setSelectedProject(project)}
+                        className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer"
+                      >
+                        <span>View Details</span>
+                      </button>
                     </div>
                   </div>
-                </CardWrapper>
+                </div>
               </motion.div>
             );
           })}
@@ -137,6 +141,13 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
           </div>
         )}
       </div>
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onNavigate={onNavigate}
+      />
     </section>
   );
 };

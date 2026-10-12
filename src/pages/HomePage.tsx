@@ -24,7 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onNavigateToProjects,
 }) => {
   return (
-    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black overflow-x-clip relative">
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00E6D2] selection:text-black relative">
       <BackgroundParticles />
       <Navbar onNavigate={onNavigate} currentPath={currentPath} />
       <main id="home">
