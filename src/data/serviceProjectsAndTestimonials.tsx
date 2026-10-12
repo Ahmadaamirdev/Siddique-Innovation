@@ -68,9 +68,9 @@ export const webDevelopmentTestimonials: ServiceTestimonialCard[] = [
 // ==========================================
 // 2. AI AUTOMATION PROJECTS & TESTIMONIALS
 // ==========================================
-export const aiAutomationProjects: ServiceProjectItem[] = allProjects.filter(
-  (p) => p.category === 'ai'
-);
+export const aiAutomationProjects: ServiceProjectItem[] = allProjects
+  .filter((p) => p.category === 'ai')
+  .slice(0, 6);
 
 export const aiAutomationTestimonials: ServiceTestimonialCard[] = [
   {
