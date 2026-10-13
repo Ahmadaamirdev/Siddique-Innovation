@@ -34,9 +34,15 @@ export interface ServiceTestimonialCard {
 // ==========================================
 // 1. WEB DEVELOPMENT PROJECTS & TESTIMONIALS
 // ==========================================
-export const webDevelopmentProjects: ServiceProjectItem[] = allProjects.filter(
-  (p) => p.category === 'web'
-);
+const baseWebProjects = allProjects.filter((p) => p.category === 'web');
+const topWebProjectIds = ['disd-international', 'al-hadith-energy'];
+
+export const webDevelopmentProjects: ServiceProjectItem[] = [
+  ...topWebProjectIds
+    .map((id) => baseWebProjects.find((p) => p.id === id)!)
+    .filter(Boolean),
+  ...baseWebProjects.filter((p) => !topWebProjectIds.includes(p.id)),
+];
 
 export const webDevelopmentTestimonials: ServiceTestimonialCard[] = [
   {
