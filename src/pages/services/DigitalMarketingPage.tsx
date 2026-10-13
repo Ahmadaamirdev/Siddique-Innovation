@@ -367,11 +367,11 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
         </section>
 
         {/* 4. EXECUTION ROADMAP: Moving Cards Track in Continuous Motion */}
-        <section className="py-24 bg-[#070A0E] border-y border-white/10 relative overflow-hidden">
+        <section className="py-10 md:py-24 bg-[#070A0E] border-y border-white/10 relative overflow-hidden">
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[350px] bg-[#00E6D2]/[0.03] blur-[150px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-6 md:mb-12 text-center">
             <div className="inline-flex items-center justify-center gap-2.5 text-[#00E6D2] font-semibold text-xs md:text-sm tracking-wider uppercase font-heading mb-2">
               <WingLogo className="w-5 h-5 shrink-0" />
               <span>EXECUTION PIPELINE</span>

@@ -666,7 +666,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
       {/* ── Floating Social Media Badges (Original Brand Colors, Substantially Bigger Size, Asynchronous Random Floating) ── */}
       {/* 1. Instagram Badge (Left Top - Authentic Instagram Gradient App Icon) */}
       <div
-        className="marketing-social-pill pill-instagram float-random-1 flex left-[3%] sm:left-[3%] md:left-[6%] lg:left-[8%] top-[240px] sm:top-[90px] md:top-[95px]"
+        className="marketing-social-pill pill-instagram float-random-1 flex left-[3%] sm:left-[3%] md:left-[6%] lg:left-[8%] top-[310px] sm:top-[90px] md:top-[95px]"
         title="Instagram Growth & Ads"
       >
         <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
@@ -688,7 +688,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 2. Facebook Badge (Left Middle - Authentic Meta/Facebook Blue #1877F2) */}
       <div
-        className="marketing-social-pill pill-facebook float-random-5 flex left-[2%] sm:left-[1.5%] md:left-[3.5%] lg:left-[5%] top-[340px] sm:top-[205px] md:top-[215px]"
+        className="marketing-social-pill pill-facebook float-random-5 flex left-[2%] sm:left-[1.5%] md:left-[3.5%] lg:left-[5%] top-[385px] sm:top-[205px] md:top-[215px]"
         title="Facebook & Meta Ads"
       >
         <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
@@ -702,7 +702,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 3. LinkedIn Badge (Left Lower - Authentic LinkedIn Blue #0A66C2) */}
       <div
-        className="marketing-social-pill pill-linkedin float-random-2 flex left-[4%] sm:left-[3.5%] md:left-[7%] lg:left-[9%] top-[440px] sm:top-[320px] md:top-[335px]"
+        className="marketing-social-pill pill-linkedin float-random-2 flex left-[4%] sm:left-[3.5%] md:left-[7%] lg:left-[9%] top-[460px] sm:top-[320px] md:top-[335px]"
         title="LinkedIn B2B Lead Gen"
       >
         <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
@@ -715,7 +715,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 4. Google Badge (Right Top - Authentic 4-Color Google G Icon) */}
       <div
-        className="marketing-social-pill pill-google float-random-6 flex right-[3%] sm:right-[3%] md:right-[6%] lg:right-[8%] top-[240px] sm:top-[90px] md:top-[95px]"
+        className="marketing-social-pill pill-google float-random-6 flex right-[3%] sm:right-[3%] md:right-[6%] lg:right-[8%] top-[310px] sm:top-[90px] md:top-[95px]"
         title="Google Ads & Search Marketing"
       >
         <svg className="w-5 h-5 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
@@ -740,7 +740,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 5. YouTube Badge (Right Middle - Authentic YouTube Red #FF0000 & White Play Button) */}
       <div
-        className="marketing-social-pill pill-youtube float-random-3 flex right-[2%] sm:right-[1.5%] md:right-[3.5%] lg:right-[5%] top-[340px] sm:top-[205px] md:top-[215px]"
+        className="marketing-social-pill pill-youtube float-random-3 flex right-[2%] sm:right-[1.5%] md:right-[3.5%] lg:right-[5%] top-[385px] sm:top-[205px] md:top-[215px]"
         title="YouTube Content Strategy"
       >
         <svg className="w-6 h-6 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
@@ -754,7 +754,7 @@ export const MarketingGlobeHero: React.FC<MarketingGlobeHeroProps> = ({
 
       {/* 6. TikTok Badge (Right Lower - Authentic Chromatic Glitch Cyan & Pink-Red) */}
       <div
-        className="marketing-social-pill pill-tiktok float-random-4 flex right-[4%] sm:right-[3.5%] md:right-[7%] lg:right-[9%] top-[440px] sm:top-[320px] md:top-[335px]"
+        className="marketing-social-pill pill-tiktok float-random-4 flex right-[4%] sm:right-[3.5%] md:right-[7%] lg:right-[9%] top-[460px] sm:top-[320px] md:top-[335px]"
         title="Viral Short-Form Campaigns"
       >
         <svg className="w-5 h-5 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
