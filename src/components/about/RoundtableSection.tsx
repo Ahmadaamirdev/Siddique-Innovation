@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Users } from 'lucide-react';
 
 /* ───────────────────────── PARTNER DATA ───────────────────────── */
@@ -59,44 +59,49 @@ const PARTNER_POSITIONS = [
 
 /* ───────────────────────── SCROLL PROGRESS TO ARC & ACTIVE PARTNER ───────────────────────── */
 function getArcAndActive(p: number) {
-  // Phases:
-  // 0.00 – 0.32  : P1 active (top) from the start
-  // 0.32 – 0.46  : travel P1 → P2
-  // 0.46 – 0.65  : P2 active (bottom-right)
-  // 0.65 – 0.77  : travel P2 → P3
-  // 0.77 – 0.87  : P3 active (bottom-left)
-  // 0.87 – 0.93  : travel P3 → P1 (loop back, 240 → 360)
-  // 0.93 – 1.00  : allComplete – show all three
+  // Balanced, responsive phases without bloated dead-zones:
+  // 0.00 – 0.06  : P1 active (top) initial rest
+  // 0.06 – 0.32  : smooth travel P1 → P2 (sweep 0° → 120°)
+  // 0.32 – 0.40  : P2 dwell (arc at 120°)
+  // 0.40 – 0.66  : smooth travel P2 → P3 (sweep 120° → 240°)
+  // 0.66 – 0.74  : P3 dwell (arc at 240°)
+  // 0.74 – 0.92  : smooth travel P3 → P1 (sweep 240° → 360°)
+  // 0.92 – 1.00  : allComplete – full circle, show all three
 
   let sweepDeg = 0;
   let activeIndex: number | null = 0;
   let allComplete = false;
 
-  if (p <= 0.32) {
+  if (p <= 0.06) {
     sweepDeg = 0;
     activeIndex = 0;
-  } else if (p < 0.46) {
-    const t = (p - 0.32) / (0.46 - 0.32);
+  } else if (p < 0.32) {
+    const t = (p - 0.06) / (0.32 - 0.06);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = eased * 120;
     activeIndex = sweepDeg < 60 ? 0 : 1;
-  } else if (p <= 0.65) {
+  } else if (p <= 0.40) {
     sweepDeg = 120;
     activeIndex = 1;
-  } else if (p < 0.77) {
-    const t = (p - 0.65) / (0.77 - 0.65);
+  } else if (p < 0.66) {
+    const t = (p - 0.40) / (0.66 - 0.40);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = 120 + eased * 120;
     activeIndex = sweepDeg < 180 ? 1 : 2;
-  } else if (p <= 0.87) {
+  } else if (p <= 0.74) {
     sweepDeg = 240;
     activeIndex = 2;
-  } else if (p < 0.93) {
-    // Return arc: travel from P3 back to P1 (240 → 360 deg)
-    const t = (p - 0.87) / (0.93 - 0.87);
+  } else if (p < 0.92) {
+    const t = (p - 0.74) / (0.92 - 0.74);
     const eased = t * t * (3 - 2 * t);
     sweepDeg = 240 + eased * 120;
-    activeIndex = sweepDeg < 300 ? 2 : 0;
+    if (sweepDeg < 300) {
+      activeIndex = 2;
+      allComplete = false;
+    } else {
+      activeIndex = null;
+      allComplete = true;
+    }
   } else {
     // Full loop complete – arc full circle, show all three
     sweepDeg = 360;
@@ -130,7 +135,7 @@ const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position
       }}
     >
       <div
-        className="relative rounded-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="relative rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{
           width: '60px',
           height: '60px',
@@ -138,7 +143,7 @@ const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position
         }}
       >
         <div
-          className={`w-full h-full rounded-full overflow-hidden transition-all duration-400 ${
+          className={`w-full h-full rounded-full overflow-hidden transition-all duration-300 ${
             isActive
               ? 'border-2 border-[#00FFE5] shadow-[0_0_26px_rgba(0,230,210,0.85),0_0_10px_rgba(0,255,229,0.95)]'
               : 'border-2 border-[#00E6D2]/35 shadow-[0_0_10px_rgba(0,230,210,0.12)] hover:border-[#00E6D2]/70 hover:shadow-[0_0_14px_rgba(0,230,210,0.25)]'
@@ -183,62 +188,35 @@ export const RoundtableSection: React.FC = () => {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  // Framer Motion useScroll for high-precision RAF updates
+  // Framer Motion useScroll for high-precision scroll tracking
   const { scrollYProgress } = useScroll({
     target: runwayRef,
     offset: ['start start', 'end end'],
   });
 
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+  // Snappy yet fluid spring physics to smooth discrete wheel ticks and touch momentum
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 170,
+    damping: 26,
+    mass: 0.1,
+    restDelta: 0.0005,
+  });
+
+  useMotionValueEvent(smoothProgress, 'change', (latest) => {
     if (!prefersReducedMotion) {
-      setScrollProgress((prev) => {
-        if (Math.abs(latest - prev) < 0.003 && latest > 0 && latest < 1) {
-          return prev;
-        }
-        return latest;
-      });
+      const clamped = Math.min(Math.max(latest, 0), 1);
+      setScrollProgress(clamped);
     }
   });
 
-  // Native and Lenis scroll listeners as companion fallback with RAF throttling
+  // Ensure initial progress matches viewport on load
   useEffect(() => {
     if (prefersReducedMotion) return;
-
-    let ticking = false;
-    const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        ticking = false;
-        if (!runwayRef.current) return;
-        const rect = runwayRef.current.getBoundingClientRect();
-        const runwayHeight = runwayRef.current.offsetHeight;
-        const windowHeight = window.innerHeight;
-        const maxScroll = runwayHeight - windowHeight;
-
-        if (maxScroll <= 0) return;
-
-        const p = Math.min(Math.max(-rect.top / maxScroll, 0), 1);
-        setScrollProgress((prev) => (Math.abs(p - prev) < 0.003 && p > 0 && p < 1 ? prev : p));
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-
-    const lenis = (window as any).__lenis;
-    if (lenis) {
-      lenis.on('scroll', handleScroll);
+    const initial = scrollYProgress.get();
+    if (typeof initial === 'number' && !isNaN(initial)) {
+      setScrollProgress(Math.min(Math.max(initial, 0), 1));
     }
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-      if (lenis) {
-        lenis.off('scroll', handleScroll);
-      }
-    };
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, scrollYProgress]);
 
   // Calculate arc geometry and active partner
   const { sweepDeg, activeIndex, allComplete } = useMemo(() => {
@@ -269,11 +247,12 @@ export const RoundtableSection: React.FC = () => {
   // Click on partner photo to smoothly scroll to their zone
   const handlePartnerClick = (idx: number) => {
     if (!runwayRef.current) return;
-    const targets = [0.18, 0.58, 0.9];
+    const targets = [0.03, 0.36, 0.70];
     const targetP = targets[idx] ?? 0;
     const runwayTop = runwayRef.current.getBoundingClientRect().top + window.scrollY;
     const runwayHeight = runwayRef.current.offsetHeight;
     const maxScroll = runwayHeight - window.innerHeight;
+    if (maxScroll <= 0) return;
     window.scrollTo({
       top: runwayTop + targetP * maxScroll,
       behavior: 'smooth',
@@ -347,7 +326,7 @@ export const RoundtableSection: React.FC = () => {
   return (
     <section
       ref={runwayRef}
-      className="relative h-[420vh] sm:h-[320vh]"
+      className="relative h-[200vh] sm:h-[220vh]"
       aria-label="About Siddiqui Innovations: Agency Leadership"
     >
       {/* Pinned Viewport Container (100vh) */}
@@ -469,34 +448,34 @@ export const RoundtableSection: React.FC = () => {
                   /* All-complete card: show all 3 partner images */
                   <motion.div
                     key="all-complete"
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.97 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full min-h-[220px] sm:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-3 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col relative overflow-hidden"
+                    initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full min-h-[200px] sm:min-h-[250px] md:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col justify-center relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
                     {/* Header */}
-                    <div className="mb-2 sm:mb-4">
-                      <span className="text-[10px] sm:text-[11px] font-mono text-gray-400 uppercase tracking-widest">Founding Partners</span>
+                    <div className="mb-3 sm:mb-5 text-center">
+                      <span className="text-[10px] sm:text-[11px] font-mono text-[#00E6D2] uppercase tracking-widest">Founding Partners</span>
                       <h3 className="text-base sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-0.5 sm:mt-1">
                         The Team Behind the Vision
                       </h3>
                     </div>
 
-                    {/* Three partner images side by side - uncropped on mobile */}
-                    <div className="grid grid-cols-3 sm:flex sm:flex-row items-stretch gap-2 sm:gap-4 flex-1">
+                    {/* Three partner images side by side - simply the three pictures */}
+                    <div className="grid grid-cols-3 sm:flex sm:flex-row items-center justify-center gap-3 sm:gap-6 flex-1 py-2 sm:py-3">
                       {PARTNERS.map((partner, idx) => (
                         <motion.div
                           key={partner.id}
-                          initial={{ opacity: 0, y: 16 }}
+                          initial={{ opacity: 0, y: 14 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.4, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                          className="flex-1 flex flex-col items-center gap-1.5 sm:gap-3 rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-2 sm:p-4 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
+                          transition={{ duration: 0.3, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                          className="flex-1 flex flex-col items-center justify-center rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-3 sm:p-5 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
                         >
                           {/* Avatar */}
-                          <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_20px_rgba(0,230,210,0.55)] shrink-0 relative">
+                          <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_20px_rgba(0,230,210,0.55)] shrink-0 relative">
                             {!imgErrors[partner.id] ? (
                               <img
                                 src={partner.image}
@@ -505,41 +484,23 @@ export const RoundtableSection: React.FC = () => {
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm">
+                              <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base">
                                 {partner.initials}
                               </div>
                             )}
                           </div>
-
-                          {/* Info */}
-                          <div className="text-center">
-                            <div className="text-[9px] sm:text-[10px] font-mono text-[#00E6D2] uppercase tracking-widest mb-0.5">
-                              0{idx + 1} / 03
-                            </div>
-                            <div className="text-xs sm:text-sm font-bold text-white font-heading leading-tight truncate">
-                              {partner.name}
-                            </div>
-                            <div className="text-[10px] sm:text-[11px] text-gray-400 font-mono mt-0.5 leading-snug line-clamp-1">
-                              {partner.role.split('&')[0].trim()}
-                            </div>
-                          </div>
                         </motion.div>
                       ))}
-                    </div>
-
-                    <div className="pt-2 sm:pt-3.5 mt-2 sm:mt-3.5 border-t border-white/5 flex items-center justify-between text-[11px] sm:text-xs text-gray-400 font-mono">
-                      <span>Siddiqui Innovations</span>
-                      <span className="text-[#00E6D2]">✓ All partners met</span>
                     </div>
                   </motion.div>
                 ) : (
                   /* Active Partner card */
                   <motion.div
                     key={(activePartner || PARTNERS[0]).id}
-                    initial={{ opacity: 0, x: -60, scale: 0.97 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 40, scale: 0.97 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                     aria-live="polite"
                     className="w-full min-h-[140px] sm:min-h-[250px] md:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-3 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-row items-center md:items-start gap-3 sm:gap-6 relative overflow-hidden"
                   >
