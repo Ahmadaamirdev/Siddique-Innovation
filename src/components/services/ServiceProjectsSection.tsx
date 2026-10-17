@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
-import { ProjectDetailsModal, type ProjectModalData } from '@/components/ui/ProjectDetailsModal';
 import type { ServiceProjectItem } from '@/data/serviceProjectsAndTestimonials';
 
 interface ServiceProjectsSectionProps {
@@ -20,7 +19,6 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
   onNavigateToProjects,
   onNavigate,
 }) => {
-  const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
   const headingText = `${serviceName} Projects`;
 
   return (
@@ -115,7 +113,17 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
 
                       <button
                         type="button"
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => {
+                          const targetUrl = `/projects#${project.id}`;
+                          if (onNavigate) {
+                            onNavigate(targetUrl);
+                          } else if (onNavigateToProjects) {
+                            window.location.hash = project.id;
+                            onNavigateToProjects();
+                          } else {
+                            window.location.href = targetUrl;
+                          }
+                        }}
                         className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer"
                       >
                         <span>View Details</span>
@@ -141,13 +149,6 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
           </div>
         )}
       </div>
-
-      {/* Project Details Modal */}
-      <ProjectDetailsModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onNavigate={onNavigate}
-      />
     </section>
   );
 };

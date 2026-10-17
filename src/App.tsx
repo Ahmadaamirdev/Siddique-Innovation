@@ -67,36 +67,42 @@ const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Guarantee that every route change scrolls to top immediately
+  // Route change scroll management (preserves hash targets if present)
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    if ((window as any).__lenis) {
-      try {
-        (window as any).__lenis.start();
-        (window as any).__lenis.scrollTo(0, { immediate: true });
-        document.documentElement.classList.remove('lenis-stopped');
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-      } catch {}
+    const hasHash = Boolean(window.location.hash);
+    if (!hasHash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      if ((window as any).__lenis) {
+        try {
+          (window as any).__lenis.start();
+          (window as any).__lenis.scrollTo(0, { immediate: true });
+          document.documentElement.classList.remove('lenis-stopped');
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+        } catch {}
+      }
     }
   }, [currentPath]);
 
   const navigateToPath = (path: string) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    if ((window as any).__lenis) {
-      try {
-        (window as any).__lenis.start();
-        (window as any).__lenis.scrollTo(0, { immediate: true });
-        document.documentElement.classList.remove('lenis-stopped');
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-      } catch {}
+    const hasHash = path.includes('#');
+    if (!hasHash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      if ((window as any).__lenis) {
+        try {
+          (window as any).__lenis.start();
+          (window as any).__lenis.scrollTo(0, { immediate: true });
+          document.documentElement.classList.remove('lenis-stopped');
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+        } catch {}
+      }
     }
   };
 
@@ -105,32 +111,33 @@ const App: React.FC = () => {
   const navigateToService = (slug: string) => navigateToPath(`/services/${slug}`);
 
   const renderContent = () => {
-    if (currentPath === '/projects') {
+    const cleanPath = currentPath.split('?')[0].split('#')[0];
+
+    if (cleanPath === '/projects') {
       return <ProjectsPage onBackToHome={navigateToHome} onNavigate={navigateToPath} />;
     }
 
-    if (currentPath === '/about' || currentPath === '/about-us') {
+    if (cleanPath === '/about' || cleanPath === '/about-us') {
       return <AboutPage onNavigate={navigateToPath} />;
     }
 
-    if (currentPath === '/contact' || currentPath === '/contact-us') {
+    if (cleanPath === '/contact' || cleanPath === '/contact-us') {
       return <ContactPage onNavigate={navigateToPath} />;
     }
 
-    if (currentPath === '/privacy-policy' || currentPath === '/privacy') {
+    if (cleanPath === '/privacy-policy' || cleanPath === '/privacy') {
       return <PrivacyPolicyPage onNavigate={navigateToPath} />;
     }
 
     if (
-      currentPath === '/terms' ||
-      currentPath === '/terms-and-conditions' ||
-      currentPath === '/terms-of-service'
+      cleanPath === '/terms' ||
+      cleanPath === '/terms-and-conditions' ||
+      cleanPath === '/terms-of-service'
     ) {
       return <TermsPage onNavigate={navigateToPath} />;
     }
 
-    if (currentPath.startsWith('/services/') || currentPath.startsWith('/service/')) {
-      const cleanPath = currentPath.split('?')[0].split('#')[0];
+    if (cleanPath.startsWith('/services/') || cleanPath.startsWith('/service/')) {
       const serviceSlug = cleanPath.replace(/^\/services?\//, '').replace(/\/$/, '');
       const activeService = servicesData[serviceSlug];
 

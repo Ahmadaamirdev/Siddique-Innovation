@@ -16,11 +16,51 @@ interface ProjectsPageProps {
 export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavigate }) => {
   const [filter, setFilter] = useState<'all' | 'web' | 'ai'>('all');
   const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
+  const [highlightedProjectId, setHighlightedProjectId] = useState<string | null>(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = 'Projects & Case Studies | Siddiqui Innovations';
+
+    const handleTargetScroll = () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      const searchParams = new URLSearchParams(window.location.search);
+      const targetId = hash || searchParams.get('project');
+
+      if (!targetId) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
+      const targetProject = allProjects.find((p) => p.id === targetId);
+      if (targetProject) {
+        // Ensure the project is visible by setting filter to 'all' if category doesn't match
+        if (targetProject.category !== 'web' && targetProject.category !== 'ai') {
+          setFilter('all');
+        }
+
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            if ((window as any).__lenis) {
+              try {
+                (window as any).__lenis.scrollTo(el, { offset: -110, duration: 1.2 });
+              } catch {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            } else {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            setHighlightedProjectId(targetId);
+            setTimeout(() => setHighlightedProjectId(null), 3500);
+          }
+        }, 220);
+      }
+    };
+
+    handleTargetScroll();
+    window.addEventListener('hashchange', handleTargetScroll);
     return () => {
+      window.removeEventListener('hashchange', handleTargetScroll);
       document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
     };
   }, []);
@@ -141,32 +181,45 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
         </div>
 
         {/* Project Cards Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
+        <motion.div layout className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           <AnimatePresence>
             {filteredProjects.map((project, index) => {
               return (
                 <motion.div
                   key={project.id}
+                  id={project.id}
                   layout
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                 >
-                  <div className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full transform-gpu will-change-transform">
-                    {/* Image Preview Container */}
-                    <div className="relative overflow-hidden border-b border-white/10 group-hover:opacity-95 transition-opacity">
-                      <div className="transform group-hover:scale-105 transition-transform duration-500 ease-out">
+                  <div
+                    className={`group relative bg-[#0B0E13]/90 backdrop-blur-xl rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1.5 flex flex-col sm:flex-row justify-between h-full transform-gpu will-change-transform ${
+                      highlightedProjectId === project.id
+                        ? 'border-2 border-[#00FFE5] ring-4 ring-[#00FFE5]/35 shadow-[0_0_35px_rgba(0,255,229,0.5)] scale-[1.01]'
+                        : 'border border-white/10 hover:border-[#00E6D2]/40 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)]'
+                    }`}
+                  >
+                    {/* Image Preview Container - Left */}
+                    <div className="w-full sm:w-[44%] md:w-[42%] lg:w-[44%] xl:w-[42%] shrink-0 relative overflow-hidden border-b sm:border-b-0 sm:border-r border-white/10 group-hover:opacity-95 transition-opacity bg-[#080B10] flex flex-col justify-center">
+                      <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-out flex flex-col [&>div]:h-full [&>div]:w-full [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_img]:object-top">
                         {project.renderPreview()}
                       </div>
                     </div>
 
-                    {/* Card Meta Footer */}
-                    <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 gap-4">
-                      <div>
-                        <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                    {/* Card Meta & Content - Right */}
+                    <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 min-w-0 gap-4">
+                      <div className="space-y-2.5">
+                        <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
                           {project.title}
                         </h3>
+
+                        {project.description && (
+                          <p className="text-gray-300 text-xs sm:text-[13px] leading-relaxed line-clamp-3 sm:line-clamp-4 font-sans">
+                            {project.description}
+                          </p>
+                        )}
                       </div>
 
                       {/* Action Buttons: View Project & View Details */}

@@ -596,6 +596,7 @@ export const AIAutomationPage: React.FC<AIAutomationPageProps> = ({
           projects={aiAutomationProjects}
           subheading="Explore our custom chatbots, automated lead gen engines, and autonomous HR workflow bots."
           onNavigateToProjects={() => onNavigate?.('/projects')}
+          onNavigate={onNavigate}
         />
 
         {/* Testimonials Section */}

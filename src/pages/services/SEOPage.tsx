@@ -378,6 +378,7 @@ export const SEOPage: React.FC<SEOPageProps> = ({
           projects={seoProjects}
           subheading="Data-driven technical SEO, high-authority keyword rankings, and organic search scale."
           onNavigateToProjects={() => onNavigate?.('/projects')}
+          onNavigate={onNavigate}
         />
 
         {/* Testimonials Section */}
