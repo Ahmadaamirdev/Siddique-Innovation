@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
 import { featuredProjects } from '@/data/projectsData';
-import { ProjectDetailsModal, type ProjectModalData } from '@/components/ui/ProjectDetailsModal';
 
 interface ProjectsProps {
   onNavigateToProjects?: () => void;
@@ -11,8 +10,6 @@ interface ProjectsProps {
 }
 
 export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavigate }) => {
-  const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
-
   const handleSeeMore = (e: React.MouseEvent) => {
     if (onNavigateToProjects) {
       e.preventDefault();
@@ -109,7 +106,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
 
                       <button
                         type="button"
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => {
+                          const targetUrl = `/projects#${project.id}`;
+                          if (onNavigate) {
+                            onNavigate(targetUrl);
+                          } else if (onNavigateToProjects) {
+                            window.location.hash = project.id;
+                            onNavigateToProjects();
+                          } else {
+                            window.location.href = targetUrl;
+                          }
+                        }}
                         className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer"
                       >
                         <span>View Details</span>
@@ -143,13 +150,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
         </motion.div>
 
       </div>
-
-      {/* Project Details Modal */}
-      <ProjectDetailsModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onNavigate={onNavigate}
-      />
     </section>
   );
 };

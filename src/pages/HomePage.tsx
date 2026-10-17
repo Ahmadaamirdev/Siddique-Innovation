@@ -32,7 +32,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         <Stats />
         <Services onNavigate={onNavigate} />
         <Process />
-        <Projects onNavigateToProjects={onNavigateToProjects} />
+        <Projects onNavigateToProjects={onNavigateToProjects} onNavigate={onNavigate} />
         <Testimonials />
         <Clientele />
         <FAQ />

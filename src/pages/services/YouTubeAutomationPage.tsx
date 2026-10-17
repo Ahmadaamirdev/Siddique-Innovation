@@ -724,6 +724,7 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
           projects={youtubeAutomationProjects}
           subheading="Automated channel pipelines, AI voice & script workflows, and high-retention video production."
           onNavigateToProjects={() => onNavigate?.('/projects')}
+          onNavigate={onNavigate}
         />
 
         {/* Testimonials Section */}

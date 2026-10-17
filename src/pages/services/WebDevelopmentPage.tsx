@@ -449,6 +449,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({
           projects={webDevelopmentProjects}
           subheading="A curated selection of our high-converting web solutions and digital enterprise platforms."
           onNavigateToProjects={() => onNavigate?.('/projects')}
+          onNavigate={onNavigate}
         />
 
         {/* Testimonials Section */}

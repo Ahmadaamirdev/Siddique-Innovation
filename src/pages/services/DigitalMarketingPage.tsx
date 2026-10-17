@@ -416,6 +416,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({
           projects={digitalMarketingProjects}
           subheading="High-performing ad campaigns, conversion funnels, and retention engines delivering measurable ROAS."
           onNavigateToProjects={() => onNavigate?.('/projects')}
+          onNavigate={onNavigate}
         />
 
         {/* Testimonials Section */}
