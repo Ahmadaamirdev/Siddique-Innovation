@@ -35,14 +35,11 @@ export interface ServiceTestimonialCard {
 // 1. WEB DEVELOPMENT PROJECTS & TESTIMONIALS
 // ==========================================
 const baseWebProjects = allProjects.filter((p) => p.category === 'web');
-const topWebProjectIds = ['disd-international', 'al-hadith-energy'];
+const topWebProjectIds = ['disd-international', 'al-hadith-energy', 'sbd-commercial-avenue'];
 
-export const webDevelopmentProjects: ServiceProjectItem[] = [
-  ...topWebProjectIds
-    .map((id) => baseWebProjects.find((p) => p.id === id)!)
-    .filter(Boolean),
-  ...baseWebProjects.filter((p) => !topWebProjectIds.includes(p.id)),
-];
+export const webDevelopmentProjects: ServiceProjectItem[] = topWebProjectIds
+  .map((id) => baseWebProjects.find((p) => p.id === id)!)
+  .filter(Boolean);
 
 export const webDevelopmentTestimonials: ServiceTestimonialCard[] = [
   {
@@ -76,7 +73,7 @@ export const webDevelopmentTestimonials: ServiceTestimonialCard[] = [
 // ==========================================
 export const aiAutomationProjects: ServiceProjectItem[] = allProjects
   .filter((p) => p.category === 'ai')
-  .slice(0, 6);
+  .slice(0, 3);
 
 export const aiAutomationTestimonials: ServiceTestimonialCard[] = [
   {
@@ -115,7 +112,7 @@ export const digitalMarketingProjects: ServiceProjectItem[] = [
     category: 'marketing',
     tags: ['Meta Ads', 'Google Performance Max', '4.8x ROAS', 'Scale'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
+      <div className="w-full aspect-video bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
@@ -156,7 +153,7 @@ export const digitalMarketingProjects: ServiceProjectItem[] = [
     category: 'marketing',
     tags: ['Inbound Funnel', 'LinkedIn Ads', 'CRO', 'Attribution'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
+      <div className="w-full aspect-video bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
         <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-indigo-400" />
@@ -195,7 +192,7 @@ export const digitalMarketingProjects: ServiceProjectItem[] = [
     category: 'marketing',
     tags: ['Klaviyo', 'Retention Flows', 'SMS Marketing', 'LTV Growth'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
+      <div className="w-full aspect-video bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
         <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse" />
@@ -267,7 +264,7 @@ export const seoProjects: ServiceProjectItem[] = [
     category: 'seo',
     tags: ['Technical SEO', 'Keyword Clusters', '+380% Organic', 'High DA'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
+      <div className="w-full aspect-video bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
         <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -308,7 +305,7 @@ export const seoProjects: ServiceProjectItem[] = [
     category: 'seo',
     tags: ['Schema Markup', 'Core Web Vitals', 'Product SEO', 'Rich Snippets'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
+      <div className="w-full aspect-video bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2]" />
@@ -347,7 +344,7 @@ export const seoProjects: ServiceProjectItem[] = [
     category: 'seo',
     tags: ['Local SEO', 'Google Maps 3-Pack', 'Review Engine', 'Local Dominance'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
+      <div className="w-full aspect-video bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
         <div className="flex items-center justify-between border-b border-teal-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
@@ -419,7 +416,7 @@ export const youtubeAutomationProjects: ServiceProjectItem[] = [
     category: 'youtube',
     tags: ['AI Scripting', 'Voice Synthesis', '1.2M Subscribers', 'Monetized'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#160A0A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-red-500/20">
+      <div className="w-full aspect-video bg-[#160A0A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-red-500/20">
         <div className="flex items-center justify-between border-b border-red-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
@@ -460,7 +457,7 @@ export const youtubeAutomationProjects: ServiceProjectItem[] = [
     category: 'youtube',
     tags: ['Daily News', 'Shorts + Long-Form', 'Automated Rendering', 'Scale'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#120E08] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-amber-500/20">
+      <div className="w-full aspect-video bg-[#120E08] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-amber-500/20">
         <div className="flex items-center justify-between border-b border-amber-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
@@ -499,7 +496,7 @@ export const youtubeAutomationProjects: ServiceProjectItem[] = [
     category: 'youtube',
     tags: ['4K AI B-Roll', '74% Retention', 'CTR Thumbnails', 'Evergreen'],
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0E0B16] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-purple-500/20">
+      <div className="w-full aspect-video bg-[#0E0B16] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-purple-500/20">
         <div className="flex items-center justify-between border-b border-purple-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse" />
