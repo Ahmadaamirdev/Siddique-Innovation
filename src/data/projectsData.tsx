@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Bot,
   Terminal,
   Sparkles,
   CheckCircle2,
@@ -11,7 +10,6 @@ import {
   Globe2,
   Video,
   Play,
-  PhoneCall,
 } from 'lucide-react';
 import sbdCommercialImg from '../assets/projects/sbd_commercial_avenue.png';
 import saimElectronicsImg from '../assets/projects/saim_electronics.webp';
@@ -19,9 +17,9 @@ import dewatsonFurnitureImg from '../assets/projects/dewatson_furniture.webp';
 import nawazGroupImg from '../assets/projects/nawaz_group.webp';
 import alHadithaEnergyImg from '../assets/projects/al_haditha_energy.webp';
 import disdInternationalImg from '../assets/projects/disd_international.png';
+import callingAgentImg from '../assets/projects/calling_agent.png';
 import leadHarvestImg from '../assets/projects/lead_harvest.png';
 import dataMapperImg from '../assets/projects/data_mapper.png';
-import medVerifyImg from '../assets/projects/med_verify.png';
 import leadFlowImg from '../assets/projects/lead_flow.png';
 
 export interface ProjectItem {
@@ -39,12 +37,13 @@ const ProjectScreenshotPreview: React.FC<{
   image: string;
   alt: string;
   domain: string;
-}> = ({ image, alt, domain }) => (
+  imageClassName?: string;
+}> = ({ image, alt, domain, imageClassName = 'object-top' }) => (
   <div className="w-full aspect-video relative overflow-hidden bg-[#080B10]">
     <img
       src={image}
       alt={alt}
-      className="w-full h-full object-cover object-top"
+      className={`w-full h-full object-cover ${imageClassName}`}
       loading="lazy"
     />
     <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white/95 shadow-md">
@@ -160,46 +159,12 @@ export const allProjects: ProjectItem[] = [
     description:
       'Autonomous human-realistic voice AI agents handling 24/7 inbound inquiries, appointment scheduling, and automated outbound qualification with instant CRM sync.',
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#080E14] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
-        <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
-            <span className="font-mono font-bold text-xs text-[#00E6D2]">VOICE_AGENT_v2.5</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-cyan-950/80 border border-cyan-500/30 px-2 py-0.5 rounded text-cyan-200 font-mono">
-            <PhoneCall className="w-3 h-3 text-[#00FFE5]" />
-            <span>Active Voice Call</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-2 z-10 py-1">
-          <div className="flex items-center justify-center gap-1 py-1">
-            <span className="w-1 h-3 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="w-1 h-5 bg-[#00FFE5] rounded-full animate-pulse delay-75" />
-            <span className="w-1 h-8 bg-[#00E6D2] rounded-full animate-pulse delay-150" />
-            <span className="w-1 h-4 bg-teal-400 rounded-full animate-pulse delay-100" />
-            <span className="w-1 h-6 bg-cyan-300 rounded-full animate-pulse delay-200" />
-            <span className="w-1 h-9 bg-[#00FFE5] rounded-full animate-pulse delay-75" />
-            <span className="w-1 h-5 bg-cyan-400 rounded-full animate-pulse delay-150" />
-            <span className="w-1 h-7 bg-[#00E6D2] rounded-full animate-pulse delay-100" />
-            <span className="w-1 h-3 bg-teal-300 rounded-full animate-pulse delay-300" />
-          </div>
-          <div className="bg-black/50 border border-cyan-500/20 rounded-xl p-2 font-mono text-[9.5px] space-y-1">
-            <div className="flex items-start gap-1.5 text-cyan-200">
-              <span className="text-[#00FFE5] font-bold shrink-0">AI:</span>
-              <span className="line-clamp-1">&quot;Hello! I can schedule your discovery call for Tuesday at 2 PM.&quot;</span>
-            </div>
-            <div className="flex items-start gap-1.5 text-gray-300">
-              <span className="text-gray-400 font-bold shrink-0">User:</span>
-              <span className="line-clamp-1">&quot;Perfect, please book that slot for me.&quot;</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-400/90 border-t border-cyan-900/40">
-          <span>Latency &lt;480ms • Natural Tone</span>
-          <span className="text-[#00FFE5] font-semibold">100% Autonomous</span>
-        </div>
-        <div className="absolute right-1/4 top-1/2 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <ProjectScreenshotPreview
+        image={callingAgentImg}
+        alt="AI Calling Agent Live Interface"
+        domain="agent.retellai.com"
+        imageClassName="object-center"
+      />
     ),
   },
   {
@@ -235,22 +200,6 @@ export const allProjects: ProjectItem[] = [
     ),
   },
   {
-    id: 'med-verify',
-    title: 'MedVerify AI – Medical TRF Evaluation Assistant',
-    category: 'ai',
-    tags: ['MedVerify AI', 'Medical TRF Evaluation', 'Standards Mapping', 'Document AI'],
-    link: 'https://medical-frontend-swart.vercel.app/',
-    description:
-      'Automated medical device test report form (TRF) extraction, regulatory standards mapping, and preliminary compliance evaluation powered by high-capacity LLMs.',
-    renderPreview: () => (
-      <ProjectScreenshotPreview
-        image={medVerifyImg}
-        alt="MedVerify AI Medical TRF Evaluation Dashboard"
-        domain="medical-frontend-swart.vercel.app"
-      />
-    ),
-  },
-  {
     id: 'lead-flow',
     title: 'LeadFlow – AI Workspace & CRM Console',
     category: 'ai',
@@ -264,56 +213,6 @@ export const allProjects: ProjectItem[] = [
         alt="LeadFlow AI Management Console"
         domain="lead-smoky-psi.vercel.app"
       />
-    ),
-  },
-  {
-    id: 'phantom-chatbot',
-    title: "Phantom's Workspace – AI Chatbot",
-    category: 'ai',
-    tags: ['AI Chatbot', 'Conversational AI', 'Web Integration', 'UI/UX'],
-    link: 'https://www.phantomsworkspace.com/',
-    description:
-      'Conversational AI chatbot delivering 24/7 autonomous customer support, intelligent lead capture, and instant CRM ticket routing.',
-    renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0D0819] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans">
-        {/* Header Bar */}
-        <div className="flex items-center justify-between border-b border-purple-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-            <span className="font-bold text-xs tracking-wide text-purple-300">PHANTOM WORKSPACE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-purple-900/40 border border-purple-500/30 px-2 py-0.5 rounded-full text-purple-200">
-            <Sparkles className="w-3 h-3 text-purple-400" />
-            <span>AI Chatbot Active</span>
-          </div>
-        </div>
-        {/* Chat Messages Simulation */}
-        <div className="my-auto space-y-2.5 z-10 py-1">
-          {/* User Message */}
-          <div className="flex justify-end">
-            <div className="bg-purple-600/30 border border-purple-400/30 rounded-2xl rounded-tr-none px-3 py-1.5 text-[10px] text-purple-100 max-w-[85%]">
-              How can Phantom Workspace automate customer support?
-            </div>
-          </div>
-          {/* Bot Message */}
-          <div className="flex items-start gap-2 max-w-[90%]">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shrink-0 shadow-sm shadow-purple-500/50">
-              <Bot className="w-3.5 h-3.5 text-white" />
-            </div>
-            <div className="bg-white/5 border border-purple-500/30 rounded-2xl rounded-tl-none p-2 text-[10px] text-purple-200 leading-snug">
-              I handle 24/7 lead inquiries, automate workflow tickets, and route instant responses! 🚀
-            </div>
-          </div>
-        </div>
-        {/* Bottom Tags bar */}
-        <div className="flex items-center gap-2 z-10 pt-1 font-mono text-[9px] text-purple-300/80">
-          <span className="bg-purple-950/80 border border-purple-800/40 px-2 py-0.5 rounded">NLP Engine</span>
-          <span className="bg-purple-950/80 border border-purple-800/40 px-2 py-0.5 rounded">24/7 Support</span>
-          <span className="bg-purple-950/80 border border-purple-800/40 px-2 py-0.5 rounded">CRM Sync</span>
-        </div>
-        {/* Glow backdrop */}
-        <div className="absolute right-0 top-1/3 w-36 h-36 bg-purple-600/15 blur-2xl rounded-full pointer-events-none" />
-      </div>
     ),
   },
   {

@@ -20,6 +20,7 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
   onNavigate,
 }) => {
   const headingText = `${serviceName} Projects`;
+  const displayedProjects = projects.slice(0, 3);
 
   return (
     <section id="service-projects" className="py-14 sm:py-20 bg-[#050505] relative z-10 border-b border-white/10">
@@ -62,9 +63,9 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
           </motion.p>
         </div>
 
-        {/* Project Cards Grid */}
+        {/* Project Cards Grid (Exactly 3 Projects) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => {
+          {displayedProjects.map((project, index) => {
             return (
               <motion.div
                 key={project.id}
@@ -74,9 +75,9 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full transform-gpu will-change-transform">
-                  {/* Image Preview Container (No zoom on hover) */}
-                  <div className="relative overflow-hidden border-b border-white/10 group-hover:opacity-95 transition-opacity">
-                    <div className="w-full">
+                  {/* Image Preview Container (No zoom on hover, aspect-video) */}
+                  <div className="w-full aspect-video relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0 group-hover:opacity-95 transition-opacity">
+                    <div className="w-full h-full flex flex-col [&>div]:w-full [&>div]:h-full [&>div]:aspect-video [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-top">
                       {project.renderPreview()}
                     </div>
                   </div>
@@ -84,7 +85,7 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                   {/* Card Meta Footer */}
                   <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 gap-4">
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading">
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading min-h-[3rem] flex items-center">
                         {project.title}
                       </h3>
                     </div>
