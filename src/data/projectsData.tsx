@@ -11,6 +11,7 @@ import {
   Globe2,
   Video,
   Play,
+  PhoneCall,
 } from 'lucide-react';
 import sbdCommercialImg from '../assets/projects/sbd_commercial_avenue.png';
 import saimElectronicsImg from '../assets/projects/saim_electronics.webp';
@@ -43,7 +44,7 @@ const ProjectScreenshotPreview: React.FC<{
     <img
       src={image}
       alt={alt}
-      className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+      className="w-full h-full object-cover object-top"
       loading="lazy"
     />
     <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white/95 shadow-md">
@@ -123,14 +124,14 @@ export const allProjects: ProjectItem[] = [
     title: 'Al Haditha Energy S.A.O.C',
     category: 'web',
     tags: ['React', 'Energy & Infrastructure', 'Corporate Portal', 'Sultanate of Oman'],
-    link: 'https://al-hadith-phi.vercel.app/',
+    link: 'https://hde.om/',
     description:
       'Official corporate web portal for Sultanate of Oman energy, oil & gas engineering infrastructure, and sustainable utility projects.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={alHadithaEnergyImg}
         alt="Al Haditha Energy Hero Section"
-        domain="al-hadith-phi.vercel.app"
+        domain="hde.om"
       />
     ),
   },
@@ -148,6 +149,57 @@ export const allProjects: ProjectItem[] = [
         alt="Dragon International Services & Development Hero Section"
         domain="disd2.vercel.app"
       />
+    ),
+  },
+  {
+    id: 'ai-calling-agents',
+    title: 'AI Calling Agents – Autonomous Inbound & Outbound Voice',
+    category: 'ai',
+    tags: ['Voice AI Engine', 'Sub-500ms Latency', 'Inbound & Outbound', 'CRM Booking'],
+    link: 'https://agent.retellai.com/orb/agent_da7b265b66bd8cf11f2c2b05bc?token=66ba30e9f3f5468e72af11a122c1a3d8',
+    description:
+      'Autonomous human-realistic voice AI agents handling 24/7 inbound inquiries, appointment scheduling, and automated outbound qualification with instant CRM sync.',
+    renderPreview: () => (
+      <div className="w-full aspect-video bg-[#080E14] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
+        <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
+          <div className="flex items-center gap-2">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
+            <span className="font-mono font-bold text-xs text-[#00E6D2]">VOICE_AGENT_v2.5</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-[9px] bg-cyan-950/80 border border-cyan-500/30 px-2 py-0.5 rounded text-cyan-200 font-mono">
+            <PhoneCall className="w-3 h-3 text-[#00FFE5]" />
+            <span>Active Voice Call</span>
+          </div>
+        </div>
+        <div className="my-auto space-y-2 z-10 py-1">
+          <div className="flex items-center justify-center gap-1 py-1">
+            <span className="w-1 h-3 bg-cyan-400 rounded-full animate-pulse" />
+            <span className="w-1 h-5 bg-[#00FFE5] rounded-full animate-pulse delay-75" />
+            <span className="w-1 h-8 bg-[#00E6D2] rounded-full animate-pulse delay-150" />
+            <span className="w-1 h-4 bg-teal-400 rounded-full animate-pulse delay-100" />
+            <span className="w-1 h-6 bg-cyan-300 rounded-full animate-pulse delay-200" />
+            <span className="w-1 h-9 bg-[#00FFE5] rounded-full animate-pulse delay-75" />
+            <span className="w-1 h-5 bg-cyan-400 rounded-full animate-pulse delay-150" />
+            <span className="w-1 h-7 bg-[#00E6D2] rounded-full animate-pulse delay-100" />
+            <span className="w-1 h-3 bg-teal-300 rounded-full animate-pulse delay-300" />
+          </div>
+          <div className="bg-black/50 border border-cyan-500/20 rounded-xl p-2 font-mono text-[9.5px] space-y-1">
+            <div className="flex items-start gap-1.5 text-cyan-200">
+              <span className="text-[#00FFE5] font-bold shrink-0">AI:</span>
+              <span className="line-clamp-1">&quot;Hello! I can schedule your discovery call for Tuesday at 2 PM.&quot;</span>
+            </div>
+            <div className="flex items-start gap-1.5 text-gray-300">
+              <span className="text-gray-400 font-bold shrink-0">User:</span>
+              <span className="line-clamp-1">&quot;Perfect, please book that slot for me.&quot;</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-400/90 border-t border-cyan-900/40">
+          <span>Latency &lt;480ms • Natural Tone</span>
+          <span className="text-[#00FFE5] font-semibold">100% Autonomous</span>
+        </div>
+        <div className="absolute right-1/4 top-1/2 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
+      </div>
     ),
   },
   {
@@ -223,7 +275,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Conversational AI chatbot delivering 24/7 autonomous customer support, intelligent lead capture, and instant CRM ticket routing.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0D0819] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans">
+      <div className="w-full aspect-video bg-[#0D0819] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans">
         {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-purple-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
@@ -274,7 +326,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Autonomous Python workflow automating multi-channel lead discovery, AI SWOT business matrix generation, and personalized cold outreach.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#070D18] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans">
+      <div className="w-full aspect-video bg-[#070D18] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans">
         {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
@@ -339,7 +391,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Intelligent ATS recruitment agent for automated resume screening, semantic qualification scoring, and hands-free interview scheduling.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#061214] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
+      <div className="w-full aspect-video bg-[#061214] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
         {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
@@ -384,7 +436,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Data-driven omnichannel paid advertising campaign scaling B2B & D2C revenues with 4.8x average ROAS and conversion rate optimization.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
+      <div className="w-full aspect-video bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
@@ -427,7 +479,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'High-intent B2B SaaS growth funnel integrating LinkedIn ads, conversion rate optimization, and pipeline attribution modeling.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
+      <div className="w-full aspect-video bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
         <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-indigo-400" />
@@ -468,7 +520,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Automated Klaviyo lifecycle email and SMS retention sequences driving repeat orders, cart recovery, and maximized customer LTV.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
+      <div className="w-full aspect-video bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
         <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse" />
@@ -509,7 +561,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Enterprise technical search architecture and commercial keyword clusters driving +380% organic growth and top 3 rankings on competitive terms.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
+      <div className="w-full aspect-video bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
         <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -552,7 +604,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Programmatic catalog SEO, rich schema markup, and Core Web Vitals optimization capturing global Google search results.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
+      <div className="w-full aspect-video bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2]" />
@@ -593,7 +645,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Multi-location Google Business Profile ranking and local 3-pack search accelerator across 18 regional hubs driving direct qualified inquiries.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
+      <div className="w-full aspect-video bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
         <div className="flex items-center justify-between border-b border-teal-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
@@ -634,7 +686,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'End-to-end automated YouTube channel pipeline generating viral AI tech content with 1.2M+ subscribers and automated video workflows.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#160A0A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-red-500/20">
+      <div className="w-full aspect-video bg-[#160A0A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-red-500/20">
         <div className="flex items-center justify-between border-b border-red-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
@@ -677,7 +729,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'Autonomous daily global finance and crypto news synthesis pipeline publishing 2 high-retention videos daily with automated editing.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#120E08] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-amber-500/20">
+      <div className="w-full aspect-video bg-[#120E08] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-amber-500/20">
         <div className="flex items-center justify-between border-b border-amber-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
@@ -718,7 +770,7 @@ export const allProjects: ProjectItem[] = [
     description:
       'High-retention 4K historical and scientific documentary automation factory with algorithmic recommendation reach and dynamic editing.',
     renderPreview: () => (
-      <div className="w-full h-48 sm:h-56 bg-[#0E0B16] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-purple-500/20">
+      <div className="w-full aspect-video bg-[#0E0B16] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-purple-500/20">
         <div className="flex items-center justify-between border-b border-purple-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse" />
@@ -753,4 +805,15 @@ export const allProjects: ProjectItem[] = [
   },
 ];
 
-export const featuredProjects: ProjectItem[] = allProjects.slice(0, 3);
+const featuredProjectIds = [
+  'al-hadith-energy',
+  'disd-international',
+  'sbd-commercial-avenue',
+  'ai-calling-agents',
+  'lead-harvest',
+  'data-mapper',
+];
+
+export const featuredProjects: ProjectItem[] = featuredProjectIds
+  .map((id) => allProjects.find((p) => p.id === id))
+  .filter((p): p is ProjectItem => Boolean(p));

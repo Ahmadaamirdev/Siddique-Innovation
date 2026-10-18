@@ -51,11 +51,11 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-sans"
           >
-            A curated selection of our high-converting web solutions and digital enterprise platforms.
+            A curated selection of our enterprise web platforms, custom AI systems, and automation engines.
           </motion.p>
         </div>
 
-        {/* Project Cards Grid (Only 3 Projects) */}
+        {/* Project Cards Grid (6 Featured Projects) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProjects.map((project, index) => {
             return (
@@ -64,12 +64,12 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
               >
                 <div className="group relative bg-[#0B0E13]/90 backdrop-blur-xl border border-white/10 hover:border-[#00E6D2]/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(0,230,210,0.15)] flex flex-col justify-between h-full transform-gpu will-change-transform">
-                  {/* Image Preview Container */}
+                  {/* Image Preview Container (No zoom on hover) */}
                   <div className="relative overflow-hidden border-b border-white/10 group-hover:opacity-95 transition-opacity">
-                    <div className="transform group-hover:scale-105 transition-transform duration-500 ease-out">
+                    <div className="w-full">
                       {project.renderPreview()}
                     </div>
                   </div>
