@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Users } from 'lucide-react';
+import muneebImg from '@/assets/team/muneeb-siddiqui.avif';
+import ahmadImg from '@/assets/team/muhammad-ahmad.avif';
+import partner3Img from '@/assets/team/partner-3.avif';
 
 /* ───────────────────────── PARTNER DATA ───────────────────────── */
 interface Partner {
@@ -15,29 +18,29 @@ interface Partner {
 const PARTNERS: Partner[] = [
   {
     id: 'partner-1',
-    name: 'Partner one',
-    role: 'Co-Founder & AI Solutions Lead',
+    name: 'Muneeb Siddiqui',
+    role: 'Co-Founder & Head of SEO & Digital Marketing',
     story:
-      'Architecting autonomous operations and custom LLM agent workflows that eliminate manual friction. They lead our technical roadmap to help businesses transition into the AI era seamlessly, cutting operational overhead while expanding capacity.',
-    image: '/team/partner1.jpg',
-    initials: 'P1',
+      'Enterprise SEO and digital marketing specialist with deep expertise in Answer Engine Optimization (AEO), search dominance, and multi-channel acquisition funnels. He crafts data-backed search strategies and performance marketing engines that elevate brands to top search rankings, capturing sustainable market share and high-intent inbound pipeline.',
+    image: muneebImg,
+    initials: 'MS',
   },
   {
     id: 'partner-2',
-    name: 'Partner two',
-    role: 'Co-Founder & Full-Stack Architect',
+    name: 'Muhammad Ahmad',
+    role: 'Co-Founder & Lead AI Engineer',
     story:
-      'Engineering lightning-fast web applications and high-conversion architectures designed for enterprise scale. Focused on resilient cloud infrastructure, deep CRM connectors, and digital experiences that turn visitors into long-term clients.',
-    image: '/team/partner2.jpg',
-    initials: 'P2',
+      'AI engineering and full-stack development lead specializing in autonomous multi-agent systems, custom LLM pipelines, and modern web architectures. He engineers resilient automated infrastructure, CRM integrations, and high-performance applications designed to eliminate operational bottlenecks and scale digital capability.',
+    image: ahmadImg,
+    initials: 'MA',
   },
   {
     id: 'partner-3',
-    name: 'Partner three',
-    role: 'Co-Founder & Growth Strategist',
+    name: 'Partner Three',
+    role: 'Co-Founder & Head of Web Development & YouTube Automation',
     story:
-      'Specializing in search intelligence, AEO, and multi-channel acquisition pipelines. They transform search demand and AI-driven discoverability into predictable, sustainable business growth and continuous high-intent inbound pipeline.',
-    image: '/team/partner3.jpg',
+      'Specializing in high-performance web development and scalable YouTube automation systems. They engineer responsive, conversion-focused web platforms while overseeing end-to-end video pipelines, content strategy, packaging, and channel growth workflows that drive predictable digital reach and revenue.',
+    image: partner3Img,
     initials: 'P3',
   },
 ];
@@ -145,8 +148,8 @@ const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position
         <div
           className={`w-full h-full rounded-full overflow-hidden transition-all duration-300 ${
             isActive
-              ? 'border-2 border-[#00FFE5] shadow-[0_0_26px_rgba(0,230,210,0.85),0_0_10px_rgba(0,255,229,0.95)]'
-              : 'border-2 border-[#00E6D2]/35 shadow-[0_0_10px_rgba(0,230,210,0.12)] hover:border-[#00E6D2]/70 hover:shadow-[0_0_14px_rgba(0,230,210,0.25)]'
+              ? 'border-2 border-[#00FFE5] shadow-[0_0_10px_rgba(0,230,210,0.35)]'
+              : 'border border-[#00E6D2]/30 shadow-none hover:border-[#00E6D2]/60'
           }`}
         >
           {!imgError ? (
@@ -162,11 +165,6 @@ const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position
             </div>
           )}
         </div>
-
-        {/* Outer gentle ripple ring when active */}
-        {isActive && (
-          <span className="absolute -inset-1 rounded-full border border-[#00FFE5]/50 animate-ping pointer-events-none" />
-        )}
       </div>
     </div>
   );
@@ -291,15 +289,18 @@ export const RoundtableSection: React.FC = () => {
             >
               <div>
                 <div className="flex items-center gap-3.5 mb-4">
-                  <div className="w-14 h-14 rounded-full border-2 border-[#00FFE5] overflow-hidden shrink-0 shadow-[0_0_14px_rgba(0,230,210,0.5)]">
+                  <div className="w-14 h-14 rounded-full border-2 border-[#00FFE5] overflow-hidden shrink-0 shadow-[0_0_14px_rgba(0,230,210,0.5)] relative">
                     <img
                       src={partner.image}
                       alt={partner.name}
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
                       }}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover relative z-10"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs tracking-wider -z-0">
+                      {partner.initials}
+                    </div>
                   </div>
                   <div>
                     <span className="px-2 py-0.5 rounded bg-[#00E6D2]/10 border border-[#00E6D2]/20 text-[#00E6D2] font-mono text-[11px] font-semibold">
@@ -361,7 +362,7 @@ export const RoundtableSection: React.FC = () => {
               >
                 <defs>
                   <filter id="roundtableGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feGaussianBlur stdDeviation="2.5" result="blur" />
                     <feMerge>
                       <feMergeNode in="blur" />
                       <feMergeNode in="SourceGraphic" />
@@ -392,7 +393,7 @@ export const RoundtableSection: React.FC = () => {
                     stroke="url(#arcStrokeGrad)"
                     strokeWidth="3.5"
                     strokeLinecap="round"
-                    filter="drop-shadow(0 0 8px rgba(0, 230, 210, 0.75))"
+                    filter="drop-shadow(0 0 4px rgba(0, 230, 210, 0.35))"
                   />
                 )}
 
@@ -475,7 +476,7 @@ export const RoundtableSection: React.FC = () => {
                           className="flex-1 flex flex-col items-center justify-center rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-3 sm:p-5 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
                         >
                           {/* Avatar */}
-                          <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_20px_rgba(0,230,210,0.55)] shrink-0 relative">
+                          <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_12px_rgba(0,230,210,0.25)] shrink-0 relative">
                             {!imgErrors[partner.id] ? (
                               <img
                                 src={partner.image}
@@ -509,16 +510,16 @@ export const RoundtableSection: React.FC = () => {
 
                     {/* Partner Avatar on left */}
                     <div className="flex flex-col items-center justify-center shrink-0 my-auto">
-                      <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_24px_rgba(0,230,210,0.7)] overflow-hidden relative">
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_12px_rgba(0,230,210,0.25)] overflow-hidden relative">
                         <img
                           src={(activePartner || PARTNERS[0]).image}
                           alt={(activePartner || PARTNERS[0]).name}
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
                           }}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover relative z-10"
                         />
-                        <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base md:text-lg">
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base md:text-lg -z-0">
                           {(activePartner || PARTNERS[0]).initials}
                         </div>
                       </div>

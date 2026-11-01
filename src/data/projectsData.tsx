@@ -21,6 +21,13 @@ import callingAgentImg from '../assets/projects/calling_agent.png';
 import leadHarvestImg from '../assets/projects/lead_harvest.png';
 import dataMapperImg from '../assets/projects/data_mapper.png';
 import leadFlowImg from '../assets/projects/lead_flow.png';
+import alHadithaBotImg from '../assets/projects/al_haditha_bot.png';
+
+export interface ProjectWorkflowStep {
+  step: string;
+  title: string;
+  desc: string;
+}
 
 export interface ProjectItem {
   id: string;
@@ -30,6 +37,9 @@ export interface ProjectItem {
   link?: string;
   isGithub?: boolean;
   description?: string;
+  detailedDescription?: string;
+  workflow?: ProjectWorkflowStep[];
+  features?: string[];
   renderPreview: () => React.ReactNode;
 }
 
@@ -151,13 +161,109 @@ export const allProjects: ProjectItem[] = [
     ),
   },
   {
+    id: 'al-haditha-chatbot',
+    title: 'Al Haditha Chatbot – AI Customer Support Assistant',
+    category: 'ai',
+    tags: ['AI Support Agent', 'Knowledge Base', 'Oman Energy', '24/7 Availability'],
+    link: 'https://hde.om/',
+    description:
+      'AI-powered chatbot deployed on the Al Haditha client website providing instant responses to customer inquiries, scenario-based queries, and 24/7 engagement within secure boundaries.',
+    detailedDescription: `An AI-powered chatbot deployed on the Al Haditha client website to provide instant responses to customer inquiries. It handles quick questions and predefined, scenario-based queries using company-specific information, helping visitors understand the company's services and offerings.
+
+Designed to deliver consistent, round-the-clock assistance, the chatbot operates within defined information boundaries to protect confidential company data while improving customer engagement and support.`,
+    workflow: [
+      {
+        step: '01',
+        title: 'User Query Ingestion',
+        desc: 'Visitors interact with the smart AI assistant widget embedded directly on the hde.om corporate portal.',
+      },
+      {
+        step: '02',
+        title: 'Scenario & Intent Classification',
+        desc: 'Classifies inquiries across EPC contracting, mechanical, electrical, instrumentation, and civil services.',
+      },
+      {
+        step: '03',
+        title: 'Company Knowledge Retrieval',
+        desc: 'Pulls validated operational details from company-specific data sheets and capability matrices.',
+      },
+      {
+        step: '04',
+        title: 'Information Boundary & Security Guardrails',
+        desc: 'Enforces strict data protections to safeguard confidential enterprise assets and pricing policies.',
+      },
+      {
+        step: '05',
+        title: 'Contextual Resolution & RFQ Routing',
+        desc: 'Answers questions instantly and routes qualified corporate inquiries directly to business development teams.',
+      },
+    ],
+    features: [
+      '24/7 Autonomous Customer Engagement on hde.om',
+      'Company-Specific Knowledge Base Integration (EPC & Contracting)',
+      'Strict Confidentiality & Information Boundary Guardrails',
+      'Instant Response to Predefined & Scenario-Based Queries',
+      'Multilingual Inquiry Support (English & Arabic)',
+      'Lightweight Responsive Widget with Zero Page Overhead',
+      'Automated RFQ Guidance & Engineering Department Routing',
+    ],
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={alHadithaBotImg}
+        alt="Al Haditha AI Chatbot Assistant"
+        domain="hde.om"
+        imageClassName="object-cover object-center"
+      />
+    ),
+  },
+  {
     id: 'ai-calling-agents',
     title: 'AI Calling Agents – Autonomous Inbound & Outbound Voice',
     category: 'ai',
     tags: ['Voice AI Engine', 'Sub-500ms Latency', 'Inbound & Outbound', 'CRM Booking'],
     link: 'https://agent.retellai.com/orb/agent_da7b265b66bd8cf11f2c2b05bc?token=66ba30e9f3f5468e72af11a122c1a3d8',
     description:
-      'Autonomous human-realistic voice AI agents handling 24/7 inbound inquiries, appointment scheduling, and automated outbound qualification with instant CRM sync.',
+      'Autonomous voice AI solution built with Retell AI to automate 24/7 B2B sales conversations, lead qualification, time zone-aware calendar scheduling, and follow-up emails.',
+    detailedDescription: `An enterprise-grade, human-realistic AI calling solution powered by Retell AI engineered to automate B2B sales conversations and 24/7 customer support. The agent dynamically fields customer inquiries, qualifies incoming leads, separates high-intent prospects, and steers conversations toward closing opportunities with natural voice modulation and sub-second latency.
+
+Integrated with live calendar sync, the bot verifies real-time availability across global time zones, proposes optimal meeting slots, books appointments directly into your schedule, and triggers automated follow-up emails to prospects. This production-ready prototype can be customized to any bespoke business model, sales pipeline, or operational requirement.`,
+    workflow: [
+      {
+        step: '01',
+        title: 'Call Ingestion & Context Loading',
+        desc: 'Receive inbound customer calls or trigger automated outbound calls with live CRM context.',
+      },
+      {
+        step: '02',
+        title: 'Natural Voice Dialogue & Inquiry Handling',
+        desc: 'Engage prospects with sub-500ms latency, handling product queries and objection handling naturally.',
+      },
+      {
+        step: '03',
+        title: 'Lead Qualification & Intent Scoring',
+        desc: 'Ask custom qualification criteria to distinguish high-potential buyers from cold inquiries.',
+      },
+      {
+        step: '04',
+        title: 'Time Zone-Aware Calendar Booking',
+        desc: 'Check live team availability, compute time zone offsets, suggest slots, and confirm appointments on calendar.',
+      },
+      {
+        step: '05',
+        title: 'Automated Email Follow-Up & CRM Sync',
+        desc: 'Send confirmation emails, dispatch meeting invites, and sync call audio transcripts and summaries into CRM.',
+      },
+    ],
+    features: [
+      '24/7 Inbound Support & Outbound Sales Automation',
+      'Built with Retell AI for Natural Low-Latency Speech (<500ms)',
+      'Automated Lead Qualification & Prospect Intent Scoring',
+      'Real-Time Time Zone Detection & Dynamic Slot Suggestion',
+      'Direct Calendar Booking (Google Calendar, Outlook, Cal.com)',
+      'Automated Post-Call Email Follow-Ups & Meeting Confirmation',
+      'Live CRM Data Logging (HubSpot, Salesforce, Pipedrive)',
+      'Fully Customizable Sales Logic, Voice Personas & Scripts',
+    ],
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={callingAgentImg}
@@ -174,7 +280,46 @@ export const allProjects: ProjectItem[] = [
     tags: ['AI Lead Scraping', 'LinkedIn & B2B', 'Apify Engine', 'Data Enrichment'],
     link: 'https://leads-scrapper-drab.vercel.app/',
     description:
-      'Automated multi-channel prospect discovery engine targeting B2B decision makers across LinkedIn, Reddit Intent, and Google Maps without credentials or session cookies.',
+      'Multi-source lead generation and market intelligence platform extracting, categorizing, and enriching 600+ B2B decision-makers and Reddit customer pain points via Apify.',
+    detailedDescription: `LeadHarvest is an AI-powered prototype engineered to streamline lead generation and market research by extracting and analyzing data across Google Maps, LinkedIn, and Reddit. Powered by Apify, it discovers qualified business leads, categorizes them by star ratings, website availability, and review volume, and pinpoints key decision-makers based on custom search terms.
+
+In addition to B2B prospecting, LeadHarvest performs automated Reddit research to uncover genuine customer pain points and unmet market demands—empowering teams to validate new product opportunities. It reliably delivers 600+ leads per account, with extraction limits and capacity fully customizable to your operational needs.`,
+    workflow: [
+      {
+        step: '01',
+        title: 'Target & Query Configuration',
+        desc: 'Set custom search queries, target industries, geographies, and specific decision-maker job titles.',
+      },
+      {
+        step: '02',
+        title: 'Multi-Channel Extraction (Apify)',
+        desc: 'Automate data collection across Google Maps, LinkedIn profiles, and Reddit threads without manual blocks.',
+      },
+      {
+        step: '03',
+        title: 'Smart Categorization & Scoring',
+        desc: 'Filter leads by star ratings, review counts, active website presence, and role relevance.',
+      },
+      {
+        step: '04',
+        title: 'Reddit Pain-Point & Opportunity Mining',
+        desc: 'Analyze user discussions to pinpoint authentic customer frustrations and validate new product ideas.',
+      },
+      {
+        step: '05',
+        title: 'High-Volume Delivery & Quota Scaling',
+        desc: 'Export 600+ structured, verified leads per account with customizable extraction limits.',
+      },
+    ],
+    features: [
+      'Multi-Platform Data Ingestion (Google Maps, LinkedIn, Reddit)',
+      'Custom Decision-Maker Identification & Role Matching',
+      'Smart Lead Categorization (Ratings, Reviews & Website Availability)',
+      'Reddit Market Research & Customer Pain-Point Discovery',
+      'High-Capacity Throughput (600+ Leads Per Account)',
+      'Customizable Extraction Limits & Scalable Scraping Quotas',
+      'Reliable Apify Cloud Workflows with Zero Cookie Dependencies',
+    ],
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={leadHarvestImg}
@@ -190,7 +335,47 @@ export const allProjects: ProjectItem[] = [
     tags: ['Groq AI Engine', 'Ecommerce Automation', 'Amazon & Shopify', 'Zero Hallucination'],
     link: 'https://ecommerce-listing-iota.vercel.app/',
     description:
-      'Converts unstructured product titles, supplier sheets, and media into structured, template-perfect catalog listings for Amazon and Shopify using high-speed Groq LLM pipelines.',
+      'Streamlines e-commerce product listing by extracting relevant product information from images and custom prompts, automatically mapping data into predefined templates.',
+    detailedDescription: `DataMapper streamlines e-commerce product listing by extracting relevant product information from uploaded images and custom prompts. It organizes the generated data into predefined listing templates, automatically mapping information to the required columns and formats.
+
+Users can download the completed template, reducing manual data entry, saving time, and enabling faster, more efficient product listing at scale.`,
+    workflow: [
+      {
+        step: '01',
+        title: 'Image & Prompt Ingestion',
+        desc: 'Upload product photos, raw supplier sheets, and custom listing instructions into the portal.',
+      },
+      {
+        step: '02',
+        title: 'Multimodal AI Extraction',
+        desc: 'Extract key attributes, specifications, materials, and dimensions using high-speed Groq vision LLMs.',
+      },
+      {
+        step: '03',
+        title: 'Schema & Template Mapping',
+        desc: 'Automatically normalize and map attributes into marketplace-specific columns and required formats.',
+      },
+      {
+        step: '04',
+        title: 'Validation & Compliance Check',
+        desc: 'Ensure zero hallucinations, verify required field compliance, and structure product variants.',
+      },
+      {
+        step: '05',
+        title: 'Instant Template Export',
+        desc: 'Download ready-to-upload Amazon, Shopify, or custom CSV/Excel listing sheets at scale.',
+      },
+    ],
+    features: [
+      'Automated Image & Prompt Product Feature Extraction',
+      'Predefined Marketplace Templates (Amazon, Shopify, WooCommerce)',
+      'Intelligent Column & Format Auto-Mapping',
+      'Instant CSV & XLSX Batch Export for High-Volume Cataloging',
+      'Elimination of Manual Copy-Paste & Repetitive Data Entry',
+      'Sub-Second Groq Vision LLM Processing Pipeline',
+      'Variant Attribute Organization & Tagging',
+      'Enterprise-Ready Scalable Product Catalog Workflows',
+    ],
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={dataMapperImg}

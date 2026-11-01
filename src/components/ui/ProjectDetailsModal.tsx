@@ -3,6 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Sparkles, CheckCircle2, Layers } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
 
+export interface ProjectWorkflowStep {
+  step: string;
+  title: string;
+  desc: string;
+}
+
 export interface ProjectModalData {
   id: string;
   title: string;
@@ -11,6 +17,9 @@ export interface ProjectModalData {
   link?: string;
   isGithub?: boolean;
   description?: string;
+  detailedDescription?: string;
+  workflow?: ProjectWorkflowStep[];
+  features?: string[];
   renderPreview: () => React.ReactNode;
 }
 
@@ -100,14 +109,20 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           {/* Details Content */}
           <div className="p-5 sm:p-7 space-y-6 flex-1">
             {/* Title & Category */}
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               <h2 className="text-xl sm:text-2xl font-extrabold text-white font-heading tracking-tight">
                 {project.title}
               </h2>
-              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans">
-                {project.description ||
-                  `Engineered with industry-leading standards, optimized user journeys, and robust modern architecture tailored to deliver measurable business performance and conversion.`}
-              </p>
+              {project.detailedDescription ? (
+                <div className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans space-y-2 whitespace-pre-line">
+                  {project.detailedDescription}
+                </div>
+              ) : (
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans">
+                  {project.description ||
+                    `Engineered with industry-leading standards, optimized user journeys, and robust modern architecture tailored to deliver measurable business performance and conversion.`}
+                </p>
+              )}
             </div>
 
             {/* Core Technologies / Scope Tags */}
@@ -128,29 +143,50 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               </div>
             </div>
 
-            {/* Key Engineering Highlights */}
+            {/* Key Execution Workflow (if available) */}
+            {project.workflow && project.workflow.length > 0 && (
+              <div className="space-y-3 pt-2 border-t border-white/10">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gray-400">
+                  <Sparkles className="w-3.5 h-3.5 text-[#00E6D2]" />
+                  <span>Key Workflow</span>
+                </div>
+                <div className="space-y-2">
+                  {project.workflow.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 bg-white/[0.03] hover:bg-white/[0.05] p-3 rounded-xl border border-white/5 transition-colors"
+                    >
+                      <span className="font-mono text-[11px] font-bold text-[#00FFE5] bg-[#00FFE5]/10 border border-[#00FFE5]/25 px-2 py-0.5 rounded-md shrink-0 mt-0.5">
+                        {item.step}
+                      </span>
+                      <div className="space-y-0.5 text-xs">
+                        <h4 className="font-semibold text-white font-sans">{item.title}</h4>
+                        <p className="text-gray-300 leading-relaxed font-sans">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Core Features & Capabilities / Key Highlights */}
             <div className="space-y-2.5 pt-2 border-t border-white/10">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gray-400">
                 <Sparkles className="w-3.5 h-3.5 text-[#00E6D2]" />
-                <span>Key Highlights</span>
+                <span>{project.features ? 'Key Features' : 'Key Highlights'}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-300">
-                <div className="flex items-start gap-2 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0 mt-0.5" />
-                  <span>High-speed performance with modern responsive layouts.</span>
-                </div>
-                <div className="flex items-start gap-2 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0 mt-0.5" />
-                  <span>Conversion-engineered UI/UX tailored for user engagement.</span>
-                </div>
-                <div className="flex items-start gap-2 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0 mt-0.5" />
-                  <span>Cross-device fidelity across mobile, tablet, and desktop.</span>
-                </div>
-                <div className="flex items-start gap-2 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0 mt-0.5" />
-                  <span>Clean scalable codebase built to enterprise-grade standards.</span>
-                </div>
+                {(project.features || [
+                  'High-speed performance with modern responsive layouts.',
+                  'Conversion-engineered UI/UX tailored for user engagement.',
+                  'Cross-device fidelity across mobile, tablet, and desktop.',
+                  'Clean scalable codebase built to enterprise-grade standards.',
+                ]).map((feat, idx) => (
+                  <div key={idx} className="flex items-start gap-2 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
+                    <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
