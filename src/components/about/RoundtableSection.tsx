@@ -120,12 +120,11 @@ interface PartnerPhotoProps {
   partner: Partner;
   isActive: boolean;
   position: (typeof PARTNER_POSITIONS)[0];
+  index: number;
   onClick: () => void;
 }
 
-const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position, onClick }) => {
-  const [imgError, setImgError] = useState(false);
-
+const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position, index, onClick }) => {
   return (
     <div
       onClick={onClick}
@@ -136,34 +135,29 @@ const PartnerPhoto: React.FC<PartnerPhotoProps> = ({ partner, isActive, position
         transform: 'translate(-50%, -50%)',
         zIndex: isActive ? 30 : 15,
       }}
+      title={partner.name}
     >
       <div
-        className="relative rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="relative rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center"
         style={{
-          width: '60px',
-          height: '60px',
-          transform: `scale(${isActive ? 1.6 : 1})`,
+          width: '72px',
+          height: '72px',
+          transform: `scale(${isActive ? 1.25 : 1})`,
         }}
       >
         <div
-          className={`w-full h-full rounded-full overflow-hidden transition-all duration-300 ${
+          className={`w-full h-full rounded-full flex flex-col items-center justify-center text-center p-2 transition-all duration-300 ${
             isActive
-              ? 'border-2 border-[#00FFE5] shadow-[0_0_10px_rgba(0,230,210,0.35)]'
-              : 'border border-[#00E6D2]/30 shadow-none hover:border-[#00E6D2]/60'
+              ? 'bg-[#0B1A1E] border-2 border-[#00FFE5] text-white shadow-[0_0_14px_rgba(0,230,210,0.4)]'
+              : 'bg-[#080D12]/95 border border-[#00E6D2]/35 text-gray-300 hover:border-[#00E6D2]/70 hover:text-white'
           }`}
         >
-          {!imgError ? (
-            <img
-              src={partner.image}
-              alt={partner.name}
-              onError={() => setImgError(true)}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs tracking-wider">
-              {partner.initials}
-            </div>
-          )}
+          <span className="text-[10px] font-mono text-[#00FFE5] uppercase tracking-wider font-semibold block leading-none mb-1">
+            Partner
+          </span>
+          <span className="text-sm sm:text-base font-extrabold text-white font-heading leading-none block">
+            0{index + 1}
+          </span>
         </div>
       </div>
     </div>
@@ -288,15 +282,16 @@ export const RoundtableSection: React.FC = () => {
               className="rounded-[14px] bg-[#0A0F15] border border-[#00E6D2]/25 p-6 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center gap-3.5 mb-4">
-                  <div className="w-14 h-14 rounded-full border-2 border-[#00FFE5] overflow-hidden shrink-0 shadow-[0_0_14px_rgba(0,230,210,0.5)] relative">
+                <div className="flex items-center gap-4 mb-4">
+                  {/* Vertical Rectangular Photo Card */}
+                  <div className="w-16 h-22 sm:w-20 sm:h-28 rounded-xl border-2 border-[#00FFE5] overflow-hidden shrink-0 shadow-[0_0_12px_rgba(0,230,210,0.25)] relative bg-[#080D12]">
                     <img
                       src={partner.image}
                       alt={partner.name}
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
                       }}
-                      className="w-full h-full object-cover relative z-10"
+                      className="w-full h-full object-cover object-top relative z-10"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs tracking-wider -z-0">
                       {partner.initials}
@@ -428,11 +423,12 @@ export const RoundtableSection: React.FC = () => {
                 </span>
               </div>
 
-              {/* Three Partner Photo Frames (12, 4, and 8 o'clock) */}
+              {/* Three Partner Nodes (12, 4, and 8 o'clock) */}
               {PARTNERS.map((partner, index) => (
                 <PartnerPhoto
                   key={partner.id}
                   partner={partner}
+                  index={index}
                   isActive={activeIndex === index}
                   position={PARTNER_POSITIONS[index]}
                   onClick={() => handlePartnerClick(index)}
@@ -465,30 +461,38 @@ export const RoundtableSection: React.FC = () => {
                       </h3>
                     </div>
 
-                    {/* Three partner images side by side - simply the three pictures */}
-                    <div className="grid grid-cols-3 sm:flex sm:flex-row items-center justify-center gap-3 sm:gap-6 flex-1 py-2 sm:py-3">
+                    {/* Three partner images side by side in vertical rectangular cards */}
+                    <div className="grid grid-cols-3 gap-3 sm:gap-6 flex-1 py-1 sm:py-2 max-w-2xl mx-auto w-full">
                       {PARTNERS.map((partner, idx) => (
                         <motion.div
                           key={partner.id}
                           initial={{ opacity: 0, y: 14 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                          className="flex-1 flex flex-col items-center justify-center rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-3 sm:p-5 hover:border-[#00E6D2]/50 hover:shadow-[0_0_18px_rgba(0,230,210,0.15)] transition-all duration-300"
+                          className="flex flex-col items-center justify-center rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-2 sm:p-3.5 hover:border-[#00E6D2]/50 hover:shadow-[0_0_16px_rgba(0,230,210,0.15)] transition-all duration-300"
                         >
-                          {/* Avatar */}
-                          <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_12px_rgba(0,230,210,0.25)] shrink-0 relative">
+                          {/* Vertical Rectangular Photo Card */}
+                          <div className="w-full max-w-[110px] aspect-[3/4] rounded-lg sm:rounded-xl border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_12px_rgba(0,230,210,0.25)] shrink-0 relative bg-[#080D12] mb-1.5 sm:mb-2">
                             {!imgErrors[partner.id] ? (
                               <img
                                 src={partner.image}
                                 alt={partner.name}
                                 onError={() => setImgErrors(prev => ({ ...prev, [partner.id]: true }))}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover object-top relative z-10"
                               />
                             ) : (
-                              <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base">
+                              <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs sm:text-sm">
                                 {partner.initials}
                               </div>
                             )}
+                          </div>
+                          <div className="text-center w-full">
+                            <span className="text-[9px] sm:text-[10px] font-mono text-[#00E6D2] uppercase tracking-wider block font-semibold leading-tight">
+                              Partner 0{idx + 1}
+                            </span>
+                            <span className="text-[11px] sm:text-xs md:text-sm font-bold text-white font-heading truncate block mt-0.5 leading-snug">
+                              {partner.name}
+                            </span>
                           </div>
                         </motion.div>
                       ))}
@@ -508,16 +512,16 @@ export const RoundtableSection: React.FC = () => {
                     {/* Ambient Glow */}
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
-                    {/* Partner Avatar on left */}
+                    {/* Vertical Rectangle Photo Card */}
                     <div className="flex flex-col items-center justify-center shrink-0 my-auto">
-                      <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-[#00FFE5] shadow-[0_0_12px_rgba(0,230,210,0.25)] overflow-hidden relative">
+                      <div className="w-24 sm:w-32 md:w-36 lg:w-40 aspect-[3/4] rounded-xl sm:rounded-2xl border-2 border-[#00FFE5] shadow-[0_0_14px_rgba(0,230,210,0.25)] overflow-hidden relative bg-[#080D12]">
                         <img
                           src={(activePartner || PARTNERS[0]).image}
                           alt={(activePartner || PARTNERS[0]).name}
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
                           }}
-                          className="w-full h-full object-cover relative z-10"
+                          className="w-full h-full object-cover object-top relative z-10"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base md:text-lg -z-0">
                           {(activePartner || PARTNERS[0]).initials}
