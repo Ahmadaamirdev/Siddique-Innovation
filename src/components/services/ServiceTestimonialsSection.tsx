@@ -226,7 +226,7 @@ export const ServiceTestimonialsSection: React.FC<ServiceTestimonialsSectionProp
   };
 
   return (
-    <section ref={sectionRef} id="service-testimonials" className="py-14 md:py-20 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10">
+    <section ref={sectionRef} id="service-testimonials" aria-hidden="true" style={{ display: 'none' }} className="hidden py-14 md:py-20 bg-[#050505] relative z-10 overflow-hidden border-b border-white/10">
       {/* Soft Ambient Background Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[350px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[450px] h-[300px] bg-radial from-[#00FFE5]/5 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />

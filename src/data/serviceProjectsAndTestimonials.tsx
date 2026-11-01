@@ -71,9 +71,11 @@ export const webDevelopmentTestimonials: ServiceTestimonialCard[] = [
 // ==========================================
 // 2. AI AUTOMATION PROJECTS & TESTIMONIALS
 // ==========================================
-export const aiAutomationProjects: ServiceProjectItem[] = allProjects
-  .filter((p) => p.category === 'ai')
-  .slice(0, 3);
+const topAiProjectIds = ['al-haditha-chatbot', 'ai-calling-agents', 'lead-harvest'];
+
+export const aiAutomationProjects: ServiceProjectItem[] = topAiProjectIds
+  .map((id) => allProjects.find((p) => p.id === id)!)
+  .filter(Boolean);
 
 export const aiAutomationTestimonials: ServiceTestimonialCard[] = [
   {
