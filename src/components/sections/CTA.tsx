@@ -141,7 +141,6 @@ export const CTA: React.FC<CTAProps> = ({
           message: formState.message,
           subject: `New Project Inquiry from ${formState.name} [${formState.service}] - Siddiqui Innovations`,
           from_name: 'Siddiqui Innovations Web Portal',
-          'g-recaptcha-response': recaptchaToken,
         }),
       });
 
