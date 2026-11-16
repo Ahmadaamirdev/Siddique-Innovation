@@ -209,6 +209,11 @@ export const CLOUDINARY_ASSETS = {
     publicId: 'siddiqui-innovations/yt_best_thumbnail_july_17',
     resourceType: 'image',
   },
+  ev_service_dashboard: {
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1794843053/siddiqui-innovations/ev_service_dashboard.jpg',
+    publicId: 'siddiqui-innovations/ev_service_dashboard',
+    resourceType: 'image',
+  },
   testimonial_1: {
     url: 'https://res.cloudinary.com/mrckaiyl/video/upload/v1794822452/siddiqui-innovations/testimonial_1.mp4',
     publicId: 'siddiqui-innovations/testimonial_1',

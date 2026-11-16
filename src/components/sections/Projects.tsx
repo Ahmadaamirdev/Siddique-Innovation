@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
-import { featuredProjects } from '@/data/projectsData';
+import { featuredProjects, type ProjectItem } from '@/data/projectsData';
+import { ProjectDetailsModal } from '@/components/ui/ProjectDetailsModal';
 
 interface ProjectsProps {
   onNavigateToProjects?: () => void;
@@ -10,6 +11,8 @@ interface ProjectsProps {
 }
 
 export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavigate }) => {
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+
   const handleSeeMore = (e: React.MouseEvent) => {
     if (onNavigateToProjects) {
       e.preventDefault();
@@ -18,7 +21,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
   };
 
   return (
-    <section id="projects" className="py-14 sm:py-20 bg-[#050505] relative z-10 border-b border-white/10">
+    <>
+      <section id="projects" className="py-14 sm:py-20 bg-[#050505] relative z-10 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -106,17 +110,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
 
                       <button
                         type="button"
-                        onClick={() => {
-                          const targetUrl = `/projects#${project.id}`;
-                          if (onNavigate) {
-                            onNavigate(targetUrl);
-                          } else if (onNavigateToProjects) {
-                            window.location.hash = project.id;
-                            onNavigateToProjects();
-                          } else {
-                            window.location.href = targetUrl;
-                          }
-                        }}
+                        onClick={() => setSelectedProject(project)}
                         className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer"
                       >
                         <span>View Details</span>
@@ -151,5 +145,12 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
 
       </div>
     </section>
+
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onNavigate={onNavigate}
+      />
+    </>
   );
 };

@@ -332,6 +332,60 @@ In addition to B2B prospecting, LeadHarvest performs automated Reddit research t
     ),
   },
   {
+    id: 'ev-service-rental',
+    title: 'EV Service & Rental Management Software',
+    category: 'web',
+    tags: ['EV Workshop', 'Quotation Engine', 'Invoicing', 'Job Management', 'Fleet Rental', 'Dashboard'],
+    description:
+      'Full-stack EV service and rental management platform for workshops and fleet operators. Automates quotation and invoice generation, tracks vehicles through the full service lifecycle, dispatches jobs to technicians, and manages rental fleets end-to-end.',
+    detailedDescription: `A purpose-built operations platform for EV service centers and rental businesses. The dashboard provides live visibility into vehicles in the workshop, maintenance status, delivery readiness, and daily revenue. Service advisors generate professional quotations and invoices in seconds, while workshop managers assign job cards to technicians and track repair progress from intake to delivery.\n\nThe rental panel manages fleet availability, customer bookings, and return workflows. Parts inventory, EV diagnostics, vehicle history, and user access controls are all centralized in one platform, eliminating manual paperwork and disconnected tools.`,
+    workflow: [
+      {
+        step: '01',
+        title: 'Vehicle Check-In & Registration',
+        desc: 'Register incoming EV vehicles with full customer and vehicle details, assigning a unique job reference instantly.',
+      },
+      {
+        step: '02',
+        title: 'Quotation Generation',
+        desc: 'Auto-generate professional service quotations with parts, labour, and EV diagnostics costs in seconds.',
+      },
+      {
+        step: '03',
+        title: 'Job Card & Technician Dispatch',
+        desc: 'Create job cards, assign tasks to technicians, and monitor repair progress on the live workshop dashboard.',
+      },
+      {
+        step: '04',
+        title: 'Invoice & Payment',
+        desc: 'Convert approved quotations to tax-compliant invoices and record payments with full audit trail.',
+      },
+      {
+        step: '05',
+        title: 'Rental Fleet Management',
+        desc: 'Manage vehicle availability, customer bookings, extensions, and returns from a dedicated rental panel.',
+      },
+    ],
+    features: [
+      'Live Workshop Dashboard – Vehicles in service, under maintenance & ready for delivery',
+      'Automated Quotation & Invoice Generation',
+      'Job Card Assignment & Technician Job Dispatch',
+      'EV Diagnostics & Vehicle History Tracking',
+      'Parts & Inventory Management',
+      'Rental Fleet Panel – Bookings, availability & returns',
+      'Multi-branch Support & User Role Management',
+      'Real-time Revenue & Activity Monitoring',
+    ],
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={CLOUDINARY_ASSETS.ev_service_dashboard.url}
+        alt="EV Service & Rental Management Software Dashboard"
+        domain="Al Mishwar EV Workshop"
+        imageClassName="object-cover object-top"
+      />
+    ),
+  },
+  {
     id: 'data-mapper',
     title: 'DataMapper – AI Ecommerce Listing & Template Engine',
     category: 'ai',
@@ -994,7 +1048,7 @@ const featuredProjectIds = [
   'sbd-commercial-avenue',
   'ai-calling-agents',
   'lead-harvest',
-  'data-mapper',
+  'ev-service-rental',
 ];
 
 export const featuredProjects: ProjectItem[] = featuredProjectIds
