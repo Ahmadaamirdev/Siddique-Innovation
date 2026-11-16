@@ -36,6 +36,7 @@ export const CTA: React.FC<CTAProps> = ({
     email: '',
     service: initialService,
     message: '',
+    botcheck: '', // Honeypot field (hidden from real users, bots auto-fill)
   });
 
   const [isVerified, setIsVerified] = useState(false);
@@ -118,6 +119,13 @@ export const CTA: React.FC<CTAProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Honeypot check: If bot filled the hidden input, silently simulate success without sending email
+    if (formState.botcheck && formState.botcheck.trim() !== '') {
+      console.warn('Spam submission detected and blocked via honeypot.');
+      setSubmitted(true);
+      return;
+    }
+
     if (!isVerified || !recaptchaToken) {
       setVerificationError(true);
       return;
@@ -139,6 +147,7 @@ export const CTA: React.FC<CTAProps> = ({
           email: formState.email,
           service: formState.service,
           message: formState.message,
+          botcheck: '', // Web3Forms native spam honeypot
           subject: `New Project Inquiry from ${formState.name} [${formState.service}] - Siddiqui Innovations`,
           from_name: 'Siddiqui Innovations Web Portal',
         }),
@@ -285,6 +294,7 @@ export const CTA: React.FC<CTAProps> = ({
                         email: '',
                         service: initialService,
                         message: '',
+                        botcheck: '',
                       });
                     }}
                     className="inline-block mt-4 text-xs font-semibold text-[#00E6D2] hover:underline cursor-pointer"
@@ -294,6 +304,20 @@ export const CTA: React.FC<CTAProps> = ({
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                  {/* Honeypot Spam Protection Field - Hidden from humans, detected by bots */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    className="hidden"
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formState.botcheck}
+                    onChange={(e) =>
+                      setFormState({ ...formState, botcheck: e.target.value })
+                    }
+                  />
+
                   {/* Name & Email Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div className="space-y-1.5">
