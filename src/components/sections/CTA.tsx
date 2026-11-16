@@ -11,7 +11,7 @@ declare global {
 }
 
 // Split key parts to prevent secret scanners from falsely flagging public reCAPTCHA site key
-const DEFAULT_SITE_KEY = ['6LfCZyMuAAAAAJY6Lop6', 'KSahqplo3U2NTIVNFKVs'].join('');
+const DEFAULT_SITE_KEY = ['6Lf_iiMuAAAAAHWOrlFr', 'Y-ZJgKtLvGtHirlZSrBZ'].join('');
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || DEFAULT_SITE_KEY;
 const RECIPIENT_EMAIL = 'siddiquiinnovations@gmail.com';
 
