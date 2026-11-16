@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Users } from 'lucide-react';
-import muneebImg from '@/assets/team/muneeb-siddiqui.avif';
-import ahmadImg from '@/assets/team/muhammad-ahmad.avif';
-import partner3Img from '@/assets/team/partner-3.avif';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const muneebImg = CLOUDINARY_ASSETS.team_muneeb_siddiqui.url;
+const ahmadImg = CLOUDINARY_ASSETS.team_muhammad_ahmad.url;
+const partner3Img = CLOUDINARY_ASSETS.team_partner_3.url;
 
 /* ───────────────────────── PARTNER DATA ───────────────────────── */
 interface Partner {
@@ -258,10 +260,10 @@ export const RoundtableSection: React.FC = () => {
     return (
       <section
         aria-label="Agency Leadership"
-        className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
+        className="pt-8 pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
       >
         <div className="text-center mb-10">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-[-0.02em] font-heading mb-3">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-[-0.02em] font-heading mb-3">
             <span className="block">Helping Businesses Move Into the</span>
             <span
               className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
@@ -269,7 +271,7 @@ export const RoundtableSection: React.FC = () => {
             >
               AI Era
             </span>
-          </h1>
+          </h2>
           <p className="text-gray-300 text-xs sm:text-sm font-normal max-w-lg mx-auto">
             Siddiqui Innovations is a Pakistan-based team helping businesses automate their daily operations, build stronger digital presences and grow without needing to hire for every new task.
           </p>
@@ -279,7 +281,7 @@ export const RoundtableSection: React.FC = () => {
           {PARTNERS.map((partner, idx) => (
             <div
               key={partner.id}
-              className="rounded-[14px] bg-[#0A0F15] border border-[#00E6D2]/25 p-6 flex flex-col justify-between"
+              className="about-glass-panel rounded-[14px] bg-[#0A0F15] border border-[#00E6D2]/25 p-6 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center gap-4 mb-4">
@@ -327,27 +329,10 @@ export const RoundtableSection: React.FC = () => {
     >
       {/* Pinned Viewport Container (100vh) */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between pt-22 sm:pt-24 md:pt-26 lg:pt-28 pb-3 sm:pb-4 px-4 sm:px-6 lg:px-10 overflow-hidden">
-        {/* ── 1. CLEAN HEADING BLOCK (Comfortable navbar clearance) ── */}
-        <div className="max-w-3xl mx-auto text-center shrink-0 mb-1 sm:mb-2">
-          <h1 className="text-xl sm:text-2xl md:text-[28px] lg:text-[32px] font-extrabold text-white tracking-[-0.02em] leading-[1.16] font-heading max-w-xl mx-auto mb-1.5 drop-shadow-md">
-            <span className="block">Helping Businesses Move Into the</span>
-            <span
-              className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
-              style={{ WebkitTextFillColor: 'transparent' }}
-            >
-              AI Era
-            </span>
-          </h1>
-
-          <p className="text-gray-300 text-xs sm:text-[13.5px] font-normal leading-relaxed font-sans max-w-lg mx-auto">
-            Siddiqui Innovations is a Pakistan-based team helping businesses automate their daily operations, build stronger digital presences and grow without needing to hire for every new task.
-          </p>
-        </div>
-
         {/* ── 2. ROUNDTABLE ON LEFT (SHIFTED LEFT & LIFTED UP) & WIDE STORY RECTANGLE LIFTED UP ── */}
-        <div className="w-full max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 my-auto -mt-3 sm:-mt-5 lg:-mt-7 px-2 sm:px-4 lg:px-6">
+        <div className="w-full max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 my-auto px-2 sm:px-4 lg:px-6">
           {/* LEFT: Roundtable shifted left and positioned higher to prevent any cropping */}
-          <div className="flex items-center justify-center shrink-0 -ml-2 lg:-ml-6 xl:-ml-10">
+          <div className="flex items-center justify-center shrink-0 -ml-2 lg:-ml-6 xl:-ml-10 lg:translate-y-10">
             <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] md:w-[380px] md:h-[380px] lg:w-[410px] lg:h-[410px] xl:w-[430px] xl:h-[430px] select-none">
               {/* SVG Ring + Progress Arc + Travelling Dot */}
               <svg
@@ -438,7 +423,25 @@ export const RoundtableSection: React.FC = () => {
           </div>
 
           {/* RIGHT: Rectangle longer till the end of the screen (lifted a bit above) */}
-          <div className="flex-1 w-full lg:mr-2 xl:mr-6 flex items-center -mt-2 sm:-mt-4">
+          <div className="flex-1 w-full lg:mr-2 xl:mr-6 flex flex-col items-center">
+        {/* ── 1. CLEAN HEADING BLOCK (Comfortable navbar clearance) ── */}
+        <div className="w-full mx-auto text-center shrink-0 mb-5 sm:mb-6" style={{ containerType: 'inline-size' }}>
+          <h2 className="font-extrabold text-white tracking-[-0.02em] leading-[1.16] font-heading mx-auto mb-1.5 drop-shadow-md whitespace-nowrap" style={{ fontSize: 'clamp(12px, 3.5cqw, 32px)' }}>
+            <span>Helping Businesses Move Into the</span>{' '}
+            <span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
+              style={{ WebkitTextFillColor: 'transparent' }}
+            >
+              AI Era
+            </span>
+          </h2>
+
+          <p className="text-gray-300 text-xs sm:text-[13.5px] font-normal leading-relaxed font-sans max-w-lg mx-auto">
+            Siddiqui Innovations helps businesses automate daily work, strengthen their digital presence and grow with a dedicated team in Pakistan.
+          </p>
+        </div>
+
+
             <div className="w-full min-h-[250px] sm:min-h-[270px] relative">
               <AnimatePresence mode="wait">
                 {allComplete ? (
@@ -449,7 +452,7 @@ export const RoundtableSection: React.FC = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -12, scale: 0.98 }}
                     transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full min-h-[200px] sm:min-h-[250px] md:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col justify-center relative overflow-hidden"
+                    className="w-full min-h-[200px] sm:min-h-[250px] md:min-h-[270px] about-glass-panel rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-4 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-col justify-center relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -469,16 +472,16 @@ export const RoundtableSection: React.FC = () => {
                           initial={{ opacity: 0, y: 14 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                          className="flex flex-col items-center justify-center rounded-xl bg-[#080D12]/80 border border-[#00E6D2]/20 p-2 sm:p-3.5 hover:border-[#00E6D2]/50 hover:shadow-[0_0_16px_rgba(0,230,210,0.15)] transition-all duration-300"
+                          className="flex flex-col items-center justify-center p-2 sm:p-3.5"
                         >
                           {/* Vertical Rectangular Photo Card */}
-                          <div className="w-full max-w-[110px] aspect-[3/4] rounded-lg sm:rounded-xl border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_12px_rgba(0,230,210,0.25)] shrink-0 relative bg-[#080D12] mb-1.5 sm:mb-2">
+                          <div className="w-[110px] max-w-full aspect-[3/4] rounded-lg sm:rounded-xl border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_12px_rgba(0,230,210,0.25)] shrink-0 relative bg-[#080D12] mb-1.5 sm:mb-2">
                             {!imgErrors[partner.id] ? (
                               <img
                                 src={partner.image}
                                 alt={partner.name}
                                 onError={() => setImgErrors(prev => ({ ...prev, [partner.id]: true }))}
-                                className="w-full h-full object-cover object-top relative z-10"
+                                className="absolute inset-0 w-full h-full object-cover object-top z-10"
                               />
                             ) : (
                               <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs sm:text-sm">
@@ -487,9 +490,6 @@ export const RoundtableSection: React.FC = () => {
                             )}
                           </div>
                           <div className="text-center w-full">
-                            <span className="text-[9px] sm:text-[10px] font-mono text-[#00E6D2] uppercase tracking-wider block font-semibold leading-tight">
-                              Partner 0{idx + 1}
-                            </span>
                             <span className="text-[11px] sm:text-xs md:text-sm font-bold text-white font-heading truncate block mt-0.5 leading-snug">
                               {partner.name}
                             </span>
@@ -507,7 +507,7 @@ export const RoundtableSection: React.FC = () => {
                     exit={{ opacity: 0, y: -12, scale: 0.98 }}
                     transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                     aria-live="polite"
-                    className="w-full min-h-[140px] sm:min-h-[250px] md:min-h-[270px] rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-3 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-row items-center md:items-start gap-3 sm:gap-6 relative overflow-hidden"
+                    className="w-full min-h-[140px] sm:min-h-[250px] md:min-h-[270px] about-glass-panel rounded-2xl bg-[#0A0F15]/95 border border-[#00E6D2]/30 p-3 sm:p-7 shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_35px_rgba(0,230,210,0.08)] flex flex-row items-center md:items-start gap-3 sm:gap-6 relative overflow-hidden"
                   >
                     {/* Ambient Glow */}
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
@@ -560,10 +560,10 @@ export const RoundtableSection: React.FC = () => {
         </div>
 
         {/* ── 3. BOTTOM SCROLL INDICATOR ── */}
-        <div className="flex items-center justify-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest shrink-0">
+        {/* <div className="flex items-center justify-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest shrink-0">
           <span>Scroll to travel roundtable</span>
           <span className="text-[#00E6D2] animate-bounce">↓</span>
-        </div>
+        </div> */}
       </div>
     </section>
   );

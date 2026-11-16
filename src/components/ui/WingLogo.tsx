@@ -1,5 +1,7 @@
 import React from 'react';
-import logoImg from '@/assets/logo.png';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const logoImg = CLOUDINARY_ASSETS.logo.url;
 
 interface WingLogoProps {
   className?: string;

@@ -14,6 +14,9 @@ import { CTA } from '@/components/sections/CTA';
 import { WingLogo } from '@/components/ui/WingLogo';
 import { Stats } from '@/components/sections/Stats';
 import { RoundtableSection } from '@/components/about/RoundtableSection';
+import { AboutHero } from '@/components/about/AboutHero';
+import '@/components/about/AboutGlass.css';
+import '@/components/about/AboutProject.css';
 
 interface AboutPageProps {
   onNavigate: (path: string) => void;
@@ -89,11 +92,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       />
 
       <main className="relative z-10">
-        {/* 1. HERO & ROUNDTABLE SECTION (Fits into single cohesive section) */}
+        <AboutHero />
+
+        {/* Existing leadership section follows the new hero. */}
+        <div className="about-glass-zone">
         <RoundtableSection />
 
         {/* 2. STATS BAR (Identical size, length, width, and styling as homepage) */}
         <Stats />
+        </div>
 
         {/* 3. OUR STORY & OUR MISSION */}
         <section id="story-mission" className="py-20 sm:py-28 lg:py-32 scroll-mt-28">

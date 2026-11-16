@@ -4,7 +4,9 @@ import {
   ArrowUpRight,
   ArrowUp,
 } from 'lucide-react';
-import brandLogo from '@/assets/brand_logo.png';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const brandLogo = CLOUDINARY_ASSETS.brand_logo.url;
 
 export interface FooterProps {
   onNavigate?: (path: string) => void;

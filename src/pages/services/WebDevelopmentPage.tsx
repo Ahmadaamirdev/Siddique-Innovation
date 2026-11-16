@@ -23,7 +23,9 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WingLogo } from '@/components/ui/WingLogo';
 import { CTA } from '@/components/sections/CTA';
-import serviceHeroBg from '@/assets/service_hero_bg.webp';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const serviceHeroBg = CLOUDINARY_ASSETS.service_hero_bg.url;
 import { ServiceProjectsSection } from '@/components/services/ServiceProjectsSection';
 import { ServiceTestimonialsSection } from '@/components/services/ServiceTestimonialsSection';
 import { WebBuildingAnimation } from '@/components/services/WebBuildingAnimation';

@@ -51,15 +51,52 @@ const assetsToUpload = [
   // Core branding
   { localPath: 'src/assets/logo.png', id: 'logo', type: 'image' },
   { localPath: 'src/assets/brand_logo.png', id: 'brand_logo', type: 'image' },
-  // Hero & background images
   { localPath: 'src/assets/hero_bg.png', id: 'hero_bg', type: 'image' },
   { localPath: 'src/assets/hero.png', id: 'hero', type: 'image' },
-  { localPath: 'src/assets/contact_hero_bg.jpg', id: 'contact_hero_bg', type: 'image' },
-  // Showcase & Project images
-  { localPath: 'src/assets/dwatson_furniture.png', id: 'dwatson_furniture', type: 'image' },
+  { localPath: 'src/assets/contact_hero_bg.webp', id: 'contact_hero_bg', type: 'image' },
+  { localPath: 'src/assets/service_hero_bg.webp', id: 'service_hero_bg', type: 'image' },
+  { localPath: 'src/assets/dwatson_furniture.webp', id: 'dwatson_furniture', type: 'image' },
   { localPath: 'src/assets/dwatson_storefront.jpg', id: 'dwatson_storefront', type: 'image' },
   { localPath: 'src/assets/ai_automation_workflow.jpg', id: 'ai_automation_workflow', type: 'image' },
   { localPath: 'src/assets/seo_growth_dashboard.jpg', id: 'seo_growth_dashboard', type: 'image' },
+
+  // About section images
+  { localPath: 'src/assets/about/grows-background.jpg', id: 'about_grows_bg', type: 'image' },
+  { localPath: 'src/assets/about/automates-background.jpg', id: 'about_automates_bg', type: 'image' },
+  { localPath: 'src/assets/about/scales-background.jpg', id: 'about_scales_bg', type: 'image' },
+  { localPath: 'src/assets/about/ranks-background.jpg', id: 'about_ranks_bg', type: 'image' },
+  { localPath: 'src/assets/about/grows.jpg', id: 'about_grows', type: 'image' },
+  { localPath: 'src/assets/about/automates.jpg', id: 'about_automates', type: 'image' },
+  { localPath: 'src/assets/about/scales.jpg', id: 'about_scales', type: 'image' },
+  { localPath: 'src/assets/about/ranks.jpg', id: 'about_ranks', type: 'image' },
+
+  // Team partners
+  { localPath: 'src/assets/team/muneeb-siddiqui.avif', id: 'team_muneeb_siddiqui', type: 'image' },
+  { localPath: 'src/assets/team/muhammad-ahmad.avif', id: 'team_muhammad_ahmad', type: 'image' },
+  { localPath: 'src/assets/team/partner-3.avif', id: 'team_partner_3', type: 'image' },
+
+  // Project showcase
+  { localPath: 'src/assets/projects/al_haditha_bot.png', id: 'project_al_haditha_bot', type: 'image' },
+  { localPath: 'src/assets/projects/al_haditha_energy.webp', id: 'project_al_haditha_energy', type: 'image' },
+  { localPath: 'src/assets/projects/calling_agent.png', id: 'project_calling_agent', type: 'image' },
+  { localPath: 'src/assets/projects/data_mapper.png', id: 'project_data_mapper', type: 'image' },
+  { localPath: 'src/assets/projects/dewatson_furniture.webp', id: 'project_dewatson_furniture', type: 'image' },
+  { localPath: 'src/assets/projects/disd_international.png', id: 'project_disd_international', type: 'image' },
+  { localPath: 'src/assets/projects/lead_flow.png', id: 'project_lead_flow', type: 'image' },
+  { localPath: 'src/assets/projects/lead_harvest.png', id: 'project_lead_harvest', type: 'image' },
+  { localPath: 'src/assets/projects/med_verify.png', id: 'project_med_verify', type: 'image' },
+  { localPath: 'src/assets/projects/nawaz_group.webp', id: 'project_nawaz_group', type: 'image' },
+  { localPath: 'src/assets/projects/saim_electronics.webp', id: 'project_saim_electronics', type: 'image' },
+  { localPath: 'src/assets/projects/sbd_commercial_avenue.png', id: 'project_sbd_commercial_avenue', type: 'image' },
+
+  // YouTube thumbnails
+  { localPath: 'src/assets/youtube/mrbeast-team-loved-vs-hated.avif', id: 'yt_mrbeast_team', type: 'image' },
+  { localPath: 'src/assets/youtube/mrbeast-disaster-challenges.avif', id: 'yt_mrbeast_disaster', type: 'image' },
+  { localPath: 'src/assets/youtube/perfect-morning-routine-men.avif', id: 'yt_perfect_morning', type: 'image' },
+  { localPath: 'src/assets/youtube/dead-6.avif', id: 'yt_dead_6', type: 'image' },
+  { localPath: 'src/assets/youtube/thumbnail-july-17-pm.avif', id: 'yt_thumbnail_july_17_pm', type: 'image' },
+  { localPath: 'src/assets/youtube/best-thumbnail-july-17.avif', id: 'yt_best_thumbnail_july_17', type: 'image' },
+
   // Videos
   { localPath: 'public/videos/testimonial-1.mp4', id: 'testimonial_1', type: 'video' },
   { localPath: 'public/videos/testimonial-2.mp4', id: 'testimonial_2', type: 'video' },

@@ -11,17 +11,19 @@ import {
   Video,
   Play,
 } from 'lucide-react';
-import sbdCommercialImg from '../assets/projects/sbd_commercial_avenue.png';
-import saimElectronicsImg from '../assets/projects/saim_electronics.webp';
-import dewatsonFurnitureImg from '../assets/projects/dewatson_furniture.webp';
-import nawazGroupImg from '../assets/projects/nawaz_group.webp';
-import alHadithaEnergyImg from '../assets/projects/al_haditha_energy.webp';
-import disdInternationalImg from '../assets/projects/disd_international.png';
-import callingAgentImg from '../assets/projects/calling_agent.png';
-import leadHarvestImg from '../assets/projects/lead_harvest.png';
-import dataMapperImg from '../assets/projects/data_mapper.png';
-import leadFlowImg from '../assets/projects/lead_flow.png';
-import alHadithaBotImg from '../assets/projects/al_haditha_bot.png';
+import { CLOUDINARY_ASSETS } from './cloudinaryAssets';
+
+const sbdCommercialImg = CLOUDINARY_ASSETS.project_sbd_commercial_avenue.url;
+const saimElectronicsImg = CLOUDINARY_ASSETS.project_saim_electronics.url;
+const dewatsonFurnitureImg = CLOUDINARY_ASSETS.project_dewatson_furniture.url;
+const nawazGroupImg = CLOUDINARY_ASSETS.project_nawaz_group.url;
+const alHadithaEnergyImg = CLOUDINARY_ASSETS.project_al_haditha_energy.url;
+const disdInternationalImg = CLOUDINARY_ASSETS.project_disd_international.url;
+const callingAgentImg = CLOUDINARY_ASSETS.project_calling_agent.url;
+const leadHarvestImg = CLOUDINARY_ASSETS.project_lead_harvest.url;
+const dataMapperImg = CLOUDINARY_ASSETS.project_data_mapper.url;
+const leadFlowImg = CLOUDINARY_ASSETS.project_lead_flow.url;
+const alHadithaBotImg = CLOUDINARY_ASSETS.project_al_haditha_bot.url;
 
 export interface ProjectWorkflowStep {
   step: string;

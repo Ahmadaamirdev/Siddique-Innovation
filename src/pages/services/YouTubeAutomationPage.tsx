@@ -32,12 +32,14 @@ import {
   youtubeAutomationTestimonials,
 } from '@/data/serviceProjectsAndTestimonials';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import thumbDisaster from '@/assets/youtube/mrbeast-disaster-challenges.avif';
-import thumbBest from '@/assets/youtube/best-thumbnail-july-17.avif';
-import thumbDead from '@/assets/youtube/dead-6.avif';
-import thumbJul17 from '@/assets/youtube/thumbnail-july-17-pm.avif';
-import thumbLovedHated from '@/assets/youtube/mrbeast-team-loved-vs-hated.avif';
-import thumbMorningRoutine from '@/assets/youtube/perfect-morning-routine-men.avif';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const thumbDisaster = CLOUDINARY_ASSETS.yt_mrbeast_disaster.url;
+const thumbBest = CLOUDINARY_ASSETS.yt_best_thumbnail_july_17.url;
+const thumbDead = CLOUDINARY_ASSETS.yt_dead_6.url;
+const thumbJul17 = CLOUDINARY_ASSETS.yt_thumbnail_july_17_pm.url;
+const thumbLovedHated = CLOUDINARY_ASSETS.yt_mrbeast_team.url;
+const thumbMorningRoutine = CLOUDINARY_ASSETS.yt_perfect_morning.url;
 
 const reelItems = [
   {

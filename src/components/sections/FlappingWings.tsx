@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import logoImg from '@/assets/logo.png';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const logoImg = CLOUDINARY_ASSETS.logo.url;
 
 interface FlappingWingsProps {
   reducedMotion?: boolean;

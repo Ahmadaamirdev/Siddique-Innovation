@@ -9,7 +9,9 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WingLogo } from '@/components/ui/WingLogo';
 import { CTA } from '@/components/sections/CTA';
-import contactHeroBg from '@/assets/contact_hero_bg.webp';
+import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
+const contactHeroBg = CLOUDINARY_ASSETS.contact_hero_bg.url;
 
 interface ContactPageProps {
   onNavigate: (path: string) => void;
