@@ -13,7 +13,7 @@ declare global {
 // Split key parts to prevent secret scanners from falsely flagging public reCAPTCHA site key
 const DEFAULT_SITE_KEY = ['6LfCZyMuAAAAAJY6Lop6', 'KSahqplo3U2NTIVNFKVs'].join('');
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || DEFAULT_SITE_KEY;
-const RECIPIENT_EMAIL = 'info@siddiqui-innovations.com';
+const RECIPIENT_EMAIL = 'siddiquiinnovations@gmail.com';
 
 export interface CTAProps {
   initialService?: string;
@@ -158,7 +158,7 @@ export const CTA: React.FC<CTAProps> = ({
     } catch (err: any) {
       console.error('Contact form submission error:', err);
       setSubmitError(
-        'Unable to send message right now. Please reach out to us directly at info@siddiqui-innovations.com or via WhatsApp.'
+        'Unable to send message right now. Please reach out to us directly at siddiquiinnovations@gmail.com or via WhatsApp.'
       );
     } finally {
       setIsSubmitting(false);
