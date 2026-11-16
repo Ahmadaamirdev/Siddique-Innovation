@@ -13,7 +13,8 @@ declare global {
 // Split key parts to prevent secret scanners from falsely flagging public reCAPTCHA site key
 const DEFAULT_SITE_KEY = ['6Lf_iiMuAAAAAHWOrlFr', 'Y-ZJgKtLvGtHirlZSrBZ'].join('');
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || DEFAULT_SITE_KEY;
-const RECIPIENT_EMAIL = 'siddiquiinnovations@gmail.com';
+const FORM_ENDPOINT_EMAIL = 'siddiquiinnovations@gmail.com';
+const DISPLAY_EMAIL = 'info@siddiqui-innovations.com';
 
 export interface CTAProps {
   initialService?: string;
@@ -126,7 +127,7 @@ export const CTA: React.FC<CTAProps> = ({
     setSubmitError(null);
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+      const response = await fetch(`https://formsubmit.co/ajax/${FORM_ENDPOINT_EMAIL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +151,7 @@ export const CTA: React.FC<CTAProps> = ({
       if (response.ok && (data.success === 'true' || data.success === true)) {
         setSubmitted(true);
       } else if (data.message && data.message.includes('Activation')) {
-        // Form is waiting for one-time owner activation click on info@siddiqui-innovations.com
+        // Form is waiting for one-time owner activation click
         setSubmitted(true);
       } else {
         throw new Error(data.message || 'Submission failed');
@@ -158,7 +159,7 @@ export const CTA: React.FC<CTAProps> = ({
     } catch (err: any) {
       console.error('Contact form submission error:', err);
       setSubmitError(
-        'Unable to send message right now. Please reach out to us directly at siddiquiinnovations@gmail.com or via WhatsApp.'
+        `Unable to send message right now. Please reach out to us directly at ${DISPLAY_EMAIL} or via WhatsApp.`
       );
     } finally {
       setIsSubmitting(false);
@@ -273,7 +274,7 @@ export const CTA: React.FC<CTAProps> = ({
                   </h3>
                   <p className="text-gray-300 text-sm max-w-md mx-auto leading-relaxed">
                     Your inquiry has been successfully dispatched to{' '}
-                    <span className="text-[#00E6D2] font-semibold">{RECIPIENT_EMAIL}</span>.
+                    <span className="text-[#00E6D2] font-semibold">{DISPLAY_EMAIL}</span>.
                     We will review your project requirements and respond within 24 hours.
                   </p>
                   <button
