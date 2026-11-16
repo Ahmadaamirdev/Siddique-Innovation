@@ -38,6 +38,7 @@ export interface ProjectItem {
   tags: string[];
   link?: string;
   isGithub?: boolean;
+  isYoutube?: boolean;
   description?: string;
   detailedDescription?: string;
   workflow?: ProjectWorkflowStep[];
@@ -407,8 +408,8 @@ Users can download the completed template, reducing manual data entry, saving ti
     title: 'Lead Gen & SWOT Cold Outreach Automation',
     category: 'ai',
     tags: ['Python', 'AI Lead Gen', 'SWOT Analysis', 'Outreach'],
-    link: 'https://github.com/alimusa2/Lead-Generation-SWOT-Analysis-Cold-Outreach-Automation',
-    isGithub: true,
+    link: 'https://youtu.be/lmLf2BMX9zA',
+    isYoutube: true,
     description:
       'Autonomous Python workflow automating multi-channel lead discovery, AI SWOT business matrix generation, and personalized cold outreach.',
     renderPreview: () => (
@@ -464,6 +465,102 @@ Users can download the completed template, reducing manual data entry, saving ti
         </div>
         {/* Cyber BG Glow */}
         <div className="absolute left-1/4 bottom-0 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
+      </div>
+    ),
+  },
+  {
+    id: 'ai-article-generation',
+    title: 'AI Article Generation & Autonomous Pinterest Publisher',
+    category: 'ai',
+    tags: ['Autonomous Agent', 'LLM Article Engine', 'AI Image Gen', 'Pinterest API', 'SEO Articles'],
+    link: 'https://youtu.be/omymi9Zg454',
+    isYoutube: true,
+    description:
+      'End-to-end AI content engine that researches and writes long-form SEO articles, generates contextual visual assets, and autonomously publishes optimized pins to Pinterest via API.',
+    detailedDescription: `An autonomous content creation and visual syndication system engineered to generate organic traffic without manual writing or distribution. The pipeline accepts target keywords or niche topics, conducts in-depth semantic research, and writes comprehensive, structured SEO articles with optimized headings, meta tags, and natural readability.
+
+Simultaneously, the system drives generative AI image models to produce high-resolution, branded vertical visuals sized specifically for Pinterest. The agent bundles the article context, formats high-CTR pin descriptions with outbound referral links, and publishes directly to targeted Pinterest boards on schedule.`,
+    workflow: [
+      {
+        step: '01',
+        title: 'Keyword & Topic Ingestion',
+        desc: 'Ingests target search phrases, queries competitors, and identifies high-intent organic topic opportunities.',
+      },
+      {
+        step: '02',
+        title: 'Long-Form SEO Article Synthesis',
+        desc: 'Generates structured, publication-ready 1,500+ word articles with custom sections, FAQs, and semantic optimization.',
+      },
+      {
+        step: '03',
+        title: 'Multimodal AI Visual Generation',
+        desc: 'Synthesizes matching high-resolution vertical graphics and visual assets tailored for viral pin discovery.',
+      },
+      {
+        step: '04',
+        title: 'Rich Pin Packaging & Linking',
+        desc: 'Formats engaging pin headlines, keyword-dense descriptions, board categorization, and outbound destination URLs.',
+      },
+      {
+        step: '05',
+        title: 'Direct-to-Pinterest API Syndication',
+        desc: 'Schedules and publishes pins automatically across target boards to capture compounding organic referral traffic.',
+      },
+    ],
+    features: [
+      'Autonomous Long-Form SEO Article Generation',
+      'Context-Aware AI Image & Visual Asset Synthesis',
+      'Direct Pinterest API Publishing & Board Routing',
+      'Automated Rich Pin Formatting & Destination URLs',
+      'Natural Semantic Keyword Optimization',
+      'Zero-Touch Hands-Free Content Syndication',
+      'Continuous Organic Search & Social Traffic Pipeline',
+    ],
+    renderPreview: () => (
+      <div className="w-full aspect-video bg-[#0A0D14] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
+        {/* Header Bar */}
+        <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#E60023] animate-pulse" />
+            <span className="font-mono font-bold text-xs text-rose-300">ARTICLE_PIN_BOT v1.4</span>
+          </div>
+          <div className="flex items-center gap-1 text-[9px] bg-rose-950/80 border border-rose-500/30 px-2 py-0.5 rounded text-rose-300 font-mono">
+            <Sparkles className="w-3 h-3 text-rose-400" />
+            <span>AI Publisher</span>
+          </div>
+        </div>
+        {/* Body Content */}
+        <div className="my-auto grid grid-cols-5 gap-2 items-center z-10 py-1">
+          {/* Pipeline Steps */}
+          <div className="col-span-3 space-y-1.5 font-mono text-[9px]">
+            <div className="flex items-center gap-1.5 text-rose-200">
+              <CheckCircle2 className="w-3 h-3 text-[#00E6D2] shrink-0" />
+              <span className="truncate">SEO Article Written (1,800w)</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-pink-200">
+              <Zap className="w-3 h-3 text-pink-400 shrink-0" />
+              <span className="truncate">AI Vertical Visuals Generated</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-emerald-300">
+              <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
+              <span className="truncate">Published to Pinterest API</span>
+            </div>
+          </div>
+          {/* Visual Mini Pin Preview */}
+          <div className="col-span-2 bg-[#121620] border border-rose-500/30 rounded-lg p-2 text-center font-mono text-[8px] flex flex-col items-center justify-center space-y-1">
+            <div className="w-full h-8 rounded bg-gradient-to-br from-rose-900/60 via-purple-900/40 to-cyan-900/40 flex items-center justify-center text-[10px] text-white font-bold border border-rose-500/20">
+              📌 Pin Published
+            </div>
+            <span className="text-rose-300 font-semibold truncate w-full block">Auto Syndicated</span>
+          </div>
+        </div>
+        {/* Footer Metrics */}
+        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-rose-400/90 border-t border-rose-900/40">
+          <span>Article + Image + Social</span>
+          <span className="text-[#00E6D2] font-semibold">100% Automated</span>
+        </div>
+        {/* Rose BG Glow */}
+        <div className="absolute right-1/4 bottom-0 w-32 h-32 bg-rose-500/10 blur-2xl rounded-full pointer-events-none" />
       </div>
     ),
   },

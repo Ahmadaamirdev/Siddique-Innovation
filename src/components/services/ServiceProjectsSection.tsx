@@ -99,7 +99,7 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                           rel="noopener noreferrer"
                           className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
                         >
-                          <span>View Project</span>
+                          <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
                           <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                         </a>
                       ) : (
@@ -108,7 +108,7 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                           disabled
                           className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 text-gray-500 font-semibold text-xs font-mono tracking-wide cursor-not-allowed text-center border border-white/5"
                         >
-                          <span>View Project</span>
+                          <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
                         </button>
                       )}
 

@@ -19,6 +19,7 @@ export interface ServiceProjectItem {
   tags: string[];
   link?: string;
   isGithub?: boolean;
+  isYoutube?: boolean;
   renderPreview: () => React.ReactNode;
 }
 

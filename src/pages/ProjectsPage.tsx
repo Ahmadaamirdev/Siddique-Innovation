@@ -366,7 +366,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs sm:text-sm font-mono tracking-wide hover:shadow-[0_0_18px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
                                 >
-                                  <span>View Project</span>
+                                  <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
                                   <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                                 </a>
                               ) : (
@@ -375,7 +375,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                                   disabled
                                   className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 text-gray-500 font-semibold text-xs sm:text-sm font-mono tracking-wide cursor-not-allowed text-center border border-white/5"
                                 >
-                                  <span>View Project</span>
+                                  <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
                                 </button>
                               )}
 
