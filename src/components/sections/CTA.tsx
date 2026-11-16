@@ -13,7 +13,7 @@ declare global {
 // Split key parts to prevent secret scanners from falsely flagging public reCAPTCHA site key
 const DEFAULT_SITE_KEY = ['6Lf_iiMuAAAAAHWOrlFr', 'Y-ZJgKtLvGtHirlZSrBZ'].join('');
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || DEFAULT_SITE_KEY;
-const FORM_ENDPOINT_EMAIL = 'siddiquiinnovations@gmail.com';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'ca600921-8fdf-47e1-a453-a948ee5ce5f2';
 const DISPLAY_EMAIL = 'info@siddiqui-innovations.com';
 
 export interface CTAProps {
@@ -127,31 +127,27 @@ export const CTA: React.FC<CTAProps> = ({
     setSubmitError(null);
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${FORM_ENDPOINT_EMAIL}`, {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
         body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
           name: formState.name,
           email: formState.email,
           service: formState.service,
           message: formState.message,
-          _subject: `New Project Inquiry from ${formState.name} [${formState.service}] - Siddiqui Innovations`,
-          _replyto: formState.email,
-          _template: 'table',
-          _captcha: 'false',
+          subject: `New Project Inquiry from ${formState.name} [${formState.service}] - Siddiqui Innovations`,
+          from_name: 'Siddiqui Innovations Web Portal',
           'g-recaptcha-response': recaptchaToken,
         }),
       });
 
       const data = await response.json();
 
-      if (response.ok && (data.success === 'true' || data.success === true)) {
-        setSubmitted(true);
-      } else if (data.message && data.message.includes('Activation')) {
-        // Form is waiting for one-time owner activation click
+      if (response.ok && data.success) {
         setSubmitted(true);
       } else {
         throw new Error(data.message || 'Submission failed');
