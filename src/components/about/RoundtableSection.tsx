@@ -5,7 +5,28 @@ import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
 
 const muneebImg = CLOUDINARY_ASSETS.team_muneeb_siddiqui.url;
 const ahmadImg = CLOUDINARY_ASSETS.team_muhammad_ahmad.url;
-const partner3Img = CLOUDINARY_ASSETS.team_partner_3.url;
+const partner3Img = '/team/partner-3.png';
+
+/* ───────────────────────── OTHER TEAM MEMBERS DATA ───────────────────────── */
+interface TeamMember {
+  id: string;
+  image: string;
+}
+
+const OTHER_TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'member-1',
+    image: '/team/other/team-member-1.png',
+  },
+  {
+    id: 'member-2',
+    image: '/team/other/team-member-2.png',
+  },
+  {
+    id: 'member-3',
+    image: '/team/other/team-member-3.png',
+  },
+];
 
 /* ───────────────────────── PARTNER DATA ───────────────────────── */
 interface Partner {
@@ -15,6 +36,7 @@ interface Partner {
   story: string;
   image: string;
   initials: string;
+  imageStyle?: React.CSSProperties;
 }
 
 const PARTNERS: Partner[] = [
@@ -35,6 +57,10 @@ const PARTNERS: Partner[] = [
       'AI engineering and full-stack development lead specializing in autonomous multi-agent systems, custom LLM pipelines, and modern web architectures. He engineers resilient automated infrastructure, CRM integrations, and high-performance applications designed to eliminate operational bottlenecks and scale digital capability.',
     image: ahmadImg,
     initials: 'MA',
+    imageStyle: {
+      transform: 'scale(1.85)',
+      transformOrigin: 'top center',
+    },
   },
   {
     id: 'partner-3',
@@ -293,6 +319,7 @@ export const RoundtableSection: React.FC = () => {
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
                       }}
+                      style={partner.imageStyle}
                       className="w-full h-full object-cover object-top relative z-10"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs tracking-wider -z-0">
@@ -458,17 +485,17 @@ export const RoundtableSection: React.FC = () => {
 
                     {/* Header */}
                     <div className="mb-3 sm:mb-5 text-center">
-                      <span className="text-[10px] sm:text-[11px] font-mono text-[#00E6D2] uppercase tracking-widest">Founding Partners</span>
+                      <span className="text-[10px] sm:text-[11px] font-mono text-[#00E6D2] uppercase tracking-widest">Leadership & Specialists</span>
                       <h3 className="text-base sm:text-2xl font-extrabold text-white font-heading tracking-tight mt-0.5 sm:mt-1">
-                        The Team Behind the Vision
+                        Other Team Members
                       </h3>
                     </div>
 
-                    {/* Three partner images side by side in vertical rectangular cards */}
+                    {/* Three team member images side by side in vertical rectangular cards */}
                     <div className="grid grid-cols-3 gap-3 sm:gap-6 flex-1 py-1 sm:py-2 max-w-2xl mx-auto w-full">
-                      {PARTNERS.map((partner, idx) => (
+                      {OTHER_TEAM_MEMBERS.map((member, idx) => (
                         <motion.div
-                          key={partner.id}
+                          key={member.id}
                           initial={{ opacity: 0, y: 14 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
@@ -476,23 +503,18 @@ export const RoundtableSection: React.FC = () => {
                         >
                           {/* Vertical Rectangular Photo Card */}
                           <div className="w-[110px] max-w-full aspect-[3/4] rounded-lg sm:rounded-xl border-2 border-[#00FFE5] overflow-hidden shadow-[0_0_12px_rgba(0,230,210,0.25)] shrink-0 relative bg-[#080D12] mb-1.5 sm:mb-2">
-                            {!imgErrors[partner.id] ? (
+                            {!imgErrors[member.id] ? (
                               <img
-                                src={partner.image}
-                                alt={partner.name}
-                                onError={() => setImgErrors(prev => ({ ...prev, [partner.id]: true }))}
+                                src={member.image}
+                                alt={`Team Member ${idx + 1}`}
+                                onError={() => setImgErrors(prev => ({ ...prev, [member.id]: true }))}
                                 className="absolute inset-0 w-full h-full object-cover object-top z-10"
                               />
                             ) : (
                               <div className="w-full h-full bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-xs sm:text-sm">
-                                {partner.initials}
+                                TM
                               </div>
                             )}
-                          </div>
-                          <div className="text-center w-full">
-                            <span className="text-[11px] sm:text-xs md:text-sm font-bold text-white font-heading truncate block mt-0.5 leading-snug">
-                              {partner.name}
-                            </span>
                           </div>
                         </motion.div>
                       ))}
@@ -521,6 +543,7 @@ export const RoundtableSection: React.FC = () => {
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
                           }}
+                          style={(activePartner || PARTNERS[0]).imageStyle}
                           className="w-full h-full object-cover object-top relative z-10"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base md:text-lg -z-0">
