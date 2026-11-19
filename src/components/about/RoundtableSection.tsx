@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Users } from 'lucide-react';
-import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+import { getOptimizedMediaUrl } from '@/data/cloudinaryAssets';
 
-const muneebImg = CLOUDINARY_ASSETS.team_muneeb_siddiqui.url;
-const ahmadImg = CLOUDINARY_ASSETS.team_muhammad_ahmad.url;
-const partner3Img = CLOUDINARY_ASSETS.team_partner_3.url;
+const muneebImg = getOptimizedMediaUrl('siddiqui-innovations/team_muneeb_siddiqui_avif', { width: 450 });
+const ahmadImg = getOptimizedMediaUrl('siddiqui-innovations/team_muhammad_ahmad_avif', { width: 450 });
+const partner3Img = getOptimizedMediaUrl('siddiqui-innovations/team_partner_3_avif', { width: 450 });
 
 /* ───────────────────────── OTHER TEAM MEMBERS DATA ───────────────────────── */
 interface TeamMember {
@@ -18,19 +18,19 @@ interface TeamMember {
 const OTHER_TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'member-1',
-    image: CLOUDINARY_ASSETS.team_member_1.url,
+    image: getOptimizedMediaUrl('siddiqui-innovations/team_member_1_avif', { width: 300 }),
     name: 'Muhammad Hammad',
     role: 'Video Editor',
   },
   {
     id: 'member-2',
-    image: CLOUDINARY_ASSETS.team_member_2.url,
+    image: getOptimizedMediaUrl('siddiqui-innovations/team_member_2_avif', { width: 300 }),
     name: 'Muhammad Shahan',
     role: 'SEO Expert',
   },
   {
     id: 'member-3',
-    image: CLOUDINARY_ASSETS.team_member_3.url,
+    image: getOptimizedMediaUrl('siddiqui-innovations/team_member_3_avif', { width: 300 }),
     name: 'Rehan Shakeel',
     role: 'YouTube Automation Expert',
   },
@@ -214,6 +214,20 @@ export const RoundtableSection: React.FC = () => {
     const onChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  // Preload and decode all partner and team images immediately on mount for zero-lag rendering
+  useEffect(() => {
+    const urls = [
+      muneebImg,
+      ahmadImg,
+      partner3Img,
+      ...OTHER_TEAM_MEMBERS.map((m) => m.image),
+    ];
+    urls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
   }, []);
 
   // Framer Motion useScroll for high-precision scroll tracking
@@ -515,6 +529,8 @@ export const RoundtableSection: React.FC = () => {
                               <img
                                 src={member.image}
                                 alt={`Team Member ${idx + 1}`}
+                                loading="eager"
+                                decoding="async"
                                 onError={() => setImgErrors(prev => ({ ...prev, [member.id]: true }))}
                                 className="absolute inset-0 w-full h-full object-cover object-top z-10"
                               />
@@ -547,18 +563,25 @@ export const RoundtableSection: React.FC = () => {
                     {/* Ambient Glow */}
                     <div className="absolute top-0 right-0 w-44 h-44 bg-[#00E6D2]/5 rounded-full blur-3xl pointer-events-none" />
 
-                    {/* Vertical Rectangle Photo Card */}
+                    {/* Vertical Rectangle Photo Card: all partners pre-mounted for instant zero-lag crossfade */}
                     <div className="flex flex-col items-center justify-center shrink-0 my-auto">
                       <div className="w-24 sm:w-32 md:w-36 lg:w-40 aspect-[3/4] rounded-xl sm:rounded-2xl border-2 border-[#00FFE5] shadow-[0_0_14px_rgba(0,230,210,0.25)] overflow-hidden relative bg-[#080D12]">
-                        <img
-                          src={(activePartner || PARTNERS[0]).image}
-                          alt={(activePartner || PARTNERS[0]).name}
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                          }}
-                          style={(activePartner || PARTNERS[0]).imageStyle}
-                          className="w-full h-full object-cover object-top relative z-10"
-                        />
+                        {PARTNERS.map((partner) => {
+                          const isCurrent = (activePartner || PARTNERS[0]).id === partner.id;
+                          return (
+                            <img
+                              key={partner.id}
+                              src={partner.image}
+                              alt={partner.name}
+                              loading="eager"
+                              decoding="async"
+                              style={partner.imageStyle}
+                              className={`w-full h-full object-cover object-top absolute inset-0 z-10 transition-opacity duration-200 ease-in-out ${
+                                isCurrent ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                              }`}
+                            />
+                          );
+                        })}
                         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a18] via-[#081513] to-[#040908] flex items-center justify-center text-[#00FFE5] font-mono font-bold text-sm sm:text-base md:text-lg -z-0">
                           {(activePartner || PARTNERS[0]).initials}
                         </div>

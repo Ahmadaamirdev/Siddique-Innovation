@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+import { getOptimizedMediaUrl } from '@/data/cloudinaryAssets';
 import './AboutHero.css';
 
-const growsImage = CLOUDINARY_ASSETS.about_grows_bg.url;
-const automatesImage = CLOUDINARY_ASSETS.about_automates_bg.url;
-const scalesImage = CLOUDINARY_ASSETS.about_scales_bg.url;
-const ranksImage = CLOUDINARY_ASSETS.about_ranks_bg.url;
+const growsImage = getOptimizedMediaUrl('siddiqui-innovations/about_grows_bg', { width: 1000 });
+const automatesImage = getOptimizedMediaUrl('siddiqui-innovations/about_automates_bg', { width: 1000 });
+const scalesImage = getOptimizedMediaUrl('siddiqui-innovations/about_scales_bg', { width: 1000 });
+const ranksImage = getOptimizedMediaUrl('siddiqui-innovations/about_ranks_bg', { width: 1000 });
 
 const scenes = [
   { word: 'grows', image: growsImage, alt: 'A businessperson highlighting rising growth bars and an upward arrow', title: 'Turn potential into growth.', detail: 'Stronger digital presence. More opportunities to grow.' },
@@ -21,6 +21,12 @@ export function AboutHero() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    // Preload and decode all scene backgrounds immediately for instant cycling
+    [growsImage, automatesImage, scalesImage, ranksImage].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
     if (reduceMotion) return;
     const timer = window.setInterval(() => {
       if (!document.hidden) setActive((current) => (current + 1) % scenes.length);
@@ -62,7 +68,21 @@ export function AboutHero() {
         <div className="about-hero__visual">
           <div className="about-hero__images">
             {scenes.map((item, index) => (
-              <motion.img key={item.word} src={item.image} alt={active === index ? item.alt : ''} aria-hidden={active !== index} width={1672} height={941} initial={false} animate={{ opacity: active === index ? 1 : 0 }} transition={transition} fetchPriority={index === 0 ? 'high' : 'auto'} className="about-hero__image" />
+              <motion.img
+                key={item.word}
+                src={item.image}
+                alt={active === index ? item.alt : ''}
+                aria-hidden={active !== index}
+                width={1672}
+                height={941}
+                initial={false}
+                animate={{ opacity: active === index ? 1 : 0 }}
+                transition={transition}
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+                loading="eager"
+                decoding="async"
+                className="about-hero__image"
+              />
             ))}
           </div>
 

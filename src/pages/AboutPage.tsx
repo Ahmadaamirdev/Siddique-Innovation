@@ -14,6 +14,7 @@ import { WingLogo } from '@/components/ui/WingLogo';
 import { Stats } from '@/components/sections/Stats';
 import { RoundtableSection } from '@/components/about/RoundtableSection';
 import { AboutHero } from '@/components/about/AboutHero';
+import { getOptimizedMediaUrl } from '@/data/cloudinaryAssets';
 import '@/components/about/AboutGlass.css';
 
 interface AboutPageProps {
@@ -208,6 +209,25 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = 'About Us | Siddiqui Innovations - Helping Businesses Move Into the AI Era';
+
+    // Preload all critical about section images into browser cache immediately for instant rendering
+    const preloadUrls = [
+      getOptimizedMediaUrl('siddiqui-innovations/about_grows_bg', { width: 1000 }),
+      getOptimizedMediaUrl('siddiqui-innovations/about_automates_bg', { width: 1000 }),
+      getOptimizedMediaUrl('siddiqui-innovations/about_scales_bg', { width: 1000 }),
+      getOptimizedMediaUrl('siddiqui-innovations/about_ranks_bg', { width: 1000 }),
+      getOptimizedMediaUrl('siddiqui-innovations/team_muneeb_siddiqui_avif', { width: 450 }),
+      getOptimizedMediaUrl('siddiqui-innovations/team_muhammad_ahmad_avif', { width: 450 }),
+      getOptimizedMediaUrl('siddiqui-innovations/team_partner_3_avif', { width: 450 }),
+      getOptimizedMediaUrl('siddiqui-innovations/team_member_1_avif', { width: 300 }),
+      getOptimizedMediaUrl('siddiqui-innovations/team_member_2_avif', { width: 300 }),
+      getOptimizedMediaUrl('siddiqui-innovations/team_member_3_avif', { width: 300 }),
+    ];
+    preloadUrls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+
     return () => {
       document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
     };
