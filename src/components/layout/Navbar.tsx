@@ -9,6 +9,7 @@ import {
   TrendingUp,
   Search,
   Sparkles,
+  Monitor,
 } from 'lucide-react';
 import { serviceList } from '@/data/servicesData';
 import { prefetchRoute } from '@/utils/routePrefetch';
@@ -66,6 +67,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         return <Search className={className} />;
       case 'youtube':
         return <YouTubeIcon className={className} />;
+      case 'monitor':
+        return <Monitor className={className} />;
       default:
         return <Sparkles className={className} />;
     }

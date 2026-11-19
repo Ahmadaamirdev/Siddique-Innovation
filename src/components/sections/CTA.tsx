@@ -183,9 +183,6 @@ export const CTA: React.FC<CTAProps> = ({
     <section id={id} className={`bg-[#050505] relative z-10 overflow-hidden border-b border-white/10 scroll-mt-20 ${className || 'py-14 md:py-20'}`}>
       {id !== 'contact' && <span id="contact" className="sr-only" />}
       {id !== 'service-cta' && <span id="service-cta" className="sr-only" />}
-      {/* Soft Ambient Cyan Background Glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[550px] h-[350px] bg-radial from-[#00E6D2]/10 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
-      <div className="absolute bottom-0 right-1/4 w-[450px] h-[300px] bg-radial from-[#00FFE5]/5 via-transparent to-transparent blur-3xl pointer-events-none -z-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -193,11 +190,8 @@ export const CTA: React.FC<CTAProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] as const }}
-          className="relative bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 hover:border-[#00E6D2]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-10 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-colors duration-500"
+          className="relative bg-[#080D12]/90 backdrop-blur-2xl border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-10 lg:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-colors duration-500"
         >
-          {/* Subtle Corner Cyan Lighting */}
-          <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#00E6D2]/15 blur-[90px] rounded-full pointer-events-none" />
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start relative z-10">
             {/* Left Column: Heading, Subheading & Direct Social Links */}
             <div className="lg:col-span-5 space-y-5 sm:space-y-6">

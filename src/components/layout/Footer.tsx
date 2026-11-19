@@ -189,6 +189,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </li>
                 <li>
                   <a
+                    href="/services/software-development"
+                    onClick={(e) => handleNav('/services/software-development', e)}
+                    className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E6D2]/40 group-hover:bg-[#00E6D2] transition-colors" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">Software Development</span>
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="/services/digital-marketing"
                     onClick={(e) => handleNav('/services/digital-marketing', e)}
                     className="hover:text-[#00E6D2] transition-colors inline-flex items-center gap-1.5 group cursor-pointer"

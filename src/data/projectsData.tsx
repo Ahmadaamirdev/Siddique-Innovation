@@ -34,7 +34,7 @@ export interface ProjectWorkflowStep {
 export interface ProjectItem {
   id: string;
   title: string;
-  category: 'web' | 'ai' | 'marketing' | 'seo' | 'youtube' | string;
+  category: 'web' | 'ai' | 'marketing' | 'seo' | 'youtube' | 'software' | string;
   tags: string[];
   link?: string;
   isGithub?: boolean;
@@ -334,7 +334,7 @@ In addition to B2B prospecting, LeadHarvest performs automated Reddit research t
   {
     id: 'ev-service-rental',
     title: 'EV Service & Rental Management Software',
-    category: 'web',
+    category: 'software',
     tags: ['EV Workshop', 'Quotation Engine', 'Invoicing', 'Job Management', 'Fleet Rental', 'Dashboard'],
     description:
       'Full-stack EV service and rental management platform for workshops and fleet operators. Automates quotation and invoice generation, tracks vehicles through the full service lifecycle, dispatches jobs to technicians, and manages rental fleets end-to-end.',

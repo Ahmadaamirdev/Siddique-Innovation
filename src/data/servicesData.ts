@@ -2,7 +2,7 @@ export interface ServiceItemData {
   slug: string;
   title: string;
   shortDesc: string;
-  iconName: 'bot' | 'code' | 'marketing' | 'seo' | 'youtube';
+  iconName: 'bot' | 'code' | 'marketing' | 'seo' | 'youtube' | 'monitor';
   heroHeading: string;
   heroDescription: string;
   problemHeading: string;
@@ -676,6 +676,135 @@ export const servicesData: Record<string, ServiceItemData> = {
     ctaHeading: 'Ready to Grow a Channel Without the Extra Work?',
     ctaSubheading: "Let's build a content strategy that runs consistently, even when you're not.",
     ctaButtonText: 'Get a Free Quote',
+  },
+  'software-development': {
+    slug: 'software-development',
+    title: 'Software Development',
+    shortDesc: 'Custom ERP systems, management platforms and business software built to streamline your operations end-to-end.',
+    iconName: 'monitor',
+    heroHeading: 'Custom Software That Runs Your Business',
+    heroDescription:
+      'We build purpose-built business software, ERP platforms, management dashboards, and operational tools designed around how your business actually works.',
+    problemHeading: 'Is Off-The-Shelf Software Slowing You Down?',
+    problemText:
+      'Generic software forces your team to adapt to rigid workflows that were built for someone else. You end up with missed features, manual workarounds, disconnected tools, and growing inefficiency as your business scales.',
+    solutionText:
+      'We design and develop custom business software from the ground up — tailored to your processes, your team, and your data. From ERP and fleet management to invoicing and job dispatch systems, we build software that fits your operation perfectly.',
+    features: [
+      {
+        title: 'ERP & Operations Platforms',
+        description: 'Integrated enterprise resource planning systems that connect all departments into a single operational hub.',
+        points: [
+          'Inventory & Procurement Management',
+          'Multi-department Workflow Integration',
+          'Real-time Operational Dashboard',
+        ],
+      },
+      {
+        title: 'Job & Fleet Management',
+        description: 'End-to-end dispatch, job card, and fleet tracking systems for service and logistics businesses.',
+        points: [
+          'Technician Job Assignment & Dispatch',
+          'Vehicle Fleet Availability Tracking',
+          'Live Workshop & Service Dashboard',
+        ],
+      },
+      {
+        title: 'Invoicing & Quotation Systems',
+        description: 'Automated document generation that converts quotes to invoices in seconds with full audit trails.',
+        points: [
+          'Professional Quotation Generation',
+          'Tax-Compliant Invoice Creation',
+          'Payment Tracking & Audit Log',
+        ],
+      },
+      {
+        title: 'Custom Dashboards & Reporting',
+        description: 'Real-time business intelligence dashboards built to your KPIs and reporting requirements.',
+        points: [
+          'Live Revenue & Activity Monitoring',
+          'Custom KPI Widgets & Metrics',
+          'Role-Based Access & Multi-Branch',
+        ],
+      },
+      {
+        title: 'Booking & CRM Systems',
+        description: 'Customer-facing booking portals and internal CRM tools to manage relationships and pipeline.',
+        points: [
+          'Customer Booking & Scheduling Portal',
+          'Pipeline & Lead Tracking',
+          'Customer History & Document Storage',
+        ],
+      },
+      {
+        title: 'Scalable Architecture',
+        description: 'Software built to grow with your business — multi-branch, role-based, and API-ready from day one.',
+        points: [
+          'Multi-Branch & Multi-User Support',
+          'Role-Based Access Controls',
+          'Third-Party API & Integration Ready',
+        ],
+      },
+    ],
+    processHeading: 'Our Software Development Process',
+    processSteps: [
+      {
+        number: 1,
+        title: 'Discovery & Requirements',
+        description: 'We map out your existing workflows, pain points, and must-have features before writing a single line of code.',
+      },
+      {
+        number: 2,
+        title: 'Architecture & Design',
+        description: 'We design the system architecture, database schema, and UI/UX flows to match your business logic exactly.',
+      },
+      {
+        number: 3,
+        title: 'Development & Integration',
+        description: 'We build the platform in structured sprints, integrating with your existing tools and data sources.',
+      },
+      {
+        number: 4,
+        title: 'Testing & Handover',
+        description: 'We run thorough QA across all workflows, train your team, and hand over full documentation.',
+      },
+      {
+        number: 5,
+        title: 'Support & Iteration',
+        description: 'We stay available for ongoing improvements, feature additions, and scaling support after launch.',
+      },
+    ],
+    faqsHeading: 'Common Questions About Custom Software',
+    faqs: [
+      {
+        question: 'How long does it take to build custom business software?',
+        answer:
+          'It depends on the scope. A focused management platform typically takes 6–12 weeks. Full ERP systems with multiple modules can take 3–6 months. We provide a clear timeline after the discovery phase.',
+      },
+      {
+        question: 'Can you integrate with software we already use?',
+        answer:
+          'Yes. We build integration-ready software that can connect with your existing tools via APIs — whether that is your accounting software, payment gateway, or communication platform.',
+      },
+      {
+        question: 'Do you offer ongoing support after launch?',
+        answer:
+          'Yes. We offer post-launch support packages that cover bug fixes, feature additions, performance monitoring, and scaling assistance as your business grows.',
+      },
+      {
+        question: 'Is the software mobile-friendly?',
+        answer:
+          'All the software we build is fully responsive and works on desktop, tablet, and mobile. Where needed, we also build dedicated mobile-first interfaces for field teams.',
+      },
+      {
+        question: 'Who owns the software after it is built?',
+        answer:
+          'You do. All code, databases, and intellectual property are fully transferred to you at project completion. There are no licensing fees or vendor lock-in.',
+      },
+    ],
+    ctaHeading: 'Ready to Build Software That Fits Your Business?',
+    ctaSubheading: "Let's design a system built exactly around how you operate — not a workaround.",
+    ctaButtonText: 'Get a Free Consultation',
   },
 };
 

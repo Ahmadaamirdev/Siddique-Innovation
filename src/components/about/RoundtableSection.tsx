@@ -5,26 +5,34 @@ import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
 
 const muneebImg = CLOUDINARY_ASSETS.team_muneeb_siddiqui.url;
 const ahmadImg = CLOUDINARY_ASSETS.team_muhammad_ahmad.url;
-const partner3Img = '/team/partner-3.png';
+const partner3Img = CLOUDINARY_ASSETS.team_partner_3.url;
 
 /* ───────────────────────── OTHER TEAM MEMBERS DATA ───────────────────────── */
 interface TeamMember {
   id: string;
   image: string;
+  name: string;
+  role: string;
 }
 
 const OTHER_TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'member-1',
-    image: '/team/other/team-member-1.png',
+    image: CLOUDINARY_ASSETS.team_member_1.url,
+    name: 'Muhammad Hammad',
+    role: 'Video Editor',
   },
   {
     id: 'member-2',
-    image: '/team/other/team-member-2.png',
+    image: CLOUDINARY_ASSETS.team_member_2.url,
+    name: 'Muhammad Shahan',
+    role: 'SEO Expert',
   },
   {
     id: 'member-3',
-    image: '/team/other/team-member-3.png',
+    image: CLOUDINARY_ASSETS.team_member_3.url,
+    name: 'Rehan Shakeel',
+    role: 'YouTube Automation Expert',
   },
 ];
 
@@ -45,7 +53,7 @@ const PARTNERS: Partner[] = [
     name: 'Muneeb Siddiqui',
     role: 'Co-Founder & Head of SEO & Digital Marketing',
     story:
-      'Enterprise SEO and digital marketing specialist with deep expertise in Answer Engine Optimization (AEO), search dominance, and multi-channel acquisition funnels. He crafts data-backed search strategies and performance marketing engines that elevate brands to top search rankings, capturing sustainable market share and high-intent inbound pipeline.',
+      'Enterprise SEO and digital marketing specialist with deep expertise in Answer Engine Optimization (AEO), search dominance, and multi-channel acquisition funnels. Crafts data-backed search strategies and performance marketing engines that elevate brands to top search rankings, capturing sustainable market share and high-intent inbound pipeline.',
     image: muneebImg,
     initials: 'MS',
   },
@@ -54,7 +62,7 @@ const PARTNERS: Partner[] = [
     name: 'Muhammad Ahmad',
     role: 'Co-Founder & Lead AI Engineer',
     story:
-      'AI engineering and full-stack development lead specializing in autonomous multi-agent systems, custom LLM pipelines, and modern web architectures. He engineers resilient automated infrastructure, CRM integrations, and high-performance applications designed to eliminate operational bottlenecks and scale digital capability.',
+      'AI engineering and full-stack development lead specializing in autonomous multi-agent systems, custom LLM pipelines, and modern web architectures. Engineers resilient automated infrastructure, CRM integrations, and high-performance applications designed to eliminate operational bottlenecks and scale digital capability.',
     image: ahmadImg,
     initials: 'MA',
     imageStyle: {
@@ -67,7 +75,7 @@ const PARTNERS: Partner[] = [
     name: 'Partner Three',
     role: 'Co-Founder & Head of Web Development & YouTube Automation',
     story:
-      'Specializing in high-performance web development and scalable YouTube automation systems. They engineer responsive, conversion-focused web platforms while overseeing end-to-end video pipelines, content strategy, packaging, and channel growth workflows that drive predictable digital reach and revenue.',
+      'Specializing in high-performance web development and scalable YouTube automation systems. Oversees responsive, conversion-focused web platforms, end-to-end video pipelines, content strategy, packaging, and channel growth workflows that drive predictable digital reach and revenue.',
     image: partner3Img,
     initials: 'P3',
   },
@@ -515,6 +523,11 @@ export const RoundtableSection: React.FC = () => {
                                 TM
                               </div>
                             )}
+                          </div>
+                          {/* Name & Role */}
+                          <div className="text-center px-1">
+                            <p className="text-white font-semibold text-[10px] sm:text-xs font-heading leading-tight">{member.name}</p>
+                            <p className="text-[#00E6D2] font-mono text-[8px] sm:text-[10px] leading-tight mt-0.5">{member.role}</p>
                           </div>
                         </motion.div>
                       ))}

@@ -23,6 +23,9 @@ const SEOPage = lazy(() =>
 const YouTubeAutomationPage = lazy(() =>
   import('@/pages/services/YouTubeAutomationPage').then((m) => ({ default: m.YouTubeAutomationPage }))
 );
+const SoftwareDevelopmentPage = lazy(() =>
+  import('@/pages/services/SoftwareDevelopmentPage').then((m) => ({ default: m.SoftwareDevelopmentPage }))
+);
 
 const ServiceDetailPage = lazy(() =>
   import('@/pages/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
@@ -182,6 +185,15 @@ const App: React.FC = () => {
           case 'youtube-automation':
             return (
               <YouTubeAutomationPage
+                service={activeService}
+                onNavigateHome={navigateToHome}
+                onNavigateService={navigateToService}
+                onNavigate={navigateToPath}
+              />
+            );
+          case 'software-development':
+            return (
+              <SoftwareDevelopmentPage
                 service={activeService}
                 onNavigateHome={navigateToHome}
                 onNavigateService={navigateToService}

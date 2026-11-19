@@ -8,6 +8,7 @@ import {
   TrendingUp,
   Search,
   Play,
+  Monitor,
 } from 'lucide-react';
 import { allProjects } from '@/data/projectsData';
 import { Navbar } from '@/components/layout/Navbar';
@@ -76,10 +77,19 @@ const PROJECT_SECTIONS: ProjectSectionConfig[] = [
       'End-to-end automated YouTube channels, viral 4K documentary synthesis pipelines, and high-retention media factories.',
     icon: Play,
   },
+  {
+    id: 'software-projects',
+    categoryKey: 'software',
+    badge: 'SOFTWARE DEVELOPMENT',
+    title: 'Custom Business Software & ERP',
+    description:
+      'Purpose-built ERP systems, operational management platforms, and custom business software engineered for your exact workflows.',
+    icon: Monitor,
+  },
 ];
 
 export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavigate }) => {
-  const [filter, setFilter] = useState<'all' | 'ai' | 'web' | 'marketing' | 'seo' | 'youtube'>('all');
+  const [filter, setFilter] = useState<'all' | 'ai' | 'web' | 'marketing' | 'seo' | 'youtube' | 'software'>('all');
   const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
   const [highlightedProjectId, setHighlightedProjectId] = useState<string | null>(null);
 
@@ -150,6 +160,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
     marketing: allProjects.filter((p) => p.category === 'marketing').length,
     seo: allProjects.filter((p) => p.category === 'seo').length,
     youtube: allProjects.filter((p) => p.category === 'youtube').length,
+    software: allProjects.filter((p) => p.category === 'software').length,
   };
 
   const visibleSections = PROJECT_SECTIONS.filter((section) => {
@@ -213,78 +224,90 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex items-center justify-center gap-2 pt-4 flex-wrap"
+            className="flex items-center justify-center gap-1 pt-4 flex-nowrap overflow-x-auto scrollbar-none pb-1 px-2 w-full max-w-full"
           >
             <button
               onClick={() => setFilter('all')}
-              className={`min-h-[42px] px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'all'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
               }`}
             >
-              <Filter className="w-3.5 h-3.5" />
-              <span>All Projects ({allProjects.length})</span>
+              <Filter className="w-3 h-3 hidden sm:block" />
+              <span>All ({allProjects.length})</span>
             </button>
 
             <button
               onClick={() => setFilter('ai')}
-              className={`min-h-[42px] px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'ai'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
               }`}
             >
-              <Cpu className="w-3.5 h-3.5" />
-              <span>AI Projects ({sectionCounts.ai})</span>
+              <Cpu className="w-3 h-3 hidden sm:block" />
+              <span>AI ({sectionCounts.ai})</span>
             </button>
 
             <button
               onClick={() => setFilter('web')}
-              className={`min-h-[42px] px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'web'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
               }`}
             >
-              <Code2 className="w-3.5 h-3.5" />
-              <span>Web Projects ({sectionCounts.web})</span>
+              <Code2 className="w-3 h-3 hidden sm:block" />
+              <span>Web ({sectionCounts.web})</span>
             </button>
 
             <button
               onClick={() => setFilter('marketing')}
-              className={`min-h-[42px] px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'marketing'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5" />
+              <TrendingUp className="w-3 h-3 hidden sm:block" />
               <span>Marketing ({sectionCounts.marketing})</span>
             </button>
 
             <button
               onClick={() => setFilter('seo')}
-              className={`min-h-[42px] px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'seo'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
               }`}
             >
-              <Search className="w-3.5 h-3.5" />
+              <Search className="w-3 h-3 hidden sm:block" />
               <span>SEO ({sectionCounts.seo})</span>
             </button>
 
             <button
               onClick={() => setFilter('youtube')}
-              className={`min-h-[42px] px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'youtube'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_15px_rgba(0,230,210,0.4)]'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
                   : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
               }`}
             >
-              <Play className="w-3.5 h-3.5" />
+              <Play className="w-3 h-3 hidden sm:block" />
               <span>YouTube ({sectionCounts.youtube})</span>
+            </button>
+
+            <button
+              onClick={() => setFilter('software')}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
+                filter === 'software'
+                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
+                  : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
+              }`}
+            >
+              <Monitor className="w-3 h-3 hidden sm:block" />
+              <span>Software ({sectionCounts.software})</span>
             </button>
           </motion.div>
         </div>
@@ -313,7 +336,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                 </div>
 
                 {/* 2 Projects Per Screen Grid (Enlarged Cards, Perfectly Proportioned & Aligned) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 w-full">
                   {sectionProjects.map((project, index) => {
                     const isHighlighted = highlightedProjectId === project.id;
 
@@ -335,54 +358,46 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                           }`}
                         >
                           {/* Large Image Preview Container - Full Card Width on Top (Exact matching aspect-video) */}
-                          <div className="w-full aspect-video relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0">
+                          <div className="w-full aspect-[16/8] relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0">
                             <div className="w-full h-full flex flex-col [&>div]:w-full [&>div]:h-full [&>div]:aspect-video [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-top">
                               {project.renderPreview()}
                             </div>
                           </div>
 
                           {/* Card Content & Meta - Increased Size & Level-Aligned */}
-                          <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 min-w-0 gap-4">
+                          <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 min-w-0 gap-3">
                             <div className="space-y-3">
                               {/* Title - Aligned starting level & consistent height */}
-                              <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading min-h-[3.5rem] flex items-start">
+                              <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading flex items-start">
                                 {project.title}
                               </h3>
 
                               {/* Description - Level aligned across both sides */}
                               {project.description && (
-                                <p className="text-gray-300 text-sm sm:text-[15px] leading-relaxed font-sans line-clamp-3 min-h-[4.5rem]">
+                                <p className="text-gray-300 text-sm leading-relaxed font-sans line-clamp-2">
                                   {project.description}
                                 </p>
                               )}
                             </div>
 
                             {/* Action Buttons: View Project & View Details */}
-                            <div className="grid grid-cols-2 gap-3 pt-5 border-t border-white/10 mt-auto">
-                              {project.link ? (
+                            <div className={project.link ? "grid grid-cols-2 gap-2 pt-3 border-t border-white/10 mt-auto" : "flex pt-3 border-t border-white/10 mt-auto"}>
+                              {project.link && (
                                 <a
                                   href={project.link}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs sm:text-sm font-mono tracking-wide hover:shadow-[0_0_18px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
+                                  className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_18px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
                                 >
                                   <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
                                   <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                                 </a>
-                              ) : (
-                                <button
-                                  type="button"
-                                  disabled
-                                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 text-gray-500 font-semibold text-xs sm:text-sm font-mono tracking-wide cursor-not-allowed text-center border border-white/5"
-                                >
-                                  <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
-                                </button>
                               )}
 
                               <button
                                 type="button"
                                 onClick={() => setSelectedProject(project)}
-                                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs sm:text-sm font-mono tracking-wide transition-all text-center cursor-pointer"
+                                className={`inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer ${!project.link ? 'w-full' : ''}`}
                               >
                                 <span>View Details</span>
                               </button>

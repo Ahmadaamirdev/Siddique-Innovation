@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import {
   Bot,
   Globe,
+  Monitor,
   Megaphone,
   Search,
   Video,
@@ -75,6 +76,18 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       link: '/services/web-development',
     },
     {
+      icon: Monitor,
+      title: 'Software Development',
+      description:
+        'Custom ERP systems, management platforms, and business software engineered to streamline operations.',
+      points: [
+        'Custom ERP & Operations Systems',
+        'Job Card & Fleet Management',
+        'Invoicing & Quotation Engines',
+      ],
+      link: '/services/software-development',
+    },
+    {
       icon: Megaphone,
       title: 'Digital Marketing',
       description:
@@ -138,18 +151,11 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
           </motion.div>
         </div>
 
-        {/* 5 Service Cards Grid: 3 in first row, 2 centered in second row */}
+        {/* 6 Service Cards Grid: 3 in first row, 3 in second row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
           {servicesList.map((service, index) => {
             const IconComp = service.icon;
-
-            // 3 cards in row 1 (each spans 2 of 6 cols), next 2 centered in row 2 (starts at col 2 and col 4)
-            const layoutClasses =
-              index === 3
-                ? 'lg:col-span-2 lg:col-start-2'
-                : index === 4
-                ? 'md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-2 lg:col-start-4 lg:max-w-none lg:w-auto'
-                : 'lg:col-span-2';
+            const layoutClasses = 'lg:col-span-2';
 
             return (
               <motion.div

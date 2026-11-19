@@ -24,7 +24,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        heading: ['Montserrat', 'Outfit', 'sans-serif'],
+        heading: ['Outfit', 'Montserrat', 'sans-serif'],
       },
       boxShadow: {
         'cyan-glow': '0 0 25px -5px rgba(0, 230, 210, 0.3)',

@@ -87,8 +87,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
                     </div>
 
                     {/* Action Buttons: View Project & View Details */}
-                    <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-white/10 mt-auto">
-                      {project.link ? (
+                    <div className={project.link ? "grid grid-cols-2 gap-2.5 pt-4 border-t border-white/10 mt-auto" : "flex pt-4 border-t border-white/10 mt-auto"}>
+                      {project.link && (
                         <a
                           href={project.link}
                           target="_blank"
@@ -98,20 +98,12 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigateToProjects, onNavi
                           <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
                           <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                         </a>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled
-                          className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 text-gray-500 font-semibold text-xs font-mono tracking-wide cursor-not-allowed text-center border border-white/5"
-                        >
-                          <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
-                        </button>
                       )}
 
                       <button
                         type="button"
                         onClick={() => setSelectedProject(project)}
-                        className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer"
+                        className={`inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer ${!project.link ? 'w-full' : ''}`}
                       >
                         <span>View Details</span>
                       </button>

@@ -560,3 +560,44 @@ export const youtubeAutomationTestimonials: ServiceTestimonialCard[] = [
     video: '/videos/testimonial-2.mp4',
   },
 ];
+
+// ==========================================
+// 6. SOFTWARE DEVELOPMENT PROJECTS & TESTIMONIALS
+// ==========================================
+export const softwareDevelopmentProjects: ServiceProjectItem[] = allProjects
+  .filter((p) => p.id === 'ev-service-rental')
+  .map((p) => ({
+    id: p.id,
+    title: p.title,
+    category: p.category,
+    tags: p.tags,
+    link: p.link,
+    renderPreview: p.renderPreview,
+  }));
+
+export const softwareDevelopmentTestimonials: ServiceTestimonialCard[] = [
+  {
+    id: 1,
+    author: 'Khalid Al-Mishwar',
+    role: 'Managing Director',
+    company: 'Al Mishwar EV Workshop',
+    tag: 'ERP & Fleet Management',
+    video: '/videos/testimonial-1.mp4',
+  },
+  {
+    id: 2,
+    author: 'Omar Al-Farsi',
+    role: 'Operations Manager',
+    company: 'Gulf Fleet Solutions',
+    tag: 'Service Management Platform',
+    video: '/videos/testimonial-2.mp4',
+  },
+  {
+    id: 3,
+    author: 'Hamad Al-Rashid',
+    role: 'CEO',
+    company: 'TechOps Arabia',
+    tag: 'Custom ERP System',
+    video: '/videos/testimonial-3.mp4',
+  },
+];

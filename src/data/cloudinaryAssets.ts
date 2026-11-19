@@ -105,18 +105,33 @@ export const CLOUDINARY_ASSETS = {
     resourceType: 'image',
   },
   team_muneeb_siddiqui: {
-    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1794822436/siddiqui-innovations/team_muneeb_siddiqui.png',
-    publicId: 'siddiqui-innovations/team_muneeb_siddiqui',
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795093047/siddiqui-innovations/team_muneeb_siddiqui_avif.avif',
+    publicId: 'siddiqui-innovations/team_muneeb_siddiqui_avif',
     resourceType: 'image',
   },
   team_muhammad_ahmad: {
-    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1794822437/siddiqui-innovations/team_muhammad_ahmad.png',
-    publicId: 'siddiqui-innovations/team_muhammad_ahmad',
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795093048/siddiqui-innovations/team_muhammad_ahmad_avif.avif',
+    publicId: 'siddiqui-innovations/team_muhammad_ahmad_avif',
     resourceType: 'image',
   },
   team_partner_3: {
-    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1794822438/siddiqui-innovations/team_partner_3.png',
-    publicId: 'siddiqui-innovations/team_partner_3',
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795093050/siddiqui-innovations/team_partner_3_avif.avif',
+    publicId: 'siddiqui-innovations/team_partner_3_avif',
+    resourceType: 'image',
+  },
+  team_member_1: {
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795093050/siddiqui-innovations/team_member_1_avif.avif',
+    publicId: 'siddiqui-innovations/team_member_1_avif',
+    resourceType: 'image',
+  },
+  team_member_2: {
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795093051/siddiqui-innovations/team_member_2_avif.avif',
+    publicId: 'siddiqui-innovations/team_member_2_avif',
+    resourceType: 'image',
+  },
+  team_member_3: {
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795093052/siddiqui-innovations/team_member_3_avif.avif',
+    publicId: 'siddiqui-innovations/team_member_3_avif',
     resourceType: 'image',
   },
   project_al_haditha_bot: {
