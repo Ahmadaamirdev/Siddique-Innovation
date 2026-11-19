@@ -229,6 +229,11 @@ export const CLOUDINARY_ASSETS = {
     publicId: 'siddiqui-innovations/ev_service_dashboard',
     resourceType: 'image',
   },
+  car_rental_dashboard: {
+    url: 'https://res.cloudinary.com/mrckaiyl/image/upload/v1795109126/siddiqui-innovations/car_rental_dashboard.jpg',
+    publicId: 'siddiqui-innovations/car_rental_dashboard',
+    resourceType: 'image',
+  },
   testimonial_1: {
     url: 'https://res.cloudinary.com/mrckaiyl/video/upload/v1794822452/siddiqui-innovations/testimonial_1.mp4',
     publicId: 'siddiqui-innovations/testimonial_1',

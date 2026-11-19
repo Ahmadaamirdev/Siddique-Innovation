@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Sparkles, CheckCircle2, Layers } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
 
 export interface ProjectWorkflowStep {
@@ -129,87 +129,14 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               {project.renderPreview()}
             </div>
 
-            {/* Details Content */}
-            <div className="p-5 sm:p-7 space-y-6">
-              {/* Title & Category */}
-              <div className="space-y-2.5">
+            {/* Details Content - Simple, clear, human description without AI slop */}
+            <div className="p-5 sm:p-7 space-y-4">
+              <div className="space-y-3">
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-heading tracking-tight">
                   {project.title}
                 </h2>
-                {project.detailedDescription ? (
-                  <div className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans space-y-2 whitespace-pre-line">
-                    {project.detailedDescription}
-                  </div>
-                ) : (
-                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans">
-                    {project.description ||
-                      `Engineered with industry-leading standards, optimized user journeys, and robust modern architecture tailored to deliver measurable business performance and conversion.`}
-                  </p>
-                )}
-              </div>
-
-              {/* Core Technologies / Scope Tags */}
-              <div className="space-y-2.5">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gray-400">
-                  <Layers className="w-3.5 h-3.5 text-[#00E6D2]" />
-                  <span>Technologies &amp; Deliverables</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-200 border border-white/10 shadow-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Key Execution Workflow (if available) */}
-              {project.workflow && project.workflow.length > 0 && (
-                <div className="space-y-3 pt-2 border-t border-white/10">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gray-400">
-                    <Sparkles className="w-3.5 h-3.5 text-[#00E6D2]" />
-                    <span>Key Workflow</span>
-                  </div>
-                  <div className="space-y-2">
-                    {project.workflow.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-3 bg-white/[0.03] hover:bg-white/[0.05] p-3 rounded-xl border border-white/5 transition-colors"
-                      >
-                        <span className="font-mono text-[11px] font-bold text-[#00FFE5] bg-[#00FFE5]/10 border border-[#00FFE5]/25 px-2 py-0.5 rounded-md shrink-0 mt-0.5">
-                          {item.step}
-                        </span>
-                        <div className="space-y-0.5 text-xs">
-                          <h4 className="font-semibold text-white font-sans">{item.title}</h4>
-                          <p className="text-gray-300 leading-relaxed font-sans">{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Core Features & Capabilities / Key Highlights */}
-              <div className="space-y-2.5 pt-2 border-t border-white/10">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gray-400">
-                  <Sparkles className="w-3.5 h-3.5 text-[#00E6D2]" />
-                  <span>{project.features ? 'Key Features' : 'Key Highlights'}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-300">
-                  {(project.features || [
-                    'High-speed performance with modern responsive layouts.',
-                    'Conversion-engineered UI/UX tailored for user engagement.',
-                    'Cross-device fidelity across mobile, tablet, and desktop.',
-                    'Clean scalable codebase built to enterprise-grade standards.',
-                  ]).map((feat, idx) => (
-                    <div key={idx} className="flex items-start gap-2 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                      <CheckCircle2 className="w-4 h-4 text-[#00E6D2] shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+                <div className="text-gray-300 text-sm sm:text-[15px] leading-relaxed font-sans space-y-3 whitespace-pre-line">
+                  {project.detailedDescription || project.description}
                 </div>
               </div>
             </div>

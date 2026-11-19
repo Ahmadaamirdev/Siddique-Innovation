@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
 import type { ServiceProjectItem } from '@/data/serviceProjectsAndTestimonials';
+import { allProjects } from '@/data/projectsData';
+import { ProjectDetailsModal, type ProjectModalData } from '@/components/ui/ProjectDetailsModal';
 
 interface ServiceProjectsSectionProps {
   serviceName: string;
@@ -19,6 +21,7 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
   onNavigateToProjects,
   onNavigate,
 }) => {
+  const [selectedProject, setSelectedProject] = useState<ProjectModalData | null>(null);
   const headingText = `${serviceName} Projects`;
   const displayedProjects = projects.slice(0, 3);
 
@@ -63,9 +66,10 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
           </motion.p>
         </div>
 
-        {/* Project Cards Grid (Exactly 3 Projects) */}
+        {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedProjects.map((project, index) => {
+            const description = project.description || allProjects.find((p) => p.id === project.id)?.description;
             return (
               <motion.div
                 key={project.id}
@@ -84,10 +88,15 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
 
                   {/* Card Meta Footer */}
                   <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 gap-4">
-                    <div>
+                    <div className="space-y-2">
                       <h3 className="text-lg font-bold text-white group-hover:text-[#00E6D2] transition-colors leading-snug font-heading min-h-[3rem] flex items-center">
                         {project.title}
                       </h3>
+                      {description && (
+                        <p className="text-xs sm:text-[13px] text-gray-400 font-sans line-clamp-2 leading-relaxed">
+                          {description}
+                        </p>
+                      )}
                     </div>
 
                     {/* Action Buttons: View Project & View Details */}
@@ -107,15 +116,8 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                       <button
                         type="button"
                         onClick={() => {
-                          const targetUrl = `/projects#${project.id}`;
-                          if (onNavigate) {
-                            onNavigate(targetUrl);
-                          } else if (onNavigateToProjects) {
-                            window.location.hash = project.id;
-                            onNavigateToProjects();
-                          } else {
-                            window.location.href = targetUrl;
-                          }
+                          const fullProject = allProjects.find((p) => p.id === project.id) || (project as unknown as ProjectModalData);
+                          setSelectedProject(fullProject);
                         }}
                         className={`inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white hover:text-[#00E6D2] border border-white/10 hover:border-[#00E6D2]/50 font-semibold text-xs font-mono tracking-wide transition-all text-center cursor-pointer ${!project.link ? 'w-full' : ''}`}
                       >
@@ -142,6 +144,12 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
           </div>
         )}
       </div>
+
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onNavigate={onNavigate}
+      />
     </section>
   );
 };

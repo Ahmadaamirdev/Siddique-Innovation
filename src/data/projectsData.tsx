@@ -67,6 +67,9 @@ const ProjectScreenshotPreview: React.FC<{
 );
 
 export const allProjects: ProjectItem[] = [
+  // ==========================================
+  // WEB DEVELOPMENT
+  // ==========================================
   {
     id: 'sbd-commercial-avenue',
     title: 'SBD Commercial Avenue',
@@ -74,7 +77,9 @@ export const allProjects: ProjectItem[] = [
     tags: ['Next.js', 'Commercial Showrooms', 'DHA Multan', 'Luxury Living'],
     link: 'https://www.sbdcommercialavenue.com/',
     description:
-      'Premier commercial showroom and corporate retail development in DHA Multan featuring modern architecture and luxury business spaces.',
+      'Corporate website for SBD Commercial Avenue showcasing modern showroom layouts, floor plans, and investment options in DHA Multan.',
+    detailedDescription:
+      'Built for SBD Commercial Avenue, a commercial showroom and retail development located in DHA Multan.\n\nThe website presents showroom floor plans, retail layouts, investor documentation, and site location highlights to prospective commercial tenants and real estate investors looking to establish their presence in DHA Multan.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={sbdCommercialImg}
@@ -90,7 +95,9 @@ export const allProjects: ProjectItem[] = [
     tags: ['React', 'E-Commerce', 'Smartphones & Tech', 'Online Store'],
     link: 'https://saim-electronics.vercel.app/',
     description:
-      'High-performance e-commerce storefront for consumer electronics and mobile tech with seamless catalog browsing and instant checkout.',
+      'Online retail store for SAIM Electronics featuring smartphones, gadgets, real-time product stock, and instant checkout.',
+    detailedDescription:
+      'Built for SAIM Electronics, a consumer electronics and tech retailer.\n\nThe online storefront provides customers with smooth catalog browsing, real-time product availability, transparent pricing on the latest devices and accessories, and a fast, easy checkout experience.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={saimElectronicsImg}
@@ -106,7 +113,9 @@ export const allProjects: ProjectItem[] = [
     tags: ['WooCommerce', 'Furniture & Decor', 'E-Commerce', 'UI/UX'],
     link: 'https://dewatsonshop.com',
     description:
-      'Luxury home and office furniture e-commerce experience with interactive catalog filtering, responsive UI, and custom order workflows.',
+      'E-commerce store for D.Watson Home & Furniture showcasing living, bedroom, and office furniture collections with custom order requests.',
+    detailedDescription:
+      'Built for D.Watson Home & Furniture, an established retail furniture and home decor brand.\n\nThe e-commerce website enables customers to browse furniture collections by room, inspect custom wood and fabric options, calculate dimensions, and submit custom orders online.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={dewatsonFurnitureImg}
@@ -122,7 +131,9 @@ export const allProjects: ProjectItem[] = [
     tags: ['WordPress', 'Corporate', 'Enterprise', 'Development'],
     link: 'https://nawazgroupofcompanies.com',
     description:
-      'Corporate enterprise web platform showcasing multi-industry conglomerate ventures, industrial divisions, and brand leadership.',
+      'Corporate portal for Nawaz Group of Companies highlighting their subsidiaries, manufacturing facilities, and industrial divisions.',
+    detailedDescription:
+      'Built for Nawaz Group of Companies, a multi-industry conglomerate with operations across textiles, manufacturing, and real estate.\n\nThe corporate platform introduces corporate partners and clients to the group’s subsidiary companies, corporate leadership, infrastructure projects, and compliance standards.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={nawazGroupImg}
@@ -135,10 +146,12 @@ export const allProjects: ProjectItem[] = [
     id: 'al-hadith-energy',
     title: 'Al Haditha Energy S.A.O.C',
     category: 'web',
-    tags: ['React', 'Energy & Infrastructure', 'Corporate Portal', 'Sultanate of Oman'],
+    tags: ['React', 'Energy & Infrastructure', 'Corporate Website', 'Sultanate of Oman'],
     link: 'https://hde.om/',
     description:
-      'Official corporate web portal for Sultanate of Oman energy, oil & gas engineering infrastructure, and sustainable utility projects.',
+      'Official corporate website for Al Haditha Energy S.A.O.C, a large energy and infrastructure contractor with 2,000+ employees operating at an international level.',
+    detailedDescription:
+      'Built for Al Haditha Energy S.A.O.C, a large engineering and infrastructure contracting company with over 2,000 employees operating on an international level.\n\nThe corporate website showcases the company’s oil, gas, and energy infrastructure projects, engineering capabilities, safety certifications, and client inquiry channels.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={alHadithaEnergyImg}
@@ -154,7 +167,9 @@ export const allProjects: ProjectItem[] = [
     tags: ['React & Three.js', 'Heavy Mining Equipment', '3D Web Experience', 'Industrial'],
     link: 'https://disd2.vercel.app/',
     description:
-      'Interactive 3D web experience built with Three.js showcasing heavy mining, drilling equipment, and global industrial machinery logistics.',
+      'Interactive 3D web platform for Dragon International showcasing heavy mining equipment, drilling rigs, and global industrial machinery.',
+    detailedDescription:
+      'Built for Dragon International Services & Development (DISD), a global supplier of heavy mining and industrial drilling equipment.\n\nThe platform features an interactive 3D machinery viewer that lets international mining operators explore heavy equipment models, specifications, and procurement details.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={disdInternationalImg}
@@ -163,6 +178,10 @@ export const allProjects: ProjectItem[] = [
       />
     ),
   },
+
+  // ==========================================
+  // AI AUTOMATION & INTELLIGENT AGENTS
+  // ==========================================
   {
     id: 'al-haditha-chatbot',
     title: 'Al Haditha Chatbot – AI Customer Support Assistant',
@@ -170,46 +189,9 @@ export const allProjects: ProjectItem[] = [
     tags: ['AI Support Agent', 'Knowledge Base', 'Oman Energy', '24/7 Availability'],
     link: 'https://hde.om/',
     description:
-      'AI-powered chatbot deployed on the Al Haditha client website providing instant responses to customer inquiries, scenario-based queries, and 24/7 engagement within secure boundaries.',
-    detailedDescription: `An AI-powered chatbot deployed on the Al Haditha client website to provide instant responses to customer inquiries. It handles quick questions and predefined, scenario-based queries using company-specific information, helping visitors understand the company's services and offerings.
-
-Designed to deliver consistent, round-the-clock assistance, the chatbot operates within defined information boundaries to protect confidential company data while improving customer engagement and support.`,
-    workflow: [
-      {
-        step: '01',
-        title: 'User Query Ingestion',
-        desc: 'Visitors interact with the smart AI assistant widget embedded directly on the hde.om corporate portal.',
-      },
-      {
-        step: '02',
-        title: 'Scenario & Intent Classification',
-        desc: 'Classifies inquiries across EPC contracting, mechanical, electrical, instrumentation, and civil services.',
-      },
-      {
-        step: '03',
-        title: 'Company Knowledge Retrieval',
-        desc: 'Pulls validated operational details from company-specific data sheets and capability matrices.',
-      },
-      {
-        step: '04',
-        title: 'Information Boundary & Security Guardrails',
-        desc: 'Enforces strict data protections to safeguard confidential enterprise assets and pricing policies.',
-      },
-      {
-        step: '05',
-        title: 'Contextual Resolution & RFQ Routing',
-        desc: 'Answers questions instantly and routes qualified corporate inquiries directly to business development teams.',
-      },
-    ],
-    features: [
-      '24/7 Autonomous Customer Engagement on hde.om',
-      'Company-Specific Knowledge Base Integration (EPC & Contracting)',
-      'Strict Confidentiality & Information Boundary Guardrails',
-      'Instant Response to Predefined & Scenario-Based Queries',
-      'Multilingual Inquiry Support (English & Arabic)',
-      'Lightweight Responsive Widget with Zero Page Overhead',
-      'Automated RFQ Guidance & Engineering Department Routing',
-    ],
+      'AI customer support assistant built for Al Haditha Energy, a large international contractor with 2,000+ employees, answering inquiries 24/7.',
+    detailedDescription:
+      'Built for Al Haditha Energy S.A.O.C, a large engineering and energy contracting firm with over 2,000 employees operating on an international level.\n\nThis AI assistant sits directly on the corporate website to answer visitor questions 24/7. It explains engineering capabilities, answers questions about oil and gas contracting services, and guides potential corporate clients on how to request formal project quotations, all while keeping internal company information completely secure.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={alHadithaBotImg}
@@ -226,47 +208,9 @@ Designed to deliver consistent, round-the-clock assistance, the chatbot operates
     tags: ['Voice AI Engine', 'Sub-500ms Latency', 'Inbound & Outbound', 'CRM Booking'],
     link: 'https://agent.retellai.com/orb/agent_da7b265b66bd8cf11f2c2b05bc?token=66ba30e9f3f5468e72af11a122c1a3d8',
     description:
-      'Autonomous voice AI solution built with Retell AI to automate 24/7 B2B sales conversations, lead qualification, time zone-aware calendar scheduling, and follow-up emails.',
-    detailedDescription: `An enterprise-grade, human-realistic AI calling solution powered by Retell AI engineered to automate B2B sales conversations and 24/7 customer support. The agent dynamically fields customer inquiries, qualifies incoming leads, separates high-intent prospects, and steers conversations toward closing opportunities with natural voice modulation and sub-second latency.
-
-Integrated with live calendar sync, the bot verifies real-time availability across global time zones, proposes optimal meeting slots, books appointments directly into your schedule, and triggers automated follow-up emails to prospects. This production-ready prototype can be customized to any bespoke business model, sales pipeline, or operational requirement.`,
-    workflow: [
-      {
-        step: '01',
-        title: 'Call Ingestion & Context Loading',
-        desc: 'Receive inbound customer calls or trigger automated outbound calls with live CRM context.',
-      },
-      {
-        step: '02',
-        title: 'Natural Voice Dialogue & Inquiry Handling',
-        desc: 'Engage prospects with sub-500ms latency, handling product queries and objection handling naturally.',
-      },
-      {
-        step: '03',
-        title: 'Lead Qualification & Intent Scoring',
-        desc: 'Ask custom qualification criteria to distinguish high-potential buyers from cold inquiries.',
-      },
-      {
-        step: '04',
-        title: 'Time Zone-Aware Calendar Booking',
-        desc: 'Check live team availability, compute time zone offsets, suggest slots, and confirm appointments on calendar.',
-      },
-      {
-        step: '05',
-        title: 'Automated Email Follow-Up & CRM Sync',
-        desc: 'Send confirmation emails, dispatch meeting invites, and sync call audio transcripts and summaries into CRM.',
-      },
-    ],
-    features: [
-      '24/7 Inbound Support & Outbound Sales Automation',
-      'Built with Retell AI for Natural Low-Latency Speech (<500ms)',
-      'Automated Lead Qualification & Prospect Intent Scoring',
-      'Real-Time Time Zone Detection & Dynamic Slot Suggestion',
-      'Direct Calendar Booking (Google Calendar, Outlook, Cal.com)',
-      'Automated Post-Call Email Follow-Ups & Meeting Confirmation',
-      'Live CRM Data Logging (HubSpot, Salesforce, Pipedrive)',
-      'Fully Customizable Sales Logic, Voice Personas & Scripts',
-    ],
+      'Voice AI assistant that makes outbound calls to new leads, answers inbound customer inquiries, and books appointments directly on team calendars.',
+    detailedDescription:
+      'Built for sales teams and service-based companies looking to handle customer calls without staffing a large call center.\n\nThis voice assistant makes outbound calls to new leads and handles incoming customer calls in natural spoken English. It answers product questions, asks qualifying questions to find out if the caller is ready to buy, checks team calendar availability in real time, and books sales appointments directly into Google Calendar or Outlook.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={callingAgentImg}
@@ -283,105 +227,14 @@ Integrated with live calendar sync, the bot verifies real-time availability acro
     tags: ['AI Lead Scraping', 'LinkedIn & B2B', 'Apify Engine', 'Data Enrichment'],
     link: 'https://leads-scrapper-drab.vercel.app/',
     description:
-      'Multi-source lead generation and market intelligence platform extracting, categorizing, and enriching 600+ B2B decision-makers and Reddit customer pain points via Apify.',
-    detailedDescription: `LeadHarvest is an AI-powered prototype engineered to streamline lead generation and market research by extracting and analyzing data across Google Maps, LinkedIn, and Reddit. Powered by Apify, it discovers qualified business leads, categorizes them by star ratings, website availability, and review volume, and pinpoints key decision-makers based on custom search terms.
-
-In addition to B2B prospecting, LeadHarvest performs automated Reddit research to uncover genuine customer pain points and unmet market demands—empowering teams to validate new product opportunities. It reliably delivers 600+ leads per account, with extraction limits and capacity fully customizable to your operational needs.`,
-    workflow: [
-      {
-        step: '01',
-        title: 'Target & Query Configuration',
-        desc: 'Set custom search queries, target industries, geographies, and specific decision-maker job titles.',
-      },
-      {
-        step: '02',
-        title: 'Multi-Channel Extraction (Apify)',
-        desc: 'Automate data collection across Google Maps, LinkedIn profiles, and Reddit threads without manual blocks.',
-      },
-      {
-        step: '03',
-        title: 'Smart Categorization & Scoring',
-        desc: 'Filter leads by star ratings, review counts, active website presence, and role relevance.',
-      },
-      {
-        step: '04',
-        title: 'Reddit Pain-Point & Opportunity Mining',
-        desc: 'Analyze user discussions to pinpoint authentic customer frustrations and validate new product ideas.',
-      },
-      {
-        step: '05',
-        title: 'High-Volume Delivery & Quota Scaling',
-        desc: 'Export 600+ structured, verified leads per account with customizable extraction limits.',
-      },
-    ],
-    features: [
-      'Multi-Platform Data Ingestion (Google Maps, LinkedIn, Reddit)',
-      'Custom Decision-Maker Identification & Role Matching',
-      'Smart Lead Categorization (Ratings, Reviews & Website Availability)',
-      'Reddit Market Research & Customer Pain-Point Discovery',
-      'High-Capacity Throughput (600+ Leads Per Account)',
-      'Customizable Extraction Limits & Scalable Scraping Quotas',
-      'Reliable Apify Cloud Workflows with Zero Cookie Dependencies',
-    ],
+      'Lead discovery tool extracting qualified B2B contacts from Google Maps, LinkedIn, and Reddit, while analyzing discussions to identify customer pain points.',
+    detailedDescription:
+      'Built for B2B sales teams and business owners looking to discover new clients without manual internet research.\n\nThis tool automatically searches Google Maps, LinkedIn, and Reddit for companies matching chosen business criteria. It collects verified company details, phone numbers, and decision-maker contact info, while also analyzing public discussions on Reddit to find the exact problems potential customers are actively trying to solve.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={leadHarvestImg}
         alt="LeadHarvest AI Lead Scraper Dashboard"
         domain="leads-scrapper-drab.vercel.app"
-      />
-    ),
-  },
-  {
-    id: 'ev-service-rental',
-    title: 'EV Service & Rental Management Software',
-    category: 'software',
-    tags: ['EV Workshop', 'Quotation Engine', 'Invoicing', 'Job Management', 'Fleet Rental', 'Dashboard'],
-    description:
-      'Full-stack EV service and rental management platform for workshops and fleet operators. Automates quotation and invoice generation, tracks vehicles through the full service lifecycle, dispatches jobs to technicians, and manages rental fleets end-to-end.',
-    detailedDescription: `A purpose-built operations platform for EV service centers and rental businesses. The dashboard provides live visibility into vehicles in the workshop, maintenance status, delivery readiness, and daily revenue. Service advisors generate professional quotations and invoices in seconds, while workshop managers assign job cards to technicians and track repair progress from intake to delivery.\n\nThe rental panel manages fleet availability, customer bookings, and return workflows. Parts inventory, EV diagnostics, vehicle history, and user access controls are all centralized in one platform, eliminating manual paperwork and disconnected tools.`,
-    workflow: [
-      {
-        step: '01',
-        title: 'Vehicle Check-In & Registration',
-        desc: 'Register incoming EV vehicles with full customer and vehicle details, assigning a unique job reference instantly.',
-      },
-      {
-        step: '02',
-        title: 'Quotation Generation',
-        desc: 'Auto-generate professional service quotations with parts, labour, and EV diagnostics costs in seconds.',
-      },
-      {
-        step: '03',
-        title: 'Job Card & Technician Dispatch',
-        desc: 'Create job cards, assign tasks to technicians, and monitor repair progress on the live workshop dashboard.',
-      },
-      {
-        step: '04',
-        title: 'Invoice & Payment',
-        desc: 'Convert approved quotations to tax-compliant invoices and record payments with full audit trail.',
-      },
-      {
-        step: '05',
-        title: 'Rental Fleet Management',
-        desc: 'Manage vehicle availability, customer bookings, extensions, and returns from a dedicated rental panel.',
-      },
-    ],
-    features: [
-      'Live Workshop Dashboard – Vehicles in service, under maintenance & ready for delivery',
-      'Automated Quotation & Invoice Generation',
-      'Job Card Assignment & Technician Job Dispatch',
-      'EV Diagnostics & Vehicle History Tracking',
-      'Parts & Inventory Management',
-      'Rental Fleet Panel – Bookings, availability & returns',
-      'Multi-branch Support & User Role Management',
-      'Real-time Revenue & Activity Monitoring',
-    ],
-    renderPreview: () => (
-      <ProjectScreenshotPreview
-        image={CLOUDINARY_ASSETS.ev_service_dashboard.url}
-        alt="EV Service & Rental Management Software Dashboard"
-        domain="Al Mishwar EV Workshop"
-        imageClassName="object-cover object-top"
       />
     ),
   },
@@ -392,47 +245,9 @@ In addition to B2B prospecting, LeadHarvest performs automated Reddit research t
     tags: ['Groq AI Engine', 'Ecommerce Automation', 'Amazon & Shopify', 'Zero Hallucination'],
     link: 'https://ecommerce-listing-iota.vercel.app/',
     description:
-      'Streamlines e-commerce product listing by extracting relevant product information from images and custom prompts, automatically mapping data into predefined templates.',
-    detailedDescription: `DataMapper streamlines e-commerce product listing by extracting relevant product information from uploaded images and custom prompts. It organizes the generated data into predefined listing templates, automatically mapping information to the required columns and formats.
-
-Users can download the completed template, reducing manual data entry, saving time, and enabling faster, more efficient product listing at scale.`,
-    workflow: [
-      {
-        step: '01',
-        title: 'Image & Prompt Ingestion',
-        desc: 'Upload product photos, raw supplier sheets, and custom listing instructions into the portal.',
-      },
-      {
-        step: '02',
-        title: 'Multimodal AI Extraction',
-        desc: 'Extract key attributes, specifications, materials, and dimensions using high-speed Groq vision LLMs.',
-      },
-      {
-        step: '03',
-        title: 'Schema & Template Mapping',
-        desc: 'Automatically normalize and map attributes into marketplace-specific columns and required formats.',
-      },
-      {
-        step: '04',
-        title: 'Validation & Compliance Check',
-        desc: 'Ensure zero hallucinations, verify required field compliance, and structure product variants.',
-      },
-      {
-        step: '05',
-        title: 'Instant Template Export',
-        desc: 'Download ready-to-upload Amazon, Shopify, or custom CSV/Excel listing sheets at scale.',
-      },
-    ],
-    features: [
-      'Automated Image & Prompt Product Feature Extraction',
-      'Predefined Marketplace Templates (Amazon, Shopify, WooCommerce)',
-      'Intelligent Column & Format Auto-Mapping',
-      'Instant CSV & XLSX Batch Export for High-Volume Cataloging',
-      'Elimination of Manual Copy-Paste & Repetitive Data Entry',
-      'Sub-Second Groq Vision LLM Processing Pipeline',
-      'Variant Attribute Organization & Tagging',
-      'Enterprise-Ready Scalable Product Catalog Workflows',
-    ],
+      'Automated tool that extracts product attributes from photos and supplier sheets, formatting them directly into Amazon and Shopify listing files.',
+    detailedDescription:
+      'Built for e-commerce brands and multi-channel retailers who sell on marketplaces like Amazon and Shopify.\n\nThis automation tool eliminates hours of manual data entry by extracting product titles, dimensions, materials, and colors directly from supplier spreadsheets and product photos. It automatically organizes the extracted data into ready-to-upload listing files formatted to meet each marketplace’s exact template standards.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={dataMapperImg}
@@ -448,7 +263,9 @@ Users can download the completed template, reducing manual data entry, saving ti
     tags: ['LeadFlow CRM', 'AI Pipeline Routing', 'Lead Management', 'Enterprise Console'],
     link: 'https://lead-smoky-psi.vercel.app/',
     description:
-      'Centralized AI operations workspace and management console connecting lead ingestion, automated employee assignment routing, and multi-stage pipeline status workflows.',
+      'Operations workspace that organizes incoming sales inquiries, assigns leads to team members automatically, and tracks conversation stages.',
+    detailedDescription:
+      'Built for sales agencies and business operations teams to manage incoming prospect inquiries.\n\nThis workspace brings leads from websites and ad campaigns into a single pipeline. It automatically assigns new leads to available team members, sends instant notification alerts, and tracks each conversation through every stage from initial inquiry to closed deal.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={leadFlowImg}
@@ -465,10 +282,11 @@ Users can download the completed template, reducing manual data entry, saving ti
     link: 'https://youtu.be/lmLf2BMX9zA',
     isYoutube: true,
     description:
-      'Autonomous Python workflow automating multi-channel lead discovery, AI SWOT business matrix generation, and personalized cold outreach.',
+      'Automated outbound system that finds prospective clients online, generates an instant SWOT business analysis, and drafts personalized emails.',
+    detailedDescription:
+      'Built for B2B agencies and consulting firms conducting outbound client outreach.\n\nThis automation finds prospective business clients online and immediately evaluates each company’s strengths, weaknesses, and online presence. It uses those findings to write personalized cold email messages that pinpoint specific areas where the company can improve, significantly boosting response rates compared to generic cold templates.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#070D18] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans">
-        {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#00E6D2] animate-pulse" />
@@ -479,9 +297,7 @@ Users can download the completed template, reducing manual data entry, saving ti
             <span>Python Bot</span>
           </div>
         </div>
-        {/* Body Content */}
         <div className="my-auto grid grid-cols-5 gap-2 items-center z-10 py-1">
-          {/* Log Stream */}
           <div className="col-span-3 space-y-1.5 font-mono text-[9px]">
             <div className="flex items-center gap-1.5 text-cyan-300">
               <CheckCircle2 className="w-3 h-3 text-[#00E6D2] shrink-0" />
@@ -496,7 +312,6 @@ Users can download the completed template, reducing manual data entry, saving ti
               <span className="truncate">Cold Email Sequence Sent</span>
             </div>
           </div>
-          {/* Visual SWOT Grid Badge */}
           <div className="col-span-2 bg-cyan-950/40 border border-cyan-500/30 rounded-lg p-1.5 grid grid-cols-2 gap-1 text-center font-mono text-[8px]">
             <div className="bg-emerald-950/60 border border-emerald-500/40 p-1 rounded text-emerald-300">
               <span className="font-bold block">S</span>Strengths
@@ -512,12 +327,10 @@ Users can download the completed template, reducing manual data entry, saving ti
             </div>
           </div>
         </div>
-        {/* Footer Metrics */}
         <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-400/90 border-t border-cyan-900/40">
           <span>Lead Scraping + AI SWOT</span>
           <span className="text-[#00E6D2] font-semibold">100% Automated</span>
         </div>
-        {/* Cyber BG Glow */}
         <div className="absolute left-1/4 bottom-0 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
       </div>
     ),
@@ -530,49 +343,11 @@ Users can download the completed template, reducing manual data entry, saving ti
     link: 'https://youtu.be/omymi9Zg454',
     isYoutube: true,
     description:
-      'End-to-end AI content engine that researches and writes long-form SEO articles, generates contextual visual assets, and autonomously publishes optimized pins to Pinterest via API.',
-    detailedDescription: `An autonomous content creation and visual syndication system engineered to generate organic traffic without manual writing or distribution. The pipeline accepts target keywords or niche topics, conducts in-depth semantic research, and writes comprehensive, structured SEO articles with optimized headings, meta tags, and natural readability.
-
-Simultaneously, the system drives generative AI image models to produce high-resolution, branded vertical visuals sized specifically for Pinterest. The agent bundles the article context, formats high-CTR pin descriptions with outbound referral links, and publishes directly to targeted Pinterest boards on schedule.`,
-    workflow: [
-      {
-        step: '01',
-        title: 'Keyword & Topic Ingestion',
-        desc: 'Ingests target search phrases, queries competitors, and identifies high-intent organic topic opportunities.',
-      },
-      {
-        step: '02',
-        title: 'Long-Form SEO Article Synthesis',
-        desc: 'Generates structured, publication-ready 1,500+ word articles with custom sections, FAQs, and semantic optimization.',
-      },
-      {
-        step: '03',
-        title: 'Multimodal AI Visual Generation',
-        desc: 'Synthesizes matching high-resolution vertical graphics and visual assets tailored for viral pin discovery.',
-      },
-      {
-        step: '04',
-        title: 'Rich Pin Packaging & Linking',
-        desc: 'Formats engaging pin headlines, keyword-dense descriptions, board categorization, and outbound destination URLs.',
-      },
-      {
-        step: '05',
-        title: 'Direct-to-Pinterest API Syndication',
-        desc: 'Schedules and publishes pins automatically across target boards to capture compounding organic referral traffic.',
-      },
-    ],
-    features: [
-      'Autonomous Long-Form SEO Article Generation',
-      'Context-Aware AI Image & Visual Asset Synthesis',
-      'Direct Pinterest API Publishing & Board Routing',
-      'Automated Rich Pin Formatting & Destination URLs',
-      'Natural Semantic Keyword Optimization',
-      'Zero-Touch Hands-Free Content Syndication',
-      'Continuous Organic Search & Social Traffic Pipeline',
-    ],
+      'Autonomous system researching and writing SEO articles, generating matching vertical graphics, and publishing pins directly to Pinterest.',
+    detailedDescription:
+      'Built for digital media publishers and content creators looking to drive organic website traffic without spending hours writing and designing pins.\n\nThis system takes a target search topic, drafts an in-depth, structured blog article optimized for Google search, generates high-resolution vertical graphics, and automatically publishes scheduled pins to Pinterest with direct links back to the article.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#0A0D14] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
-        {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#E60023] animate-pulse" />
@@ -583,9 +358,7 @@ Simultaneously, the system drives generative AI image models to produce high-res
             <span>AI Publisher</span>
           </div>
         </div>
-        {/* Body Content */}
         <div className="my-auto grid grid-cols-5 gap-2 items-center z-10 py-1">
-          {/* Pipeline Steps */}
           <div className="col-span-3 space-y-1.5 font-mono text-[9px]">
             <div className="flex items-center gap-1.5 text-rose-200">
               <CheckCircle2 className="w-3 h-3 text-[#00E6D2] shrink-0" />
@@ -600,7 +373,6 @@ Simultaneously, the system drives generative AI image models to produce high-res
               <span className="truncate">Published to Pinterest API</span>
             </div>
           </div>
-          {/* Visual Mini Pin Preview */}
           <div className="col-span-2 bg-[#121620] border border-rose-500/30 rounded-lg p-2 text-center font-mono text-[8px] flex flex-col items-center justify-center space-y-1">
             <div className="w-full h-8 rounded bg-gradient-to-br from-rose-900/60 via-purple-900/40 to-cyan-900/40 flex items-center justify-center text-[10px] text-white font-bold border border-rose-500/20">
               📌 Pin Published
@@ -608,12 +380,10 @@ Simultaneously, the system drives generative AI image models to produce high-res
             <span className="text-rose-300 font-semibold truncate w-full block">Auto Syndicated</span>
           </div>
         </div>
-        {/* Footer Metrics */}
         <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-rose-400/90 border-t border-rose-900/40">
           <span>Article + Image + Social</span>
           <span className="text-[#00E6D2] font-semibold">100% Automated</span>
         </div>
-        {/* Rose BG Glow */}
         <div className="absolute right-1/4 bottom-0 w-32 h-32 bg-rose-500/10 blur-2xl rounded-full pointer-events-none" />
       </div>
     ),
@@ -626,10 +396,11 @@ Simultaneously, the system drives generative AI image models to produce high-res
     link: 'https://github.com/Ahmadaamirdev/AI-HR-Assistance-Automation',
     isGithub: true,
     description:
-      'Intelligent ATS recruitment agent for automated resume screening, semantic qualification scoring, and hands-free interview scheduling.',
+      'Recruitment tool that screens candidate resumes against job criteria, ranks applicant qualifications, and coordinates interview invitations.',
+    detailedDescription:
+      'Built for recruiting teams and HR departments handling large volumes of job applications.\n\nThis tool automatically reviews incoming resumes against specific job requirements, ranks candidates based on relevant skills and experience, and emails qualified applicants to book interview times, freeing hiring teams from tedious manual resume screening.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#061214] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
-        {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -640,7 +411,6 @@ Simultaneously, the system drives generative AI image models to produce high-res
             <span>Python Bot</span>
           </div>
         </div>
-        {/* Body Content */}
         <div className="my-auto space-y-2 z-10 py-1 font-mono text-[9.5px]">
           <div className="flex items-center justify-between bg-emerald-950/40 border border-emerald-500/30 p-1.5 rounded">
             <span className="text-emerald-200">Resume Screening & Match</span>
@@ -655,23 +425,67 @@ Simultaneously, the system drives generative AI image models to produce high-res
             <span className="text-cyan-400 font-bold">Workflow Active</span>
           </div>
         </div>
-        {/* Footer Metrics */}
         <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-emerald-400/90 border-t border-emerald-900/40">
           <span>ATS + Candidate AI Agent</span>
           <span className="text-emerald-300 font-semibold">Zero Friction</span>
         </div>
-        {/* Emerald BG Glow */}
         <div className="absolute right-1/4 bottom-0 w-32 h-32 bg-emerald-500/10 blur-2xl rounded-full pointer-events-none" />
       </div>
     ),
   },
+
+  // ==========================================
+  // SOFTWARE DEVELOPMENT
+  // ==========================================
+  {
+    id: 'ev-service-management',
+    title: 'EV Service Management Software',
+    category: 'software',
+    tags: ['EV Workshop', 'Quotation Engine', 'Tax Invoicing', 'Job Cards', 'Technician Dispatch', 'Diagnostics'],
+    description:
+      'Workshop management software for EV service centers, handling digital check-in, repair quotes, technician job cards, and tax invoicing.',
+    detailedDescription:
+      'Built for Al Nishwar EV Workshop, an electric vehicle maintenance center in Oman.\n\nThis software manages the entire repair and service workflow on a single digital dashboard. When a vehicle arrives, service advisors log customer details and battery diagnostics, generate clear repair estimates and official tax invoices, and assign job cards directly to workshop technicians to track repair progress until the car is picked up.',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={CLOUDINARY_ASSETS.ev_service_dashboard.url}
+        alt="EV Service Management Software Dashboard"
+        domain="Al Nishwar EV Workshop"
+        imageClassName="object-cover object-top"
+      />
+    ),
+  },
+  {
+    id: 'car-rental-management',
+    title: 'Car Rental Management Software',
+    category: 'software',
+    tags: ['Fleet Rental', 'Booking Engine', 'Rental Agreements', 'Vehicle Availability', 'Security Deposits', 'Returns & Inspections'],
+    description:
+      'Fleet operations software for car rental businesses, managing live car availability, customer contracts, vehicle inspections, and deposits.',
+    detailedDescription:
+      'Built for Al Nishwar Car Rental, a commercial vehicle rental business in Oman.\n\nThis software automates daily fleet operations from one screen. Rental agents can check which cars are available on a live calendar, print or sign digital rental agreements, collect security deposits, record vehicle condition and mileage at pick-up and return, and calculate final bills automatically without spreadsheet errors.',
+    renderPreview: () => (
+      <ProjectScreenshotPreview
+        image={CLOUDINARY_ASSETS.car_rental_dashboard.url}
+        alt="Car Rental Management Software Dashboard"
+        domain="Al Nishwar Car Rental & Fleet"
+        imageClassName="object-cover object-top"
+      />
+    ),
+  },
+
+  // ==========================================
+  // DIGITAL MARKETING
+  // ==========================================
   {
     id: 'dm-omnichannel-roas',
     title: 'Omnichannel B2B & D2C Paid Ad Scaling',
     category: 'marketing',
     tags: ['Meta Ads', 'Google Performance Max', '4.8x ROAS', 'Scale'],
     description:
-      'Data-driven omnichannel paid advertising campaign scaling B2B & D2C revenues with 4.8x average ROAS and conversion rate optimization.',
+      'Paid advertising campaigns across Meta and Google Ads, optimizing targeting and ad creatives to lower customer acquisition costs.',
+    detailedDescription:
+      'Built for consumer brands and online retailers looking to scale customer acquisition profitably.\n\nThe campaign architecture manages and optimizes targeted ads across Meta and Google Ads, improving click-through rates and lowering acquisition costs to generate reliable return on ad spend.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
@@ -714,7 +528,9 @@ Simultaneously, the system drives generative AI image models to produce high-res
     category: 'marketing',
     tags: ['Inbound Funnel', 'LinkedIn Ads', 'CRO', 'Attribution'],
     description:
-      'High-intent B2B SaaS growth funnel integrating LinkedIn ads, conversion rate optimization, and pipeline attribution modeling.',
+      'Inbound marketing funnel connecting LinkedIn advertising and focused landing pages to turn business visitors into qualified demo requests.',
+    detailedDescription:
+      'Built for B2B software companies looking to attract corporate decision-makers.\n\nThe campaign combines targeted LinkedIn advertising with dedicated product landing pages to convert business interest into booked product demonstrations and qualified sales opportunities.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
         <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2 z-10">
@@ -755,7 +571,9 @@ Simultaneously, the system drives generative AI image models to produce high-res
     category: 'marketing',
     tags: ['Klaviyo', 'Retention Flows', 'SMS Marketing', 'LTV Growth'],
     description:
-      'Automated Klaviyo lifecycle email and SMS retention sequences driving repeat orders, cart recovery, and maximized customer LTV.',
+      'Automated customer retention sequences for online stores, including abandoned cart recovery, order updates, and repeat purchase incentives.',
+    detailedDescription:
+      'Built for online stores seeking to increase repeat purchases from existing customers.\n\nThe system sets up automated email and SMS sequences, including abandoned cart recovery, order updates, and post-purchase recommendations that turn one-time buyers into loyal repeat customers.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
         <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
@@ -790,13 +608,19 @@ Simultaneously, the system drives generative AI image models to produce high-res
       </div>
     ),
   },
+
+  // ==========================================
+  // SEO (SEARCH ENGINE OPTIMIZATION)
+  // ==========================================
   {
     id: 'seo-fintech-traffic',
     title: 'Enterprise FinTech Organic Traffic Scaler',
     category: 'seo',
     tags: ['Technical SEO', 'Keyword Clusters', '+380% Organic', 'High DA'],
     description:
-      'Enterprise technical search architecture and commercial keyword clusters driving +380% organic growth and top 3 rankings on competitive terms.',
+      'Search optimization strategy for financial technology platforms, improving site speed, structure, and top Google rankings on key financial terms.',
+    detailedDescription:
+      'Built for financial services companies aiming to rank on Google for high-intent financial terms.\n\nThe strategy addresses core technical website speed, search engine crawlability, and content architecture to steadily grow organic visitor traffic.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
         <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
@@ -839,7 +663,9 @@ Simultaneously, the system drives generative AI image models to produce high-res
     category: 'seo',
     tags: ['Schema Markup', 'Core Web Vitals', 'Product SEO', 'Rich Snippets'],
     description:
-      'Programmatic catalog SEO, rich schema markup, and Core Web Vitals optimization capturing global Google search results.',
+      'Catalog SEO architecture using rich schema markup and clean category structures to rank individual product pages in Google search results.',
+    detailedDescription:
+      'Built for retail stores with thousands of product catalog pages.\n\nThe project implements structured Google schema markup and fast category structures so individual product pages rank prominently in search results when shoppers search for specific items online.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
@@ -880,7 +706,9 @@ Simultaneously, the system drives generative AI image models to produce high-res
     category: 'seo',
     tags: ['Local SEO', 'Google Maps 3-Pack', 'Review Engine', 'Local Dominance'],
     description:
-      'Multi-location Google Business Profile ranking and local 3-pack search accelerator across 18 regional hubs driving direct qualified inquiries.',
+      'Local search optimization for multi-branch companies, helping each office location rank in Google Maps top 3 results for nearby customer searches.',
+    detailedDescription:
+      'Built for service businesses with multiple city branches.\n\nThe strategy optimizes Google Business Profiles and local business listings so each branch appears in the Google Maps top 3 results when local customers search for services nearby.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
         <div className="flex items-center justify-between border-b border-teal-500/20 pb-2 z-10">
@@ -915,13 +743,19 @@ Simultaneously, the system drives generative AI image models to produce high-res
       </div>
     ),
   },
+
+  // ==========================================
+  // YOUTUBE AUTOMATION
+  // ==========================================
   {
     id: 'yt-autonomous-tech-channel',
     title: 'AI Tech Insights Autonomous Media Channel',
     category: 'youtube',
     tags: ['AI Scripting', 'Voice Synthesis', '1.2M Subscribers', 'Monetized'],
     description:
-      'End-to-end automated YouTube channel pipeline generating viral AI tech content with 1.2M+ subscribers and automated video workflows.',
+      'Video production workflow for technology education channels, coordinating topic research, script structuring, voice narration, and scheduled uploads.',
+    detailedDescription:
+      'Built for digital content studios producing educational technology videos.\n\nThe pipeline coordinates topic research, script structuring, voice narration, and video uploads to maintain an active publishing schedule that engages audiences interested in modern technology.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#160A0A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-red-500/20">
         <div className="flex items-center justify-between border-b border-red-500/20 pb-2 z-10">
@@ -964,7 +798,9 @@ Simultaneously, the system drives generative AI image models to produce high-res
     category: 'youtube',
     tags: ['Daily News', 'Shorts + Long-Form', 'Automated Rendering', 'Scale'],
     description:
-      'Autonomous daily global finance and crypto news synthesis pipeline publishing 2 high-retention videos daily with automated editing.',
+      'Daily financial news synthesis workflow that summarizes global market headlines into concise video updates for investors and crypto followers.',
+    detailedDescription:
+      'Built for market commentary publishers covering daily financial developments.\n\nThe workflow synthesizes daily market headlines into concise, easy-to-follow video updates that keep viewers informed on stock and crypto market movements.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#120E08] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-amber-500/20">
         <div className="flex items-center justify-between border-b border-amber-500/20 pb-2 z-10">
@@ -1005,7 +841,9 @@ Simultaneously, the system drives generative AI image models to produce high-res
     category: 'youtube',
     tags: ['4K AI B-Roll', '74% Retention', 'CTR Thumbnails', 'Evergreen'],
     description:
-      'High-retention 4K historical and scientific documentary automation factory with algorithmic recommendation reach and dynamic editing.',
+      'Long-form documentary production workflow combining factual research with high-resolution visual storytelling for science and history channels.',
+    detailedDescription:
+      'Built for online documentary creators focused on history and science topics.\n\nThe production workflow combines thorough factual research with high-resolution visual storytelling to deliver engaging, long-format educational videos that maintain viewer interest throughout.',
     renderPreview: () => (
       <div className="w-full aspect-video bg-[#0E0B16] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-purple-500/20">
         <div className="flex items-center justify-between border-b border-purple-500/20 pb-2 z-10">
@@ -1048,7 +886,7 @@ const featuredProjectIds = [
   'sbd-commercial-avenue',
   'ai-calling-agents',
   'lead-harvest',
-  'ev-service-rental',
+  'ev-service-management',
 ];
 
 export const featuredProjects: ProjectItem[] = featuredProjectIds

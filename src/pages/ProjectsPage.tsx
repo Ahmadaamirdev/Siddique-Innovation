@@ -335,8 +335,8 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                   </h2>
                 </div>
 
-                {/* 2 Projects Per Screen Grid (Enlarged Cards, Perfectly Proportioned & Aligned) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 w-full">
+                {/* Standard 3-Column Projects Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
                   {sectionProjects.map((project, index) => {
                     const isHighlighted = highlightedProjectId === project.id;
 
@@ -357,8 +357,8 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                               : 'border border-white/10 hover:border-[#00E6D2]/40 shadow-[0_12px_36px_rgba(0,0,0,0.6)] hover:shadow-[0_18px_45px_rgba(0,230,210,0.18)]'
                           }`}
                         >
-                          {/* Large Image Preview Container - Full Card Width on Top (Exact matching aspect-video) */}
-                          <div className="w-full aspect-[16/8] relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0">
+                          {/* Image Preview Container (Standard aspect-video) */}
+                          <div className="w-full aspect-video relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0">
                             <div className="w-full h-full flex flex-col [&>div]:w-full [&>div]:h-full [&>div]:aspect-video [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-top">
                               {project.renderPreview()}
                             </div>

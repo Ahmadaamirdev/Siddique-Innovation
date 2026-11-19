@@ -20,6 +20,10 @@ export interface ServiceProjectItem {
   link?: string;
   isGithub?: boolean;
   isYoutube?: boolean;
+  description?: string;
+  detailedDescription?: string;
+  workflow?: { step: string; title: string; desc: string }[];
+  features?: string[];
   renderPreview: () => React.ReactNode;
 }
 
@@ -565,13 +569,17 @@ export const youtubeAutomationTestimonials: ServiceTestimonialCard[] = [
 // 6. SOFTWARE DEVELOPMENT PROJECTS & TESTIMONIALS
 // ==========================================
 export const softwareDevelopmentProjects: ServiceProjectItem[] = allProjects
-  .filter((p) => p.id === 'ev-service-rental')
+  .filter((p) => p.category === 'software')
   .map((p) => ({
     id: p.id,
     title: p.title,
     category: p.category,
     tags: p.tags,
     link: p.link,
+    description: p.description,
+    detailedDescription: p.detailedDescription,
+    workflow: p.workflow,
+    features: p.features,
     renderPreview: p.renderPreview,
   }));
 
