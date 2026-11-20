@@ -11,10 +11,6 @@ interface PrivacyPolicyPageProps {
 export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Privacy Policy | Siddiqui Innovations';
-    return () => {
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
-    };
   }, []);
 
   return (

@@ -20,11 +20,6 @@ interface ContactPageProps {
 export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Contact Us | Siddiqui Innovations - Let\'s Talk About Your Project';
-
-    return () => {
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
-    };
   }, []);
 
   const smoothEase = [0.16, 1, 0.3, 1] as const;

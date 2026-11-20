@@ -808,4 +808,11 @@ export const servicesData: Record<string, ServiceItemData> = {
   },
 };
 
-export const serviceList = Object.values(servicesData);
+export const serviceList: ServiceItemData[] = [
+  servicesData['ai-automation'],
+  servicesData['web-development'],
+  servicesData['software-development'],
+  servicesData['digital-marketing'],
+  servicesData['seo'],
+  servicesData['youtube-automation'],
+];

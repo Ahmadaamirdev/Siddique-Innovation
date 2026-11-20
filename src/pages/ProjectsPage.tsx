@@ -94,8 +94,6 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
   const [highlightedProjectId, setHighlightedProjectId] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = 'Projects & Case Studies | Siddiqui Innovations';
-
     const handleTargetScroll = () => {
       const hash = window.location.hash.replace(/^#/, '');
       const searchParams = new URLSearchParams(window.location.search);
@@ -139,7 +137,6 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
     window.addEventListener('hashchange', handleTargetScroll);
     return () => {
       window.removeEventListener('hashchange', handleTargetScroll);
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
     };
   }, []);
 

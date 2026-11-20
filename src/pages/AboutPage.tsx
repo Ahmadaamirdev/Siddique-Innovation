@@ -208,7 +208,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'About Us | Siddiqui Innovations - Helping Businesses Move Into the AI Era';
 
     // Preload all critical about section images into browser cache immediately for instant rendering
     const preloadUrls = [
@@ -227,10 +226,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       const img = new Image();
       img.src = url;
     });
-
-    return () => {
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
-    };
   }, []);
 
   const teamSpecializations = [

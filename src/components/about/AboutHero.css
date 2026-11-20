@@ -1,33 +1,197 @@
-.about-hero { position: relative; isolation: isolate; overflow: hidden; background: #050808; padding: 150px 24px 64px; min-height: 650px; }
-.about-hero__layout { max-width: 1200px; margin: 0 auto; display: block; }
-.about-hero__copy { position: relative; z-index: 2; max-width: 610px; }
-.about-hero__eyebrow { color: #8b9b9a; font: 13px/1.6 monospace; margin-bottom: 26px; }
-.about-hero__heading { font-family: 'Outfit', 'Montserrat', sans-serif; font-size: clamp(40px, 5.8vw, 72px); font-weight: 800; line-height: 1.04; letter-spacing: -0.045em; color: #e7f0ef; margin: 0; }
-.about-hero__heading > span { display: block; white-space: nowrap; }
-.about-hero__words { display: inline-grid; vertical-align: bottom; }
-.about-hero__word { display: inline-block; grid-area: 1 / 1; color: #00dfc3; will-change: opacity, transform; }
-.about-hero__description { max-width: 470px; margin-top: 30px; color: #91a19f; font-size: 17px; line-height: 1.7; }
-.about-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-.about-hero__actions a { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 14px 23px; border-radius: 12px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 180ms; }
-.about-hero__primary { background: #00dfc3; color: #00110e; box-shadow: 0 10px 30px #00dfc326; }
-.about-hero__primary:hover { background: #40f6de; }
-.about-hero__secondary { color: #e7f0ef; border: 1px solid #00dfc32e; }
-.about-hero__secondary:hover { background: #00dfc310; }
-.about-hero__visual { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.about-hero__visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #05080880, #05080845 38%, transparent 65%), linear-gradient(0deg, #050808, transparent 16%); }
-.about-hero__images { position: absolute; inset: 0; overflow: hidden; }
-.about-hero__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.about-hero__caption { padding: 20px 24px 14px; border-top: 1px solid #00dfc325; }
-.about-hero__caption-title { color: #e7f0ef; font-size: 16px; font-weight: 650; }
-.about-hero__caption-detail { color: #91a19f; font-size: 12px; line-height: 1.6; min-height: 39px; margin-top: 6px; }
-.about-hero__controls { display: flex; align-items: center; gap: 3px; }
-.about-hero__dot { width: 28px; height: 28px; display: grid; place-items: center; cursor: pointer; }
-.about-hero__dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #38504b; }
-.about-hero__dot.is-active::after { background: #00dfc3; }
-.about-hero__pause { display: grid; place-items: center; width: 28px; height: 28px; margin-left: auto; color: #91a19f; cursor: pointer; }
-.about-hero :is(a, button):focus-visible { outline: 2px solid #00dfc3; outline-offset: 4px; }
-@media (max-width: 1100px) and (min-width: 801px) { .about-hero__layout { gap: 32px; } .about-hero__heading { font-size: 5.5vw; } }
-@media (max-width: 800px) { .about-hero { padding: 125px 24px 56px; } .about-hero__layout { grid-template-columns: 1fr; gap: 40px; max-width: 560px; } .about-hero__heading { font-size: clamp(36px, 8vw, 60px); } .about-hero__visual { width: 100%; } }
-@media (max-width: 380px) { .about-hero { padding-left: 18px; padding-right: 18px; } .about-hero__heading { font-size: 10vw; } }
+.about-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #050808;
+  padding: 165px 24px 110px;
+  min-height: 680px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-@media (max-width: 800px) { .about-hero { min-height: 700px; } .about-hero__image { object-position: 68% center; } .about-hero__visual::after { background: linear-gradient(180deg, #050808e8 0%, #050808c9 48%, #05080845 80%, #050808 100%); } }
+/* Background Image Layer - Clearly visible with soft subtle blur */
+.about-hero__bg-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-hero__bg {
+  position: absolute;
+  inset: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  object-fit: cover;
+  object-position: center 38%;
+  filter: blur(2.2px) brightness(0.98);
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+/* Natural Cinematic Environmental Overlay - Seamlessly blends light and depth without artificial blotches */
+.about-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    /* Wide, ultra-smooth natural lens vignette with gentle gradual falloff */
+    radial-gradient(ellipse 90% 80% at 50% 46%, rgba(5, 8, 10, 0.58) 0%, rgba(5, 8, 10, 0.42) 38%, rgba(5, 8, 10, 0.2) 72%, rgba(5, 8, 10, 0.32) 100%),
+    /* Soft vertical atmospheric fade */
+    linear-gradient(180deg, rgba(5, 8, 10, 0.48) 0%, rgba(5, 8, 10, 0.08) 24%, rgba(5, 8, 10, 0.14) 62%, rgba(5, 8, 10, 0.76) 92%, #050608 100%);
+  pointer-events: none;
+}
+
+/* Centered Layout */
+.about-hero__layout {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.about-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 820px;
+  width: 100%;
+}
+
+/* Heading - Matches exact font size, font style, tracking, and leading from second picture (ContactPage headline) */
+.about-hero__heading {
+  font-family: 'Outfit', 'Montserrat', sans-serif;
+  font-size: clamp(26px, 3.8vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+  max-width: 780px;
+  text-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.95),
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(0, 0, 0, 0.85);
+}
+
+.about-hero__heading>span {
+  display: block;
+}
+
+.about-hero__heading-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-hero__words-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* Word Style - Clean crisp cyan matching typography with minimal glow */
+.about-hero__word {
+  display: inline-block;
+  color: #00FFE5;
+  text-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.95),
+    0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+.about-hero__description {
+  max-width: 640px;
+  margin-top: 22px;
+  color: #F8FAFC;
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.65;
+  text-align: center;
+  font-weight: 450;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.95),
+    0 1px 4px rgba(0, 0, 0, 0.95),
+    0 0 25px rgba(0, 0, 0, 0.8);
+}
+
+.about-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.about-hero__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px 26px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: monospace;
+  text-decoration: none;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+.about-hero__primary {
+  background: linear-gradient(135deg, #00FFE5, #00dfc3);
+  color: #00110e;
+  box-shadow: 0 0 25px rgba(0, 255, 229, 0.4), 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.about-hero__primary:hover {
+  background: #40f6de;
+  box-shadow: 0 0 35px rgba(0, 255, 229, 0.65);
+  transform: translateY(-2px);
+}
+
+.about-hero__secondary {
+  color: #FFFFFF;
+  background: rgba(10, 15, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.about-hero__secondary:hover {
+  background: rgba(10, 15, 20, 0.85);
+  border-color: rgba(0, 255, 229, 0.5);
+  color: #00FFE5;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 800px) {
+  .about-hero {
+    padding: 135px 20px 75px;
+    min-height: 580px;
+  }
+
+  .about-hero__heading {
+    font-size: clamp(26px, 7vw, 36px);
+  }
+
+  .about-hero__description {
+    font-size: 15px;
+    margin-top: 18px;
+  }
+
+  .about-hero__actions {
+    margin-top: 26px;
+  }
+}

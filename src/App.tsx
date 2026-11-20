@@ -6,6 +6,7 @@ import { HomePage } from '@/pages/HomePage';
 import { servicesData } from '@/data/servicesData';
 import { prefetchCommonRoutes } from '@/utils/routePrefetch';
 import { PageTransitionFallback } from '@/components/ui/PageTransitionFallback';
+import { applyPageSEO } from '@/utils/seoManager';
 
 // Top-level direct route imports (eliminates double-waterfall on service pages)
 const AIAutomationPage = lazy(() =>
@@ -70,8 +71,9 @@ const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Route change scroll management (preserves hash targets if present)
+  // Route change scroll & dynamic SEO management (preserves hash targets if present)
   useEffect(() => {
+    applyPageSEO(currentPath);
     const hasHash = Boolean(window.location.hash);
     if (!hasHash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });

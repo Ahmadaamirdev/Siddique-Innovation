@@ -51,12 +51,12 @@ const ProjectScreenshotPreview: React.FC<{
   alt: string;
   domain: string;
   imageClassName?: string;
-}> = ({ image, alt, domain, imageClassName = 'object-top' }) => (
-  <div className="w-full aspect-video relative overflow-hidden bg-[#080B10]">
+}> = ({ image, alt, domain, imageClassName = '' }) => (
+  <div className="w-full h-[190px] sm:h-[220px] relative overflow-hidden bg-[#080B10] flex items-center justify-center">
     <img
       src={image}
       alt={alt}
-      className={`w-full h-full object-cover ${imageClassName}`}
+      className={`max-w-full max-h-full object-contain ${imageClassName}`}
       loading="lazy"
     />
     <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white/95 shadow-md">
@@ -197,7 +197,7 @@ export const allProjects: ProjectItem[] = [
         image={alHadithaBotImg}
         alt="Al Haditha AI Chatbot Assistant"
         domain="hde.om"
-        imageClassName="object-cover object-center"
+        imageClassName="object-contain object-center"
       />
     ),
   },
@@ -451,7 +451,7 @@ export const allProjects: ProjectItem[] = [
         image={CLOUDINARY_ASSETS.ev_service_dashboard.url}
         alt="EV Service Management Software Dashboard"
         domain="Al Nishwar EV Workshop"
-        imageClassName="object-cover object-top"
+        imageClassName="object-contain object-top"
       />
     ),
   },
@@ -469,7 +469,7 @@ export const allProjects: ProjectItem[] = [
         image={CLOUDINARY_ASSETS.car_rental_dashboard.url}
         alt="Car Rental Management Software Dashboard"
         domain="Al Nishwar Car Rental & Fleet"
-        imageClassName="object-cover object-top"
+        imageClassName="object-contain object-top"
       />
     ),
   },

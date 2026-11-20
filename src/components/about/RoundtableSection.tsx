@@ -20,19 +20,19 @@ const OTHER_TEAM_MEMBERS: TeamMember[] = [
     id: 'member-1',
     image: getOptimizedMediaUrl('siddiqui-innovations/team_member_1_avif', { width: 300 }),
     name: 'Hammad Doggar',
-    role: 'Video Editor',
+    role: 'UI/UX Designer',
   },
   {
     id: 'member-2',
     image: getOptimizedMediaUrl('siddiqui-innovations/team_member_2_avif', { width: 300 }),
     name: 'Muhammad Shahan',
-    role: 'SEO Expert',
+    role: 'AI Automation Architect',
   },
   {
     id: 'member-3',
     image: getOptimizedMediaUrl('siddiqui-innovations/team_member_3_avif', { width: 300 }),
     name: 'Rehan Shakeel',
-    role: 'YouTube Automation Expert',
+    role: 'Software Engineer',
   },
 ];
 
@@ -53,7 +53,7 @@ const PARTNERS: Partner[] = [
     name: 'Muneeb Siddiqui',
     role: 'Co-Founder & Head of SEO & Digital Marketing',
     story:
-      'Enterprise SEO and digital marketing specialist with deep expertise in Answer Engine Optimization (AEO), search dominance, and multi-channel acquisition funnels. Crafts data-backed search strategies and performance marketing engines that elevate brands to top search rankings, capturing sustainable market share and high-intent inbound pipeline.',
+      'Muneeb Siddiqui empowers businesses globally with AI Powered Software, Web and Automations. Dedicated by the mantra "Innovate Today, Lead Tomorrow", Muneeb pushes the boundaries of what\'s possible. With an eye on the future, he leads his team in developing transformative solutions to help clients achieve ambitious goals.',
     image: muneebImg,
     initials: 'MS',
   },

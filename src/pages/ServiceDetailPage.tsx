@@ -46,10 +46,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     document.documentElement.classList.remove('lenis-stopped');
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
-    document.title = `${service.title} Services | Siddiqui Innovations`;
-    return () => {
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
-    };
   }, [service.slug, service.title, startScroll]);
 
   const renderPage = () => {

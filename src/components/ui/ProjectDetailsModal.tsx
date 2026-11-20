@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Play, Layout, Video } from 'lucide-react';
+import { X, ExternalLink, Video, MessageSquare } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
 
 export function getYouTubeVideoId(url?: string): string | null {
@@ -34,29 +34,25 @@ interface ProjectDetailsModalProps {
   project: ProjectModalData | null;
   onClose: () => void;
   onNavigate?: (path: string) => void;
-  initialMode?: 'video' | 'preview';
 }
 
 export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   project,
   onClose,
-  initialMode,
+  onNavigate,
 }) => {
   const videoId =
     project?.isYoutube || (project?.link && getYouTubeVideoId(project.link))
       ? getYouTubeVideoId(project?.link)
       : null;
 
-  const [viewMode, setViewMode] = useState<'video' | 'preview'>('preview');
+  const [videoLoading, setVideoLoading] = useState(true);
 
   useEffect(() => {
-    if (!project) return;
     if (videoId) {
-      setViewMode(initialMode || 'video');
-    } else {
-      setViewMode('preview');
+      setVideoLoading(true);
     }
-  }, [project?.id, videoId, initialMode]);
+  }, [project?.id, videoId]);
 
   // Lock body & Lenis smooth scroll while modal is active
   useEffect(() => {
@@ -88,6 +84,23 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   }, [project, onClose]);
 
   if (!project) return null;
+
+  const handleAskQueries = () => {
+    onClose();
+    try {
+      const lenis = (window as any).__lenis;
+      lenis?.start();
+      document.documentElement.classList.remove('lenis-stopped');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    } catch {}
+
+    if (onNavigate) {
+      onNavigate('/contact');
+    } else {
+      window.location.href = '/contact';
+    }
+  };
 
   const categoryLabel =
     project.category === 'web'
@@ -155,46 +168,42 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             style={{ WebkitOverflowScrolling: 'touch' }}
             onWheel={(e) => e.stopPropagation()}
           >
-            {/* Project Preview / Video Area */}
-            <div className="relative overflow-hidden border-b border-white/10 bg-[#080B10]">
-              {/* Optional Switcher between Video and UI Graphic if both exist */}
-              {videoId && (
-                <div className="absolute top-3 right-3 z-30 flex items-center gap-1 bg-black/85 backdrop-blur-md p-1 rounded-lg border border-white/15 text-[11px] font-mono shadow-lg">
-                  <button
-                    type="button"
-                    onClick={() => setViewMode('video')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded transition-all cursor-pointer ${
-                      viewMode === 'video'
-                        ? 'bg-[#00E6D2] text-black font-bold shadow-[0_0_12px_rgba(0,230,210,0.5)]'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    <Play className="w-3 h-3 fill-current" />
-                    <span>Video</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setViewMode('preview')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded transition-all cursor-pointer ${
-                      viewMode === 'preview'
-                        ? 'bg-[#00E6D2] text-black font-bold shadow-[0_0_12px_rgba(0,230,210,0.5)]'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    <Layout className="w-3 h-3" />
-                    <span>UI Preview</span>
-                  </button>
-                </div>
-              )}
+            {/* Project Preview / Fast-Loading Video Area (Reduced height without cropping images) */}
+            <div
+              className={`relative w-full overflow-hidden border-b border-white/10 bg-[#080B10] flex items-center justify-center [&_img]:object-contain ${
+                videoId
+                  ? 'max-h-[230px] sm:max-h-[260px]'
+                  : 'max-h-[210px] sm:max-h-[240px]'
+              }`}
+            >
+              {videoId ? (
+                <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
+                  {/* Instant YouTube Poster Thumbnail while player loads */}
+                  <img
+                    src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none"
+                    loading="eager"
+                  />
 
-              {videoId && viewMode === 'video' ? (
-                <div className="relative w-full aspect-video bg-black flex items-center justify-center">
+                  {/* Loading Spinner while iframe initializes */}
+                  {videoLoading && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 bg-black/60 backdrop-blur-sm z-10 transition-opacity pointer-events-none">
+                      <div className="w-8 h-8 rounded-full border-2 border-[#00FFE5] border-t-transparent animate-spin" />
+                      <span className="text-[11px] font-mono text-[#00FFE5] tracking-wider uppercase font-semibold">
+                        Loading Video...
+                      </span>
+                    </div>
+                  )}
+
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
                     title={project.title}
-                    className="w-full h-full border-0"
+                    className="relative z-20 w-full h-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
+                    loading="eager"
+                    onLoad={() => setVideoLoading(false)}
                   />
                 </div>
               ) : (
@@ -202,10 +211,10 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               )}
             </div>
 
-            {/* Details Content - Simple, clear, human description without AI slop */}
-            <div className="p-5 sm:p-7 space-y-4">
-              <div className="space-y-3">
-                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-heading tracking-tight">
+            {/* Details Content - Title and description moved upward so user immediately sees scrollable content */}
+            <div className="p-5 sm:px-7 sm:py-5 space-y-3">
+              <div className="space-y-2.5">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-heading tracking-tight leading-snug">
                   {project.title}
                 </h2>
                 <div className="text-gray-300 text-sm sm:text-[15px] leading-relaxed font-sans space-y-3 whitespace-pre-line">
@@ -218,27 +227,38 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           {/* Action Footer (Pinned) */}
           <div className="shrink-0 p-4 sm:p-5 bg-[#0A0D13] border-t border-white/10 flex items-center justify-between gap-3 z-20">
             <button
+              type="button"
               onClick={onClose}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 text-xs font-mono font-medium transition cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 text-xs font-mono font-medium transition cursor-pointer"
             >
               Close
             </button>
 
-            {!videoId && project.link && !project.isYoutube && (
-              <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+            <div className="flex items-center gap-2.5 justify-end">
+              {!videoId && project.link && !project.isYoutube && (
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black text-xs font-mono font-bold shadow-[0_0_20px_rgba(0,230,210,0.35)] hover:brightness-110 transition cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#00E6D2]/40 text-gray-200 hover:text-white text-xs font-mono font-semibold transition cursor-pointer"
                 >
                   <span>
                     {project.isGithub ? 'View Repository' : 'Visit Website'}
                   </span>
                   <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                 </a>
-              </div>
-            )}
+              )}
+
+              {/* Ask Queries Button (Present in ALL Popups to take users to Contact Form) */}
+              <button
+                type="button"
+                onClick={handleAskQueries}
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black text-xs font-mono font-bold shadow-[0_0_20px_rgba(0,230,210,0.35)] hover:brightness-110 hover:shadow-[0_0_25px_rgba(0,255,229,0.55)] transition-all cursor-pointer"
+              >
+                <MessageSquare className="w-3.5 h-3.5 fill-current shrink-0" />
+                <span>Ask Queries</span>
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

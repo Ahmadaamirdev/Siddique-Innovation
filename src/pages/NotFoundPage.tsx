@@ -16,7 +16,6 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = '404 - Route Not Found | Siddiqui Innovations';
 
     // Generate random realistic requestId if needed
     const chars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
@@ -25,10 +24,6 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
       id += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     setRequestId(id);
-
-    return () => {
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
-    };
   }, []);
 
   const nearestRoutes = [

@@ -11,10 +11,6 @@ interface TermsPageProps {
 export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Terms & Conditions | Siddiqui Innovations';
-    return () => {
-      document.title = 'Siddiqui Innovations | AI Automation, SEO & Digital Growth';
-    };
   }, []);
 
   return (
