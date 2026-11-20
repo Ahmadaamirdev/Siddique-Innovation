@@ -19,7 +19,7 @@ const OTHER_TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'member-1',
     image: getOptimizedMediaUrl('siddiqui-innovations/team_member_1_avif', { width: 300 }),
-    name: 'Muhammad Hammad',
+    name: 'Hammad Doggar',
     role: 'Video Editor',
   },
   {

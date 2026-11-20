@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SoftwareArchitectureHero } from '@/components/software/SoftwareArchitectureHero';
+import { SoftwareProductShowcaseHero } from '@/components/software/SoftwareProductShowcaseHero';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
@@ -24,7 +24,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WingLogo } from '@/components/ui/WingLogo';
 import { CTA } from '@/components/sections/CTA';
-import { CLOUDINARY_ASSETS } from '@/data/cloudinaryAssets';
+
 import { ServiceProjectsSection } from '@/components/services/ServiceProjectsSection';
 import { ServiceTestimonialsSection } from '@/components/services/ServiceTestimonialsSection';
 import {
@@ -33,7 +33,7 @@ import {
 } from '@/data/serviceProjectsAndTestimonials';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
-const serviceHeroBg = CLOUDINARY_ASSETS.service_hero_bg.url;
+
 
 interface SoftwareDevelopmentPageProps {
   service: ServiceItemData;
@@ -69,7 +69,7 @@ export const SoftwareDevelopmentPage: React.FC<SoftwareDevelopmentPageProps> = (
     <div className="min-h-screen bg-[#05070A] text-white selection:bg-[#00E6D2] selection:text-black relative font-sans">
       {/* Background Soft Engineering Grid */}
       <div className="fixed inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none -z-0" />
-      <div className="fixed top-20 right-1/4 w-[600px] h-[350px] bg-gradient-to-br from-[#00E6D2]/10 via-[#3B82F6]/5 to-transparent blur-[140px] pointer-events-none -z-0" />
+      <div className="fixed top-20 right-1/4 w-[500px] h-[300px] bg-gradient-to-br from-[#00E6D2]/4 via-transparent to-transparent blur-[120px] pointer-events-none -z-0" />
 
       <Navbar
         isHeroRevealed={true}
@@ -77,64 +77,15 @@ export const SoftwareDevelopmentPage: React.FC<SoftwareDevelopmentPageProps> = (
         onNavigate={handleNav}
       />
 
-      <main className="pt-24 sm:pt-28 lg:pt-30 relative z-10">
-        {/* 1. HERO SECTION */}
-        <section className="relative w-full overflow-hidden px-3 sm:px-6 lg:px-8 pb-1 sm:pb-2 pt-0 text-center" style={{ background: '#040608' }}>
-          {/* Background image container with top/bottom vignettes */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              zIndex: 0,
-              overflow: 'hidden',
-              pointerEvents: 'none',
-            }}
-          >
-            <img
-              src={serviceHeroBg}
-              alt="Service hero background"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                display: 'block',
-                userSelect: 'none',
-                pointerEvents: 'none',
-                filter: 'brightness(0.65) contrast(1.1)',
-              }}
-            />
-            {/* Top vignette */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '120px',
-                background: 'linear-gradient(to bottom, #040608 0%, rgba(4,6,8,0.7) 60%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Bottom vignette */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '240px',
-                background: 'linear-gradient(to top, #040608 0%, rgba(4,6,8,0.85) 60%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Ambient overlay */}
-            <div className="absolute inset-0 bg-[#040608]/45 pointer-events-none" />
-          </div>
+      <main className="pt-24 sm:pt-26 md:pt-28 lg:pt-32 relative z-10">
+        {/* 1. HERO SECTION - Compact full viewport fit */}
+        <section className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 pt-1 sm:pt-2 text-center bg-[#040608]">
+          {/* Subtle uniform ambient backdrop */}
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff07_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none -z-0" />
 
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
-            {/* Responsive H1 Headline - restored size and straight single line */}
-            <h1 className="text-[26px] sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] font-extrabold text-white tracking-[-0.02em] leading-[1.2] font-heading max-w-full mx-auto py-1 sm:py-0.5 drop-shadow-md whitespace-normal sm:whitespace-nowrap text-center px-3 sm:px-2">
+            {/* Main Heading - Fully visible, centered, clear of navbar */}
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-extrabold text-white tracking-[-0.02em] leading-[1.2] font-heading max-w-3xl mx-auto py-0.5 drop-shadow-md text-center px-3 sm:px-2">
               <span>Software That Runs </span>
               <span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFE5] via-[#00E6D2] to-[#00BFA6]"
@@ -144,12 +95,13 @@ export const SoftwareDevelopmentPage: React.FC<SoftwareDevelopmentPageProps> = (
               </span>
             </h1>
 
-            <p className="text-gray-300 text-sm sm:text-[13px] md:text-sm max-w-2xl mx-auto font-normal leading-relaxed font-sans mt-2 sm:mt-0.5 mb-2 sm:mb-1.5 px-3 sm:px-0">
+            {/* Supporting Subtitle with compact spacing */}
+            <p className="text-gray-300 text-xs sm:text-[13px] md:text-sm max-w-xl mx-auto font-normal leading-relaxed font-sans mt-1 sm:mt-1.5 mb-2.5 sm:mb-3.5 px-4 sm:px-0">
               {service.heroDescription}
             </p>
 
-            {/* Operations → Development → Deployment → Live System Architecture Hero */}
-            <SoftwareArchitectureHero />
+            {/* 3-Layer Product Showcase: Central Dashboard, Left Reports, Right Settings */}
+            <SoftwareProductShowcaseHero />
           </div>
         </section>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Play } from 'lucide-react';
 import { WingLogo } from '@/components/ui/WingLogo';
 import type { ServiceProjectItem } from '@/data/serviceProjectsAndTestimonials';
 import { allProjects } from '@/data/projectsData';
@@ -66,8 +66,16 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
           </motion.p>
         </div>
 
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Project Cards Grid - Centered & balanced when 1 or 2 items */}
+        <div
+          className={`grid grid-cols-1 gap-8 ${
+            displayedProjects.length === 1
+              ? 'max-w-md mx-auto'
+              : displayedProjects.length === 2
+              ? 'md:grid-cols-2 max-w-5xl mx-auto'
+              : 'md:grid-cols-2 lg:grid-cols-3'
+          }`}
+        >
           {displayedProjects.map((project, index) => {
             const description = project.description || allProjects.find((p) => p.id === project.id)?.description;
             return (
@@ -102,15 +110,29 @@ export const ServiceProjectsSection: React.FC<ServiceProjectsSectionProps> = ({
                     {/* Action Buttons: View Project & View Details */}
                     <div className={project.link ? "grid grid-cols-2 gap-2.5 pt-4 border-t border-white/10 mt-auto" : "flex pt-4 border-t border-white/10 mt-auto"}>
                       {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
-                        >
-                          <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
-                          <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                        </a>
+                        project.isYoutube ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const fullProject = allProjects.find((p) => p.id === project.id) || (project as unknown as ProjectModalData);
+                              setSelectedProject(fullProject);
+                            }}
+                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
+                          >
+                            <Play className="w-3.5 h-3.5 fill-current shrink-0" />
+                            <span>Watch Video</span>
+                          </button>
+                        ) : (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
+                          >
+                            <span>View Project</span>
+                            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                          </a>
+                        )
                       )}
 
                       <button

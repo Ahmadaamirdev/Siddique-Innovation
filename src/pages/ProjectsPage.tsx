@@ -383,15 +383,26 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                             {/* Action Buttons: View Project & View Details */}
                             <div className={project.link ? "grid grid-cols-2 gap-2 pt-3 border-t border-white/10 mt-auto" : "flex pt-3 border-t border-white/10 mt-auto"}>
                               {project.link && (
-                                <a
-                                  href={project.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_18px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
-                                >
-                                  <span>{project.isYoutube ? 'Watch Video' : 'View Project'}</span>
-                                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                                </a>
+                                project.isYoutube ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => setSelectedProject(project)}
+                                    className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_18px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
+                                  >
+                                    <Play className="w-3.5 h-3.5 fill-current shrink-0" />
+                                    <span>Watch Video</span>
+                                  </button>
+                                ) : (
+                                  <a
+                                    href={project.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#00E6D2] to-[#00FFE5] text-black font-semibold text-xs font-mono tracking-wide hover:shadow-[0_0_18px_rgba(0,230,210,0.4)] hover:brightness-105 transition-all text-center cursor-pointer"
+                                  >
+                                    <span>View Project</span>
+                                    <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                                  </a>
+                                )
                               )}
 
                               <button
