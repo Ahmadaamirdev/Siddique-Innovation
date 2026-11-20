@@ -25,10 +25,10 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WingLogo } from '@/components/ui/WingLogo';
 import { CTA } from '@/components/sections/CTA';
-import { ServiceProjectsSection } from '@/components/services/ServiceProjectsSection';
+// import { ServiceProjectsSection } from '@/components/services/ServiceProjectsSection';
 import { ServiceTestimonialsSection } from '@/components/services/ServiceTestimonialsSection';
 import {
-  youtubeAutomationProjects,
+  // youtubeAutomationProjects,
   youtubeAutomationTestimonials,
 } from '@/data/serviceProjectsAndTestimonials';
 import { useIsMobile } from '@/hooks/useIsMobile';
@@ -720,14 +720,14 @@ export const YouTubeAutomationPage: React.FC<YouTubeAutomationPageProps> = ({
           </div>
         </section>
 
-        {/* Projects Section */}
-        <ServiceProjectsSection
+        {/* Projects Section — hidden */}
+        {/* <ServiceProjectsSection
           serviceName="YouTube Automation"
           projects={youtubeAutomationProjects}
           subheading="Automated channel pipelines, AI voice & script workflows, and high-retention video production."
           onNavigateToProjects={() => onNavigate?.('/projects')}
           onNavigate={onNavigate}
-        />
+        /> */}
 
         {/* Testimonials Section */}
         <ServiceTestimonialsSection

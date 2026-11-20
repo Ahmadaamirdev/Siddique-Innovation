@@ -51,6 +51,15 @@ const PROJECT_SECTIONS: ProjectSectionConfig[] = [
     icon: Code2,
   },
   {
+    id: 'software-projects',
+    categoryKey: 'software',
+    badge: 'SOFTWARE DEVELOPMENT',
+    title: 'Custom Business Software & ERP',
+    description:
+      'Purpose-built ERP systems, operational management platforms, and custom business software engineered for your exact workflows.',
+    icon: Monitor,
+  },
+  {
     id: 'marketing-projects',
     categoryKey: 'marketing',
     badge: 'DIGITAL MARKETING & SCALE',
@@ -68,24 +77,7 @@ const PROJECT_SECTIONS: ProjectSectionConfig[] = [
       'Enterprise technical search architecture, global programmatic keyword clusters, and local 3-pack accelerators.',
     icon: Search,
   },
-  {
-    id: 'youtube-projects',
-    categoryKey: 'youtube',
-    badge: 'YOUTUBE & VIDEO AUTOMATION',
-    title: 'YouTube & Video Automation',
-    description:
-      'End-to-end automated YouTube channels, viral 4K documentary synthesis pipelines, and high-retention media factories.',
-    icon: Play,
-  },
-  {
-    id: 'software-projects',
-    categoryKey: 'software',
-    badge: 'SOFTWARE DEVELOPMENT',
-    title: 'Custom Business Software & ERP',
-    description:
-      'Purpose-built ERP systems, operational management platforms, and custom business software engineered for your exact workflows.',
-    icon: Monitor,
-  },
+  // YouTube section hidden — no live projects to show
 ];
 
 export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavigate }) => {
@@ -284,18 +276,6 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
             </button>
 
             <button
-              onClick={() => setFilter('youtube')}
-              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
-                filter === 'youtube'
-                  ? 'bg-gradient-to-r from-[#00FFE5] to-[#00E6D2] text-[#050505] shadow-[0_0_12px_rgba(0,230,210,0.4)]'
-                  : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30'
-              }`}
-            >
-              <Play className="w-3 h-3 hidden sm:block" />
-              <span>YouTube ({sectionCounts.youtube})</span>
-            </button>
-
-            <button
               onClick={() => setFilter('software')}
               className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all duration-300 flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                 filter === 'software'
@@ -333,7 +313,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                 </div>
 
                 {/* Standard 3-Column Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
+                <div className={`grid grid-cols-1 gap-6 sm:gap-8 w-full ${
+                  sectionProjects.length === 1
+                    ? 'max-w-sm mx-auto'
+                    : sectionProjects.length === 2
+                    ? 'md:grid-cols-2 max-w-3xl mx-auto'
+                    : 'md:grid-cols-2 lg:grid-cols-3'
+                }`}>
                   {sectionProjects.map((project, index) => {
                     const isHighlighted = highlightedProjectId === project.id;
 
@@ -354,9 +340,9 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBackToHome, onNavi
                               : 'border border-white/10 hover:border-[#00E6D2]/40 shadow-[0_12px_36px_rgba(0,0,0,0.6)] hover:shadow-[0_18px_45px_rgba(0,230,210,0.18)]'
                           }`}
                         >
-                          {/* Image Preview Container (Standard aspect-video) */}
-                          <div className="w-full aspect-video relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0">
-                            <div className="w-full h-full flex flex-col [&>div]:w-full [&>div]:h-full [&>div]:aspect-video [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-top">
+                          {/* Image Preview Container */}
+                          <div className={`w-full relative overflow-hidden border-b border-white/10 bg-[#080B10] shrink-0 ${project.tallPreview ? 'aspect-[4/3]' : 'aspect-video'}`}>
+                            <div className="w-full h-full flex flex-col [&>div]:w-full [&>div]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-contain">
                               {project.renderPreview()}
                             </div>
                           </div>

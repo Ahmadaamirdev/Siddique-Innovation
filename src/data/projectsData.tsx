@@ -1,17 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Terminal,
   Sparkles,
   CheckCircle2,
   Zap,
-  TrendingUp,
-  Target,
-  Search,
-  Globe2,
   Video,
   Play,
 } from 'lucide-react';
 import { CLOUDINARY_ASSETS } from './cloudinaryAssets';
+
+// SEO project images
+import seoSearchConsoleImg from '@/assets/projects/seo_search_console.jpg';
+import seoBacklinksImg from '@/assets/projects/seo_backlinks.jpg';
+
+import disdInstagramImg from '@/assets/projects/disd_instagram.jpg';
+import disdFacebookImg from '@/assets/projects/disd_facebook.jpg';
+import disdMetaAdsImg from '@/assets/projects/disd_meta_ads.jpg';
+import ooredooInstagramImg from '@/assets/projects/ooredoo_instagram.jpg';
+import ooredooCampaignImg from '@/assets/projects/ooredoo_campaign.jpg';
+import ooredooFacebookImg from '@/assets/projects/ooredoo_facebook.jpg';
+
+/** Auto-advancing image slideshow for project cards */
+const SlideshowPreview: React.FC<{ images: string[]; alt: string }> = ({ images, alt }) => {
+  const [current, setCurrent] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 2800);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-black">
+      {images.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt={`${alt} ${i + 1}`}
+          className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ${
+            i === current ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      ))}
+      {/* Slide dots */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-1.5 h-1.5 rounded-full transition-all ${
+              i === current ? 'bg-white scale-125' : 'bg-white/40'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const sbdCommercialImg = CLOUDINARY_ASSETS.project_sbd_commercial_avenue.url;
 const saimElectronicsImg = CLOUDINARY_ASSETS.project_saim_electronics.url;
@@ -43,6 +90,7 @@ export interface ProjectItem {
   detailedDescription?: string;
   workflow?: ProjectWorkflowStep[];
   features?: string[];
+  tallPreview?: boolean;
   renderPreview: () => React.ReactNode;
 }
 
@@ -445,12 +493,12 @@ export const allProjects: ProjectItem[] = [
     description:
       'Workshop management software for EV service centers, handling digital check-in, repair quotes, technician job cards, and tax invoicing.',
     detailedDescription:
-      'Built for Al Nishwar EV Workshop, an electric vehicle maintenance center in Oman.\n\nThis software manages the entire repair and service workflow on a single digital dashboard. When a vehicle arrives, service advisors log customer details and battery diagnostics, generate clear repair estimates and official tax invoices, and assign job cards directly to workshop technicians to track repair progress until the car is picked up.',
+      'Built for Al Mishwar EV Workshop, an electric vehicle maintenance center in Oman.\n\nThis software manages the entire repair and service workflow on a single digital dashboard. When a vehicle arrives, service advisors log customer details and battery diagnostics, generate clear repair estimates and official tax invoices, and assign job cards directly to workshop technicians to track repair progress until the car is picked up.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={CLOUDINARY_ASSETS.ev_service_dashboard.url}
         alt="EV Service Management Software Dashboard"
-        domain="Al Nishwar EV Workshop"
+        domain="Al Mishwar EV Workshop"
         imageClassName="object-contain object-top"
       />
     ),
@@ -463,12 +511,12 @@ export const allProjects: ProjectItem[] = [
     description:
       'Fleet operations software for car rental businesses, managing live car availability, customer contracts, vehicle inspections, and deposits.',
     detailedDescription:
-      'Built for Al Nishwar Car Rental, a commercial vehicle rental business in Oman.\n\nThis software automates daily fleet operations from one screen. Rental agents can check which cars are available on a live calendar, print or sign digital rental agreements, collect security deposits, record vehicle condition and mileage at pick-up and return, and calculate final bills automatically without spreadsheet errors.',
+      'Built for Al Mishwar Car Rental, a commercial vehicle rental business in Oman.\n\nThis software automates daily fleet operations from one screen. Rental agents can check which cars are available on a live calendar, print or sign digital rental agreements, collect security deposits, record vehicle condition and mileage at pick-up and return, and calculate final bills automatically without spreadsheet errors.',
     renderPreview: () => (
       <ProjectScreenshotPreview
         image={CLOUDINARY_ASSETS.car_rental_dashboard.url}
         alt="Car Rental Management Software Dashboard"
-        domain="Al Nishwar Car Rental & Fleet"
+        domain="Al Mishwar Car Rental & Fleet"
         imageClassName="object-contain object-top"
       />
     ),
@@ -478,134 +526,31 @@ export const allProjects: ProjectItem[] = [
   // DIGITAL MARKETING
   // ==========================================
   {
-    id: 'dm-omnichannel-roas',
-    title: 'Omnichannel B2B & D2C Paid Ad Scaling',
+    id: 'dm-disd-social',
+    title: 'Dragon International Services — Social Media & Meta Ads',
     category: 'marketing',
-    tags: ['Meta Ads', 'Google Performance Max', '4.8x ROAS', 'Scale'],
-    description:
-      'Paid advertising campaigns across Meta and Google Ads, optimizing targeting and ad creatives to lower customer acquisition costs.',
+    tags: ['Meta Ads', 'Instagram', 'Facebook', 'Content Strategy', 'Brand Visibility'],
     detailedDescription:
-      'Built for consumer brands and online retailers looking to scale customer acquisition profitably.\n\nThe campaign architecture manages and optimizes targeted ads across Meta and Google Ads, improving click-through rates and lowering acquisition costs to generate reliable return on ad spend.',
+      'Delivering measurable digital growth across Meta Ads, Facebook, and Instagram.\n\n• 12,400+ Meta Ads impressions and 248 clicks, driving brand visibility and audience engagement.\n• 18 customer conversations generated through Meta Ads.\n• 71,336 Facebook views and 1,053 engagements, expanding brand reach.\n• 28,169 Instagram views, 12,687 viewers, and 372 interactions.\n• Top-performing content reached up to 5.9K views, highlighting effective content strategies.\n\nBuilding stronger visibility, meaningful engagement, and data-driven marketing results for DISD.',
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
-        <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
-            <span className="font-mono font-bold text-xs text-[#00E6D2]">SCALE_ADS v3.2</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-cyan-950/80 border border-cyan-500/30 px-2 py-0.5 rounded text-cyan-200 font-mono">
-            <TrendingUp className="w-3 h-3 text-[#00FFE5]" />
-            <span>4.8x ROAS Avg</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-2 z-10 py-1">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-cyan-950/40 border border-cyan-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Ad Spend Managed</span>
-              <span className="text-sm font-bold text-white font-mono">$180,000+</span>
-            </div>
-            <div className="bg-cyan-950/40 border border-cyan-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Revenue Generated</span>
-              <span className="text-sm font-bold text-[#00FFE5] font-mono">$864,000+</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between text-[10px] text-gray-300 bg-black/40 px-2.5 py-1.5 rounded-md border border-white/5 font-mono">
-            <span>Customer Acquisition (CPA)</span>
-            <span className="text-emerald-400 font-bold">-38% Reduction</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-400/90 border-t border-cyan-900/40">
-          <span>Meta + Google Ads Optimization</span>
-          <span className="text-[#00FFE5] font-semibold">Live Campaign</span>
-        </div>
-        <div className="absolute right-1/4 bottom-0 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <SlideshowPreview
+        images={[disdMetaAdsImg, disdFacebookImg, disdInstagramImg]}
+        alt="DISD Digital Marketing"
+      />
     ),
   },
   {
-    id: 'dm-saas-funnel',
-    title: 'SaaS Inbound Growth & Multi-Touch Funnel',
+    id: 'dm-ooredoo-telecom',
+    title: 'Ooredoo WiFi — Multi-Platform Digital Campaign',
     category: 'marketing',
-    tags: ['Inbound Funnel', 'LinkedIn Ads', 'CRO', 'Attribution'],
-    description:
-      'Inbound marketing funnel connecting LinkedIn advertising and focused landing pages to turn business visitors into qualified demo requests.',
+    tags: ['Meta Ads', 'Instagram Reels', 'Facebook', 'Telecom Marketing', '5G'],
     detailedDescription:
-      'Built for B2B software companies looking to attract corporate decision-makers.\n\nThe campaign combines targeted LinkedIn advertising with dedicated product landing pages to convert business interest into booked product demonstrations and qualified sales opportunities.',
+      'Delivered measurable digital marketing results through targeted advertising, engaging content, and data-driven campaign optimization.\n\n• 30,045 ad impressions and 18,858 people reached across Meta ad campaigns.\n• 398 total clicks and 167 link clicks, driving audience engagement and traffic.\n• Vodafone 5G Reel: 11,446 impressions, 8,075 reach, and 47 link clicks.\n• Facebook: 37,442 views and 436 engagements.\n• Instagram: 11,678 views, 73 interactions, and 137 profile visits.\n• Content performance: Instagram Reels generated approximately 1.1K views, followed by 455 post views.\n\nThese results showcase our ability to strengthen brand visibility, engage audiences, and deliver measurable digital marketing performance across multiple telecom brands.',
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
-        <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-indigo-400" />
-            <span className="font-mono font-bold text-xs text-indigo-300">FUNNEL_PIPELINE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-indigo-950/80 border border-indigo-500/30 px-2 py-0.5 rounded text-indigo-200 font-mono">
-            <Target className="w-3 h-3 text-indigo-400" />
-            <span>High-Intent Leads</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[10px]">
-          <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Top of Funnel Impressions</span>
-            <span className="text-indigo-300 font-bold">142,000+</span>
-          </div>
-          <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-500/30 p-1.5 rounded">
-            <span className="text-gray-300">MQL Conversion Rate</span>
-            <span className="text-indigo-400 font-bold">6.8% (Benchmark 2.1%)</span>
-          </div>
-          <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Pipeline Value Added</span>
-            <span className="text-emerald-400 font-bold">+$320,000</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-indigo-300/90 border-t border-indigo-900/40">
-          <span>LinkedIn Ads + CRO Funnel</span>
-          <span className="text-indigo-300 font-semibold">100% Attributed</span>
-        </div>
-        <div className="absolute left-1/3 top-1/2 w-32 h-32 bg-indigo-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
-    ),
-  },
-  {
-    id: 'dm-ecommerce-retention',
-    title: 'E-Commerce Email & SMS Flow Engine',
-    category: 'marketing',
-    tags: ['Klaviyo', 'Retention Flows', 'SMS Marketing', 'LTV Growth'],
-    description:
-      'Automated customer retention sequences for online stores, including abandoned cart recovery, order updates, and repeat purchase incentives.',
-    detailedDescription:
-      'Built for online stores seeking to increase repeat purchases from existing customers.\n\nThe system sets up automated email and SMS sequences, including abandoned cart recovery, order updates, and post-purchase recommendations that turn one-time buyers into loyal repeat customers.',
-    renderPreview: () => (
-      <div className="w-full aspect-video bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
-        <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse" />
-            <span className="font-mono font-bold text-xs text-rose-300">RETENTION_FLOWS</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-rose-950/80 border border-rose-500/30 px-2 py-0.5 rounded text-rose-200 font-mono">
-            <Zap className="w-3 h-3 text-rose-400" />
-            <span>Automated Revenue</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[9.5px]">
-          <div className="flex items-center justify-between bg-rose-950/30 border border-rose-500/20 p-1.5 rounded">
-            <span className="text-gray-300">Cart Abandonment Recovery</span>
-            <span className="text-rose-300 font-bold">29.4% Open Rate</span>
-          </div>
-          <div className="flex items-center justify-between bg-rose-950/30 border border-rose-500/20 p-1.5 rounded">
-            <span className="text-gray-300">Post-Purchase VIP Upsell</span>
-            <span className="text-rose-400 font-bold">+$48,200 / mo</span>
-          </div>
-          <div className="flex items-center justify-between bg-rose-950/30 border border-rose-500/20 p-1.5 rounded">
-            <span className="text-gray-300">Customer Lifetime Value</span>
-            <span className="text-emerald-400 font-bold">+52% Lift</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-rose-300/90 border-t border-rose-900/40">
-          <span>Lifecycle Email &amp; SMS Sequences</span>
-          <span className="text-rose-300 font-semibold">Zero Churn</span>
-        </div>
-        <div className="absolute right-1/4 top-1/2 w-32 h-32 bg-rose-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <SlideshowPreview
+        images={[ooredooCampaignImg, ooredooFacebookImg, ooredooInstagramImg]}
+        alt="Ooredoo Digital Campaign"
+      />
     ),
   },
 
@@ -613,133 +558,42 @@ export const allProjects: ProjectItem[] = [
   // SEO (SEARCH ENGINE OPTIMIZATION)
   // ==========================================
   {
-    id: 'seo-fintech-traffic',
-    title: 'Enterprise FinTech Organic Traffic Scaler',
+    id: 'seo-organic-performance',
+    title: 'Organic SEO Performance & Search Visibility Growth',
     category: 'seo',
-    tags: ['Technical SEO', 'Keyword Clusters', '+380% Organic', 'High DA'],
+    tallPreview: true,
+    tags: ['Google Search Console', 'Organic Clicks', 'Impressions', 'Search Position', 'CTR'],
     description:
-      'Search optimization strategy for financial technology platforms, improving site speed, structure, and top Google rankings on key financial terms.',
+      'Managed website SEO performance using Google Search Console, achieving 241K impressions and 3.55K organic clicks with an average search position of 6.2.',
     detailedDescription:
-      'Built for financial services companies aiming to rank on Google for high-intent financial terms.\n\nThe strategy addresses core technical website speed, search engine crawlability, and content architecture to steadily grow organic visitor traffic.',
+      'Managed website SEO performance using Google Search Console, monitoring organic clicks, search impressions, click-through rate, and average search positions.\n\nAnalyzed search performance trends to evaluate organic visibility, identify growth opportunities, and track improvements in search engine rankings. Achieved 241K impressions and 3.55K organic clicks with an average search position of 6.2.',
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
-        <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono font-bold text-xs text-emerald-300">SEARCH_DOMINANCE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-emerald-950/80 border border-emerald-500/30 px-2 py-0.5 rounded text-emerald-200 font-mono">
-            <Search className="w-3 h-3 text-emerald-400" />
-            <span>Top 3 SERP</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-2 z-10 py-1 font-mono text-[9.5px]">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-emerald-950/40 border border-emerald-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Monthly Organic Clicks</span>
-              <span className="text-sm font-bold text-emerald-300">284,000+</span>
-            </div>
-            <div className="bg-emerald-950/40 border border-emerald-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Organic Traffic Growth</span>
-              <span className="text-sm font-bold text-[#00FFE5]">+380% YoY</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between text-[10px] text-emerald-100 bg-black/40 px-2.5 py-1.5 rounded border border-emerald-500/20">
-            <span>High-Value Commercial Keywords</span>
-            <span className="text-emerald-400 font-bold">148 Ranked #1-3</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-emerald-400/90 border-t border-emerald-900/40">
-          <span>Technical Architecture + Backlinks</span>
-          <span className="text-emerald-300 font-semibold">Zero Penalties</span>
-        </div>
-        <div className="absolute right-1/4 top-1/2 w-32 h-32 bg-emerald-500/10 blur-2xl rounded-full pointer-events-none" />
+      <div className="w-full h-full overflow-hidden bg-black">
+        <img
+          src={seoSearchConsoleImg}
+          alt="Google Search Console SEO Performance"
+          className="w-full h-full object-contain"
+        />
       </div>
     ),
   },
   {
-    id: 'seo-ecommerce-serp',
-    title: 'E-Commerce Global Keyword & Category Architecture',
+    id: 'seo-link-building',
+    title: 'High Authority Link Building & Backlink Management',
     category: 'seo',
-    tags: ['Schema Markup', 'Core Web Vitals', 'Product SEO', 'Rich Snippets'],
+    tallPreview: true,
+    tags: ['Off-Page SEO', 'Backlink Acquisition', 'Domain Authority', 'Domain Rating', 'High DA'],
     description:
-      'Catalog SEO architecture using rich schema markup and clean category structures to rank individual product pages in Google search results.',
+      'Executed a targeted off-page SEO campaign to acquire high-authority backlinks, strengthening backlink profiles and improving search visibility.',
     detailedDescription:
-      'Built for retail stores with thousands of product catalog pages.\n\nThe project implements structured Google schema markup and fast category structures so individual product pages rank prominently in search results when shoppers search for specific items online.',
+      'Executed an off-page SEO campaign focused on acquiring high-authority backlinks to strengthen the website\'s backlink profile and improve search visibility.\n\nResearched backlink opportunities, managed branded anchor text and target URLs, and monitored backlink status, Domain Authority, and Domain Rating to maintain and track link building progress.',
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
-        <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2]" />
-            <span className="font-mono font-bold text-xs text-[#00E6D2]">SCHEMA_ENGINE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-cyan-950/80 border border-cyan-500/30 px-2 py-0.5 rounded text-cyan-200 font-mono">
-            <Globe2 className="w-3 h-3 text-[#00E6D2]" />
-            <span>Global SERP Index</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[9.5px]">
-          <div className="flex items-center justify-between bg-cyan-950/40 border border-cyan-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Core Web Vitals Score</span>
-            <span className="text-[#00FFE5] font-bold">100 / 100 Performance</span>
-          </div>
-          <div className="flex items-center justify-between bg-cyan-950/40 border border-cyan-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Google Rich Snippets Won</span>
-            <span className="text-cyan-300 font-bold">84% of Catalog</span>
-          </div>
-          <div className="flex items-center justify-between bg-cyan-950/40 border border-cyan-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Non-Brand Search Revenue</span>
-            <span className="text-emerald-400 font-bold">+$215,000 / mo</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-300/90 border-t border-cyan-900/40">
-          <span>Programmatic Category Hubs</span>
-          <span className="text-[#00FFE5] font-semibold">Indexed Fast</span>
-        </div>
-        <div className="absolute left-1/4 bottom-0 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
-    ),
-  },
-  {
-    id: 'seo-local-multilocation',
-    title: 'Multi-Location Google Business & Local Pack Accelerator',
-    category: 'seo',
-    tags: ['Local SEO', 'Google Maps 3-Pack', 'Review Engine', 'Local Dominance'],
-    description:
-      'Local search optimization for multi-branch companies, helping each office location rank in Google Maps top 3 results for nearby customer searches.',
-    detailedDescription:
-      'Built for service businesses with multiple city branches.\n\nThe strategy optimizes Google Business Profiles and local business listings so each branch appears in the Google Maps top 3 results when local customers search for services nearby.',
-    renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
-        <div className="flex items-center justify-between border-b border-teal-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
-            <span className="font-mono font-bold text-xs text-teal-300">LOCAL_PACK_GRID</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-teal-950/80 border border-teal-500/30 px-2 py-0.5 rounded text-teal-200 font-mono">
-            <CheckCircle2 className="w-3 h-3 text-teal-400" />
-            <span>#1 in 18 Hubs</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[9.5px]">
-          <div className="flex items-center justify-between bg-teal-950/40 border border-teal-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Local Search Impression Share</span>
-            <span className="text-teal-300 font-bold">92% In-Market</span>
-          </div>
-          <div className="flex items-center justify-between bg-teal-950/40 border border-teal-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Direct Inbound Phone Calls</span>
-            <span className="text-emerald-400 font-bold">+280% Surge</span>
-          </div>
-          <div className="flex items-center justify-between bg-teal-950/40 border border-teal-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Citation Consistency Audit</span>
-            <span className="text-teal-200 font-bold">100% NAP Match</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-teal-300/90 border-t border-teal-900/40">
-          <span>Geo-Targeted Landing Pages</span>
-          <span className="text-teal-300 font-semibold">Ranked #1</span>
-        </div>
-        <div className="absolute right-1/3 top-1/2 w-32 h-32 bg-teal-500/10 blur-2xl rounded-full pointer-events-none" />
+      <div className="w-full h-full overflow-hidden bg-black">
+        <img
+          src={seoBacklinksImg}
+          alt="High Authority Backlink Management Spreadsheet"
+          className="w-full h-full object-contain"
+        />
       </div>
     ),
   },

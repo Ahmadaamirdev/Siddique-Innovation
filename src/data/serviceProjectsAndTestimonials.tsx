@@ -1,16 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Sparkles,
-  TrendingUp,
-  Target,
-  Search,
-  Globe2,
   Video,
   Play,
-  Zap,
-  CheckCircle2,
 } from 'lucide-react';
 import { allProjects } from './projectsData';
+
+// SEO project images
+import seoSearchConsoleImg from '@/assets/projects/seo_search_console.jpg';
+import seoBacklinksImg from '@/assets/projects/seo_backlinks.jpg';
+
+// Marketing project images (slideshow)
+import disdInstagramImg from '@/assets/projects/disd_instagram.jpg';
+import disdFacebookImg from '@/assets/projects/disd_facebook.jpg';
+import disdMetaAdsImg from '@/assets/projects/disd_meta_ads.jpg';
+import ooredooInstagramImg from '@/assets/projects/ooredoo_instagram.jpg';
+import ooredooCampaignImg from '@/assets/projects/ooredoo_campaign.jpg';
+import ooredooFacebookImg from '@/assets/projects/ooredoo_facebook.jpg';
+
+const SlideshowPreview: React.FC<{ images: string[]; alt: string }> = ({ images, alt }) => {
+  const [current, setCurrent] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    timerRef.current = setInterval(() => setCurrent((p) => (p + 1) % images.length), 2800);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [images.length]);
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-black">
+      {images.map((src, i) => (
+        <img key={i} src={src} alt={`${alt} ${i + 1}`}
+          className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'}`}
+        />
+      ))}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {images.map((_, i) => (
+          <button key={i} onClick={() => setCurrent(i)}
+            className={`w-1.5 h-1.5 rounded-full transition-all ${i === current ? 'bg-white scale-125' : 'bg-white/40'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export interface ServiceProjectItem {
   id: string;
@@ -114,122 +145,27 @@ export const aiAutomationTestimonials: ServiceTestimonialCard[] = [
 // ==========================================
 export const digitalMarketingProjects: ServiceProjectItem[] = [
   {
-    id: 'dm-omnichannel-roas',
-    title: 'Omnichannel B2B & D2C Paid Ad Scaling',
+    id: 'dm-disd-social',
+    title: 'Dragon International Services — Social Media & Meta Ads',
     category: 'marketing',
-    tags: ['Meta Ads', 'Google Performance Max', '4.8x ROAS', 'Scale'],
+    tags: ['Meta Ads', 'Instagram', 'Facebook', 'Content Strategy', 'Brand Visibility'],
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#081216] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
-        <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2] animate-pulse" />
-            <span className="font-mono font-bold text-xs text-[#00E6D2]">SCALE_ADS v3.2</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-cyan-950/80 border border-cyan-500/30 px-2 py-0.5 rounded text-cyan-200 font-mono">
-            <TrendingUp className="w-3 h-3 text-[#00FFE5]" />
-            <span>4.8x ROAS Avg</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-2 z-10 py-1">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-cyan-950/40 border border-cyan-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Ad Spend Managed</span>
-              <span className="text-sm font-bold text-white font-mono">$180,000+</span>
-            </div>
-            <div className="bg-cyan-950/40 border border-cyan-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Revenue Generated</span>
-              <span className="text-sm font-bold text-[#00FFE5] font-mono">$864,000+</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between text-[10px] text-gray-300 bg-black/40 px-2.5 py-1.5 rounded-md border border-white/5 font-mono">
-            <span>Customer Acquisition (CPA)</span>
-            <span className="text-emerald-400 font-bold">-38% Reduction</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-400/90 border-t border-cyan-900/40">
-          <span>Meta + Google Ads Optimization</span>
-          <span className="text-[#00FFE5] font-semibold">Live Campaign</span>
-        </div>
-        <div className="absolute right-1/4 bottom-0 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <SlideshowPreview
+        images={[disdMetaAdsImg, disdFacebookImg, disdInstagramImg]}
+        alt="DISD Digital Marketing"
+      />
     ),
   },
   {
-    id: 'dm-saas-funnel',
-    title: 'SaaS Inbound Growth & Multi-Touch Funnel',
+    id: 'dm-ooredoo-telecom',
+    title: 'Ooredoo WiFi — Multi-Platform Digital Campaign',
     category: 'marketing',
-    tags: ['Inbound Funnel', 'LinkedIn Ads', 'CRO', 'Attribution'],
+    tags: ['Meta Ads', 'Instagram Reels', 'Facebook', 'Telecom Marketing', '5G'],
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0E0C1A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-indigo-500/20">
-        <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-indigo-400" />
-            <span className="font-mono font-bold text-xs text-indigo-300">FUNNEL_PIPELINE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-indigo-950/80 border border-indigo-500/30 px-2 py-0.5 rounded text-indigo-200 font-mono">
-            <Target className="w-3 h-3 text-indigo-400" />
-            <span>High-Intent Leads</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[10px]">
-          <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Top of Funnel Impressions</span>
-            <span className="text-indigo-300 font-bold">142,000+</span>
-          </div>
-          <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-500/30 p-1.5 rounded">
-            <span className="text-gray-300">MQL Conversion Rate</span>
-            <span className="text-indigo-400 font-bold">6.8% (Benchmark 2.1%)</span>
-          </div>
-          <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Pipeline Value Added</span>
-            <span className="text-emerald-400 font-bold">+$320,000</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-indigo-300/90 border-t border-indigo-900/40">
-          <span>LinkedIn Ads + CRO Funnel</span>
-          <span className="text-indigo-300 font-semibold">100% Attributed</span>
-        </div>
-        <div className="absolute left-1/3 top-1/2 w-32 h-32 bg-indigo-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
-    ),
-  },
-  {
-    id: 'dm-ecommerce-retention',
-    title: 'E-Commerce Email & SMS Flow Engine',
-    category: 'marketing',
-    tags: ['Klaviyo', 'Retention Flows', 'SMS Marketing', 'LTV Growth'],
-    renderPreview: () => (
-      <div className="w-full aspect-video bg-[#120B10] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-rose-500/20">
-        <div className="flex items-center justify-between border-b border-rose-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse" />
-            <span className="font-mono font-bold text-xs text-rose-300">RETENTION_FLOWS</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-rose-950/80 border border-rose-500/30 px-2 py-0.5 rounded text-rose-200 font-mono">
-            <Zap className="w-3 h-3 text-rose-400" />
-            <span>Automated Revenue</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[9.5px]">
-          <div className="flex items-center justify-between bg-rose-950/30 border border-rose-500/20 p-1.5 rounded">
-            <span className="text-gray-300">Cart Abandonment Recovery</span>
-            <span className="text-rose-300 font-bold">29.4% Open Rate</span>
-          </div>
-          <div className="flex items-center justify-between bg-rose-950/30 border border-rose-500/20 p-1.5 rounded">
-            <span className="text-gray-300">Post-Purchase VIP Upsell</span>
-            <span className="text-rose-400 font-bold">+$48,200 / mo</span>
-          </div>
-          <div className="flex items-center justify-between bg-rose-950/30 border border-rose-500/20 p-1.5 rounded">
-            <span className="text-gray-300">Customer Lifetime Value</span>
-            <span className="text-emerald-400 font-bold">+52% Lift</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-rose-300/90 border-t border-rose-900/40">
-          <span>Lifecycle Email &amp; SMS Sequences</span>
-          <span className="text-rose-300 font-semibold">Zero Churn</span>
-        </div>
-        <div className="absolute right-1/4 top-1/2 w-32 h-32 bg-rose-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
+      <SlideshowPreview
+        images={[ooredooCampaignImg, ooredooFacebookImg, ooredooInstagramImg]}
+        alt="Ooredoo Digital Campaign"
+      />
     ),
   },
 ];
@@ -266,121 +202,32 @@ export const digitalMarketingTestimonials: ServiceTestimonialCard[] = [
 // ==========================================
 export const seoProjects: ServiceProjectItem[] = [
   {
-    id: 'seo-fintech-traffic',
-    title: 'Enterprise FinTech Organic Traffic Scaler',
+    id: 'seo-organic-performance',
+    title: 'Organic SEO Performance & Search Visibility Growth',
     category: 'seo',
-    tags: ['Technical SEO', 'Keyword Clusters', '+380% Organic', 'High DA'],
+    tags: ['Google Search Console', 'Organic Clicks', 'Impressions', 'Search Position', 'CTR'],
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#091512] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-emerald-500/20">
-        <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono font-bold text-xs text-emerald-300">SEARCH_DOMINANCE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-emerald-950/80 border border-emerald-500/30 px-2 py-0.5 rounded text-emerald-200 font-mono">
-            <Search className="w-3 h-3 text-emerald-400" />
-            <span>Top 3 SERP</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-2 z-10 py-1 font-mono text-[9.5px]">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-emerald-950/40 border border-emerald-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Monthly Organic Clicks</span>
-              <span className="text-sm font-bold text-emerald-300">284,000+</span>
-            </div>
-            <div className="bg-emerald-950/40 border border-emerald-500/20 p-2 rounded-lg">
-              <span className="text-[10px] text-gray-400 block">Organic Traffic Growth</span>
-              <span className="text-sm font-bold text-[#00FFE5]">+380% YoY</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between text-[10px] text-emerald-100 bg-black/40 px-2.5 py-1.5 rounded border border-emerald-500/20">
-            <span>High-Value Commercial Keywords</span>
-            <span className="text-emerald-400 font-bold">148 Ranked #1-3</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-emerald-400/90 border-t border-emerald-900/40">
-          <span>Technical Architecture + Backlinks</span>
-          <span className="text-emerald-300 font-semibold">Zero Penalties</span>
-        </div>
-        <div className="absolute right-1/4 top-1/2 w-32 h-32 bg-emerald-500/10 blur-2xl rounded-full pointer-events-none" />
+      <div className="w-full h-full overflow-hidden bg-black">
+        <img
+          src={seoSearchConsoleImg}
+          alt="Google Search Console SEO Performance"
+          className="w-full h-full object-contain"
+        />
       </div>
     ),
   },
   {
-    id: 'seo-ecommerce-serp',
-    title: 'E-Commerce Global Keyword & Category Architecture',
+    id: 'seo-link-building',
+    title: 'High Authority Link Building & Backlink Management',
     category: 'seo',
-    tags: ['Schema Markup', 'Core Web Vitals', 'Product SEO', 'Rich Snippets'],
+    tags: ['Off-Page SEO', 'Backlink Acquisition', 'Domain Authority', 'Domain Rating', 'High DA'],
     renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0B121A] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-cyan-500/20">
-        <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#00E6D2]" />
-            <span className="font-mono font-bold text-xs text-[#00E6D2]">SCHEMA_ENGINE</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-cyan-950/80 border border-cyan-500/30 px-2 py-0.5 rounded text-cyan-200 font-mono">
-            <Globe2 className="w-3 h-3 text-[#00E6D2]" />
-            <span>Global SERP Index</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[9.5px]">
-          <div className="flex items-center justify-between bg-cyan-950/40 border border-cyan-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Core Web Vitals Score</span>
-            <span className="text-[#00FFE5] font-bold">100 / 100 Performance</span>
-          </div>
-          <div className="flex items-center justify-between bg-cyan-950/40 border border-cyan-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Google Rich Snippets Won</span>
-            <span className="text-cyan-300 font-bold">84% of Catalog</span>
-          </div>
-          <div className="flex items-center justify-between bg-cyan-950/40 border border-cyan-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Non-Brand Search Revenue</span>
-            <span className="text-emerald-400 font-bold">+$215,000 / mo</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-cyan-300/90 border-t border-cyan-900/40">
-          <span>Programmatic Category Hubs</span>
-          <span className="text-[#00FFE5] font-semibold">Indexed Fast</span>
-        </div>
-        <div className="absolute left-1/4 bottom-0 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-      </div>
-    ),
-  },
-  {
-    id: 'seo-local-multilocation',
-    title: 'Multi-Location Google Business & Local Pack Accelerator',
-    category: 'seo',
-    tags: ['Local SEO', 'Google Maps 3-Pack', 'Review Engine', 'Local Dominance'],
-    renderPreview: () => (
-      <div className="w-full aspect-video bg-[#0E150F] text-white p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative font-sans border-b border-teal-500/20">
-        <div className="flex items-center justify-between border-b border-teal-500/20 pb-2 z-10">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
-            <span className="font-mono font-bold text-xs text-teal-300">LOCAL_PACK_GRID</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] bg-teal-950/80 border border-teal-500/30 px-2 py-0.5 rounded text-teal-200 font-mono">
-            <CheckCircle2 className="w-3 h-3 text-teal-400" />
-            <span>#1 in 18 Hubs</span>
-          </div>
-        </div>
-        <div className="my-auto space-y-1.5 z-10 py-1 font-mono text-[9.5px]">
-          <div className="flex items-center justify-between bg-teal-950/40 border border-teal-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Local Search Impression Share</span>
-            <span className="text-teal-300 font-bold">92% In-Market</span>
-          </div>
-          <div className="flex items-center justify-between bg-teal-950/40 border border-teal-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Direct Inbound Phone Calls</span>
-            <span className="text-emerald-400 font-bold">+280% Surge</span>
-          </div>
-          <div className="flex items-center justify-between bg-teal-950/40 border border-teal-500/30 p-1.5 rounded">
-            <span className="text-gray-300">Citation Consistency Audit</span>
-            <span className="text-teal-200 font-bold">100% NAP Match</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between z-10 pt-1 font-mono text-[9px] text-teal-300/90 border-t border-teal-900/40">
-          <span>Geo-Targeted Landing Pages</span>
-          <span className="text-teal-300 font-semibold">Ranked #1</span>
-        </div>
-        <div className="absolute right-1/3 top-1/2 w-32 h-32 bg-teal-500/10 blur-2xl rounded-full pointer-events-none" />
+      <div className="w-full h-full overflow-hidden bg-black">
+        <img
+          src={seoBacklinksImg}
+          alt="High Authority Backlink Management Spreadsheet"
+          className="w-full h-full object-contain"
+        />
       </div>
     ),
   },
